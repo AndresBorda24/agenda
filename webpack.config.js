@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     entry: "./src/js/index.js",
+    // watch: true,
     output: {
         filename: "index.js",
         path: path.resolve(__dirname, 'public/js')
@@ -17,10 +18,11 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, "css-loader"],
             },
             {
-                test: /\.(woff|woff2|eot|ttf|otf)$/i,
-                type: 'asset/resource',
-                generator: {  //If emitting file, the file path is
-                    filename: '../fonts/[hash][ext][query]'
+                test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+                // More information here https://webpack.js.org/guides/asset-modules/
+                type: "asset",
+                generator: {
+                    filename: '../assets/[hash][ext][query]'
                 }
             },
         ]
