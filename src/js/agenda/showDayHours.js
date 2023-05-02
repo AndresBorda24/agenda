@@ -5,6 +5,13 @@ export default () => ({
     events: {
         ["@load-day-hours.document"]: "handler($event)"
     },
+    formatter: new Intl.DateTimeFormat("es-Co", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timeZone: "UTC"
+    }),
     /**
      * Se encarga de buscar las horas en el objeto de las
      * fechas
@@ -34,5 +41,15 @@ export default () => ({
         this.key = "";
         this.show = false;
         this.hours = {};
+    },
+    /** Obtiene la fecha en Espanol y formateada */
+    getFormatDate( d ) {
+        if (!d) {
+            return ""
+        }
+
+        return this.formatter.format(
+            new Date(d)
+        );
     }
 });
