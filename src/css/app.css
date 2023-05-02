@@ -34,3 +34,25 @@ body {
     background-position: center center;
     background-size: 100% auto;
 }
+.show-selected-day-hours {
+    border-radius: .3rem;
+    position: relative;
+    border: 1px solid;
+}
+
+.show-selected-day-hours > ul {
+    max-height: 350px;
+}
+
+@media (max-width: 767px) {
+    .show-selected-day-hours {
+        position: fixed;
+        border-radius: 1rem 0 0 0;
+        inset: auto 0 0 0;
+        z-index: 1030;
+        border-width: 1px 0 0 0;
+    }
+    .show-selected-day-hours > ul {
+        max-height: 33vh;
+    }
+}
