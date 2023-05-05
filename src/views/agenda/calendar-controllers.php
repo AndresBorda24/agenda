@@ -1,4 +1,4 @@
-<div class="d-flex gap-1 align-items-center border-bottom p-2">
+<div class="d-flex gap-1 align-items-center border-bottom p-3">
   <button class="btn btn-outline-secondary btn-sm rounded-circle border-0" x-data="changeCalendarMonth(true)" @click="ch">
     <i class="bi bi-caret-left-fill"></i>
   </button>
