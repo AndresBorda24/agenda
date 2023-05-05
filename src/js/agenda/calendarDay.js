@@ -2,7 +2,7 @@ export default (day) => ({
     ctrl: new Date(),
     hasDate: false,
     events: {
-        ["@date-has-changed.document"]: "setDate($event)"
+        ["@date-has-changed.document"]: "setDate"
     },
     init() {
         this.ctrl.setDate(day);
@@ -16,7 +16,7 @@ export default (day) => ({
             Object
             .prototype
             .hasOwnProperty
-            .call(Alpine.store("sampleData"), this.getDate())
+            .call(Alpine.store("agenda"), this.getDate())
         ) && (
             this.ctrl >= new Date()
         );
@@ -25,9 +25,13 @@ export default (day) => ({
      * Cuando Cambiamos de mes, se debe 'refrescar' la fecha de
      * cada dia. Eso es lo que se hace aqui
     */
-    setDate({ detail: data }) {
-        this.ctrl.setFullYear( data.getFullYear() );
-        this.ctrl.setMonth( data.getMonth() );
+    setDate() {
+        this.ctrl.setFullYear(
+            Alpine.store("ctrlDate").getFullYear()
+        );
+        this.ctrl.setMonth(
+            Alpine.store("ctrlDate").getMonth()
+        );
         this.ctrl.setDate( day );
 
         this.hasDate = this.verify();

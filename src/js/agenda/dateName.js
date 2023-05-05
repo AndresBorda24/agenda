@@ -18,11 +18,11 @@ export default () => ({
     ],
     /** Los eventos que escucha este componente */
     events: {
-        ["@date-has-changed.document"]: "evHandler($event)"
+        ["@date-has-changed.document"]: "evHandler"
     },
     /** @param {Date} data */
-    evHandler({ detail: data }) {
-        this.month = this.months[ data.getMonth() ];
-        this.year = data.getFullYear();
+    evHandler() {
+        this.month = this.months[ Alpine.store('ctrlDate').getMonth() ];
+        this.year = Alpine.store('ctrlDate').getFullYear();
     }
 });

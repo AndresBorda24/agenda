@@ -20,6 +20,7 @@ export default () => ({
         ["@next-month.document"]: "next",
         ["@previous-month.document"]: "previous"
     },
+    loader: document.getElementById('calendar-days-loader'),
     init() {
         this.ctrl.setDate(1);
         this.setUp();
@@ -28,6 +29,8 @@ export default () => ({
      * Organiza la info necesaria teniendo en cuenta el valor de `ctrl`
     */
     setUp() {
+        Alpine.store("ctrlDate", this.ctrl);
+
         this.blankSpaces = this.ctrl.getDay() % 7;
         this.totalSpaces = new Date(
             this.getYear(), this.getMonth() + 1, 0
@@ -37,11 +40,16 @@ export default () => ({
         this.blankSpacesBtm = Math.ceil(_ / 7 ) * 7 - _;
 
         this.$nextTick(() => {
-            this.$dispatch("date-has-changed", new Date( this.ctrl.getTime() ));
+            this.$dispatch("date-has-changed");
         });
     },
     /** Carga mes anterior */
     previous() {
+        this.loader.style.display = 'block';
+        this.loader.animate([
+            {left: '0', opacity: '100%'},
+            {left:'100%', opacity: '70%'}
+        ], {duration: 300, easing: 'ease-in'});
         const m = this.getMonth();
 
         if (m == 0) {
@@ -53,6 +61,11 @@ export default () => ({
     },
     /** Carga siguiente mes */
     next() {
+        this.loader.style.display = 'block';
+        this.loader.animate([
+            {left: '0', opacity: '100%'},
+            {left:'100%', opacity: '70%'}
+        ], {duration: 300, easing: 'ease-in'})
         const m = this.getMonth();
 
         if (m == 11) {

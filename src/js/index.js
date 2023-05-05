@@ -1,6 +1,7 @@
 import Alpine from 'alpinejs'
 import calendar from './agenda/calendar';
 import dateName from './agenda/dateName';
+import fetchData from './agenda/fetch-data';
 import calendarDay from './agenda/calendarDay';
 import showDayHours from './agenda/showDayHours';
 import sampleData from './agenda/data.json' assert { type: 'json' }
@@ -9,10 +10,24 @@ import "../css/app.css";
 window.Alpine = Alpine
 
 document.addEventListener('alpine:init', () => {
+    Alpine.store("ctrlDate", undefined);
+    Alpine.store("doctores", {});
+    Alpine.store("agenda", []);
+    Alpine.store("loader", {
+        _: document.getElementById('loader'),
+        show() {
+            this._.classList.remove('d-none');
+        },
+        hide() {
+            this._.classList.add('d-none');
+        }
+    });
+
     Alpine.store("sampleData", sampleData);
 
     Alpine.data("dateName", dateName);
     Alpine.data("calendar", calendar);
+    Alpine.data("fetchData", fetchData);
     Alpine.data("calendarDay", calendarDay);
     Alpine.data("showDayHours", showDayHours);
     Alpine.data("changeCalendarMonth", (back = false) => ({

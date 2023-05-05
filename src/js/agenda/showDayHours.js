@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default () => ({
     key: "",
     show: false,
@@ -5,6 +7,7 @@ export default () => ({
     events: {
         ["@load-day-hours.document"]: "handler($event)"
     },
+    $elemtn: document.getElementById('show-day-hours'),
     formatter: new Intl.DateTimeFormat("es-Co", {
         weekday: "long",
         year: "numeric",
@@ -16,23 +19,33 @@ export default () => ({
      * Se encarga de buscar las horas en el objeto de las
      * fechas
     */
-    handler({ detail: key }) {
-        this.key = key;
-        this.setHours();
+    async handler( $e ) {
+        this.key = $e.detail;
+        await this.setHours();
         this.show = true;
+        this.$elemtn.animate([
+            { transform: 'scale(.5)', opacity: '0%' },
+            { bottom: '-200px' },
+            { transform: 'scale(1)' },
+            { bottom: '0' },
+            { opacity: '100%'}
+        ], { duration: 280 });
     },
     /** Establece las horas */
-    setHours() {
-        if (
-            Object
-            .prototype
-            .hasOwnProperty
-            .call(
-                Alpine.store("sampleData"), this.key
-            )
-        ){
-            this.hours = Alpine.store("sampleData")[ this.key ];
-        } else {
+    async setHours() {
+        try {
+            Alpine.store('loader').show();
+            const {data} = await axios.get(
+                "https://api.json-generator.com/templates/2WlXxjaW6NGl/data",  {
+                headers: {
+                    'Content-Type': "application/json",
+                    "Authorization": "Bearer 7hbyk5c29l96fyh27h82zf1lnol74gwxxgvl0val"
+                },
+            }).finally( () =>  Alpine.store('loader').hide() );
+
+            this.hours = data;
+        } catch (e) {
+            console.error("Error al traer las horas: ", e);
             this.hours = {};
         }
     },
