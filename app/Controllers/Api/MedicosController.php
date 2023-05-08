@@ -18,6 +18,16 @@ class MedicosController
     public function getAvailable(Response $response, string $esp): Response
     {
         try {
+            $colors = [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "info",
+                "warning",
+                "dark"
+            ];
+
             $data = $this->db->select('citas_web (C)', [
                 "[>]medicos (M)" => ["medico" => "codigo"] // JOIN
             ],[
@@ -29,6 +39,14 @@ class MedicosController
                     "C.especialidad"    => $esp
                 ]
             ]);
+
+            if (null !== $data) {
+                $data = array_map(function ($me) use (&$colors) {
+                    $me["color"] = array_pop($colors);
+
+                    return $me;
+                }, $data);
+            }
 
             return responseJSON($response, $data);
         } catch(\Exception $e) {
