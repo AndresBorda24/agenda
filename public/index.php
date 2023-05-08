@@ -5,6 +5,7 @@ use Slim\Routing\RouteCollectorProxy;
 use App\Controllers\Api\EspecialidadController;
 use App\Controllers\Api\MedicosController;
 
+
 require __DIR__ . "/../vendor/autoload.php";
 
 // Se carga la configuracion del .env
@@ -14,6 +15,9 @@ $dotenv->load();
 // Se crea el contanedor con algunas definiciones
 $c = new \DI\Container(require __DIR__ . "/../config/ContainerBindings.php");
 $app = \DI\Bridge\Slim\Bridge::create($c);
+$config = $c->get(\App\Config::class);
+
+$app->setBasePath($config->get('app.base'));
 
 $app->get("/", [\App\Controllers\IndexController::class, "home"]);
 $app->group("/api", function(RouteCollectorProxy $group) {

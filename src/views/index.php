@@ -23,9 +23,11 @@
       <p class="text-center text-muted m-0 p-3 small">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores iure vitae praesentium, ullam, eveniet iusto consequatur, molestias.</p>
 
       <div x-data="fetchData" class="p-1">
-        <select class="form-select rounded-0" @change="getData">
+        <select class="form-select rounded-0" @change="getData( $el.value )">
           <option selected hidden>Seleccione especialidad</option>
-          <option value="1">Especialidad</option>
+          <option value="143">CIRUGIA PLASTICA</option>
+          <option value="514">ORTOPEDIA Y TRAUMATOLOGIA</option>
+          <option value="133">CIRUGIA DE LA MANO</option>
         </select>
       </div>
 
@@ -67,18 +69,21 @@
         </template>
 
         <template x-for="day in totalSpaces">
-          <div x-data="calendarDay( day )" @click="showHours" x-bind="events" style="transition: all ease-out;"
-          class="p-2 small text-center calendar-days position-relative"
-          :class="{'has-dates list-group-item list-group-item-primary': hasDate, 'bg-body': !hasDate}">
+          <div
+          x-data="calendarDay( day )"
+          @click="showHours"
+          x-bind="events"
+          class="p-2 small text-center calendar-days position-relative bg-white"
+          :class="{'has-dates': hasDate}">
             <span x-text="day" class="d-block"></span>
             <template x-if="hasDate">
               <div>
-                <i class="bi bi-bookmark-plus-fill fs-4 text-primary"></i>
+                <!-- <i class="bi bi-bookmark-plus-fill fs-4 text-primary"></i> -->
                 <div class="d-flex justify-content-center flex-wrap">
-                  <template x-for="doc in Alpine.store('agenda')[ getDate() ]">
+                  <template x-for="med in medicos">
                     <div
                       class="rounded-circle border p-1 bg-opacity-75"
-                      :class="`bg-${Alpine.store('doctores')[doc].color} border-${Alpine.store('doctores')[doc].color}`"></div>
+                      :class="getStyles( med )"></div>
                   </template>
                 </div>
               </div>
