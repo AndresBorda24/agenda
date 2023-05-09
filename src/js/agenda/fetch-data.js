@@ -1,13 +1,24 @@
 import axios from 'axios';
 
 export default () => ({
+    esps: [],
     baseUri: process.env.APP_URL + "api",
-    docsUri: '/medicos',
-    horasUri: '/2WlXxjaW6NGl/data',
+    espUri: '/especialidades/get-available',
     config: {
         headers: {
             'Content-Type': "application/json"
         },
+    },
+    /** Obtiene las especialidades disponibles */
+    async init() {
+        try {
+            const { data } =  await axios
+                .get(`${this.baseUri}${this.espUri}`, this.config);
+            this.esps = data;
+        } catch(e) {
+            alert("Error al recuperar las especialidades");
+            console.error("Error especialidades: ", e);
+        }
     },
     /** Obtiene los dias en los que hay agenda */
     async getData( esp ) {

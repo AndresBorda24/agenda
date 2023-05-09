@@ -6,7 +6,7 @@ x-show="Object.keys( Alpine.store('doctores') )[0]">
         <template x-for="med in Object.keys( Alpine.store('doctores') )">
             <div class="d-flex flex-column align-items-center">
                 <div
-                class="rounded-circle m-1 p-2 border bg-opacity-75"
+                class="rounded-bottom m-1 p-2 border bg-opacity-75"
                 style="aspect-ratio: 1;"
                 :class="`bg-${Alpine.store('doctores')[ med ].color} border-${Alpine.store('doctores')[ med ].color}`"></div>
                 <span

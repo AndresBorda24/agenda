@@ -15,9 +15,11 @@
       <div x-data="fetchData" class="p-1">
         <select class="form-select rounded-0" @change="getData( $el.value )">
           <option selected hidden>Seleccione especialidad</option>
-          <option value="143">CIRUGIA PLASTICA</option>
-          <option value="514">ORTOPEDIA Y TRAUMATOLOGIA</option>
-          <option value="133">CIRUGIA DE LA MANO</option>
+          <template x-for="e in esps" :key="e.especialidad">
+            <option
+            x-text="e.nombre"
+            :value="e.especialidad"></option>
+          </template>
         </select>
       </div>
 

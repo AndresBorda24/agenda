@@ -2,6 +2,7 @@ export default (day) => ({
     medicos: [],
     ctrl: new Date(),
     hasDate: false,
+    date: "",
     events: {
         ["@date-has-changed.document"]: "setDate"
     },
@@ -17,7 +18,7 @@ export default (day) => ({
             Object
             .prototype
             .hasOwnProperty
-            .call(Alpine.store("agenda"), this.getDate())
+            .call(Alpine.store("agenda"), this.date)
         ) && (
             this.ctrl >= new Date()
         );
@@ -36,6 +37,7 @@ export default (day) => ({
         this.ctrl.setDate( day );
 
         this.$nextTick(() => {
+            this.date = this.getDate();
             this.hasDate = this.verify();
             this.medicos = this.hasDate
                 ? Alpine.store("agenda")[ this.getDate() ]
@@ -55,7 +57,7 @@ export default (day) => ({
      * evento que notifica cual dia se debe cargar
     */
     showHours() {
-        this.$dispatch("load-day-hours", this.getDate());
+        this.$dispatch("load-day-hours", this.date);
     },
     /**
      * Obtiene estilos especificos para cada doctor
