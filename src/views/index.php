@@ -26,14 +26,14 @@
       <?= $this->fetch("./agenda/show-available-doctors.php") ?>
     </div>
 
-    <div class="d-flex flex-column border-start position-relative">
+    <div class="d-flex flex-column border-start position-relative flex-grow-1">
       <!-- Controles -->
       <?= $this->fetch("./agenda/calendar/controllers.php") ?>
 
       <!-- Encabezado - Dias de la semana -->
       <?= $this->fetch("./agenda/calendar/header.php") ?>
 
-      <div class="d-grid calendar-grid flex-fill position-relative" x-data="calendar" x-bind="events">
+      <div class="d-grid calendar-grid flex-fill position-relative overflow-hidden" x-data="calendar" x-bind="events">
         <!-- Esta es la pelicula que pasa sobre el calendario al cambiar de mes -->
         <section id="calendar-days-loader" style="z-index: 1; left: 100%;"
         class="position-absolute bg-white h-100 w-100 top-0"></section>
@@ -53,7 +53,7 @@
     </div>
   </main>
 
-  <?= $this->fetch("./loader.php") ?>
   <?= $this->fetch("./agenda/show-day-hours.php") ?>
+  <?= $this->fetch("./loader.php") ?>
 </body>
 </html>

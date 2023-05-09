@@ -5,8 +5,8 @@ x-show="show"
 x-cloak id="show-day-hours"
 class="fixed-top vh-100 vw-100 flex bg-black bg-opacity-75">
   <div
-  class="light-pattern-bg m-auto flex flex-column flex-fill overflow-auto border border-primary-subtle"
-  style="max-width: 440px;">
+  class="light-pattern-bg rounded-1 m-auto flex flex-column overflow-auto border border-primary-subtle"
+  style="max-width: 95vw; width: 400px;">
     <div class="p-2 header-bg border-bottom d-flex justify-content-between text-white">
       <span class="small fw-bold">Horas Disponibles</span>
       <button
@@ -33,6 +33,7 @@ class="fixed-top vh-100 vw-100 flex bg-black bg-opacity-75">
                 x-text="h"
                 class="p-2 flex-grow-1 fw-bold"></span>
                 <button
+                @click="confirmHour"
                 class="btn btn-light btn-sm border-dark-subtle mx-1"
                 title="Agendar para esta hora">
                   Agendar <i class="bi bi-patch-check"></i>

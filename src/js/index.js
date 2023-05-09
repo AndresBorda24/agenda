@@ -7,6 +7,8 @@ import showDayHours from './agenda/showDayHours';
 import "./agenda/agenda-stores"
 import "../css/app.css";
 
+
+
 window.Alpine = Alpine
 
 document.addEventListener('alpine:init', () => {

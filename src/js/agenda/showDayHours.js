@@ -1,4 +1,5 @@
 import axios from "axios";
+import iziToast from "izitoast";
 
 export default () => ({
     /**
@@ -69,5 +70,36 @@ export default () => ({
             day: "numeric",
             timeZone: "UTC"
         });
+    },
+    confirmHour(){
+        iziToast.show({
+            layout: 2,
+            drag: false,
+            zindex: 2500,
+            theme: 'dark',
+            timeout: false,
+            overlay: true,
+            maxWidth: "90vw",
+            title: 'Confirmar',
+            titleSize: "1.5rem",
+            titleLineHeight: "35px",
+            message: 'Realmete desea agendar su cita para: [inserte fecha]?',
+            messageLineHeight: "35px",
+            position: 'center',
+            progressBarColor: 'rgb(0, 255, 184)',
+            buttons: [
+                ['<button>Si</button>', (instance, toast) => {
+                    Alpine.store("loader").show();
+
+                    setTimeout(() => {
+                        Alpine.store("loader").hide();
+                        instance.destroy();
+                    }, 800);
+                }, true],
+                ['<button>Cancelar</button>', (instance, toast) => {
+                    instance.destroy();
+                }]
+            ]
+        })
     }
 });
