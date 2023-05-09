@@ -1,4 +1,5 @@
 export default (day) => ({
+    medicos: [],
     ctrl: new Date(),
     hasDate: false,
     events: {
@@ -34,7 +35,12 @@ export default (day) => ({
         );
         this.ctrl.setDate( day );
 
-        this.hasDate = this.verify();
+        this.$nextTick(() => {
+            this.hasDate = this.verify();
+            this.medicos = this.hasDate
+                ? Alpine.store("agenda")[ this.getDate() ]
+                : [];
+        });
     },
     /**
      * Obtiene una fecha con el formato aaaa-mm-dd a partir
@@ -50,5 +56,14 @@ export default (day) => ({
     */
     showHours() {
         this.$dispatch("load-day-hours", this.getDate());
+    },
+    /**
+     * Obtiene estilos especificos para cada doctor
+    */
+    getStyles(med) {
+        const _ = Alpine.store('doctores')[ med ];
+        if (_) return `bg-${_.color} border-${_.color}`;
+
+        return "";
     }
 });
