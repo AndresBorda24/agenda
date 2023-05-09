@@ -5,7 +5,7 @@ x-show="show"
 x-cloak id="show-day-hours"
 class="fixed-top vh-100 vw-100 flex bg-black bg-opacity-75">
   <div
-  class="light-pattern-bg m-auto flex flex-column flex-fill rounded bg-body overflow-auto border border-primary-subtle"
+  class="light-pattern-bg m-auto flex flex-column flex-fill overflow-auto border border-primary-subtle"
   style="max-width: 440px;">
     <div class="p-2 header-bg border-bottom d-flex justify-content-between text-white">
       <span class="small fw-bold">Horas Disponibles</span>
@@ -20,14 +20,21 @@ class="fixed-top vh-100 vw-100 flex bg-black bg-opacity-75">
     <div class="overflow-auto py-3 px-1" style="max-height: 400px;">
       <template x-for="med in Object.keys(hours)">
         <div class="mb-3">
-          <h6 x-text="'M&eacute;dico: ' + $store.doctores[ med ].nombre" class="text-center small muted"></h6>
+          <h6
+          x-text="'M&eacute;dico: ' + $store.doctores[ med ].nombre"
+          class="text-center text-muted small muted rounded-top border border-bottom-0  mb-0 p-1"
+          :class="`border-${$store.doctores[ med ].color}-subtle`"></h6>
           <ul class="list-group shadow-sm">
             <template x-for="h in hours[ med ]">
               <li
               :class="`list-group-item-${$store.doctores[ med ].color}`"
-              class="p-0 list-group-item small flex gap-2 align-items-center">
-                <span x-text="h" class="p-2 flex-grow-1 fw-bold"></span>
-                <button class="btn btn-light btn-sm border-dark-subtle mx-1" title="Agendar para esta hora">
+              class="p-0 list-group-item-action list-group-item small flex gap-2 align-items-center">
+                <span
+                x-text="h"
+                class="p-2 flex-grow-1 fw-bold"></span>
+                <button
+                class="btn btn-light btn-sm border-dark-subtle mx-1"
+                title="Agendar para esta hora">
                   Agendar <i class="bi bi-patch-check"></i>
                 </button>
               </li>
@@ -37,5 +44,4 @@ class="fixed-top vh-100 vw-100 flex bg-black bg-opacity-75">
       </template>
     </div>
   </div>
-
 </div>
