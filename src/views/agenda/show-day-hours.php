@@ -19,22 +19,25 @@ class="fixed-top vh-100 vw-100 flex bg-black bg-opacity-75">
 
     <div class="overflow-auto py-3 px-1" style="max-height: 400px;">
       <template x-for="med in Object.keys(hours)">
-        <div class="mb-3">
+        <div class="mb-3 px-3">
           <h6
-          x-text="'M&eacute;dico: ' + $store.doctores[ med ].nombre"
-          class="text-center text-muted small muted rounded-top border border-bottom-0  mb-0 p-1"
-          :class="`border-${$store.doctores[ med ].color}-subtle`"></h6>
+          class="text-center text-muted small muted rounded-top border border-bottom-0 mb-0 p-1"
+          :class="`border-${$store.doctores[ med ].color}-subtle`">
+            <span class="small fw-normal">M&eacute;dico:</span> <br>
+            <span x-text="$store.doctores[ med ].nombre"></span>
+          </h6>
           <ul class="list-group shadow-sm">
             <template x-for="h in hours[ med ]">
               <li
               :class="`list-group-item-${$store.doctores[ med ].color}`"
               class="p-0 list-group-item-action list-group-item small flex gap-2 align-items-center">
                 <span
-                x-text="h"
+                x-text="h.hora"
                 class="p-2 flex-grow-1 fw-bold"></span>
                 <button
-                @click="confirmHour"
-                class="btn btn-light btn-sm border-dark-subtle mx-1"
+                @click="confirmHour(h.__id, h.hora, med)"
+                class="btn btn-outline-dark btn-sm mx-1"
+                style="font-size: .7rem;"
                 title="Agendar para esta hora">
                   Agendar <i class="bi bi-patch-check"></i>
                 </button>

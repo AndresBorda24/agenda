@@ -12,7 +12,7 @@
     <div class="d-flex flex-column aside light-pattern-bg ">
       <?= $this->fetch("./agenda/header.php") ?>
 
-      <div x-data="fetchData" class="p-1">
+      <div x-data="fetchData" class="p-1" x-bind="events">
         <select class="form-select rounded-0" @change="getData( $el.value )">
           <option selected hidden>Seleccione especialidad</option>
           <template x-for="e in esps" :key="e.especialidad">
@@ -33,7 +33,10 @@
       <!-- Encabezado - Dias de la semana -->
       <?= $this->fetch("./agenda/calendar/header.php") ?>
 
-      <div class="d-grid calendar-grid flex-fill position-relative overflow-hidden" x-data="calendar" x-bind="events">
+      <div
+      class="d-grid calendar-grid flex-fill position-relative overflow-hidden"
+      x-data="calendar"
+      x-bind="events">
         <!-- Esta es la pelicula que pasa sobre el calendario al cambiar de mes -->
         <section id="calendar-days-loader" style="z-index: 1; left: 100%;"
         class="position-absolute bg-white h-100 w-100 top-0"></section>
