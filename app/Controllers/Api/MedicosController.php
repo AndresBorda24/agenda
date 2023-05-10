@@ -36,6 +36,8 @@ class MedicosController
                 "AND" => [
                     "fecha_programada[>=]" => date('Y-m-d', time()),
                     "C.fecha_solicitud" => null, // WHERE
+                    "C.agendada"        => 0,
+                    "C.solicitada"      => 0,
                     "C.especialidad"    => $esp
                 ]
             ]);

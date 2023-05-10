@@ -7,8 +7,6 @@ use function App\responseJSON;
 
 use Medoo\Medoo;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-
 
 class EspecialidadController
 {
@@ -39,7 +37,9 @@ class EspecialidadController
                 '@C.especialidad', 'E.nombre' // COLUMNAS
             ],[
                 "fecha_programada[>=]" => date('Y-m-d', time()),
-                "C.fecha_solicitud" => null // WHERE
+                "C.fecha_solicitud"    => null, // WHERE
+                "solicitada"           => 0, // WHERE
+                "agendada"             => 0
             ]);
 
             return responseJSON($response, $data);
@@ -57,7 +57,8 @@ class EspecialidadController
                 'fecha_programada', 'medico' // COLUMNAS
             ],[
                 "AND" => [
-                    "fecha_solicitud" => null, // WHERE
+                    "solicitada"       => 0,
+                    "agendada"         => 0,
                     "especialidad"    => $esp,
                     "fecha_programada[>=]" => date('Y-m-d', time())
                 ]
@@ -90,11 +91,13 @@ class EspecialidadController
     ): Response {
         try {
             $data = $this->db->select('citas_web', [
-                'hora_programada', 'medico' // COLUMNAS
+                'hora_programada', 'medico', 'id' // COLUMNAS
             ],[
                 "AND" => [
                     "especialidad"     => $esp, // WHERE
-                    "fecha_programada" => $fecha // WHERE
+                    "fecha_programada" => $fecha, // WHERE
+                    "solicitada"       => 0,
+                    "agendada"         => 0
                 ],
                 "ORDER" => "hora_programada"
             ]);
@@ -105,7 +108,10 @@ class EspecialidadController
                 }
 
                 if(! in_array($a['hora_programada'], $c[$a['medico']])) {
-                    $c[$a['medico']][] = $a['hora_programada'];
+                    $c[$a['medico']][] = [
+                        "hora" => $a['hora_programada'],
+                        "__id" => $a['id']
+                    ];
                 }
                 return $c;
             }, []);
