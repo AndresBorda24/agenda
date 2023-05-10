@@ -24,6 +24,8 @@
       </div>
 
       <?= $this->fetch("./agenda/show-available-doctors.php") ?>
+
+      <?= $this->fetch("./agenda/citas-agendadas.php") ?>
     </div>
 
     <div class="d-flex flex-column border-start position-relative flex-grow-1">

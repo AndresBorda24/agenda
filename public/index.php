@@ -40,6 +40,10 @@ $app->group("/api", function(RouteCollectorProxy $group) {
     $group->post("/agenda/save", [
         AgendaController::class, 'save'
     ])->add(JsonBodyParserMiddleware::class);
+
+    $group->get("/agenda/mis-citas", [
+        AgendaController::class, "getCitasAgendadas"
+    ]);
 });
 
 $app->run();

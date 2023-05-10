@@ -60,4 +60,31 @@ class AgendaController {
             ], 500);
         }
     }
+
+    public function getCitasAgendadas(Response $response ): Response
+    {
+        try {
+            $data = $this->db->select("citas_web (C)", [
+                "[>]medicos (M)" => ["medico" => "codigo"],
+                "[>]especialidad (E)" => "especialidad"
+            ], [
+                "E.nombre (especialidad)",
+                "M.nombre (medico)",
+                "C.fecha_programada (fecha)",
+                "C.hora_programada (hora)"
+            ], [
+                "C.paciente_id" => 1,
+                "ORDER" => [
+                    "C.fecha_programada",
+                    "C.hora_programada"
+                ]
+            ]);
+
+            return responseJSON($response, $data);
+        } catch(\Exception $e) {
+            return responseJSON($response, [
+                "error" => $e->getMessage()
+            ], 500);
+        }
+    }
 }

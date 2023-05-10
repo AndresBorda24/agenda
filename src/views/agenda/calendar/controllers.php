@@ -12,6 +12,6 @@
   <!-- Aqui debe mostrarse la informacion del usuario logeado -->
   <div class="text-muted small">
     <span>Bienvenido, </span>
-    <span>GUIDO FERNANDO CARDONA</span>
+    <span>JOSE RAFAEL SANCHO</span>
   </div>
 </div>

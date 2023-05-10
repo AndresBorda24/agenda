@@ -3,7 +3,8 @@ import calendar from './agenda/calendar';
 import dateName from './agenda/dateName';
 import fetchData from './agenda/fetch-data';
 import calendarDay from './agenda/calendarDay';
-import showDayHours from './agenda/showDayHours';
+import showDayHours from './agenda/show-day-hours';
+import loadAgendadas from './agenda/load-agendadas';
 import "./agenda/agenda-stores"
 import "../css/app.css";
 
@@ -17,6 +18,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.data("fetchData", fetchData);
     Alpine.data("calendarDay", calendarDay);
     Alpine.data("showDayHours", showDayHours);
+    Alpine.data("loadAgendadas", loadAgendadas);
     Alpine.data("changeCalendarMonth", (back = false) => ({
         ch() {
             if(back) {
