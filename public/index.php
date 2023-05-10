@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
+use App\Controllers\Api\AgendaController;
 use Slim\Routing\RouteCollectorProxy;
 use App\Controllers\Api\EspecialidadController;
 use App\Controllers\Api\MedicosController;
-
+use App\Middleware\JsonBodyParserMiddleware;
 
 require __DIR__ . "/../vendor/autoload.php";
 
@@ -21,13 +22,24 @@ $app->setBasePath($config->get('app.base'));
 
 $app->get("/", [\App\Controllers\IndexController::class, "home"]);
 $app->group("/api", function(RouteCollectorProxy $group) {
-    $group->get("/especialidades/get-all", [EspecialidadController::class, 'getAll']);
-    $group->get("/especialidades/get-available", [EspecialidadController::class, 'getAvailable']);
-    $group->get("/especialidades/{esp}/get-agenda", [EspecialidadController::class, 'getAgenda']);
+    $group->get("/especialidades/get-all", [
+        EspecialidadController::class, 'getAll'
+    ]);
+    $group->get("/especialidades/get-available", [
+        EspecialidadController::class, 'getAvailable'
+    ]);
+    $group->get("/especialidades/{esp}/get-agenda", [
+        EspecialidadController::class, 'getAgenda'
+    ]);
     $group->get("/especialidades/{esp}/get-available-hours/{fecha}", [
         EspecialidadController::class, 'getAgendaHours'
     ]);
-    $group->get("/medicos/{esp}/get-available", [MedicosController::class, 'getAvailable']);
+    $group->get("/medicos/{esp}/get-available", [
+        MedicosController::class, 'getAvailable'
+    ]);
+    $group->post("/agenda/save", [
+        AgendaController::class, 'save'
+    ])->add(JsonBodyParserMiddleware::class);
 });
 
 $app->run();

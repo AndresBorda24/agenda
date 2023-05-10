@@ -71,35 +71,65 @@ export default () => ({
             timeZone: "UTC"
         });
     },
-    confirmHour(){
+    confirmHour(regAgendaId, hora, med) {
+        const message = `Realmente desea agendar su cita para el ${this.getFormatDate(this.key)} a las ${hora} con el medico ${Alpine.store("doctores")[med].nombre}?`;
+
         iziToast.show({
             layout: 2,
             drag: false,
             zindex: 2500,
-            theme: 'dark',
+            class: "light-pattern-bg",
             timeout: false,
             overlay: true,
             maxWidth: "90vw",
             title: 'Confirmar',
             titleSize: "1.5rem",
+            progressBar: false,
             titleLineHeight: "35px",
-            message: 'Realmete desea agendar su cita para: [inserte fecha]?',
+            message: message,
             messageLineHeight: "35px",
             position: 'center',
             progressBarColor: 'rgb(0, 255, 184)',
             buttons: [
-                ['<button>Si</button>', (instance, toast) => {
-                    Alpine.store("loader").show();
+                ['<button class="me-4">Si</button>', async (instance, toast) => {
+                    await this.saveAgenda(regAgendaId);
 
-                    setTimeout(() => {
-                        Alpine.store("loader").hide();
-                        instance.destroy();
-                    }, 800);
+                    this.$dispatch("cita-agendada");
+                    this.close();
+
+                    instance.success({
+                        title: "Exito",
+                        message: "Cita Agendada"
+                    });
+                    instance.hide({}, toast);
                 }, true],
                 ['<button>Cancelar</button>', (instance, toast) => {
-                    instance.destroy();
+                    instance.hide({}, toast);
                 }]
             ]
-        })
+        });
+    },
+    /**
+     * Realiza la solicitud para insertar los datos en la base de datos.
+    */
+    async saveAgenda(__id) {
+        try {
+            Alpine.store("loader").show();
+            await axios.post(`${this.baseUri}/agenda/save`, {
+                __id: __id,
+                user: 1
+            }, {
+                headers: {
+                    'Content-Type': "application/json"
+                }
+            }).finally( () => Alpine.store('loader').hide());
+        } catch(e) {
+            iziToast.error({
+                title: "Ha ocurrido un error",
+                message: "No hemos podido agendar tu cita... Intenta luego."
+            });
+
+            console.error("Guardar Agenda: ", e);
+        }
     }
 });

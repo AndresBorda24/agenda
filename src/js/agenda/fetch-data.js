@@ -4,6 +4,13 @@ export default () => ({
     esps: [],
     baseUri: process.env.APP_URL + "api",
     espUri: '/especialidades/get-available',
+    /**
+     * Estos son los eventos que 'escucha' este componente
+     * con su respectivo callback - handler
+    */
+    events: {
+        ["@cita-agendada.document"]:"getData( $store.selectedEsp )"
+    },
     config: {
         headers: {
             'Content-Type': "application/json"
