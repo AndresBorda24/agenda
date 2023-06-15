@@ -16,5 +16,8 @@ return [
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_general_ci',
     ],
-    "views" => __DIR__ ."/../src/views"
+    "assets" => [
+        "templates"   => __DIR__ . "/.." . $_ENV["TEMPLATES"],
+        "entrypoints" => __DIR__ . "/.." . $_ENV["ENTRYPOINTS_PATH"]
+    ],
 ];

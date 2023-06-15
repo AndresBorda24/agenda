@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="./js/index.js" defer></script>
-  <link rel="stylesheet" href="./css/app.css">
+  <?= $this->loadAssets("agenda/app") ?>
   <title>Citas</title>
 </head>
 <body>
@@ -59,6 +58,6 @@
   </main>
 
   <?= $this->fetch("./agenda/show-day-hours.php") ?>
-  <?= $this->fetch("./loader.php") ?>
+  <?= $this->fetch("./partials/loader.php") ?>
 </body>
 </html>

@@ -1,6 +1,7 @@
 vendor
 node_modules
 public/assets
+public/build
 public/css
 public/js
 .env

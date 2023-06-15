@@ -1,14 +1,13 @@
 import Alpine from 'alpinejs'
-import calendar from './agenda/calendar';
-import dateName from './agenda/dateName';
-import fetchData from './agenda/fetch-data';
-import calendarDay from './agenda/calendarDay';
-import showDayHours from './agenda/show-day-hours';
-import loadAgendadas from './agenda/load-agendadas';
-import "./agenda/agenda-stores"
+import calendar from './components/calendar';
+import dateName from './components/dateName';
+import fetchData from './components/fetch-data';
+import calendarDay from './components/calendarDay';
+import showDayHours from './components/show-day-hours';
+import loadAgendadas from './components/load-agendadas';
+
+import "./stores/agenda-stores"
 import "../css/app.css";
-
-
 
 window.Alpine = Alpine
 
@@ -30,4 +29,6 @@ document.addEventListener('alpine:init', () => {
     }));
 });
 
-Alpine.start()
+document.addEventListener("DOMContentLoaded", () => {
+    Alpine.start();
+});

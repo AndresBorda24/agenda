@@ -3,18 +3,22 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use Slim\Views\PhpRenderer;
+use App\Views;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 class IndexController
 {
     function __construct(
-        private PhpRenderer $view,
+        private Views $view,
     ){}
 
-    public function home(Request $request, Response $response): Response
+    public function home(Response $response): Response
     {
-        return $this->view->render($response, "index.php");
+        return $this->view->render($response, "agenda.php");
+    }
+
+    public function registro(Response $response): Response
+    {
+        return $this->view->render($response, "registro.php");
     }
 }

@@ -1,40 +1,57 @@
-const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const webpack = require('webpack');
-const dotenv = require('dotenv');
+const Encore = require('@symfony/webpack-encore');
+const dotenv = require('dotenv-webpack');
 
-dotenv.config();
+require("dotenv").config();
 
-const web = {
-    entry: "./src/js/index.js",
-    output: {
-        filename: "index.js",
-        path: path.resolve(__dirname, 'public/js')
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-           'process.env': JSON.stringify(process.env)
-        }),
-        new MiniCssExtractPlugin({
-            filename: "../css/app.css"
-        })
-    ],
-    module: {
-        rules: [
-            {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, "css-loader"],
-            },
-            {
-                test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
-                // More information here https://webpack.js.org/guides/asset-modules/
-                type: "asset",
-                generator: {
-                    filename: '../assets/[hash][ext][query]'
-                }
-            },
-        ]
-    }
+// Manually configure the runtime environment if not already configured yet by the "encore" command.
+// It's useful when you use tools that rely on webpack.config.js file.
+if (!Encore.isRuntimeEnvironmentConfigured()) {
+    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
 
-module.exports = web;
+Encore
+    // directory where compiled assets will be stored
+    .setOutputPath('public/build/')
+    // public path used by the web server to access the output path
+    .setPublicPath(process.env.APP_URL + '/build')
+    // .setPublicPath('/build')
+    .setManifestKeyPrefix('build/')
+    .addEntry('agenda/app', './assets/agenda/index.js')
+    .addEntry('registro/app', './assets/registro/index.js')
+    .splitEntryChunks()
+    .enableSingleRuntimeChunk()
+    /*
+     * FEATURE CONFIG
+     *
+     * Enable & configure other features below. For a full
+     * list of features, see:
+     * https://symfony.com/doc/current/frontend.html#adding-more-features
+     */
+    .cleanupOutputBeforeBuild()
+    // .enableBuildNotifications()
+    // .enableSourceMaps(!Encore.isProduction())
+    // enables hashed filenames (e.g. app.abc123.css)
+    // .enableVersioning(Encore.isProduction())
+    .configureBabel((config) => {
+        config.plugins.push('@babel/plugin-proposal-class-properties');
+    })
+
+    // enables @babel/preset-env polyfills
+    .configureBabelPresetEnv((config) => {
+        config.useBuiltIns = 'usage';
+        config.corejs = 3;
+    })
+
+    // dotenv
+    .addPlugin(new dotenv({
+        ignoreStub: true
+    }))
+    // enables Sass/SCSS support
+    //.enableSassLoader()
+
+    // uncomment to get integrity="..." attributes on your script & link tags
+    // requires WebpackEncoreBundle 1.4 or higher
+    //.enableIntegrityHashes(Encore.isProduction())
+;
+
+module.exports = Encore.getWebpackConfig();

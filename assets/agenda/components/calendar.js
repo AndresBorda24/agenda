@@ -21,10 +21,12 @@ export default () => ({
         ["@previous-month.document"]: "previous"
     },
     loader: document.getElementById('calendar-days-loader'),
+
     init() {
         this.ctrl.setDate(1);
         this.setUp();
     },
+
     /**
      * Organiza la info necesaria teniendo en cuenta el valor de `ctrl`
     */
@@ -43,6 +45,7 @@ export default () => ({
             this.$dispatch("date-has-changed");
         });
     },
+
     /** Carga mes anterior */
     previous() {
         this.loader.style.display = 'block';
@@ -59,6 +62,7 @@ export default () => ({
         }
         this.setUp();
     },
+
     /** Carga siguiente mes */
     next() {
         this.loader.style.display = 'block';
@@ -75,10 +79,12 @@ export default () => ({
         }
         this.setUp();
     },
+
     /** Retorna el anio de ctrl */
     getYear() {
         return this.ctrl.getFullYear();
     },
+
     /** Retorna el mes de ctrl */
     getMonth() {
         return this.ctrl.getMonth();
