@@ -21,4 +21,10 @@ class IndexController
     {
         return $this->view->render($response, "registro.php");
     }
+
+    public function registroUsuario(Response $response): Response
+    {
+        return $this->view->render($response, "registro-usuarios.php");
+    }
+
 }

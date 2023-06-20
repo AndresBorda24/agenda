@@ -1,5 +1,6 @@
 const Encore = require('@symfony/webpack-encore');
 const dotenv = require('dotenv-webpack');
+const { DefinePlugin } = require('webpack');
 
 require("dotenv").config();
 
@@ -16,8 +17,11 @@ Encore
     .setPublicPath(process.env.APP_URL + '/build')
     // .setPublicPath('/build')
     .setManifestKeyPrefix('build/')
+
     .addEntry('agenda/app', './assets/agenda/index.js')
     .addEntry('registro/app', './assets/registro/index.js')
+    .addEntry('registro-usuario/app', './assets/registro-usuario/index.js')
+
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     /*
@@ -46,6 +50,10 @@ Encore
     .addPlugin(new dotenv({
         ignoreStub: true
     }))
+    .addPlugin(new DefinePlugin({
+        __VUE_OPTIONS_API__: true,
+        __VUE_PROD_DEVTOOLS__: false
+    }))
     // enables Sass/SCSS support
     //.enableSassLoader()
 
@@ -54,4 +62,7 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 ;
 
-module.exports = Encore.getWebpackConfig();
+let config = Encore.getWebpackConfig();
+config.resolve.alias["vue"] = "vue/dist/vue.esm-bundler.js";
+
+module.exports = config;

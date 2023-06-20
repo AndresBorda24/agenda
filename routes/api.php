@@ -7,6 +7,7 @@ use App\Controllers\Api\MedicosController;
 use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 use App\Controllers\Api\EspecialidadController;
+use App\Controllers\Api\UsuarioController;
 
 /**
  * Mapea TODAS las rutas relacionadas con la API
@@ -33,5 +34,9 @@ return function(App $app) {
         $api->group("/medicos", function(Group $medicos) {
             $medicos->get("/{esp}/get-available", [MedicosController::class, 'getAvailable']);
         });
-    });
+
+        $api->group("/pacientes", function(Group $paciente) {
+            $paciente->post("/registro", [UsuarioController::class, 'registro']);
+        });
+    })->add(JsonBodyParserMiddleware::class);
 };
