@@ -1,6 +1,6 @@
 <form
 x-data="form"
-@submit.prevent="save()"
+@submit.prevent="save"
 class="p-3 shadow border rounded bg-body-tertiary"
 autocomplete="off">
   <h2 class="text-center text-primary">Formulario de Registro</h2>
@@ -12,10 +12,13 @@ autocomplete="off">
     id="cedula"
     autofocus
     required
+    x-model="state.cedula"
     placeholder="C&eacute;dula del Usuario"
     type="text"
+    minlength="5"
     class="form-control form-control-sm">
   </div>
+
   <div class="p-2">
     <label for="nombre"
     class="form-label small m-1">Nombre:</label>
@@ -23,19 +26,23 @@ autocomplete="off">
       <input
       placeholder="Apellido"
       required
+      x-model="state.apellido"
       type="text"
       class="form-control form-control-sm">
       <input
       placeholder="Seg. Apellido"
+      x-model="state.apellido2"
       type="text"
       class="form-control form-control-sm">
       <input
       placeholder="Nombre"
       required
+      x-model="state.nombre"
       type="text"
       class="form-control form-control-sm">
       <input
       placeholder="Seg. Nombre"
+      x-model="state.nombre2"
       type="text"
       class="form-control form-control-sm">
     </div>
@@ -50,16 +57,19 @@ autocomplete="off">
       <input
       id="telefono"
       required
-      placeholder="Tel&eacute;fono del Usuario"
+      placeholder="3xx-xxx-xxxx"
+      x-model="state.telefono"
       type="text"
       class="form-control form-control-sm">
     </div>
+
     <div class="col-md-7 p-1 p-md-2">
       <label
       class="form-label small m-1"
       for="correo">Correo:</label>
       <input
       id="correo"
+      x-model="state.correo"
       required
       placeholder="correo-usuario@corro.com"
       type="email"
@@ -75,10 +85,12 @@ autocomplete="off">
       <input
       id="ciudad"
       required
+      x-model="state.ciudad"
       placeholder="Ciudad"
       type="text"
       class="form-control form-control-sm">
     </div>
+
     <div class="col-lg-7 p-1 p-md-2">
       <label
       class="form-label small m-1"
@@ -98,7 +110,9 @@ autocomplete="off">
     class="form-label small m-1"
     for="eps">EPS:</label>
     <select
-    name="eps" id="eps" required
+    id="eps"
+    required
+    x-model="state.eps"
     class="form-select form-select form-select-sm">
       <option value="" hidden selected>-- Selecciona --</option>
       <option value="EPS001">Nueva EPS</option>
