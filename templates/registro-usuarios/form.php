@@ -12,7 +12,7 @@ autocomplete="off">
     id="cedula"
     autofocus
     required
-    x-model="state.cedula"
+    x-model="state.num_histo"
     placeholder="C&eacute;dula del Usuario"
     type="text"
     minlength="5"
@@ -21,28 +21,28 @@ autocomplete="off">
 
   <div class="p-2">
     <label for="nombre"
-    class="form-label small m-1">Nombre:</label>
+    class="form-label small m-1">Apellidos y Nombres:</label>
     <div class="d-flex gap-2 flex-wrap">
       <input
       placeholder="Apellido"
       required
-      x-model="state.apellido"
+      x-model="state.ape1"
       type="text"
       class="form-control form-control-sm">
       <input
       placeholder="Seg. Apellido"
-      x-model="state.apellido2"
+      x-model="state.ape2"
       type="text"
       class="form-control form-control-sm">
       <input
       placeholder="Nombre"
       required
-      x-model="state.nombre"
+      x-model="state.nom1"
       type="text"
       class="form-control form-control-sm">
       <input
       placeholder="Seg. Nombre"
-      x-model="state.nombre2"
+      x-model="state.nom2"
       type="text"
       class="form-control form-control-sm">
     </div>
@@ -52,15 +52,19 @@ autocomplete="off">
   <div class="row g-0">
     <div class="col-md-5 p-1 p-md-2">
       <label
-      class="form-label small m-1"
+      class="form-label small m-0"
       for="telefono">Tel&eacute;fono:</label>
       <input
       id="telefono"
       required
-      placeholder="3xx-xxx-xxxx"
+      placeholder="3xxxxxxxxx"
+      pattern="3[0-9]{9}"
       x-model="state.telefono"
-      type="text"
+      type="tel"
       class="form-control form-control-sm">
+      <small class="text-muted d-block" style="font-size: .67rem;">
+        Sin espacios, s&iacute;mbolos o letras
+      </small>
     </div>
 
     <div class="col-md-7 p-1 p-md-2">
@@ -69,7 +73,7 @@ autocomplete="off">
       for="correo">Correo:</label>
       <input
       id="correo"
-      x-model="state.correo"
+      x-model="state.email"
       required
       placeholder="correo-usuario@corro.com"
       type="email"

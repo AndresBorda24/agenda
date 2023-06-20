@@ -1,6 +1,6 @@
 import axios from "axios";
-import iziToast from "izitoast";
-import { showLoader, hideloader } from "../../partials/loader";
+import { showLoader, hideLoader } from "../../partials/loader";
+import { successAlert, errorAlert } from "../../partials/alerts";
 
 export default () => ({
     state: {},
@@ -12,16 +12,26 @@ export default () => ({
         try {
             showLoader();
             await axios.post(
-                process.env.API + "/usuarios/registro",
+                process.env.API + "/pacientes/registro",
                 this.state
-            ).finally(hideloader);
+            ).finally(hideLoader);
+            this.clearState();
+
+            successAlert();
         } catch(e) {
             console.error(e);
-
-            iziToast.error({
-                title: "Error",
-                message: "Error al guardar la informacion"
-            });
+            errorAlert();
         }
+    },
+
+    /**
+     * Vacia todos los inputs y hace focus al input
+    */
+    clearState() {
+        this.state = {};
+
+        this.$nextTick(() => {
+            document.querySelector('[x-model="state.num_histo"]').focus();
+        })
     }
 });

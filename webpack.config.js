@@ -20,7 +20,6 @@ Encore
 
     .addEntry('agenda/app', './assets/agenda/index.js')
     .addEntry('registro/app', './assets/registro/index.js')
-    .addEntry('home/app', './assets/home/index.js')
     .addEntry('registro-usuario/app', './assets/registro-usuario/index.js')
 
     .splitEntryChunks()

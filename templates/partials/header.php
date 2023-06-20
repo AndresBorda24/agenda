@@ -1,4 +1,4 @@
-<header class="bg-primary text-light">
+<header class="bg-primary text-light shadow">
   <div class="container p-3 d-flex align-items-center justify-content-between">
     <img
     height="25"

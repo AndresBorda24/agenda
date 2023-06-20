@@ -30,5 +30,6 @@
   </div>
 
   <?= $this->fetch("./partials/footer.php") ?>
+  <?= $this->fetch("./partials/loader.php") ?>
 </body>
 </html>
