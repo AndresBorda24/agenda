@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
+
+:root {
+    --bs-primary: #077E9D;
+    --bs-primary-rgb: 7,126,157;
+    --bs-secondary: #025B7D;
+    --bs-secondary-rgb: 2,91,125;
+    --bs-warning: #FCBB1C;
+    --bs-warning-rgb: 252,187,28;
+    /* Azules para uso en cositas */
+    --blue-50: #e4f0f6;
+    --blue-100: #bcd9ea;
+    --blue-200: #8bbdd9;
+    --blue-300: #5ba4cf;
+    --blue-400: #298fca;
+    --blue-500: #0079bf;
+    --blue-600: #026aa7;
+    --blue-700: #055a8c;
+    --blue-800: #094c72;
+    --blue-900: #0c3953;
+}
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-image: radial-gradient(#568a7a 0.5px, transparent 0.5px);
+    background-size: 41px 41px;
+    background-color: #f7f7f7;
+}
+.bg-blue-50{ background-color: #e4f0f6 !important}
+.bg-blue-100{ background-color: #bcd9ea !important}
+.bg-blue-200{ background-color: #8bbdd9 !important}
+.bg-blue-300{ background-color: #5ba4cf !important}
+.bg-blue-400{ background-color: #298fca !important}
+.bg-blue-500{ background-color: #0079bf !important}
+.bg-blue-600{ background-color: #026aa7 !important}
+.bg-blue-700{ background-color: #055a8c !important}
+.bg-blue-800{ background-color: #094c72 !important}
+.bg-blue-900{ background-color: #0c3953 !important}
+
+@media (max-width: 991px) {
+    .registro-usuario-image {
+        max-height: 300px;
+    }
+}
