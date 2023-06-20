@@ -10,4 +10,5 @@ use App\Controllers\IndexController;
 return function(App $app) {
     $app->get("/", [ IndexController::class, "home" ]);
     $app->get("/registro", [ IndexController::class, "registro" ]);
+    $app->get("/registro-usuarios", [IndexController::class, "registroUsuario" ]);
 };
