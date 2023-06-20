@@ -21,3 +21,16 @@ if (! function_exists('App\responseJSON')) {
                 ->withStatus($statusCode);
     }
 }
+
+if (! function_exists('App\uppercase')) {
+    /**
+     * Da formato a la respuesta para devolverla como JSON
+    */
+    function uppercase(string $string): string
+    {
+        return mb_strtoupper(
+            trim($string),
+            "UTF-8"
+        );
+    }
+}
