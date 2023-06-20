@@ -7,7 +7,9 @@
   <title>Registro Usuarios</title>
 </head>
 <body>
-  <?= $this->fetch("./partials/header.php") ?>
+  <?= $this->fetch("./partials/header.php", [
+    "title" => "Registro de Pacientes"
+  ]) ?>
 
   <div class="d-lg-flex align-items-center my-4 container" style="min-height: 70vh;">
     <div class="col-lg-6 p-3 p-md-5">
