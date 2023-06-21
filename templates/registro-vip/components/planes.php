@@ -15,11 +15,11 @@
     <!-- Beneficios -->
     <div class="my-3 py-3">
       <ul class="list-group list-group-flush small">
-        <li class="list-group-item">Lorem ipsum dolor, sit amet.</li>
-        <li class="list-group-item">Lorem, ipsum dolor sit amet.</li>
-        <li class="list-group-item">Lorem ipsum dolor sit amet.</li>
-        <li class="list-group-item">Lorem ipsum dolor, sit amet.</li>
-        <li class="list-group-item">Lorem ipsum dolor sit amet.</li>
+        <li class="list-group-item">Agua Caliente.</li>
+        <li class="list-group-item">Agua Caliente.</li>
+        <li class="list-group-item">Agua Caliente.</li>
+        <li class="list-group-item">Agua Caliente.</li>
+        <li class="list-group-item">Agua Caliente.</li>
       </ul>
     </div>
 
