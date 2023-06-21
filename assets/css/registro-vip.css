@@ -1,0 +1,30 @@
+@import "./root.css";
+
+.text-vertical {
+    writing-mode: vertical-rl;
+}
+
+.plan-select {
+    transition: all 200ms ease-in-out;
+    user-select: none;
+    border-style: dashed !important;
+}
+.plan-select:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+.plan-selected {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    border-style: solid !important;
+    position: relative;
+}
+.plan-selected:before {
+    content: '\2713';
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+    padding: .4rem .7rem;
+    background-color: seagreen;
+    color: white;
+    border-radius: 1rem;
+}
+

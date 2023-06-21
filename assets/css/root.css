@@ -21,7 +21,6 @@
     --blue-800: #094c72;
     --blue-900: #0c3953;
 }
-
 body {
     font-family: 'Noto Sans', sans-serif;
     background-image: radial-gradient(#568a7a 0.5px, transparent 0.5px);
@@ -40,7 +39,10 @@ body {
 .bg-blue-900{ background-color: #0c3953 !important}
 [x-cloak]{display: none !important}
 .flex{display: flex;}
-
+.text-bg-primary {
+    color: #fff!important;
+    background-color: RGBA(var(--bs-primary-rgb),var(--bs-bg-opacity,1))!important;
+}
 @media (max-width: 991px) {
     .registro-usuario-image {
         max-height: 300px;
