@@ -19,7 +19,9 @@ class IndexController
 
     public function registro(Response $response): Response
     {
-        return $this->view->render($response, "registro.php");
+        return $this
+            ->view
+            ->render($response, "registro-vip/index.php");
     }
 
     public function registroUsuario(Response $response): Response
