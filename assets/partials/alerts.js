@@ -10,7 +10,7 @@ export function errorAlert(message = "Ha ocurrido un error") {
 
 export function successAlert(message = "Operaci&oacute;n realizada con &eacute;xito") {
     iziToast.success({
-        title: "Error",
+        title: "Exito!",
         message: message,
         position: "topRight"
     });

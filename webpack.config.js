@@ -21,6 +21,7 @@ Encore
     .addEntry('agenda/app', './assets/agenda/index.js')
     .addEntry('registro/app', './assets/registro/index.js')
     .addEntry('registro-usuario/app', './assets/registro-usuario/index.js')
+    .addEntry('registro-vip/app', './assets/registro-vip/index.js')
 
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
