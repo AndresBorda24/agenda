@@ -16,6 +16,13 @@ class IndexController
     {
         return $this
             ->view
+            ->render($response, "home/index.php");
+    }
+
+    public function agenda(Response $response): Response
+    {
+        return $this
+            ->view
             ->render($response, "agenda/index.php");
     }
 

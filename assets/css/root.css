@@ -23,8 +23,8 @@
 }
 body {
     font-family: 'Noto Sans', sans-serif;
-    background-image: radial-gradient(#568a7a 0.5px, transparent 0.5px);
-    background-size: 41px 41px;
+    background-image: radial-gradient(#025b7d 0.5px, transparent 0.5px);
+    background-size: 29px 29px;
     background-color: #f7f7f7;
 }
 .bg-blue-50{ background-color: #e4f0f6 !important}

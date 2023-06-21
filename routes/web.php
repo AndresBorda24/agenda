@@ -12,6 +12,7 @@ use Slim\Routing\RouteCollectorProxy as Group;
 return function(App $app) {
     $app->group("", function(Group $app) {
         $app->get("/", [IndexController::class, "home"]);
+        $app->get("/agenda", [IndexController::class, "agenda"]);
         $app->get("/registro", [IndexController::class, "registro"])
             ->setName("vip.registro");
         $app->get("/registro-usuarios", [IndexController::class, "registroUsuario"])
