@@ -33,7 +33,7 @@ $config = $c->get(\App\Config::class);
 |  Errores
 + ------------------------------------------------------------------------------
 */
-$app->addErrorMiddleware(false, false, true);
+$app->addErrorMiddleware(true, false, true);
 
 /* -----------------------------------------------------------------------------
 | Cargamos las rutas
