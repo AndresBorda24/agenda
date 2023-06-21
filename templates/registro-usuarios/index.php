@@ -36,7 +36,7 @@
     </div>
 
     <main class="main-container col-lg-6 p-2 p-md-3 p-lg-4">
-      <?= $this->fetch("./registro-usuarios/form.php") ?>
+      <?= $this->fetch("./registro-usuarios/components/form.php") ?>
     </main>
   </div>
 

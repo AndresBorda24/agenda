@@ -5,7 +5,6 @@ namespace App\Controllers;
 
 use App\Views;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 class IndexController
 {
@@ -13,28 +12,28 @@ class IndexController
         private Views $view,
     ){}
 
-    public function home(Request $request, Response $response): Response
+    public function home(Response $response): Response
     {
         return $this
             ->view
-            ->render($response, "agenda.php");
+            ->render($response, "agenda/index.php");
     }
 
-    public function registro(Request $request, Response $response): Response
+    public function registro(Response $response): Response
     {
         return $this
             ->view
             ->render($response, "registro-vip/index.php");
     }
 
-    public function registroUsuario(Request $request, Response $response): Response
+    public function registroUsuario(Response $response): Response
     {
         return $this
             ->view
-            ->render($response, "registro-usuarios.php");
+            ->render($response, "registro-usuarios/index.php");
     }
 
-    public function login(Request $request, Response $response): Response
+    public function login(Response $response): Response
     {
         return $this
             ->view
