@@ -17,6 +17,6 @@ final class FormValidationException extends Exception
     */
     public function getInvalidFields(): array
     {
-        return array_keys($this->failFields);
+        return array_map(fn($val) => array_values($val), $this->failFields);
     }
 }

@@ -7,7 +7,7 @@ use Medoo\Medoo;
 
 use function App\uppercase;
 
-class Paciente
+class Usuario
 {
     public CONST TABLE = "usuarios";
 
@@ -41,6 +41,22 @@ class Paciente
             ]);
 
             return (int) $this->db->id();
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Revisa si el valor de un campo ya ha sido tomado.
+    */
+    public function checkUnique(string $field, $val): bool
+    {
+        try {
+            $total = $this->db->count(static::TABLE, [
+                "$field" => $val
+            ]);
+
+            return $total === 0;
         } catch(\Exception $e) {
             throw $e;
         }
