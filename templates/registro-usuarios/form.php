@@ -8,9 +8,9 @@ autocomplete="off">
     <div class="p-2 small">
       <label
       class="form-label text-muted small m-0"
-      for="cedula">C&eacute;dula:</label>
+      for="num_histo">C&eacute;dula:</label>
       <input
-      id="cedula"
+      id="num_histo"
       autofocus
       required
       x-model="state.num_histo"
@@ -144,6 +144,7 @@ autocomplete="off">
         class="form-label text-muted small text-muted m-0">Contrase&ntilde;a:</label>
         <input
         required
+        min="8"
         id="clave"
         x-model="state.clave"
         type="password"
@@ -155,6 +156,7 @@ autocomplete="off">
         class="form-label text-muted small text-muted m-0">Confirma Contrase&ntilde;a:</label>
         <input
         required
+        min="8"
         id="clave_confirm"
         x-model="state.clave_confirm"
         type="password"
