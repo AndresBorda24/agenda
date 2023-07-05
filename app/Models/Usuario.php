@@ -7,23 +7,9 @@ use Medoo\Medoo;
 
 use function App\uppercase;
 
-class Paciente
+class Usuario
 {
-    public CONST TABLE = "pacientes";
-
-    /** Campos requeridos para realizar inserts o updates */
-    private array $required = [
-        "num_histo",
-        "ape1",
-        "ape2",
-        "nom1",
-        "nom2",
-        "ciudad",
-        "direccion",
-        "telefono",
-        "email",
-        "eps"
-    ];
+    public CONST TABLE = "usuarios";
 
     public function __construct(
         private Medoo $db
@@ -35,18 +21,19 @@ class Paciente
     public function create(array $data): int
     {
         try {
-            $this->checkRequired($data);
             $this->db->insert(static::TABLE, [
                 "eps"  => uppercase($data["eps"]),
                 "ape1" => uppercase($data["ape1"]),
                 "ape2" => uppercase($data["ape2"]),
                 "nom1" => uppercase($data["nom1"]),
                 "nom2" => uppercase($data["nom2"]),
+                "clave"  => password_hash(trim($data["clave"]), PASSWORD_BCRYPT),
                 "email"  => trim($data["email"]),
                 "ciudad" => uppercase($data["ciudad"]),
                 "telefono"  => trim($data["telefono"]),
                 "direccion" => uppercase($data["direccion"]),
                 "num_histo" => trim($data["num_histo"]),
+                "fech_nac"  => trim($data["num_histo"]),
 
                 // Valores por defecto
                 "activo" => 1,
@@ -60,15 +47,18 @@ class Paciente
     }
 
     /**
-     * Revisa que todos los campos requeridos esten en el array de
-     * data que se pasa a funciones como create o update
+     * Revisa si el valor de un campo ya ha sido tomado.
     */
-    private function checkRequired(array $data): void
+    public function checkUnique(string $field, $val): bool
     {
-        foreach($this->required as $required) {
-            if(! array_key_exists($required, $data)) {
-                throw new \Exception("Missing required: $required");
-            }
+        try {
+            $total = $this->db->count(static::TABLE, [
+                "$field" => $val
+            ]);
+
+            return $total === 0;
+        } catch(\Exception $e) {
+            throw $e;
         }
     }
 }
