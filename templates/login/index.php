@@ -14,26 +14,18 @@
   <div
   class="align-items-center container d-flex flex-wrap gap-5 justify-content-center my-5"
   style="min-height: 60vh;">
-    <div class="col-md-6 d-none d-md-block text-center" style="max-width: 300px;">
-      <div class="overflow-hidden rounded-3 shadow">
-        <img
-        class="object-fit-cover border w-100 h-100"
-        src="https://asotrauma.com.co/wp-content/uploads/2021/10/img-rse.jpg"
-        alt="chica">
-      </div>
-      <span class="text-muted small d-block mt-4">
-        En la <span class="text-bg-warning badge">Cl&iacute;nica Asotrauma</span>
-        trabajamos para ti y para todos, por
-        eso buscamos que tu paso por nuestra cl&iacute;nica sea agradable,
-        siempre en pro de tu pronta recuperaci&oacute;n
-      </span>
-    </div>
-
     <form
     autocomplete="off"
     action="#"
     style="max-width: 400px; min-width: 300px;"
-    class="col-md-6 shadow border rounded overflow-hidden bg-body-tertiary">
+    class="shadow border rounded overflow-hidden bg-body-tertiary">
+      <span class="text-muted small d-block p-3 text-bg-primary text-center">
+        En la <span class="text-bg-warning badge">Cl&iacute;nica Asotrauma</span>
+        trabajamos para ti y para todos, por
+        eso buscamos que tu paso por nuestra cl&iacute;nica sea agradable,
+        siempre en pro de tu pronta recuperaci&oacute;n.
+      </span>
+
       <div class="bg-white p-1">
         <img
         class="mx-auto d-block my-4"
