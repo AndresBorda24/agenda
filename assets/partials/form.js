@@ -1,10 +1,22 @@
-import axios from "axios";
-import { showLoader, hideLoader } from "../../partials/loader";
-import { successAlert, errorAlert } from "../../partials/alerts";
-import { setInvalid, removeInvalid } from "../../partials/form-validation";
+import axios, { AxiosError } from "axios";
+import { showLoader, hideLoader } from "./loader";
+import { successAlert, errorAlert } from "./alerts";
+import { setInvalid, removeInvalid } from "./form-validation";
 
 export default () => ({
     state: {},
+    endPoint: "",
+    firstInput: "",
+
+    async init() {
+        await this.$nextTick();
+        this.endPoint = this.$el.dataset.endPoint || "";
+
+        const fi = this.$el.querySelector("input");
+        if (fi) {
+            this.firstInput = fi.id;
+        }
+    },
 
     /**
     * Guarda el registro en la base de datos.
@@ -17,7 +29,7 @@ export default () => ({
             showLoader();
 
             await axios.post(
-                process.env.API + "/pacientes-vip/registro",
+                process.env.API + "/pacientes/registro",
                 this.state
             ).finally(hideLoader);
             this.clearState();
@@ -33,17 +45,6 @@ export default () => ({
     },
 
     /**
-     * Vacia todos los inputs y hace focus al input
-    */
-    clearState() {
-        this.state = {};
-
-        this.$nextTick(() => {
-            document.querySelector('[x-model="state.num_histo"]').focus();
-        })
-    },
-
-    /**
      * Remarca los campos con error
     */
     setErros(data) {
@@ -52,6 +53,17 @@ export default () => ({
         } catch(e) {
             console.error("E", e);
         }
+    },
+
+    /**
+     * Vacia todos los inputs y hace focus al input
+    */
+    clearState() {
+        this.state = {};
+
+        this.$nextTick(() => {
+            document.querySelector(this.firstInput).focus();
+        })
     },
 
     /**

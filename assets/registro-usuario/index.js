@@ -1,5 +1,5 @@
 import Alpine from "alpinejs";
-import form from "./components/form";
+import form from "../partials/form";
 
 import "../css/root.css";
 
