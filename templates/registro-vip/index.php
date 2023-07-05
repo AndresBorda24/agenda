@@ -12,8 +12,10 @@
   ]) ?>
 
   <form
+  autocomplete="off"
   @submit.prevent="save"
   class="align-items-center my-5 container"
+  data-end-point="/pacientes-vip/registro"
   x-data="form">
     <div class="m-auto mb-5 d-md-flex">
       <div class="col-lg-6 p-3 p-md-5">
