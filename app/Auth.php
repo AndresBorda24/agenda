@@ -53,7 +53,7 @@ class Auth
 
     public function checkCredentials(array $user, array $credentials): bool
     {
-        return password_verify($credentials['password'], $user["clave"]);
+        return password_verify($credentials['clave'], $user["clave"]);
     }
 
     public function logOut(): void
