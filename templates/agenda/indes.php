@@ -8,7 +8,7 @@
 </head>
 <body>
   <?= $this->fetch("./partials/header.php", [
-    "title" => "Inicio de Sesi&oacute;n"
+    "title" => "Agendamiento Web"
   ]) ?>
 
   <div

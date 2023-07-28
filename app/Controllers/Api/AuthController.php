@@ -26,7 +26,7 @@ class AuthController
 
             return responseJSON($response, [
                 "status" => true,
-                "redirect" => "/"
+                "redirect" => "/agenda"
             ]);
         } catch(\Exception $e) {
             return responseJSON($response, [
