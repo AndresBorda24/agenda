@@ -34,4 +34,13 @@ class AuthController
             ], 422);
         }
     }
+
+    public function logout(Response $response): Response
+    {
+        $this->auth->logOut();
+
+        return $response
+            ->withStatus(302)
+            ->withHeader("Location", "/login");
+    }
 }
