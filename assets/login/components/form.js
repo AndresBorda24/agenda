@@ -14,12 +14,15 @@ export default () => ({
             const {data} = await axios.post(
                 process.env.API + "/login" ,
                 this.getBody()
-            ).finally(hideLoader);
+            );
 
            if (data.status) {
                 window.location.replace(data.redirect);
            }
+
+            hideLoader();
         } catch(e) {
+            hideLoader();
             if (e instanceof AxiosError) {
                 setInvalid({
                     documento: ["Datos Invalidos..."]
