@@ -22,7 +22,7 @@
         loading="lazy"
         src="https://asotrauma.com.co/wp-content/uploads/2022/05/Derecho-01.jpg"
         class="object-fit-cover w-100 h-100"
-        alt="">
+        alt="Cl&iacute;nica Asotrauma Imagen Registro">
       </div>
       <span class="small d-block text-center pt-2">
         Ya tienes cuenta? Inicia Sesi&oacute;n

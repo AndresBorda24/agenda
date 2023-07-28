@@ -14,7 +14,7 @@ export default () => ({
 
         const fi = this.$el.querySelector("input");
         if (fi) {
-            this.firstInput = fi.id;
+            this.firstInput = fi;
         }
     },
 
@@ -28,10 +28,8 @@ export default () => ({
 
             showLoader();
 
-            await axios.post(
-                process.env.API + "/pacientes/registro",
-                this.state
-            ).finally(hideLoader);
+            await axios.post(process.env.API + this.endPoint, this.state)
+                .finally(hideLoader);
             this.clearState();
 
             successAlert();
@@ -62,7 +60,9 @@ export default () => ({
         this.state = {};
 
         this.$nextTick(() => {
-            document.querySelector(this.firstInput).focus();
+            if(this.firstInput) {
+                this.firstInput.focus();
+            }
         })
     },
 

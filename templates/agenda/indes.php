@@ -35,7 +35,7 @@
 
     <div
     class="d-flex flex-column border position-sticky flex-grow-1"
-    style="top: 3rem; max-height: 550px;">
+    style="top: 3rem;">
       <!-- Controles -->
       <?= $this->fetch("./agenda/calendar/controllers.php") ?>
 
