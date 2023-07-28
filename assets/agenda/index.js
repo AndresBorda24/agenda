@@ -8,6 +8,7 @@ import loadAgendadas from './components/load-agendadas';
 
 import "./stores/agenda-stores"
 import "../css/app.css";
+import "../css/root.css";
 
 window.Alpine = Alpine
 
