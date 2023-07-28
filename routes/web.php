@@ -21,6 +21,5 @@ return function(App $app) {
 
         $app->get("/login", [IndexController::class, "login"])
             ->setName("login");
-    })->add(StartSessionsMiddleware::class)
-    ->add(SetRouteContextMiddleware::class);
+    })->add(SetRouteContextMiddleware::class);
 };
