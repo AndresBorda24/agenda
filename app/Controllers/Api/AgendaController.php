@@ -5,13 +5,15 @@ namespace App\Controllers\Api;
 
 use function App\responseJSON;
 
+use App\Auth;
 use Medoo\Medoo;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 class AgendaController {
     public function __construct(
-        private Medoo $db
+        private Medoo $db,
+        private Auth $auth
     ) {}
 
     public function save(Request $request, Response $response ): Response
@@ -21,7 +23,7 @@ class AgendaController {
             $body = $request->getParsedBody();
 
             // Obtener el usuario
-            $user = $this->db->get("pacientes", "*", [ "id" => $body["user"] ]);
+            $user = $this->auth->user();
             if (null === $user)
                 throw new \RuntimeException("Usuario no encontrado");
 
@@ -73,7 +75,7 @@ class AgendaController {
                 "C.fecha_programada (fecha)",
                 "C.hora_programada (hora)"
             ], [
-                "C.paciente_id" => 1,
+                "C.paciente_id" => $this->auth->user()["id"],
                 "ORDER" => [
                     "C.fecha_programada",
                     "C.hora_programada"
