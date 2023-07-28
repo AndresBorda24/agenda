@@ -20,4 +20,10 @@ return [
         "templates"   => __DIR__ . "/.." . $_ENV["TEMPLATES"],
         "entrypoints" => __DIR__ . "/.." . $_ENV["ENTRYPOINTS_PATH"]
     ],
+    "session" => [
+        'name'       => $_ENV["APP_NAME"] . '_session',
+        'secure'     => false,
+        'httponly'   => true,
+        'samesite'   => 'lax',
+    ]
 ];

@@ -8,8 +8,7 @@ class Config
 {
     function __construct(
         private array $config
-    ) {
-    }
+    ) {}
 
     public function get(string $name, mixed $default = null): mixed
     {

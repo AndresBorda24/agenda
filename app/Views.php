@@ -12,12 +12,14 @@ use Slim\Views\PhpRenderer;
 
 class Views extends PhpRenderer
 {
+    public Auth $auth;
     private Config $config;
 
     private ?RouteInterface $route    = null;
     private ?RouteParser $routeParser = null;
 
-    public function __construct(Config $config) {
+    public function __construct(Config $config, Auth $auth) {
+        $this->auth = $auth;
         $this->config = $config;
         parent::__construct( $this->config->get('assets.templates') );
     }
@@ -116,5 +118,14 @@ class Views extends PhpRenderer
     public function asset(string $asset): string
     {
         return $this->config->get("app.url") . $asset;
+    }
+
+    /**
+     * Retorna una instancia de auth para tener control de la sesion en el
+     * renderizado.
+    */
+    public function auth(): Auth
+    {
+        return $this->auth;
     }
 }
