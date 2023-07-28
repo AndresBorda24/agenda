@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?= $this->loadAssets("registro-vip/app") ?>
+  <?= $this->loadAssets("login/app") ?>
   <title>Inicio de Sesi&oacute;n</title>
 </head>
 <body>
@@ -15,8 +15,9 @@
   class="align-items-center container d-flex flex-wrap gap-5 justify-content-center my-5"
   style="min-height: 60vh;">
     <form
+    x-data="form"
     autocomplete="off"
-    action="#"
+    @submit.prevent="login"
     style="max-width: 400px; min-width: 300px;"
     class="shadow border rounded overflow-hidden bg-body-tertiary">
       <span class="text-muted small d-block p-3 text-bg-primary text-center">
@@ -38,9 +39,11 @@
       <div class="p-3 border-top">
         <label for="cedula" class="form-label small">C&eacute;dula:</label>
         <input
-        id="cedula"
+        id="documento"
+        x-model="state.documento"
         autofocus
         required
+        minlength="4"
         placeholder="123456789"
         type="text"
         class="form-control form-control-sm w-100">
@@ -49,7 +52,9 @@
       <div class="p-3 mb-3">
         <label for="password" class="form-label small">Contrase&ntilde;a:</label>
         <input
-        id="password"
+        id="clave"
+        x-model="state.clave"
+        minlength="4"
         required
         placeholder="***********"
         type="password"
