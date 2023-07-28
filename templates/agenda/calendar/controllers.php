@@ -1,17 +1,14 @@
 <div class="d-flex gap-1 align-items-center border-bottom p-3">
-  <button class="btn btn-outline-secondary btn-sm rounded-circle border-0" x-data="changeCalendarMonth(true)" @click="ch">
-    <i class="bi bi-caret-left-fill"></i>
+  <button class="btn btn-outline-dark lh-1 px-1 btn-sm rounded-circle"
+  x-data="changeCalendarMonth(true)" @click="ch">
+    <?= $this->fetch("./icons/left.php") ?>
   </button>
-  <button class="btn btn-outline-secondary btn-sm rounded-circle border-0" x-data="changeCalendarMonth" @click="ch">
-    <i class="bi bi-caret-right-fill"></i>
+  <button class="btn btn-outline-dark lh-1 px-1 btn-sm rounded-circle"
+  x-data="changeCalendarMonth" @click="ch">
+    <?= $this->fetch("./icons/right.php") ?>
   </button>
   <div class="flex-fill" x-data="dateName" x-bind="events">
     <span class="text-muted text-uppercase" x-text="month"></span>
     <span class="text-muted text-uppercase" x-text="year"></span>
-  </div>
-  <!-- Aqui debe mostrarse la informacion del usuario logeado -->
-  <div class="text-muted small">
-    <span>Bienvenido, </span>
-    <span>JOSE RAFAEL SANCHO</span>
   </div>
 </div>

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use Slim\App;
 use App\Controllers\Api\AgendaController;
+use App\Controllers\Api\AuthController;
 use App\Controllers\Api\MedicosController;
 use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
@@ -38,5 +39,7 @@ return function(App $app) {
         $api->group("/pacientes", function(Group $paciente) {
             $paciente->post("/registro", [UsuarioController::class, 'registro']);
         });
+
+        $api->post("/login", [AuthController::class, 'login']);
     })->add(JsonBodyParserMiddleware::class);
 };

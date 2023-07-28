@@ -1,0 +1,42 @@
+import axios, { AxiosError } from "axios";
+import { showLoader, hideLoader } from "../../partials/loader";
+import { errorAlert } from "../../partials/alerts";
+import { setInvalid, removeInvalid } from "../../partials/form-validation";
+
+export default () => ({
+    state: {},
+
+    async login() {
+        try {
+            removeInvalid();
+            showLoader();
+
+            const {data} = await axios.post(
+                process.env.API + "/login" ,
+                this.getBody()
+            );
+
+           if (data.status) {
+                window.location.replace(data.redirect);
+           }
+
+            hideLoader();
+        } catch(e) {
+            hideLoader();
+            if (e instanceof AxiosError) {
+                setInvalid({
+                    documento: ["Datos Invalidos..."]
+                });
+            }
+            console.error(e);
+            errorAlert();
+        }
+    },
+
+    getBody() {
+        return {
+            documento: this.state.documento.trim(),
+            clave: this.state.clave.trim()
+        }
+    }
+});

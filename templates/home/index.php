@@ -14,7 +14,6 @@
   <div
   class="align-items-center container d-flex flex-wrap gap-5 justify-content-center my-5"
   style="min-height: 60vh;">
-
   </div>
 
   <?= $this->fetch("./partials/footer.php") ?>

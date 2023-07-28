@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use App\Middleware\StartSessionsMiddleware;
+
 require __DIR__ . "/../vendor/autoload.php";
 
 /**
@@ -40,6 +42,7 @@ $app->addErrorMiddleware(true, false, true);
 + ------------------------------------------------------------------------------
 */
 $app->setBasePath($config->get('app.base'));
+$app->add(StartSessionsMiddleware::class);
 $web($app);
 $api($app);
 
