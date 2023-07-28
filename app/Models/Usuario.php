@@ -47,6 +47,27 @@ class Usuario
     }
 
     /**
+     * Busca un usuario por su iD
+    */
+    public function find(int $id, string $field = "id"): ?array
+    {
+        try {
+            $_ = $this->db->get(static::TABLE, [
+                "id", "eps", "ape1", "ape2",
+                "nom1", "nom2", "clave", "email",
+                "ciudad", "telefono", "direccion",
+                "fech_nac", "doc" => "num_histo",
+            ], [$field => $id, "activo" => 1]);
+
+            if (! $_) return null;
+
+            return $_;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Revisa si el valor de un campo ya ha sido tomado.
     */
     public function checkUnique(string $field, $val): bool

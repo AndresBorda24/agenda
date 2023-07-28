@@ -4,6 +4,7 @@ declare(strict_types=1);
 use Slim\App;
 use App\Controllers\IndexController;
 use App\Middleware\SetRouteContextMiddleware;
+use App\Middleware\StartSessionsMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 
 /**
@@ -20,5 +21,6 @@ return function(App $app) {
 
         $app->get("/login", [IndexController::class, "login"])
             ->setName("login");
-    })->add(SetRouteContextMiddleware::class);
+    })->add(StartSessionsMiddleware::class)
+    ->add(SetRouteContextMiddleware::class);
 };
