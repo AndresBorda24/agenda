@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Auth;
+use App\Contracts\UserInterface;
 use App\Views;
 use Psr\Http\Message\ResponseInterface as Response;
 

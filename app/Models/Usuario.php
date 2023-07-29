@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\UserInterface;
+use App\User;
 use Medoo\Medoo;
 
 use function App\uppercase;
@@ -49,7 +51,7 @@ class Usuario
     /**
      * Busca un usuario por su iD
     */
-    public function find(string|int $id, string $field = "id"): ?array
+    public function find(string|int $id, string $field = "id"): ?UserInterface
     {
         try {
             $_ = $this->db->get(static::TABLE, [
@@ -66,7 +68,7 @@ class Usuario
 
             if (! $_) return null;
 
-            return $_;
+            return new User($_["id"], $_);
         } catch(\Exception $e) {
             throw $e;
         }

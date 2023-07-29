@@ -7,10 +7,7 @@
     <?php if($this->auth->user() !== null): ?>
       <span class="text-light small fw-bold">
         <span class="small fw-light">Hola:</span>
-        <?= $this->auth->user()["ape1"] ?>
-        <?= $this->auth->user()["ape2"] ?>
-        <?= $this->auth->user()["nom1"] ?>
-        <?= $this->auth->user()["nom2"] ?>
+        <?= $this->auth->user()->fullName() ?>
       </span>
     <?php endif ?>
   </div>

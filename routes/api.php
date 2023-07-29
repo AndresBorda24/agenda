@@ -9,6 +9,7 @@ use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 use App\Controllers\Api\EspecialidadController;
 use App\Controllers\Api\UsuarioController;
+use App\Middleware\AuthMiddleware;
 
 /**
  * Mapea TODAS las rutas relacionadas con la API
@@ -30,7 +31,7 @@ return function(App $app) {
             $agenda->get("/mis-citas", [AgendaController::class, "getCitasAgendadas"]);
             $agenda->post("/save", [AgendaController::class, 'save'])
                 ->add(JsonBodyParserMiddleware::class);
-        });
+        })->add(AuthMiddleware::class);
 
         $api->group("/medicos", function(Group $medicos) {
             $medicos->get("/{esp}/get-available", [MedicosController::class, 'getAvailable']);
