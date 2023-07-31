@@ -4,6 +4,7 @@ declare(strict_types=1);
 use Slim\App;
 use App\Controllers\Api\AgendaController;
 use App\Controllers\Api\AuthController;
+use App\Controllers\Api\EpsController;
 use App\Controllers\Api\MedicosController;
 use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
@@ -42,5 +43,6 @@ return function(App $app) {
         });
 
         $api->post("/login", [AuthController::class, 'login']);
+        $api->get("/get-all-eps", EpsController::class);
     })->add(JsonBodyParserMiddleware::class);
 };

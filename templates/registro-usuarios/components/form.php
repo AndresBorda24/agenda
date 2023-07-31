@@ -1,5 +1,5 @@
 <form
-x-data="form"
+x-data="Form"
 data-end-point="/pacientes/registro"
 @submit.prevent="save"
 class="p-0 shadow border rounded bg-body-tertiary overflow-hidden"
@@ -116,14 +116,19 @@ autocomplete="off">
         class="form-label text-muted small m-0"
         for="eps">EPS:</label>
         <select
+        x-data="SelectAjax"
+        x-bind="bindings"
+        x-model="state.eps"
+        data-select-ep="/get-all-eps"
         id="eps"
         required
-        x-model="state.eps"
         class="form-select form-select form-select-sm">
           <option value="" hidden selected>-- Selecciona --</option>
-          <option value="EPS001">Nueva EPS</option>
-          <option value="EPS002">Sanitas S.A</option>
-          <option value="EPS003">Pijaos Salud</option>
+          <template x-for="option in options" :key="option.codigo">
+            <option
+            :value="option.codigo"
+            x-text="option.nombre"></option>
+          </template>
         </select>
       </div>
       <div class="col-12 col-md-6 p-1 p-md-2">
