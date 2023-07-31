@@ -5,7 +5,7 @@
     src="https://asotrauma.com.co/wp-content/uploads/2021/08/logo-asotrauma-w.svg"
     alt="logo-blanco">
     <?php if($this->auth->user() !== null): ?>
-      <span class="text-light small fw-bold">
+      <span class="text-light small fw-bold text-end">
         <span class="small fw-light">Hola:</span>
         <?= $this->auth->user()->fullName() ?>
       </span>
