@@ -14,9 +14,7 @@ use Slim\Routing\RouteCollectorProxy as Group;
 return function(App $app) {
     $app->group("", function(Group $app) {
         $app->group("", function(Group $app) {
-            $app->redirect("/", "/agenda", 301)
-;            // $app->get("/", [IndexController::class, "home"])
-            //     ->setName("home");
+            $app->redirect("/", "/agenda", 301);
             $app->get("/agenda", [IndexController::class, "agenda"])
                 ->setName("agenda");
 
@@ -27,10 +25,7 @@ return function(App $app) {
 
         $app->group("", function(Group $app) {
             $app->get("/registro", [IndexController::class, "registro"])
-                ->setName("vip.registro");
-            $app->get("/registro-usuarios", [IndexController::class, "registroUsuario"])
-                ->setName("pacientes.registro");
-
+                ->setName("registro");
             $app->get("/login", [IndexController::class, "login"])
                 ->setName("login");
         })->add(GuestMiddleware::class);

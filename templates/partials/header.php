@@ -28,8 +28,8 @@
         href="<?= $this->link("login") ?>">Login</a>
         <a
         class="btn btn-outline-light border-0 btn-sm
-        <?= $this->isRoute('pacientes.registro') ? 'active' : '' ?>"
-        href="<?= $this->link("pacientes.registro") ?>">Registro!</a>
+        <?= $this->isRoute('registro') ? 'active' : '' ?>"
+        href="<?= $this->link("registro") ?>">Registro!</a>
       <?php endif ?>
     </nav>
   </div>

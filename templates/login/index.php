@@ -75,7 +75,7 @@
           Olvidaste la contrase&ntilde;a?
         </button>
         <a
-        href="<?= $this->link("pacientes.registro") ?>"
+        href="<?= $this->link("registro") ?>"
         style="font-size: .75rem;"
         class="btn btn-outline-light btn-sm d-block m-auto">
           Registrate

@@ -1,3 +1,4 @@
+<div class="d-flex justify-content-center gap-3 flex-wrap">
 <template x-for="i in 3" :key="i">
   <div
   :class="{
@@ -40,3 +41,4 @@
     </div>
   </div>
 </template>
+</div>
