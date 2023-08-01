@@ -1,27 +1,15 @@
-import Alpine from 'alpinejs'
-import iziToast from 'izitoast';
+import Alpine from "alpinejs";
+import img from "../partials/img";
+import form from "../partials/form";
+import selectAjax from "../partials/select-ajax";
+import "../css/registro-vip.css";
 
-import "../css/registro.css";
+window.Alpine = Alpine;
 
-window.Alpine = Alpine
-
-document.addEventListener('alpine:init', () => {
-    Alpine.data("app", () => ({
-        state: {},
-
-        send() {
-            this.state = {};
-            iziToast.success({
-                title: 'OK',
-                message: 'Usuario Registrado.',
-                position: "topRight"
-            });
-
-            this.$nextTick(() => {
-                document.querySelector('[x-model="state.cedula"]').focus();
-            });
-        }
-    }));
+document.addEventListener("alpine:init", () => {
+    Alpine.data("Img", img);
+    Alpine.data("Form", form);
+    Alpine.data("SelectAjax", selectAjax);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
