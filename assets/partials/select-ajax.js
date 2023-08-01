@@ -4,12 +4,10 @@ import { errorAlert } from "./alerts";
 export default () => ({
     show: false,
     options: [],
-    selected: "",
     endpoint: null,
     bindings: {
-        ["x-modelable"]: "selected",
-        ["x-transition"]: "",
-        ["x-show"]: "show"
+        ["x-show"]: "show",
+        ["x-transition"]: ""
     },
 
     async init() {
