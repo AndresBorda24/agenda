@@ -19,13 +19,14 @@
       </span>
       <div class="w-100 h-100 overflow-hidden rounded shadow registro-usuario-image">
         <img
-        loading="lazy"
-        src="https://asotrauma.com.co/wp-content/uploads/2022/05/Derecho-01.jpg"
+        x-data="Img"
+        x-bind="bindings"
+        data-src="<?= $this->asset("img/Derecho-01.jpg") ?>"
         class="object-fit-cover w-100 h-100"
         alt="Cl&iacute;nica Asotrauma Imagen Registro">
       </div>
       <span class="small d-block text-center pt-2">
-        Ya tienes cuenta? Inicia Sesi&oacute;n
+        ¿Ya tienes una cuenta? Inicia Sesi&oacute;n
         <a
         href="<?= $this->link("login") ?>"
         style="font-size: .75rem;"

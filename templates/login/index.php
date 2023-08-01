@@ -37,7 +37,7 @@
       </div>
 
       <div class="p-3 border-top">
-        <label for="cedula" class="form-label small">C&eacute;dula:</label>
+        <label for="documento" class="form-label small">C&eacute;dula:</label>
         <input
         id="documento"
         x-model="state.documento"
@@ -50,7 +50,7 @@
       </div>
 
       <div class="p-3 mb-3">
-        <label for="password" class="form-label small">Contrase&ntilde;a:</label>
+        <label for="clave" class="form-label small">Contrase&ntilde;a:</label>
         <input
         id="clave"
         x-model="state.clave"

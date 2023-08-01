@@ -117,11 +117,9 @@ autocomplete="off">
         for="eps">EPS:</label>
         <select
         x-data="SelectAjax"
-        x-bind="bindings"
-        x-model="state.eps"
+        @change="state.eps = $el.value"
         data-select-ep="/get-all-eps"
-        id="eps"
-        required
+        id="eps" required
         class="form-select form-select form-select-sm">
           <option value="" hidden selected>-- Selecciona --</option>
           <template x-for="option in options" :key="option.codigo">
