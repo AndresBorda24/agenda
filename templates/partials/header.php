@@ -17,10 +17,12 @@
     <span class="fs-5"><?=  $title ?? "Cl&iacute;nica Asotrauma" ?></span>
     <nav class="nav small gap-1">
       <?php if($this->auth->user() !== null): ?>
-        <a
-        class="btn btn-outline-light border-0 btn-sm
-        <?= $this->isRoute('logout') ? 'active' : '' ?>"
-        href="<?= $this->link("logout") ?>">Cerrar Sesi&oacute;n!</a>
+        <form action="<?= $this->link("logout") ?>" method="post">
+          <button type="submit"
+          class="btn btn-danger border-0 btn-sm">
+            Cerrar Sesi&oacute;n!
+          </button>
+        </form>
       <?php else: ?>
         <a
         class="btn btn-outline-light border-0 btn-sm

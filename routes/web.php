@@ -18,7 +18,7 @@ return function(App $app) {
             $app->get("/agenda", [IndexController::class, "agenda"])
                 ->setName("agenda");
 
-            $app->get("/logout", [
+            $app->post("/logout", [
                 \App\Controllers\Api\AuthController::class, "logout"
             ])->setName("logout");
         })->add(AuthMiddleware::class);
