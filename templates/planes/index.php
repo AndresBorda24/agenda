@@ -8,7 +8,7 @@
 </head>
 <body>
   <?= $this->fetch("./partials/header.php", [
-    "title" => "Selecciona tu Plan"
+    "title" => "Planes"
   ]) ?>
 
   <div

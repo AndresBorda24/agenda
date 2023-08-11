@@ -30,8 +30,8 @@
     content: "\2714";
     color: whitesmoke;
     position: absolute;
-    border-radius: 5px;
-    background-color: green;
+    border-radius: 0 0 5px 0;
+    background-color: #077E9D;
 }
 .planes-next-btn {
     margin: 0 auto;
