@@ -17,11 +17,14 @@
   style="min-height: 60vh;">
     <h1 class="text-center text-primary mb-5">Selecciona tu plan</h1>
 
-    <form @submit.prevent>
+    <form
+    x-show="planesLoaded"
+    x-transition
+    @submit.prevent>
       <div class="planes-container row-cols-12 row-cols-md-3 row-cols-lg-4 p-4">
         <template x-for="(plan, index) in planes" :key="plan.id">
           <section
-          :class="{'planes-item-checked border-primary': selectedPlan == plan.id}"
+          :class="{'planes-item-checked border-primary': (selectedPlan == plan.id)}"
           class="bg-white d-flex flex-column border rounded-1 planes-item overflow-hidden">
 
             <?= $this->fetch("./planes/partials/plan-header.php") ?>

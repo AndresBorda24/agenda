@@ -6,6 +6,9 @@
     $ <span x-text="plan.valor_formatted"></span>
   </span>
   <span class="d-block text-center small">
-    Vigencia: <span x-text="plan.vigencia"></span> (d&iacute;as)
+    Vigencia:
+    <span
+    class="text-bg-warning badge"
+    x-text="plan.vigencia"></span> (d&iacute;as)
   </span>
 </div>

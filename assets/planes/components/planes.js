@@ -26,6 +26,13 @@ export default () => ({
     },
 
     /**
+     * Ayuda a determinar que ya se han cargado los planes.
+    */
+    get planesLoaded() {
+        return this.planes.length > 0;
+    },
+
+    /**
      * Dado que los beneficios se guardan en la base de datos como tipo texto
      * delimitado por ';' aqui lo que hacemos es convertirlos en array.
      *
