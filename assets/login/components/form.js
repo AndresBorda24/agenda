@@ -18,6 +18,7 @@ export default () => ({
 
            if (data.status) {
                 window.location.replace(data.redirect);
+                return;
            }
 
             hideLoader();

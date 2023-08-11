@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers\Api;
 
+use App\Auth;
 use App\Models\Usuario;
 use App\Controllers\Validation\CreateUserValidation;
 use App\Controllers\Validation\Exceptions\FormValidationException;
@@ -15,14 +16,18 @@ class UsuarioController
 {
     public function __construct(private Usuario $usuario) {}
 
-    public function registro(Request $request, Response $response): Response
+    public function registro(Request $request, Response $response, Auth $auth): Response
     {
         try {
             $data = $request->getParsedBody();
             CreateUserValidation::check($data, $this->usuario);
 
+            $id = $this->usuario->create($data);
+            $auth->logIn($this->usuario->find($id));
+
             return responseJSON($response, [
-                "__id" => $this->usuario->create($data)
+                "__id" => $id,
+                "redirect" => "/"
             ]);
         } catch(FormValidationException $e) {
             return responseJSON($response, [

@@ -3,6 +3,9 @@ import { showLoader, hideLoader } from "./loader";
 import { successAlert, errorAlert } from "./alerts";
 import { setInvalid, removeInvalid } from "./form-validation";
 
+/**
+ * Formulario encargado del registro de usuarios.
+*/
 export default () => ({
     state: {},
     endPoint: "",
@@ -25,13 +28,20 @@ export default () => ({
         try {
             removeInvalid();
             if (! this.checkPass()) return;
-
             showLoader();
 
-            await axios.post(process.env.API + this.endPoint, this.state)
-                .finally(hideLoader);
-            this.clearState();
+            const {data} = await axios.post(
+                process.env.API + this.endPoint,
+                this.state
+            );
 
+            if (data.redirect) {
+                window.location.replace(data.redirect);
+                return;
+            }
+
+            hideLoader();
+            this.clearState();
             successAlert();
         } catch(e) {
             if (e instanceof AxiosError) {
