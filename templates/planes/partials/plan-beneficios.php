@@ -1,8 +1,8 @@
 <ul class="d-flex flex-column my-4 small flex-grow-1 p-0">
   <template x-if="index > 0">
     <li
-    class="px-3 py-1 d-flex gap-1 text-muted small">
-      (Incluye todos los beneficios del plan anterior)
+    class="px-3 py-1 d-flex gap-1 small">
+      Incluye todos los beneficios del plan anterior más:
     </li>
   </template>
   <template x-for="b in parseBen(plan.beneficios)">
