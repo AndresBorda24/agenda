@@ -18,9 +18,20 @@ class PlanesController
     public function getAvailable(Response $response): Response
     {
         try {
-            $data = $this->db->select("planes", "*", [
-                "status" => true
-            ]);
+            $data = [];
+            $this->db->select("planes", "*", [
+                "status" => true,
+                "ORDER" => [
+                    "valor" => "ASC"
+                ]
+            ], function($plan) use (&$data) {
+                $plan["valor_formatted"] = number_format(
+                    $plan["valor"],
+                    thousands_separator: '.'
+                );
+
+                array_push($data, $plan);
+            });
 
             return responseJSON($response, $data);
         } catch(\Exception $e) {
