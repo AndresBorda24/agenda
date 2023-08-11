@@ -43,6 +43,11 @@ body {
     color: #fff!important;
     background-color: RGBA(var(--bs-primary-rgb),var(--bs-bg-opacity,1))!important;
 }
+.link-hover {
+    transition: scale 100ms;
+    display: inline-block;
+}
+.link-hover:hover {scale: 0.95}
 @media (max-width: 991px) {
     .registro-usuario-image {
         max-height: 300px;

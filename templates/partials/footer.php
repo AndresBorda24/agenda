@@ -7,7 +7,12 @@
       </li>
       <li class="list-group-item bg-transparent text-light">
         <span class="text-warning"><?= $this->fetch("./icons/mail.php") ?></span>
-        gerencia@asotrauma.com.co
+        <a
+        class="text-decoration-none text-white"
+        href="mailto:gerencia@asotrauma.com.co"
+        target="_blank">
+          gerencia@asotrauma.com.co
+        </a>
       </li>
       <li class="list-group-item bg-transparent text-light">
         <span class="text-warning"><?= $this->fetch("./icons/phone.php") ?></span>
@@ -22,16 +27,37 @@
 
     <ul class="list-group list-group-flush small text-center">
       <li class="list-group-item bg-transparent text-light">
-        <span class=""><?= $this->fetch("./icons/facebook.php") ?></span>
-        Clinicaasotrama
+        <span class="link-hover">
+          <span class=""><?= $this->fetch("./icons/facebook.php") ?></span>
+          <a
+          class="text-decoration-none text-white"
+          href="https://www.facebook.com/Clinicaasotrauma/"
+          target="_blank">
+            Clinicaasotrama
+          </a>
+        </span>
       </li>
       <li class="list-group-item bg-transparent text-light">
-        <span class="text-warning"><?= $this->fetch("./icons/insta.php") ?></span>
-        clinicaasotrauma
+        <span class="link-hover">
+          <span class="text-warning"><?= $this->fetch("./icons/insta.php") ?></span>
+          <a
+          class="text-decoration-none text-white"
+          href="https://www.instagram.com/clinicaasotrauma/"
+          target="_blank">
+            clinicaasotrauma
+          </a>
+        </span>
       </li>
       <li class="list-group-item bg-transparent text-light">
-        <span class="text-danger"><?= $this->fetch("./icons/youtube.php") ?></span>
-        Cl&iacute;nica Asotrauma
+        <span class="link-hover">
+          <span class="text-danger"><?= $this->fetch("./icons/youtube.php") ?></span>
+          <a
+          class="text-decoration-none text-white"
+          href="https://www.youtube.com/c/ClinicaAsotrauma"
+          target="_blank">
+            Cl&iacute;nica Asotrauma
+          </a>
+        </span>
       </li>
     </ul>
   </div>
