@@ -29,5 +29,8 @@ return function(App $app) {
             $app->get("/login", [IndexController::class, "login"])
                 ->setName("login");
         })->add(GuestMiddleware::class);
+
+        $app->get("/planes", [IndexController::class, "planes"]);
     })->add(SetRouteContextMiddleware::class);
+
 };
