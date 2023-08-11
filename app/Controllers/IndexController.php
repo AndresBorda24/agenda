@@ -41,4 +41,11 @@ class IndexController
             ->view
             ->render($response, "login/index.php");
     }
+
+    public function planes(Response $response): Response
+    {
+        return $this
+            ->view
+            ->render($response, "planes/index.php");
+    }
 }

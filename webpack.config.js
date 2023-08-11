@@ -1,5 +1,6 @@
 const Encore = require('@symfony/webpack-encore');
 const dotenv = require('dotenv-webpack');
+const resolve = require('path').resolve;
 const { DefinePlugin } = require('webpack');
 
 require("dotenv").config();
@@ -21,6 +22,7 @@ Encore
     .addEntry('agenda/app', './assets/agenda/index.js')
     .addEntry('login/app', './assets/login/index.js')
     .addEntry('registro/app', './assets/registro/index.js')
+    .addEntry('planes/app', './assets/planes/index.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     /*
@@ -62,6 +64,8 @@ Encore
 ;
 
 let config = Encore.getWebpackConfig();
-config.resolve.alias["vue"] = "vue/dist/vue.esm-bundler.js";
+config.resolve.alias = {
+    '@': resolve(__dirname, './assets')
+};
 
 module.exports = config;

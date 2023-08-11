@@ -9,6 +9,7 @@ use App\Controllers\Api\MedicosController;
 use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 use App\Controllers\Api\EspecialidadController;
+use App\Controllers\Api\PlanesController;
 use App\Controllers\Api\UsuarioController;
 use App\Middleware\AuthMiddleware;
 
@@ -36,6 +37,10 @@ return function(App $app) {
 
         $api->group("/medicos", function(Group $medicos) {
             $medicos->get("/{esp}/get-available", [MedicosController::class, 'getAvailable']);
+        });
+
+        $api->group("/planes", function(Group $medicos) {
+            $medicos->get("/get-available", [PlanesController::class, 'getAvailable']);
         });
 
         $api->group("/pacientes", function(Group $paciente) {
