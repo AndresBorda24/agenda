@@ -1,10 +1,9 @@
 import "@/css/planes.css";
-import Alpine  from "alpinejs";
+import Alpine from "alpinejs";
+import planes from "./components/planes"
 
 document.addEventListener('alpine:init', () => {
-    Alpine.data("planes", () => ({
-
-    }));
+    Alpine.data("Planes", planes);
 });
 
 window.Alpine = Alpine;

@@ -12,64 +12,22 @@
   ]) ?>
 
   <div
-  x-data="{ plan: '' }"
+  x-data="Planes"
   class="container my-5"
   style="min-height: 60vh;">
     <h1 class="text-center text-primary mb-5">Selecciona tu plan</h1>
 
     <form @submit.prevent>
       <div class="planes-container row-cols-12 row-cols-md-3 row-cols-lg-4 p-4">
-        <template x-for="x in 3">
+        <template x-for="(plan, index) in planes" :key="plan.id">
           <section
-          :class="{'planes-item-checked border-primary': plan == x}"
+          :class="{'planes-item-checked border-primary': selectedPlan == plan.id}"
           class="bg-white d-flex flex-column border rounded-1 planes-item overflow-hidden">
 
-            <div class="p-3 border-bottom">
-              <span class="d-block text-center text-primary fs-5">
-                Nombre del plan
-              </span>
-              <span class="text-secondary d-block text-center fs-1 fw-bold">
-                $ 80.000
-              </span>
-              <span class="d-block text-center">Vigencia del plan</span>
-            </div>
+            <?= $this->fetch("./planes/partials/plan-header.php") ?>
+            <?= $this->fetch("./planes/partials/plan-beneficios.php") ?>
+            <?= $this->fetch("./planes/partials/plan-footer.php") ?>
 
-            <ul class="d-flex flex-column my-4 small flex-grow-1 p-0">
-              <template x-if="x > 1">
-                <li
-                class="px-3 py-1 d-flex gap-1 text-muted small">
-                  (Incluye todos los beneficios del plan anterior)
-                </li>
-              </template>
-              <template x-for="z in 5">
-                <li class="px-3 py-1 d-flex gap-1">
-                  <span class="text-primary">
-                    <?= $this->fetch("./icons/dbl-check.php") ?>
-                  </span>
-                  <span class="flex-grow-1">
-                    Beneficios # <span x-text="x * z"></span>
-                  </span>
-                </li>
-              </template>
-            </ul>
-
-            <div class="p-4 border-top bg-primary">
-              <input
-              type="radio"
-              name="plan"
-              x-model="plan"
-              :id="x"
-              required
-              :value="x"
-              class="visually-hidden">
-
-              <label
-              :for="x"
-              role="button"
-              class="btn btn-warning btn-sm d-block w-100 mx-auto shadow rounded-5">
-                Elegir
-              </label>
-            </div>
           </section>
         </template>
       </div>
