@@ -5,35 +5,42 @@ namespace App\Controllers\Api;
 
 use function App\responseJSON;
 
-use Medoo\Medoo;
+use App\Models\Plan;
+use App\Services\MercadoPagoService;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class PlanesController
 {
     public function __construct(
-        private Medoo $db
+        private Plan $plan
     ){}
 
     /** Obtiene todas las especialidades con citas disponibles */
     public function getAvailable(Response $response): Response
     {
         try {
-            $data = [];
-            $this->db->select("planes", "*", [
-                "status" => true,
-                "ORDER" => [
-                    "valor" => "ASC"
-                ]
-            ], function($plan) use (&$data) {
-                $plan["valor_formatted"] = number_format(
-                    $plan["valor"],
-                    thousands_separator: '.'
-                );
+            return responseJSON($response, $this->plan->getAll());
+        } catch(\Exception $e) {
+            $data = [ "error" => $e->getMessage() ];
+            return responseJSON($response, $data, 500);
+        }
+    }
 
-                array_push($data, $plan);
-            });
+    /**
+     * Antes de continuar con el pago se debe crear una "Preferencia".
+    */
+    public function createPreference(
+        Response $response,
+        MercadoPagoService $mp,
+        int $planId
+    ): Response {
+        try {
+            $plan = $this->plan->find($planId);
+            $preferenceId = $mp->genPreference($plan);
 
-            return responseJSON($response, $data);
+            return responseJSON($response, [
+                "id" => $preferenceId
+            ]);
         } catch(\Exception $e) {
             $data = [ "error" => $e->getMessage() ];
             return responseJSON($response, $data, 500);
