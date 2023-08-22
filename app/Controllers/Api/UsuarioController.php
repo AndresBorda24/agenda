@@ -27,7 +27,7 @@ class UsuarioController
 
             return responseJSON($response, [
                 "__id" => $id,
-                "redirect" => "/"
+                "redirect" => "/planes"
             ]);
         } catch(FormValidationException $e) {
             return responseJSON($response, [
