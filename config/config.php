@@ -25,5 +25,9 @@ return [
         'secure'     => false,
         'httponly'   => true,
         'samesite'   => 'lax',
+    ],
+    "mp" => [
+        "public" => $_ENV["MP_PUBLIC"],
+        "token"  => $_ENV["MP_TOKEN"]
     ]
 ];

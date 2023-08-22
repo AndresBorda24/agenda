@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?= $this->loadAssets("planes/app") ?>
+
+  <!-- Mercado Pago -->
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
   <title>Planes</title>
 </head>
 <body>
@@ -44,6 +47,8 @@
       </div>
     </form>
 
+    <!-- Esto es de mercado pago -->
+    <div id="wallet_container"></div>
 
     <a
     class="text-muted small"

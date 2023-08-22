@@ -1,5 +1,5 @@
-import axios from "axios";
 import { errorAlert } from "@/partials/alerts"
+import { getPlanes } from "../requests";
 
 export default () => ({
     planes: [],
@@ -14,11 +14,7 @@ export default () => ({
     */
     async getPlanes() {
         try {
-            const { data } = await axios.get(
-                process.env.API + "/planes/get-available"
-            );
-
-            this.planes = data;
+            this.planes = await getPlanes();
         } catch(e) {
             errorAlert();
             console.error("Get Planes: ", e);
