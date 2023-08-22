@@ -21,10 +21,10 @@
     x-show="planesLoaded"
     x-transition
     @submit.prevent>
-      <div class="planes-container row-cols-12 row-cols-md-3 row-cols-lg-4 p-4">
+      <div class="planes-container row-cols-12 row-cols-md-4  p-4">
         <template x-for="(plan, index) in planes" :key="plan.id">
           <section
-          :class="{'planes-item-checked border-primary': (selectedPlan == plan.id)}"
+          :class="{'planes-item-checked border-primary': (selectedPlan == plan.id) }"
           class="bg-white d-flex flex-column border rounded-1 planes-item overflow-hidden">
 
             <?= $this->fetch("./planes/partials/plan-header.php") ?>
@@ -43,6 +43,13 @@
         </button>
       </div>
     </form>
+
+
+    <a
+    class="text-muted small"
+    href="<?= $this->link("agenda") ?>">
+      Cancelar (Continuar con el plan gratuito)
+    </a>
   </div>
 
   <?= $this->fetch("./partials/footer.php") ?>
