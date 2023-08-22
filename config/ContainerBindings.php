@@ -5,6 +5,7 @@ use function DI\create;
 
 use App\Config;
 use App\DataObjects\SessionConfig;
+use App\Services\MercadoPagoService;
 use Medoo\Medoo;
 use Slim\Views\PhpRenderer;
 
@@ -17,6 +18,9 @@ return [
 
     Medoo::class => fn(Config $c) =>
         new Medoo($c->get("db")),
+
+    MercadoPagoService::class => fn(Config $c) =>
+        new MercadoPagoService($c),
 
     SessionConfig::class => fn(Config $c) => new SessionConfig(
         $c->get("session.name"),
