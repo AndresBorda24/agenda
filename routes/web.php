@@ -6,6 +6,7 @@ use App\Controllers\IndexController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use App\Middleware\SetRouteContextMiddleware;
+use Psr\Http\Message\ServerRequestInterface;
 use Slim\Routing\RouteCollectorProxy as Group;
 
 /**
@@ -31,6 +32,13 @@ return function(App $app) {
         })->add(GuestMiddleware::class);
 
         $app->get("/planes", [IndexController::class, "planes"]);
+        $app->get("/planes/feedback", function(ServerRequestInterface $request) {
+            $q = $request->getQueryParams();
+
+            echo "<pre>";
+            print_r($q);
+            die;
+        });
     })->add(SetRouteContextMiddleware::class);
 
 };

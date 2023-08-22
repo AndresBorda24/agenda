@@ -41,6 +41,9 @@ return function(App $app) {
 
         $api->group("/planes", function(Group $medicos) {
             $medicos->get("/get-available", [PlanesController::class, 'getAvailable']);
+            $medicos->post("/{planId:[0-9]+}/create-preference",
+                [PlanesController::class, 'createPreference']
+            );
         });
 
         $api->group("/pacientes", function(Group $paciente) {
