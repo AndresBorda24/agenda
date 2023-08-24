@@ -7,7 +7,7 @@
 
   <!-- Mercado Pago -->
   <script src="https://sdk.mercadopago.com/js/v2"></script>
-  <script src="/mp.js"></script>
+  <!-- <script src="/mp.js"></script> -->
   <title>Planes</title>
 </head>
 <body>
@@ -15,42 +15,29 @@
     "title" => "Planes"
   ]) ?>
 
-  <div
-  x-data="Planes"
+  <section
+  x-data="Tabs"
+  x-bind="events"
   class="container my-5"
   style="min-height: 60vh;">
-    <h1 class="text-center text-primary mb-5">Selecciona tu plan</h1>
+    <section x-cloak x-show="tab === 1" x-transition.opacity>
+      <?= $this->fetch("./planes/partials/plan/component.php") ?>
+    </section>
 
-    <form
-    x-show="planesLoaded"
-    x-transition
-    @submit.prevent="confirmPlan">
-      <div class="planes-container row-cols-12 row-cols-md-4  p-4">
-        <template x-for="(plan, index) in planes" :key="plan.id">
-          <?= $this->fetch("./planes/partials/plan.php") ?>
-        </template>
+    <section x-cloak x-show="tab === 2" x-transition.opacity>
+      <h2 class="text-center text-primary">Selecciona un medio de pago.</h2>
+      <div
+      id="medios-de-pago"
+      class="d-flex flex-column gap-3 my-4 mx-auto"
+      style="max-width: 400px;">
+        <div x-data="mp" x-bind="events"></div>
+        <div id="mercadopago"></div>
       </div>
-
-      <div class="mt-5">
-        <button
-        type="submit"
-        class="planes-next-btn">
-          Continuar
-        </button>
-      </div>
-    </form>
-
-    <!-- Esto es de mercado pago -->
-    <div x-data="mp" x-bind="events">
-      <div id="wallet_container"></div>
-    </div>
-
-    <a
-    class="text-muted small"
-    href="<?= $this->link("agenda") ?>">
-      Cancelar (Continuar con el plan gratuito)
-    </a>
-  </div>
+      <button
+      class="planes-next-btn py-2 text-bg-danger"
+      @click="prev">Cancelar</button>
+    </section>
+  </section>
 
   <?= $this->fetch("./partials/footer.php") ?>
   <?= $this->fetch("./partials/loader.php") ?>
