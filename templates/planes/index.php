@@ -7,6 +7,7 @@
 
   <!-- Mercado Pago -->
   <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <script src="/mp.js"></script>
   <title>Planes</title>
 </head>
 <body>
@@ -23,18 +24,10 @@
     <form
     x-show="planesLoaded"
     x-transition
-    @submit.prevent>
+    @submit.prevent="confirmPlan">
       <div class="planes-container row-cols-12 row-cols-md-4  p-4">
         <template x-for="(plan, index) in planes" :key="plan.id">
-          <section
-          :class="{'planes-item-checked border-primary': (selectedPlan == plan.id) }"
-          class="bg-white d-flex flex-column border rounded-1 planes-item overflow-hidden">
-
-            <?= $this->fetch("./planes/partials/plan-header.php") ?>
-            <?= $this->fetch("./planes/partials/plan-beneficios.php") ?>
-            <?= $this->fetch("./planes/partials/plan-footer.php") ?>
-
-          </section>
+          <?= $this->fetch("./planes/partials/plan.php") ?>
         </template>
       </div>
 
@@ -48,7 +41,9 @@
     </form>
 
     <!-- Esto es de mercado pago -->
-    <div id="wallet_container"></div>
+    <div x-data="mp" x-bind="events">
+      <div id="wallet_container"></div>
+    </div>
 
     <a
     class="text-muted small"
