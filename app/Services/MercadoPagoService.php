@@ -35,9 +35,9 @@ class MercadoPagoService
         $preference->items = array($item);
 
         $preference->back_urls = array(
-            "success" => $this->config->get("app.url") . "/planes/feedback",
-            "failure" => $this->config->get("app.url") . "/planes/feedback",
-            "pending" => $this->config->get("app.url") . "/planes/feedback"
+            "success" => $this->config->get("app.url") . "planes/feedback",
+            "failure" => $this->config->get("app.url") . "planes/feedback",
+            "pending" => $this->config->get("app.url") . "planes/feedback"
         );
         $preference->auto_return = "approved";
 
