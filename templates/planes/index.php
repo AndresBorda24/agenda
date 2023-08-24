@@ -7,7 +7,6 @@
 
   <!-- Mercado Pago -->
   <script src="https://sdk.mercadopago.com/js/v2"></script>
-  <!-- <script src="/mp.js"></script> -->
   <title>Planes</title>
 </head>
 <body>
