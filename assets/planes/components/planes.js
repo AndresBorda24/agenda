@@ -1,5 +1,6 @@
+import { getPlanes, createPreference } from "../requests";
 import { errorAlert } from "@/partials/alerts"
-import { getPlanes } from "../requests";
+import { showLoader } from "@/partials/loader";
 
 export default () => ({
     planes: [],
@@ -14,7 +15,23 @@ export default () => ({
     */
     async getPlanes() {
         try {
-            this.planes = await getPlanes();
+            showLoader();
+            this.planes = await getPlanes(true);
+        } catch(e) {
+            errorAlert();
+            console.error("Get Planes: ", e);
+        }
+    },
+
+    /**
+     * Confirma el inicio del proceso de pago
+    */
+    async confirmPlan() {
+        try {
+            showLoader();
+            const data = await createPreference( this.selectedPlan, true );
+            this.$dispatch("start-checkin-process", data.id);
+            this.$dispatch("next-tab");
         } catch(e) {
             errorAlert();
             console.error("Get Planes: ", e);
