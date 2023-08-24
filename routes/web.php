@@ -32,13 +32,7 @@ return function(App $app) {
         })->add(GuestMiddleware::class);
 
         $app->get("/planes", [IndexController::class, "planes"]);
-        $app->get("/planes/feedback", function(ServerRequestInterface $request) {
-            $q = $request->getQueryParams();
-
-            echo "<pre>";
-            print_r($q);
-            die;
-        });
+        $app->get("/planes/feedback",[IndexController::class, "planesResponse"]);
     })->add(SetRouteContextMiddleware::class);
 
 };

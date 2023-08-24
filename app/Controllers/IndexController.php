@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Auth;
 use App\Views;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 class IndexController
 {
@@ -47,5 +48,14 @@ class IndexController
         return $this
             ->view
             ->render($response, "planes/index.php");
+    }
+
+    public function planesResponse(Request $request, Response $response): Response
+    {
+        $data = $request->getQueryParams();
+
+        return $this
+            ->view
+            ->render($response, "planes/finished.php", $data);
     }
 }
