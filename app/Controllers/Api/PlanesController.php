@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controllers\Api;
 
-use function App\responseJSON;
-
 use App\Models\Plan;
 use App\Services\MercadoPagoService;
 use Psr\Http\Message\ResponseInterface as Response;
+
+use function App\responseJSON;
 
 class PlanesController
 {
@@ -35,11 +35,13 @@ class PlanesController
         int $planId
     ): Response {
         try {
-            $plan = $this->plan->find($planId);
-            $preferenceId = $mp->genPreference($plan);
+            $plan   = $this->plan->find($planId);
+            $prefId = $mp->genPreference($plan);
+
+            if (!$prefId) throw new \Exception("Couldn generate preference");
 
             return responseJSON($response, [
-                "id" => $preferenceId
+                "id" => $prefId
             ]);
         } catch(\Exception $e) {
             $data = [ "error" => $e->getMessage() ];

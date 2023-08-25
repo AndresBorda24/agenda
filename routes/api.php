@@ -39,9 +39,12 @@ return function(App $app) {
             $medicos->get("/{esp}/get-available", [MedicosController::class, 'getAvailable']);
         });
 
-        $api->group("/planes", function(Group $medicos) {
-            $medicos->get("/get-available", [PlanesController::class, 'getAvailable']);
-            $medicos->post("/{planId:[0-9]+}/create-preference",
+        $api->group("/planes", function(Group $planes) {
+            $planes->get("/get-available", [PlanesController::class, 'getAvailable']);
+            $planes->post("/{planId:[0-9]+}/create-preference",
+                [PlanesController::class, 'createPreference']
+            );
+            $planes->post("/info-pagos",
                 [PlanesController::class, 'createPreference']
             );
         });

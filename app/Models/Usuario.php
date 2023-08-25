@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Contracts\UserInterface;
 use App\User;
 use Medoo\Medoo;
+use App\Contracts\UserInterface;
+use App\DataObjects\PlanDTO;
 
 use function App\uppercase;
 
@@ -85,6 +86,23 @@ class Usuario
             ]);
 
             return $total === 0;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Actualiza la informacion del plan para un usuario.
+    */
+    public function setPlan(int $id, PlanDTO $plan): bool
+    {
+        try {
+            $_ = $this->db->update(self::TABLE, [
+                "plan_id" => $plan->id,
+                "plan_start" => Medoo::raw("CURDATE()")
+            ], ["id" => $id]);
+
+            return (bool) $_->rowCount();
         } catch(\Exception $e) {
             throw $e;
         }
