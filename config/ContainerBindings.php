@@ -19,9 +19,6 @@ return [
     Medoo::class => fn(Config $c) =>
         new Medoo($c->get("db")),
 
-    MercadoPagoService::class => fn(Config $c) =>
-        new MercadoPagoService($c),
-
     SessionConfig::class => fn(Config $c) => new SessionConfig(
         $c->get("session.name"),
         $c->get("session.secure"),
