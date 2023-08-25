@@ -74,4 +74,13 @@ class User implements UserInterface
 
         return (int) $edad->format('%y');
     }
+
+    public function hasPlan(bool $strict = false): bool
+    {
+        $hasPlan = $this->getData("plan_id") !== null;
+        if ( $strict ) {
+            return $hasPlan && ($this->getData("plan_start") !== null);
+        }
+        return $hasPlan;
+    }
 }

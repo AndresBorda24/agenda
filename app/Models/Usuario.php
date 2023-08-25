@@ -58,6 +58,7 @@ class Usuario
         try {
             $_ = $this->db->get(static::TABLE, [
                 "id", "eps", "ape1", "ape2",
+                "plan_id", "plan_start",
                 "nom1", "nom2", "clave", "email",
                 "ciudad", "telefono", "direccion",
                 "fech_nac", "num_histo (documento)",

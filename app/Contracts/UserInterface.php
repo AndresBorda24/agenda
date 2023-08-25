@@ -24,4 +24,11 @@ interface UserInterface
      * @return int Devuelve la edad caculada del paciente.
     */
     public function edad(): ?int;
+
+    /**
+     * Determina si el usuario logeado tiene un plan.
+     *
+     * @param bool $strict Tener en cuenta si esta pendiente o no.
+    */
+    public function hasPlan(bool $strict = false): bool;
 }
