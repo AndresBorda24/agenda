@@ -17,11 +17,12 @@
   style="min-height: 60vh;">
     <?= $this->fetch( match($data["status"]) {
       \App\Enums\MpStatus::APROVADO->value
-        => "./planes/partials/pago-aprobado.php",
+              => "./planes/partials/pago-aprobado.php",
       \App\Enums\MpStatus::PENDIENTE->value
-        => "./planes/partials/pago-pendiente.php",
+              => "./planes/partials/pago-pendiente.php",
       \App\Enums\MpStatus::RECHAZADO->value
-        => "./planes/partials/pago-rechazado.php",
+              => "./planes/partials/pago-rechazado.php",
+      "error" => "./planes/partials/pago-error.php",
       default => "./planes/partials/pago-pendiente.php"
     }) ?>
   </div>

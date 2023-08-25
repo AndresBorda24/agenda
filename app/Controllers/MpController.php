@@ -28,11 +28,20 @@ class MpController
         Response $response,
         PagoService $pagoService
     ): Response {
-        $data = $request->getQueryParams();
-        $pagoService->register($data);
+        try {
+            throw new \Exception("Error Processing Request", 1);
 
-        return $this
-            ->view
-            ->render($response, "planes/finished.php", $data);
+            $data = $request->getQueryParams();
+            $pagoService->register($data);
+
+            return $this
+                ->view
+                ->render($response, "planes/finished.php", $data);
+        } catch(\Exception) {
+            $data = ["status" => "error"];
+            return $this
+                ->view
+                ->render($response, "planes/finished.php", $data);
+        }
     }
 }
