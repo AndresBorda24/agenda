@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\MpStatus;
 use Medoo\Medoo;
+use App\Enums\MpStatus;
 
 class Pago
 {
@@ -22,6 +22,7 @@ class Pago
         try {
             $this->db->insert(self::TABLE, [
                 "id" => $data["id"],
+                "error" => $data["error"],
                 "status" => $status->value,
                 "usuario_id" => $data["usuario_id"]
             ], 'id');
