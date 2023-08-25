@@ -35,7 +35,7 @@ class Usuario
                 "telefono"  => trim($data["telefono"]),
                 "direccion" => uppercase($data["direccion"]),
                 "num_histo" => trim($data["num_histo"]),
-                "fech_nac"  => trim($data["num_histo"]),
+                "fech_nac"  => trim($data["fech_nac"]),
 
                 // Valores por defecto
                 "activo" => 1,
