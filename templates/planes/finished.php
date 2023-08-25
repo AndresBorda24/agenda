@@ -15,17 +15,15 @@
   x-data="Planes"
   class="container my-5"
   style="min-height: 60vh;">
-    <pre>
-      <?= print_r($data) ?>
-    </pre>
-    <?php if($data["status"] === \App\Enums\MpStatus::APROVADO->value): ?>
-      <?= $this->fetch("./planes/partials/pago-aprobado.php") ?>
-    <?php elseif($data["status"] === \App\Enums\MpStatus::PENDIENTE->value): ?>
-      <?= $this->fetch("./planes/partials/pago-pendiente.php") ?>
-    <?php elseif($data["status"] === \App\Enums\MpStatus::RECHAZADO->value): ?>
-      <?= $this->fetch("./planes/partials/pago-rechazado.php") ?>
-    <?php else: ?>
-    <?php endif ?>
+    <?= $this->fetch( match($data["status"]) {
+      \App\Enums\MpStatus::APROVADO->value
+        => "./planes/partials/pago-aprobado.php",
+      \App\Enums\MpStatus::PENDIENTE->value
+        => "./planes/partials/pago-pendiente.php",
+      \App\Enums\MpStatus::RECHAZADO->value
+        => "./planes/partials/pago-rechazado.php",
+      default => "./planes/partials/pago-pendiente.php"
+    }) ?>
   </div>
 
   <?= $this->fetch("./partials/footer.php") ?>
