@@ -7,6 +7,7 @@ use App\User;
 use Medoo\Medoo;
 use App\Contracts\UserInterface;
 use App\DataObjects\PlanDTO;
+use App\Enums\MpStatus;
 
 use function App\uppercase;
 
@@ -94,13 +95,17 @@ class Usuario
     /**
      * Actualiza la informacion del plan para un usuario.
     */
-    public function setPlan(int $id, PlanDTO $plan): bool
+    public function setPlan(int $id, PlanDTO $plan, MpStatus $st): bool
     {
         try {
+            $_ = ($st === MpStatus::PENDIENTE)
+                ? Medoo::raw("NULL")
+                : Medoo::raw("CURDATE()");
+
             $_ = $this->db->update(self::TABLE, [
-                "plan_id" => $plan->id,
-                "plan_start" => Medoo::raw("CURDATE()")
-            ], ["id" => $id]);
+                "plan_id"    => $plan->id,
+                "plan_start" => $_
+            ], [ "id" => $id ]);
 
             return (bool) $_->rowCount();
         } catch(\Exception $e) {

@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Models\Pago;
 use App\Models\Plan;
 use App\Models\Usuario;
+use App\Enums\MpStatus;
 
 /**
  * Registra el pago y, en caso que sea un pago exitoso, actualiza la info del
@@ -32,11 +33,11 @@ class PagoService
             $pref = $this
                 ->mercadoPagoService
                 ->getPreference($data["preference_id"]);
-            $status = \App\Enums\MpStatus::from($data["status"]);
+            $status = MpStatus::from($data["status"]);
 
             $metadata = (array) $pref->metadata;
-            if ($status == \App\Enums\MpStatus::APROVADO) {
-                $updateError = $this->updateUser($metadata);
+            if ( in_array($status, [MpStatus::APROVADO, MpStatus::PENDIENTE]) ) {
+                $updateError = $this->updateUser($metadata, $status);
             }
 
             $this->pago->store([
@@ -56,11 +57,11 @@ class PagoService
      * usuario, viene de la metadata de la preferencia.
      * @return null|array Retorna la info del error, si la hay.
     */
-    private function updateUser(array $data): ?string
+    private function updateUser(array $data, MpStatus $st): ?string
     {
         try {
             $plan = $this->plan->find($data["plan_id"]);
-            $this->usuario->setPlan($data["user"], $plan);
+            $this->usuario->setPlan($data["user"], $plan, $st);
 
             return null;
         } catch(\Exception $e) {

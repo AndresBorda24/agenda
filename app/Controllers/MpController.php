@@ -29,8 +29,6 @@ class MpController
         PagoService $pagoService
     ): Response {
         try {
-            throw new \Exception("Error Processing Request", 1);
-
             $data = $request->getQueryParams();
             $pagoService->register($data);
 
