@@ -6,6 +6,8 @@ namespace App\Services;
 use App\Auth;
 use App\Config;
 use MercadoPago\SDK;
+use App\Enums\MpStatus;
+use MercadoPago\Payment;
 use MercadoPago\Preference;
 use App\DataObjects\PlanDTO;
 use App\Contracts\UserInterface;
@@ -65,5 +67,14 @@ class MercadoPagoService
     public function getPreference(string $prefId)
     {
         return Preference::find_by_id($prefId);
+    }
+
+    /**
+     * @param string $id El id lo obtenemos cuando se completa el pago,
+     * independientemente del estado.
+    */
+    public function getPayment(string $id)
+    {
+        return Payment::find_by_id($id);
     }
 }

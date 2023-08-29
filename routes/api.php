@@ -9,6 +9,7 @@ use App\Controllers\Api\MedicosController;
 use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 use App\Controllers\Api\EspecialidadController;
+use App\Controllers\Api\MercadoPagoController;
 use App\Controllers\Api\PlanesController;
 use App\Controllers\Api\UsuarioController;
 use App\Middleware\AuthMiddleware;
@@ -51,6 +52,11 @@ return function(App $app) {
 
         $api->group("/pacientes", function(Group $paciente) {
             $paciente->post("/registro", [UsuarioController::class, 'registro']);
+        });
+
+        $api->group("/mp", function(Group $mp) {
+            $mp->get("/{id}/pago", [MercadoPagoController::class, "getPayment"]);
+            $mp->put("/pago/{id}/set-status/{status}", [MercadoPagoController::class, "setPaymentStatus"]);
         });
 
         $api->post("/login", [AuthController::class, 'login']);
