@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controllers\Api;
 
-use App\Enums\MpStatus;
 use App\Services\MercadoPagoService;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 use function App\responseJSON;
 
@@ -25,21 +23,5 @@ class MercadoPagoController
         }
 
         return responseJSON($response, false);
-    }
-
-    public function setPaymentStatus(Response $response, string $id, string $status): Response
-    {
-        try {
-            $status = MpStatus::from($status);
-
-            return responseJSON(
-                $response,
-                $this->mercadoPagoService->setPaymentStatus($id, $status)
-            );
-        } catch(\Exception $e) {
-            return responseJSON($response, [
-                "error" => $e->getMessage()
-            ], 422);
-        }
     }
 }

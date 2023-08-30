@@ -13,7 +13,9 @@ class NoPlanMiddleware implements MiddlewareInterface
 {
     public function process(Request $request, RequestHandler $handler): Response
     {
+        /** @var \App\Contracts\UserInterface $user */
         $user = $request->getAttribute("user");
+
         if (! $user->hasPlan()) {
             return $handler->handle($request);
         }

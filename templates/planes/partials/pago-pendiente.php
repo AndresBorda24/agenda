@@ -11,3 +11,6 @@ style="max-width: 80vw;">
 <p
 style="font-size: 1.5rem;"
 class="text-center"> Estamos esperando a que se confirme el pago! </p>
+<a
+class="d-block mx-auto text-center"
+href="<?= $this->link("agenda") ?>">Ir a Home</a>

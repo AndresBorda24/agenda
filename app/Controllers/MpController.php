@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Enums\MpStatus;
 use App\Views;
 use App\Models\Plan;
 use App\Models\Usuario;
@@ -41,5 +42,14 @@ class MpController
                 ->view
                 ->render($response, "planes/finished.php", $data);
         }
+    }
+
+    public function pending(Response $response): Response
+    {
+        return $this->view->render(
+            $response,
+            "planes/finished.php",
+            ["status" => MpStatus::PENDIENTE->value]
+        );
     }
 }

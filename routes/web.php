@@ -26,6 +26,9 @@ return function(App $app) {
             $app->post("/logout", [AuthController::class, "logout"])
                 ->setName("logout");
 
+            $app->get("/planes/pending", [MpController::class, "pending"])
+                ->setName("planes.pending");
+
             $app->group("/planes", function(Group $app) {
                 $app->get("", [IndexController::class, "planes"])
                     ->setName("planes");
