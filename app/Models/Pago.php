@@ -26,9 +26,9 @@ class Pago
             }
 
             $this->db->insert(self::TABLE, [
-                "id" => $data["id"],
                 "error" => $data["error"],
                 "status" => $status->value,
+                "payment_id" => $data["id"],
                 "usuario_id" => $data["usuario_id"]
             ], 'id');
 

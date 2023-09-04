@@ -36,7 +36,7 @@ class MpController
             return $this
                 ->view
                 ->render($response, "planes/finished.php", $data);
-        } catch(\Exception) {
+        } catch(\Exception $e) {
             $data = ["status" => "error"];
             return $this
                 ->view
