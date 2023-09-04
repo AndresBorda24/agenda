@@ -1,12 +1,11 @@
 <div x-data x-cloak
-class="border my-2 p-2 small bg-white"
+class="my-2 p-2 small bg-primary rounded"
 x-show="Object.keys( Alpine.store('doctores') )[0]">
-  <h6 class="text-center text-muted">Medicos:</h6>
+  <h6 class="text-center text-light">Medicos:</h6>
   <div
-  class="d-grid gap-1 small"
-  style="grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));">
+  class="d-grid gap-1 small">
     <template x-for="med in Object.keys( Alpine.store('doctores') )">
-      <div class="d-flex flex-column align-items-center small">
+      <div class="d-flex align-items-center small">
         <div
         class="rounded-bottom m-1 p-2 border bg-opacity-75"
         style="aspect-ratio: 1;"
@@ -14,8 +13,7 @@ x-show="Object.keys( Alpine.store('doctores') )[0]">
         + `border-${Alpine.store('doctores')[ med ].color}`
         "></div>
         <span
-        class="text-center small"
-        :class="`text-${Alpine.store('doctores')[ med ].color}`"
+        class="text-light"
         x-text="Alpine.store('doctores')[ med ].nombre"></span>
       </div>
     </template>

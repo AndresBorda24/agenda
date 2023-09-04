@@ -13,7 +13,7 @@
 
   <main class="d-flex p-3 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
-    <div class="flex-grow-1 px-2">
+    <div class="flex-grow-1 px-md-2">
       <div x-data="fetchData" class="p-1" x-bind="events">
         <select
         class="form-select form-select-sm rounded-0"
@@ -27,9 +27,9 @@
         </select>
       </div>
 
-      <section class="d-flex">
+      <section class="d-md-flex">
         <?= $this->fetch("./agenda/show-available-doctors.php") ?>
-        <div class="flex-grow-1 p-2 small">
+        <div class="flex-grow-1 p-md-2 small">
           <div class="border bg-body">
             <!-- Controles -->
             <?= $this->fetch("./agenda/calendar/controllers.php") ?>
