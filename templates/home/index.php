@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?= $this->loadAssets("home/app") ?>
-  <title>Inicio de Sesi&oacute;n</title>
+  <title>Home</title>
 </head>
 <body>
   <?= $this->fetch("./partials/header.php", [
-    "title" => "Panel"
+    "title" => "Home"
   ]) ?>
 
   <div class="d-flex p-3 main-container">

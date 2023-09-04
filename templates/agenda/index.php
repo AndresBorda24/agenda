@@ -8,7 +8,7 @@
 </head>
 <body>
   <?= $this->fetch("./partials/header.php", [
-    "title" => "Agendamiento Web"
+    "title" => "Agendamiento Citas"
   ]) ?>
 
   <main class="d-flex p-3 main-container">
@@ -27,7 +27,7 @@
         </select>
       </div>
 
-      <section class="d-md-flex">
+      <section class="d-md-flex align-items-baseline">
         <?= $this->fetch("./agenda/show-available-doctors.php") ?>
         <div class="flex-grow-1 p-md-2 small">
           <div class="border bg-body">
