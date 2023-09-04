@@ -1,5 +1,5 @@
 <aside
-x-data="{ show: true }" @click.outside="show = false"
+x-data="{ show: false }" @click.outside="show = false"
 x-transition.opacity
 x-show="show"
 class="bg-secondary rounded shadow-lg aside d-md-flex">
@@ -29,10 +29,19 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
     <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
       <?= $this->fetch("./icons/plans.php") ?> Planes
     </a>
-    <a href="<?= $this->link("agenda") ?>"
-    <?= $this->isRoute("agenda") ? 'class="is-active"' : '' ?>>
-      <?= $this->fetch("./icons/agenda.php") ?> Agendamiento
-    </a>
+    <div class="border-top border-warning-subtle">
+     <span class="d-block small text-warning p-2"> Citas </span>
+     <div class="ps-4 d-flex flex-column gap-2">
+      <a href="<?= $this->link("agenda") ?>"
+      <?= $this->isRoute("agenda") ? 'class="is-active"' : '' ?>>
+        <?= $this->fetch("./icons/agenda.php") ?> Agendamiento
+      </a>
+      <a href="<?= $this->link("agenda") ?>"
+      <?= $this->isRoute("usuario.citas") ? 'class="is-active"' : '' ?>>
+        <?= $this->fetch("./icons/agenda.php") ?> Mis citas
+      </a>
+     </div>
+    </div>
   </div>
 
   <form action="/logout" method="post">
