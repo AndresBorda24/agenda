@@ -26,7 +26,7 @@ class IndexController
     {
         return $this
             ->view
-            ->render($response, "agenda/indes.php");
+            ->render($response, "agenda/index.php");
     }
 
     public function registro(Response $response): Response
