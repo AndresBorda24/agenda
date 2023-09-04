@@ -27,7 +27,7 @@ body {
     background-size: 29px 29px;
     background-color: #f7f7f7;
 }
-.main-container{ height: calc(100vh - 328px); }
+.main-container{ min-height: calc(100vh - 328px); }
 .bg-blue-50{ background-color: #e4f0f6 !important}
 .bg-blue-100{ background-color: #bcd9ea !important}
 .bg-blue-200{ background-color: #8bbdd9 !important}
@@ -55,11 +55,15 @@ body {
     gap: 5px;
     width: 30%;
     height: auto;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 60px;
     padding: 10px;
     max-width: 300px;
     min-width: 250px;
     display: flex;
     flex-direction: column;
+    max-height: calc(100vh - 200px);
 }
 
 .aside a {
@@ -80,6 +84,20 @@ body {
     background-color: rgba(200, 200, 200, .3);
     color: #fff;
     pointer-events: none;
+}
+
+@media (width <= 768px) {
+    .aside {
+        height: 100vh;
+        position: fixed;
+        position: -webkit-fixed;
+        top: 0;
+        left: 0;
+        box-shadow: 12px 0px 20px 11px rgb(0 0 0 / 30%) !important;
+        border-radius: 0px !important;
+        z-index: 1021;
+        max-height: unset;
+    }
 }
 
 @media (max-width: 991px) {
