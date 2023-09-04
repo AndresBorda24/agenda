@@ -18,7 +18,8 @@ use Slim\Routing\RouteCollectorProxy as Group;
 return function(App $app) {
     $app->group("", function(Group $app) {
         $app->group("", function(Group $app) {
-            $app->redirect("/", "/agenda", 301);
+            $app->get("/", [IndexController::class, "home"])
+                ->setName("home");
             $app->get("/agenda", [IndexController::class, "agenda"])
                 ->setName("agenda")
                 ->add(HasPlanMiddleware::class);

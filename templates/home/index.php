@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?= $this->loadAssets("registro-vip/app") ?>
+  <?= $this->loadAssets("home/app") ?>
   <title>Inicio de Sesi&oacute;n</title>
 </head>
 <body>
@@ -11,9 +11,8 @@
     "title" => "Panel"
   ]) ?>
 
-  <div
-  class="align-items-center container d-flex flex-wrap gap-5 justify-content-center my-5"
-  style="min-height: 60vh;">
+  <div class="d-flex p-3 main-container">
+    <?= $this->fetch("./partials/aside.php") ?>
   </div>
 
   <?= $this->fetch("./partials/footer.php") ?>

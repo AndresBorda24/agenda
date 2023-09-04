@@ -11,59 +11,57 @@
     "title" => "Agendamiento Web"
   ]) ?>
 
-  <div class="container row g-0 my-4 my-md-5 m-auto">
-    <div class="col-md-5 p-1">
-      <div class="d-flex flex-column">
-        <div x-data="fetchData" class="p-1" x-bind="events">
-          <select
-          class="form-select form-select-sm rounded-0"
-          @change="getData( $el.value )">
-            <option selected hidden>Seleccione especialidad</option>
-            <template x-for="e in esps" :key="e.especialidad">
-              <option
-              x-text="e.nombre"
-              :value="e.especialidad"></option>
+  <main
+  class="d-flex p-3 main-container">
+    <?= $this->fetch("./partials/aside.php") ?>
+    <div class="d-flex flex-column flex-grow-1 px-2">
+      <div x-data="fetchData" class="p-1" x-bind="events">
+        <select
+        class="form-select form-select-sm rounded-0"
+        @change="getData( $el.value )">
+          <option selected hidden>Seleccione especialidad</option>
+          <template x-for="e in esps" :key="e.especialidad">
+            <option
+            x-text="e.nombre"
+            :value="e.especialidad"></option>
+          </template>
+        </select>
+      </div>
+      <?= $this->fetch("./agenda/show-available-doctors.php") ?>
+      <?= $this->fetch("./agenda/citas-agendadas.php") ?>
+
+      <div class="flex-grow-1 p-2 small">
+        <div class="border bg-body">
+          <!-- Controles -->
+          <?= $this->fetch("./agenda/calendar/controllers.php") ?>
+          <!-- Encabezado - Dias de la semana -->
+          <?= $this->fetch("./agenda/calendar/header.php") ?>
+
+          <div
+          class="d-grid calendar-grid flex-fill position-relative overflow-hidden"
+          x-data="calendar"
+          x-bind="events">
+            <!-- Esta es la pelicula que pasa sobre el calendario al cambiar de mes -->
+            <section id="calendar-days-loader" style="z-index: 1; left: 100%;"
+            class="position-absolute bg-white h-100 w-100 top-0"></section>
+
+            <template x-for="_ in blankSpaces">
+                <div class="bg-body w-100 h-100 x-days" style="transition: all ease-out;"></div>
             </template>
-          </select>
-        </div>
 
-        <?= $this->fetch("./agenda/show-available-doctors.php") ?>
-        <?= $this->fetch("./agenda/citas-agendadas.php") ?>
-      </div>
-    </div>
+            <template x-for="day in totalSpaces">
+              <?= $this->fetch("./agenda/calendar/day.php") ?>
+            </template>
 
-    <div
-    class="position-sticky flex-grow-1 col-md-7 p-1 small"
-    style="top: 3rem;">
-      <div class="border bg-body">
-        <!-- Controles -->
-        <?= $this->fetch("./agenda/calendar/controllers.php") ?>
-        <!-- Encabezado - Dias de la semana -->
-        <?= $this->fetch("./agenda/calendar/header.php") ?>
-
-        <div
-        class="d-grid calendar-grid flex-fill position-relative overflow-hidden"
-        x-data="calendar"
-        x-bind="events">
-          <!-- Esta es la pelicula que pasa sobre el calendario al cambiar de mes -->
-          <section id="calendar-days-loader" style="z-index: 1; left: 100%;"
-          class="position-absolute bg-white h-100 w-100 top-0"></section>
-
-          <template x-for="_ in blankSpaces">
-              <div class="bg-body w-100 h-100 x-days" style="transition: all ease-out;"></div>
-          </template>
-
-          <template x-for="day in totalSpaces">
-            <?= $this->fetch("./agenda/calendar/day.php") ?>
-          </template>
-
-          <template x-for="_ in blankSpacesBtm">
-              <div class="bg-body w-100 h-100 x-days" style="transition: all ease-out;"></div>
-          </template>
+            <template x-for="_ in blankSpacesBtm">
+                <div class="bg-body w-100 h-100 x-days" style="transition: all ease-out;"></div>
+            </template>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </main>
+  <!-- </div> -->
 
   <?= $this->fetch("./partials/footer.php") ?>
   <?= $this->fetch("./partials/loader.php") ?>
