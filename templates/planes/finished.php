@@ -16,17 +16,23 @@
     "title" => "Compra Finalizada"
   ]) ?>
 
-  <div class="container my-5"style="min-height: 60vh;">
-    <?= $this->fetch( match($data["status"]) {
-      \App\Enums\MpStatus::APROVADO->value
-              => "./planes/partials/pago-aprobado.php",
-      \App\Enums\MpStatus::PENDIENTE->value
-              => "./planes/partials/pago-pendiente.php",
-      \App\Enums\MpStatus::RECHAZADO->value
-              => "./planes/partials/pago-rechazado.php",
-      "error" => "./planes/partials/pago-error.php",
-      default => "./planes/partials/pago-pendiente.php"
-    }) ?>
+  <div class="d-flex p-3 main-container">
+    <?= $this->fetch("./partials/aside.php") ?>
+    <div class="flex-grow-1 px-md-2">
+      <?= $this->fetch( match($data["status"]) {
+        \App\Enums\MpStatus::APROVADO->value
+                => "./planes/partials/pago-aprobado.php",
+        \App\Enums\MpStatus::PENDIENTE->value,
+        \App\Enums\MpStatus::EN_PROCESO->value,
+        \App\Enums\MpStatus::EN_MEDIACION->value
+                => "./planes/partials/pago-pendiente.php",
+        \App\Enums\MpStatus::RECHAZADO->value,
+        \App\Enums\MpStatus::NULO->value
+                => "./planes/partials/pago-rechazado.php",
+        "error" => "./planes/partials/pago-error.php",
+        default => "./planes/partials/pago-pendiente.php"
+      }) ?>
+    </div>
   </div>
 
   <?= $this->fetch("./partials/footer.php") ?>
