@@ -13,35 +13,46 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
   </template>
 
   <div class="d-flex flex-column gap-2 flex-grow-1">
-    <a href="#" class="fs-6">
-       <div class="bg-warning rounded-circle radio-1 p-2"></div>
-       <span>Mi perfil</span>
-    </a>
-
-    <hr class="border-light m-0">
+    <div class="border-bottom border-warning-subtle pb-2">
+      <a href="#" class="fs-6">
+        <div class="bg-warning rounded-circle radio-1 p-2"></div>
+        <span>Mi perfil</span>
+      </a>
+    </div>
 
     <!-- Botones  -->
     <a href="<?= $this->link("home") ?>"
     <?= $this->isRoute("home") ? 'class="is-active"' : '' ?>>
       <?= $this->fetch("./icons/home.php") ?> Home
     </a>
-    <a href="<?= $this->link("planes") ?>"
-    <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
-      <?= $this->fetch("./icons/plans.php") ?> Planes
-    </a>
-    <div class="border-top border-warning-subtle">
-     <span class="d-block small text-warning p-2"> Citas </span>
-     <div class="ps-4 d-flex flex-column gap-2">
-      <a href="<?= $this->link("agenda") ?>"
-      <?= $this->isRoute("agenda") ? 'class="is-active"' : '' ?>>
-        <?= $this->fetch("./icons/agenda.php") ?> Agendamiento
+
+    <?php if($this->auth->user()->hasPlan(true)): ?>
+      <a href="<?= $this->link("planes") ?>"
+      <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
+        <?= $this->fetch("./icons/card-check.php") ?> Activar mi Tarjeta
       </a>
-      <a href="<?= $this->link("agenda") ?>"
-      <?= $this->isRoute("usuario.citas") ? 'class="is-active"' : '' ?>>
-        <?= $this->fetch("./icons/agenda.php") ?> Mis citas
+    <?php else: ?>
+      <a href="<?= $this->link("planes") ?>"
+      <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
+        <?= $this->fetch("./icons/plans.php") ?> Planes
       </a>
-     </div>
-    </div>
+    <?php endif ?>
+
+    <?php if(false): ?>
+      <div class="border-top border-warning-subtle">
+        <span class="d-block small text-warning p-2"> Citas </span>
+        <div class="ps-4 d-flex flex-column gap-2">
+          <a href="<?= $this->link("agenda") ?>"
+          <?= $this->isRoute("agenda") ? 'class="is-active"' : '' ?>>
+            <?= $this->fetch("./icons/agenda.php") ?> Agendamiento
+          </a>
+          <a href="<?= $this->link("agenda") ?>"
+          <?= $this->isRoute("usuario.citas") ? 'class="is-active"' : '' ?>>
+            <?= $this->fetch("./icons/agenda.php") ?> Mis citas
+          </a>
+        </div>
+      </div>
+    <?php endif ?>
   </div>
 
   <form action="/logout" method="post">
