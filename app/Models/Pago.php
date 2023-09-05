@@ -17,22 +17,23 @@ class Pago
     /**
      * Guarda el registro de un pago en la base de datos.
     */
-    public function store(array $data, MpStatus $status): bool
+    public function store(array $data, MpStatus $status): int|bool
     {
         try {
             // Si ya hay un pago con ese id (solo por si acaso)
-            if ($this->db->has(self::TABLE, [ "id" => $data["id"] ])) {
+            if ($this->db->has(self::TABLE, [ "payment_id" => $data["payment_id"] ])) {
                 return $this->update($data, $status);
             }
 
-            $this->db->insert(self::TABLE, [
-                "error" => $data["error"],
+            $_ = $this->db->insert(self::TABLE, [
                 "status" => $status->value,
-                "payment_id" => $data["id"],
-                "usuario_id" => $data["usuario_id"]
+                "plan_id" => $data["plan_id"],
+                "usuario_id" => $data["usuario_id"],
+                "expires_at" =>  $data["expires_at"],
+                "payment_id" => $data["payment_id"],
             ], 'id');
 
-            return true;
+            return $_ ? (int) $this->db->id() : false;
         } catch(\Exception $e) {
             throw $e;
         }
@@ -45,11 +46,11 @@ class Pago
     {
         try {
             $this->db->update(self::TABLE, [
-                "id" => $data["id"],
-                "error" => $data["error"],
                 "status" => $status->value,
-                "usuario_id" => $data["usuario_id"]
-            ],  [ "id" => $data["id"] ]);
+                "plan_id" => $data["plan_id"],
+                "usuario_id" => $data["usuario_id"],
+                "expires_at" =>  $data["expires_at"]
+            ],  [ "payment_id" => $data["payment_id"] ]);
 
             return true;
         } catch(\Exception $e) {

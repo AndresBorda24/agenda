@@ -56,16 +56,24 @@ class Usuario
     public function find(string|int $id, string $field = "id"): ?UserInterface
     {
         try {
-            $_ = $this->db->get(static::TABLE, [
-                "id", "eps", "ape1", "ape2",
-                "plan_id", "plan_start",
-                "nom1", "nom2", "clave", "email",
-                "ciudad", "telefono", "direccion",
-                "fech_nac", "num_histo (documento)",
+            $_ = $this->db->get(static::TABLE." (U)", [
+                "[>]pagos (P)" => ["pago_id" => "id"],
+                "[>]planes (N)" => ["P.plan_id" => "id"]
+            ], [
+                // Informacion del usuario
+                "U.id", "U.eps", "U.ape1", "U.ape2",
+                "U.nom1", "U.nom2", "U.clave", "U.email",
+                "U.ciudad", "U.telefono", "U.direccion",
+                "U.fech_nac", "U.num_histo (documento)",
+                // Informacion de su pago
+                "P.status (pago_status)", "P.id (pago_id)",
+                "P.expires_at (pago_expires)",
+                // Info del plan al que esta relacionado
+                "N.nombre (plan_nombre)"
             ], [
                 "AND" => [
-                    $field => $id,
-                    "activo" => 1
+                    "U.$field" => $id,
+                    "U.activo" => 1
                 ]
             ]);
 
@@ -96,16 +104,11 @@ class Usuario
     /**
      * Actualiza la informacion del plan para un usuario.
     */
-    public function setPlan(int $id, PlanDTO $plan, MpStatus $st): bool
+    public function setPlan(int $id, int $pagoId): bool
     {
         try {
-            $_ = ($st === MpStatus::PENDIENTE)
-                ? Medoo::raw("NULL")
-                : Medoo::raw("CURDATE()");
-
             $_ = $this->db->update(self::TABLE, [
-                "plan_id"    => $plan->id,
-                "plan_start" => $_
+                "pago_id" => $pagoId
             ], [ "id" => $id ]);
 
             return (bool) $_->rowCount();

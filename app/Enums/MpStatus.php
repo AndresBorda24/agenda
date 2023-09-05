@@ -9,7 +9,13 @@ namespace App\Enums;
 */
 enum MpStatus: string
 {
-    case PENDIENTE = "pending";
-    case RECHAZADO = "rejected";
-    case APROVADO  = "approved";
+    case APROVADO   = "approved";
+    case PENDIENTE  = "pending";
+    case RECHAZADO  = "rejected";
+    case CANCELADO  = "cancelled";
+    case REEMBOLSO  = "refunded";
+    case EN_PROCESO = "in_process";
+    case EN_MEDIACION = "in_mediation";
+    case CHARGED_BACK = "charged_back";
+    case NULO = "null";
 }

@@ -36,15 +36,23 @@ class PagoService
             $status = MpStatus::from($data["status"]);
 
             $metadata = (array) $pref->metadata;
-            if ( in_array($status, [MpStatus::APROVADO, MpStatus::PENDIENTE]) ) {
-                $updateError = $this->updateUser($metadata, $status);
+            $plan = $this->plan->find($metadata["plan_id"]);
+
+            if ($status !== \App\Enums\MpStatus::NULO && $plan) {
+                $pagoId = $this->pago->store([
+                    "payment_id" => $data["payment_id"],
+                    "usuario_id" => $metadata["user"],
+                    "plan_id" => $plan->id,
+                    "expires_at" => date("Y-m-d H:i:s", strtotime("+$plan->vigencia days"))
+                ], $status);
+
+                if (gettype($pagoId) === 'integer') $error =
+                    $this->updateUser($metadata["user"], $pagoId);
             }
 
-            $this->pago->store([
-                "id" => $data["payment_id"],
-                "usuario_id" => $metadata["user"],
-                "error" => @$updateError
-            ], $status);
+            // Por hacer:
+            // 1. En la linea 49 se toma un $error. Hay que registrarlo en algún lado
+
         } catch (\Exception $e) {
             throw $e;
         }
@@ -52,21 +60,17 @@ class PagoService
 
     /**
      * Actualiza un usuario y relaciona el plan correspondiente.
-     *
-     * @param array $data Un array en el que se encuentran el id del plan y el
-     * usuario, viene de la metadata de la preferencia.
      * @return null|array Retorna la info del error, si la hay.
     */
-    private function updateUser(array $data, MpStatus $st): ?string
+    private function updateUser(int $id, int $pagoId): ?string
     {
         try {
-            $plan = $this->plan->find($data["plan_id"]);
-            $this->usuario->setPlan($data["user"], $plan, $st);
+            $this->usuario->setPlan($id, $pagoId);
 
             return null;
         } catch(\Exception $e) {
             return json_encode([
-                "metadata" => $data,
+                "metadata" => [ "user_id" => $id, "pago" => $pagoId ],
                 "info" => $e->getMessage(),
                 "_" => $e->getTraceAsString()
             ]);

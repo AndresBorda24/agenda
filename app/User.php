@@ -77,10 +77,11 @@ class User implements UserInterface
 
     public function hasPlan(bool $strict = false): bool
     {
-        $hasPlan = $this->getData("plan_id") !== null;
-        if ( $strict ) {
-            return $hasPlan && ($this->getData("plan_start") !== null);
-        }
-        return $hasPlan;
+        $hasPlan = $this->getData("pago_id") !== null;
+
+        return $strict
+        ? $hasPlan
+            && ($this->getData("pago_status") == \App\Enums\MpStatus::APROVADO->value)
+        : $hasPlan;
     }
 }
