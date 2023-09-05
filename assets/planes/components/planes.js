@@ -1,5 +1,6 @@
-import axios from "axios";
+import { getPlanes, createPreference } from "../requests";
 import { errorAlert } from "@/partials/alerts"
+import { showLoader } from "@/partials/loader";
 
 export default () => ({
     planes: [],
@@ -14,11 +15,23 @@ export default () => ({
     */
     async getPlanes() {
         try {
-            const { data } = await axios.get(
-                process.env.API + "/planes/get-available"
-            );
+            showLoader();
+            this.planes = await getPlanes(true);
+        } catch(e) {
+            errorAlert();
+            console.error("Get Planes: ", e);
+        }
+    },
 
-            this.planes = data;
+    /**
+     * Confirma el inicio del proceso de pago
+    */
+    async confirmPlan() {
+        try {
+            showLoader();
+            const data = await createPreference( this.selectedPlan, true );
+            this.$dispatch("start-checkin-process", data.id);
+            this.$dispatch("next-tab");
         } catch(e) {
             errorAlert();
             console.error("Get Planes: ", e);

@@ -4,54 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?= $this->loadAssets("planes/app") ?>
+
+  <!-- Mercado Pago -->
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
   <title>Planes</title>
 </head>
 <body>
   <?= $this->fetch("./partials/header.php", [
     "title" => "Planes"
   ]) ?>
+  <div class="d-flex p-3 main-container">
+    <?= $this->fetch("./partials/aside.php") ?>
+    <section
+    x-data="Tabs"
+    x-bind="events"
+    class="container flex-grow-1 px-md-2"
+    style="min-height: 60vh;">
+      <section x-cloak x-show="tab === 1" x-transition.opacity>
+        <?= $this->fetch("./planes/partials/plan/component.php") ?>
+      </section>
 
-  <div
-  x-data="Planes"
-  class="container my-5"
-  style="min-height: 60vh;">
-    <h1 class="text-center text-primary mb-5">Selecciona tu plan</h1>
-
-    <form
-    x-show="planesLoaded"
-    x-transition
-    @submit.prevent>
-      <div class="planes-container row-cols-12 row-cols-md-4  p-4">
-        <template x-for="(plan, index) in planes" :key="plan.id">
-          <section
-          :class="{'planes-item-checked border-primary': (selectedPlan == plan.id) }"
-          class="bg-white d-flex flex-column border rounded-1 planes-item overflow-hidden">
-
-            <?= $this->fetch("./planes/partials/plan-header.php") ?>
-            <?= $this->fetch("./planes/partials/plan-beneficios.php") ?>
-            <?= $this->fetch("./planes/partials/plan-footer.php") ?>
-
-          </section>
-        </template>
-      </div>
-
-      <div class="mt-5">
+      <section x-cloak x-show="tab === 2" x-transition.opacity>
+        <h2 class="text-center text-primary">Selecciona un medio de pago.</h2>
+        <div
+        id="medios-de-pago"
+        class="d-flex flex-column gap-3 my-4 mx-auto"
+        style="max-width: 400px;">
+          <div x-data="mp" x-bind="events"></div>
+          <div id="mercadopago"></div>
+        </div>
         <button
-        type="submit"
-        class="planes-next-btn">
-          Continuar
-        </button>
-      </div>
-    </form>
-
-
-    <a
-    class="text-muted small"
-    href="<?= $this->link("agenda") ?>">
-      Cancelar (Continuar con el plan gratuito)
-    </a>
+        class="planes-next-btn py-2 text-bg-danger"
+        @click="prev">Cancelar</button>
+      </section>
+    </section>
   </div>
-
   <?= $this->fetch("./partials/footer.php") ?>
   <?= $this->fetch("./partials/loader.php") ?>
 </body>

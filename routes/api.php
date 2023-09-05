@@ -9,6 +9,7 @@ use App\Controllers\Api\MedicosController;
 use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 use App\Controllers\Api\EspecialidadController;
+use App\Controllers\Api\MercadoPagoController;
 use App\Controllers\Api\PlanesController;
 use App\Controllers\Api\UsuarioController;
 use App\Middleware\AuthMiddleware;
@@ -39,12 +40,23 @@ return function(App $app) {
             $medicos->get("/{esp}/get-available", [MedicosController::class, 'getAvailable']);
         });
 
-        $api->group("/planes", function(Group $medicos) {
-            $medicos->get("/get-available", [PlanesController::class, 'getAvailable']);
+        $api->group("/planes", function(Group $planes) {
+            $planes->get("/get-available", [PlanesController::class, 'getAvailable']);
+            $planes->post("/{planId:[0-9]+}/create-preference",
+                [PlanesController::class, 'createPreference']
+            );
+            $planes->post("/info-pagos",
+                [PlanesController::class, 'createPreference']
+            );
         });
 
         $api->group("/pacientes", function(Group $paciente) {
             $paciente->post("/registro", [UsuarioController::class, 'registro']);
+        });
+
+        $api->group("/mp", function(Group $mp) {
+            $mp->get("/{id}/pago", [MercadoPagoController::class, "getPayment"]);
+            $mp->put("/pago/{id}/set-status/{status}", [MercadoPagoController::class, "setPaymentStatus"]);
         });
 
         $api->post("/login", [AuthController::class, 'login']);

@@ -74,4 +74,14 @@ class User implements UserInterface
 
         return (int) $edad->format('%y');
     }
+
+    public function hasPlan(bool $strict = false): bool
+    {
+        $hasPlan = $this->getData("pago_id") !== null;
+
+        return $strict
+        ? $hasPlan
+            && ($this->getData("pago_status") == \App\Enums\MpStatus::APROVADO->value)
+        : $hasPlan;
+    }
 }

@@ -5,6 +5,7 @@ use function DI\create;
 
 use App\Config;
 use App\DataObjects\SessionConfig;
+use App\Services\MercadoPagoService;
 use Medoo\Medoo;
 use Slim\Views\PhpRenderer;
 

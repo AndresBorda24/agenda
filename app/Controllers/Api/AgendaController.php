@@ -5,8 +5,8 @@ namespace App\Controllers\Api;
 
 use function App\responseJSON;
 
-use App\Contracts\UserInterface;
 use Medoo\Medoo;
+use App\Contracts\UserInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 

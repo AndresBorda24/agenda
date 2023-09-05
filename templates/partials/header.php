@@ -15,15 +15,9 @@
 <div class="bg-secondary text-light shadow sticky-top">
   <div class="container nav-scroller p-1 d-flex container justify-content-between align-items-center">
     <span class="fs-5"><?=  $title ?? "Cl&iacute;nica Asotrauma" ?></span>
-    <nav class="nav small gap-1">
-      <?php if($this->auth->user() !== null): ?>
-        <form action="<?= $this->link("logout") ?>" method="post">
-          <button type="submit"
-          class="btn btn-danger border-0 btn-sm">
-            Cerrar Sesi&oacute;n!
-          </button>
-        </form>
-      <?php else: ?>
+    <nav class="nav small gap-1" id="header-nav">
+
+      <?php if($this->auth->user() == null): ?>
         <a
         class="btn btn-outline-light border-0 btn-sm
         <?= $this->isRoute('login') ? 'active' : '' ?>"
