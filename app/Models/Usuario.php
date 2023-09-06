@@ -76,6 +76,23 @@ class Usuario
     }
 
     /**
+     * @return int Retorna la cantidad de filas afectadas con el update,
+     * principalmente 1 aunque puede ser 0
+    */
+    public function updatePassword(array $data, $id): int
+    {
+        try {
+            $_ = $this->db->update(static::TABLE, [
+                "clave" => password_hash(trim($data["new_password"]), PASSWORD_BCRYPT)
+            ], [ "id" => $id ]);
+
+            return (int) $_->rowCount();
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Busca un usuario por su iD
     */
     public function find(string|int $id, string $field = "id"): ?UserInterface

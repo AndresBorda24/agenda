@@ -64,4 +64,38 @@ class UpdateUserValidation
             throw $e;
         }
     }
+
+    public function checkPassword(array $data): void
+    {
+        try {
+            $validator  = new Validator;
+
+            $validator->setMessages([
+                "required" => "Valor es requerido.",
+                "min" => "Debe tener una longitud mayor.",
+                "same" => "El valor no coincide.",
+            ]);
+
+            $pass = $this->auth->user()->clave();
+            $validation = $validator->validate($data, [
+                "_password" => ["required", function ($val) use ($pass) {
+                    if (! password_verify($val, $pass)) {
+                        return "Revisa...";
+                    }
+                }],
+                "new_password" => "required|min:8",
+                "new_password_confirm" => "required|same:new_password"
+            ]);
+
+            if ($validation->fails()) {
+                $errors = $validation->errors();
+
+                throw new FormValidationException(
+                    $errors->toArray()
+                );
+            }
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
 }

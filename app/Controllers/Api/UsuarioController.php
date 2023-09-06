@@ -84,4 +84,28 @@ class UsuarioController
             ], 422);
         }
     }
+
+    public function updatePass(
+        Request $request,
+        Response $response,
+        UpdateUserValidation $validator
+    ): Response {
+        try {
+            $data = $request->getParsedBody();
+            $validator->checkPassword($data);
+
+            return responseJSON($response, [
+                "status" => true,
+                "__ctrl" => $this
+                    ->usuario
+                    ->updatePassword($data, $validator->auth->user()->id())
+            ]);
+        } catch(FormValidationException|\Exception $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+                "fields" => $e instanceof FormValidationException
+                    ? $e->getInvalidFields() : []
+            ], 422);
+        }
+    }
 }
