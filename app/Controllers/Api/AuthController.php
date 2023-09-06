@@ -6,6 +6,7 @@ namespace App\Controllers\Api;
 use App\Auth;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\App;
 
 use function App\responseJSON;
 
@@ -15,8 +16,11 @@ class AuthController
         private readonly Auth $auth
     ) {}
 
-    public function login(Request $request, Response $response): Response
-    {
+    public function login(
+        App $app,
+        Request $request,
+        Response $response
+    ): Response {
         try {
             $data = $request->getParsedBody();
 
@@ -26,7 +30,7 @@ class AuthController
 
             return responseJSON($response, [
                 "status" => true,
-                "redirect" => "/agenda"
+                "redirect" => $app->getRouteCollector()->getRouteParser()->urlFor("home"),
             ]);
         } catch(\Exception $e) {
             return responseJSON($response, [
