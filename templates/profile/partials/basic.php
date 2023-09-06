@@ -2,7 +2,7 @@
 <form
 x-data="UpdateUser"
 @submit.prevent="update"
-class="p-3 bg-white shadow border rounded">
+class="p-3 bg-white shadow border rounded small">
   <div class="small mb-2">
     <label
     class="form-label text-muted small m-0"
