@@ -37,3 +37,21 @@ export async function updateUser( dt ) {
 
   return data;
 }
+
+/**
+ * @param { object } dt Informacion del formulario.
+*/
+export async function updatePassword( state ) {
+  try {
+    showLoader();
+    removeInvalid();
+
+    const { data } = await ax
+      .put("/auth/password-update", state)
+      .finally(hideLoader);
+
+    return data;
+  } catch(e) {
+    setInvalid(e.response?.data?.fields || {});
+  }
+}
