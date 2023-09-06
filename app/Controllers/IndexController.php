@@ -22,6 +22,13 @@ class IndexController
             ->render($response, "home/index.php");
     }
 
+    public function profile(Response $response): Response
+    {
+        return $this
+            ->view
+            ->render($response, "profile/index.php");
+    }
+
     public function agenda(Response $response): Response
     {
         return $this

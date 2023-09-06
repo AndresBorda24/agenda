@@ -6,8 +6,6 @@ namespace App\Models;
 use App\User;
 use Medoo\Medoo;
 use App\Contracts\UserInterface;
-use App\DataObjects\PlanDTO;
-use App\Enums\MpStatus;
 
 use function App\uppercase;
 
@@ -51,6 +49,33 @@ class Usuario
     }
 
     /**
+     * @return int Retorna la cantidad de filas afectadas con el update,
+     * principalmente 1 aunque puede ser 0
+    */
+    public function update(array $data, $id): int
+    {
+        try {
+            $_ = $this->db->update(static::TABLE, [
+                "eps" => uppercase($data["eps"]),
+                "ape1" => uppercase($data["ape1"]),
+                "ape2" => uppercase($data["ape2"]),
+                "nom1" => uppercase($data["nom1"]),
+                "nom2" => uppercase($data["nom2"]),
+                "email" => uppercase($data["email"]),
+                "ciudad" => uppercase($data["ciudad"]),
+                "telefono" => $data["telefono"],
+                "fech_nac" => uppercase($data["fech_nac"]),
+                "direccion" => uppercase($data["direccion"]),
+                "num_histo" => $data["num_histo"]
+            ], [ "id" => $id ]);
+
+            return (int) $_->rowCount();
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Busca un usuario por su iD
     */
     public function find(string|int $id, string $field = "id"): ?UserInterface
@@ -88,11 +113,14 @@ class Usuario
     /**
      * Revisa si el valor de un campo ya ha sido tomado.
     */
-    public function checkUnique(string $field, $val): bool
+    public function checkUnique(string $field, $val, $default = null): bool
     {
         try {
             $total = $this->db->count(static::TABLE, [
-                "$field" => $val
+                "AND" => [
+                    "$field" => $val,
+                    $field."[!]" => $default
+                ]
             ]);
 
             return $total === 0;
@@ -112,6 +140,30 @@ class Usuario
             ], [ "id" => $id ]);
 
             return (bool) $_->rowCount();
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Busca un usuario por su iD
+    */
+    public function basic(string|int $id): ?array
+    {
+        try {
+            $_ = $this->db->get(static::TABLE." (U)", [
+                "U.id", "U.eps", "U.ape1", "U.ape2",
+                "U.nom1", "U.nom2", "U.email",
+                "U.ciudad", "U.telefono", "U.direccion",
+                "U.fech_nac", "U.num_histo",
+            ], [
+                "AND" => [
+                    "U.id" => $id,
+                    "U.activo" => 1
+                ]
+            ]);
+
+            return $_ ? $_ : null;
         } catch(\Exception $e) {
             throw $e;
         }

@@ -20,6 +20,8 @@ return function(App $app) {
         $app->group("", function(Group $app) {
             $app->get("/", [IndexController::class, "home"])
                 ->setName("home");
+            $app->get("/perfil", [IndexController::class, "profile"])
+                ->setName("perfil");
             $app->get("/agenda", [IndexController::class, "agenda"])
                 ->setName("agenda")
                 ->add(HasPlanMiddleware::class);
