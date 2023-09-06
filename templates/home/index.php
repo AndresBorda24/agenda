@@ -11,7 +11,7 @@
     "title" => "Home"
   ]) ?>
 
-  <div class="d-flex p-3 main-container">
+  <div class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
   </div>
 

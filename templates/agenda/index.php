@@ -11,7 +11,7 @@
     "title" => "Agendamiento Citas"
   ]) ?>
 
-  <main class="d-flex p-3 main-container">
+  <main class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
     <div class="flex-grow-1 px-md-2">
       <div x-data="fetchData" class="p-1" x-bind="events">
