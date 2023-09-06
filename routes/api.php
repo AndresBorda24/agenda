@@ -30,6 +30,12 @@ return function(App $app) {
             ]);
         });
 
+        $api->group("/auth", function(Group $auth) {
+            $auth->get("/basic", [UsuarioController::class, "getBasic"]);
+            $auth->put("/update-basic", [UsuarioController::class, "update"]);
+            $auth->put("/password-update", [UsuarioController::class, "updatePass"]);
+        })->add(AuthMiddleware::class);;
+
         $api->group("/agenda", function(Group $agenda) {
             $agenda->get("/mis-citas", [AgendaController::class, "getCitasAgendadas"]);
             $agenda->post("/save", [AgendaController::class, 'save'])

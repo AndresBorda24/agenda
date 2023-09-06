@@ -24,7 +24,7 @@ function setInvalid(ids) {
     });
 
     setTimeout(() => {
-        document.getElementById(Object.keys(ids)[0]).focus();
+        document.getElementById(Object.keys(ids)[0] || '')?.focus();
     }, 0);
 }
 

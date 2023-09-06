@@ -1,7 +1,7 @@
 import Alpine from "alpinejs";
 import img from "../partials/img";
 import form from "../partials/form";
-import selectAjax from "../partials/select-ajax";
+import selectAjax from "../partials/select-eps";
 import "../css/registro-vip.css";
 
 window.Alpine = Alpine;
