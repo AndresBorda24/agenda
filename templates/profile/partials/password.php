@@ -10,7 +10,7 @@ class="p-3 bg-white shadow border rounded border-danger-subtle">
     for="_password">Contrase&ntilde;a Actual:</label>
     <input
     id="_password"
-    autofocus
+    x-model="state._password"
     required
     placeholder="Tu contrase&ntilde;a actual."
     type="password"
@@ -22,27 +22,27 @@ class="p-3 bg-white shadow border rounded border-danger-subtle">
     <div class="small col-12 col-md-6">
       <label
       class="form-label text-muted small m-0"
-      for="new-password">Nueva Contrase&ntilde;a:</label>
+      for="new_password">Nueva Contrase&ntilde;a:</label>
       <input
-      id="new-password"
-      autofocus
+      id="new_password"
       required
+      x-model="state.new_password"
       placeholder="Nueva Contrase&ntilde;a"
       type="password"
-      minlength="6"
+      minlength="8"
       class="form-control form-control-sm m-1">
     </div>
     <div class="small col-12 col-md-6">
       <label
       class="form-label text-muted small m-0"
-      for="new-password-confirm">Confirma Contrase&ntilde;a:</label>
+      for="new_password_confirm">Confirma Contrase&ntilde;a:</label>
       <input
-      id="new-password-confirm"
-      autofocus
+      id="new_password_confirm"
+      x-model="state.new_password_confirm"
       required
       placeholder="Confirma"
       type="password"
-      minlength="6"
+      minlength="8"
       class="form-control form-control-sm m-1">
     </div>
   </div>
