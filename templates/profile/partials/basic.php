@@ -26,11 +26,12 @@ class="p-3 bg-white shadow border rounded">
         <label for="apellido-1"
         class="form-label text-muted small m-0">Primer Apellido:</label>
         <input
+        @keyup.prevent="$el.value = $el.value.toUpperCase()"
         placeholder="Apellido"
         required id="apellido-1"
         x-model="state.ape1"
         type="text"
-        class="form-control form-control-sm">
+        class="form-control form-control-sm text-uppercase">
       </div>
       <div class="w-100">
         <label for="apellido-2"
@@ -39,7 +40,7 @@ class="p-3 bg-white shadow border rounded">
         placeholder="Seg. Apellido"
         x-model="state.ape2"
         type="text" id="apellido-2"
-        class="form-control form-control-sm">
+        class="form-control form-control-sm text-uppercase">
       </div>
       <div class="w-100">
         <label for="nombre-1"
@@ -49,7 +50,7 @@ class="p-3 bg-white shadow border rounded">
         required id="nombre-1"
         x-model="state.nom1"
         type="text"
-        class="form-control form-control-sm">
+        class="form-control form-control-sm text-uppercase">
       </div>
       <div class="w-100">
         <label for="nombre-2"
@@ -58,7 +59,7 @@ class="p-3 bg-white shadow border rounded">
         placeholder="Seg. Nombre"
         x-model="state.nom2"
         type="text" id="nombre-2"
-        class="form-control form-control-sm">
+        class="form-control form-control-sm text-uppercase">
       </div>
     </div>
   </div>
@@ -91,7 +92,7 @@ class="p-3 bg-white shadow border rounded">
       required
       placeholder="correo-usuario@corro.com"
       type="email"
-      class="form-control form-control-sm">
+      class="form-control form-control-sm text-uppercase">
     </div>
   </div>
 
@@ -106,7 +107,7 @@ class="p-3 bg-white shadow border rounded">
       x-model="state.ciudad"
       placeholder="Ciudad"
       type="text"
-      class="form-control form-control-sm">
+      class="form-control form-control-sm text-uppercase">
     </div>
 
     <div class="col-lg-7 p-1">
@@ -119,7 +120,7 @@ class="p-3 bg-white shadow border rounded">
       x-model="state.direccion"
       placeholder="Cll xx # xx -----"
       type="text"
-      class="form-control form-control-sm">
+      class="form-control form-control-sm text-uppercase">
     </div>
   </div>
 
