@@ -14,7 +14,8 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
 
   <div class="d-flex flex-column gap-2 flex-grow-1">
     <div class="border-bottom border-warning-subtle pb-2">
-      <a href="#" class="fs-6">
+      <a href="<?= $this->link("perfil") ?>"
+      <?= $this->isRoute("perfil") ? 'class="fs-6 is-active"' : 'class="fs-6"' ?>>
         <div class="bg-warning rounded-circle radio-1 p-2"></div>
         <span>Mi perfil</span>
       </a>
