@@ -20,6 +20,7 @@ Encore
     .setManifestKeyPrefix('build/')
     .addEntry('home/app', './assets/agenda/index.js')
     .addEntry('agenda/app', './assets/agenda/index.js')
+    .addEntry('profile/app', './assets/profile/index.js')
     .addEntry('login/app', './assets/login/index.js')
     .addEntry('registro/app', './assets/registro/index.js')
     .addEntry('planes/app', './assets/planes/index.js')
@@ -33,14 +34,9 @@ Encore
      * https://symfony.com/doc/current/frontend.html#adding-more-features
      */
     .cleanupOutputBeforeBuild()
-    // .enableBuildNotifications()
-    // .enableSourceMaps(!Encore.isProduction())
-    // enables hashed filenames (e.g. app.abc123.css)
-    // .enableVersioning(Encore.isProduction())
     .configureBabel((config) => {
         config.plugins.push('@babel/plugin-proposal-class-properties');
     })
-
     // enables @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
@@ -55,12 +51,6 @@ Encore
         __VUE_OPTIONS_API__: true,
         __VUE_PROD_DEVTOOLS__: false
     }))
-    // enables Sass/SCSS support
-    //.enableSassLoader()
-
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
 ;
 
 let config = Encore.getWebpackConfig();
