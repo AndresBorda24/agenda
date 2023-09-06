@@ -4,6 +4,11 @@ x-data="UpdatePass"
 @submit.prevent="update"
 autocomplete="off"
 class="p-3 bg-white shadow border rounded border-danger-subtle">
+  <div class="text-bg-danger p-2 small bg-opacity-75 rounded-end border-start
+  border-5 border-danger shadow-sm mb-3">
+    Una vez cambies la contrase&ntilde;a tendr&aacute;s que iniciar sesi&oacute;n nuevamente.
+  </div>
+
   <div class="small mb-2">
     <label
     class="form-label text-muted small m-0"
@@ -47,5 +52,8 @@ class="p-3 bg-white shadow border rounded border-danger-subtle">
     </div>
   </div>
 
-  <button class="ms-auto d-block btn btn-danger btn-sm">Actualizar Contrase&ntilde;a!</button>
+  <button
+  type="submit"
+  :disabled="! cansubmit"
+  class="ms-auto d-block btn btn-danger btn-sm">Actualizar Contrase&ntilde;a!</button>
 </form>

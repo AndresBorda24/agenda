@@ -10,6 +10,7 @@ use App\Controllers\Validation\UpdateUserValidation;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use Slim\App;
 
 use function App\responseJSON;
 
@@ -86,6 +87,7 @@ class UsuarioController
     }
 
     public function updatePass(
+        App $app,
         Request $request,
         Response $response,
         UpdateUserValidation $validator
@@ -96,6 +98,7 @@ class UsuarioController
 
             return responseJSON($response, [
                 "status" => true,
+                "logout" =>  $app->getRouteCollector()->getRouteParser()->urlFor("logout"),
                 "__ctrl" => $this
                     ->usuario
                     ->updatePassword($data, $validator->auth->user()->id())
