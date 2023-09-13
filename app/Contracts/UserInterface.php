@@ -31,4 +31,10 @@ interface UserInterface
      * @param bool $strict Tener en cuenta si esta pendiente o no.
     */
     public function hasPlan(bool $strict = false): bool;
+
+    /**
+     * Determina si el usuario es el titular del plan, es decir, quien
+     * realizo la compra.
+    */
+    public function isTitular(): bool;
 }

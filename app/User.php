@@ -84,4 +84,9 @@ class User implements UserInterface
             && ($this->getData("pago_status") == \App\Enums\MpStatus::APROVADO->value)
         : $hasPlan;
     }
+
+    public function isTitular(): bool
+    {
+        return $this->id() == $this->getData("titular");
+    }
 }

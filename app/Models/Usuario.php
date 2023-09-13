@@ -109,7 +109,7 @@ class Usuario
                 "U.fech_nac", "U.num_histo (documento)",
                 // Informacion de su pago
                 "P.status (pago_status)", "P.id (pago_id)",
-                "P.expires_at (pago_expires)",
+                "P.expires_at (pago_expires)", "P.usuario_id (titular)",
                 // Info del plan al que esta relacionado
                 "N.nombre (plan_nombre)"
             ], [
