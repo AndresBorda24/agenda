@@ -32,6 +32,11 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
       <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
         <?= $this->fetch("./icons/card-check.php") ?> Activar mi Tarjeta
       </a>
+
+      <a href="<?= $this->link("beneficiarios") ?>"
+      <?= $this->isRoute("beneficiarios") ? 'class="is-active"' : '' ?>>
+        <?= $this->fetch("./icons/users.php") ?> Beneficiarios
+      </a>
     <?php else: ?>
       <a href="<?= $this->link("planes") ?>"
       <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
