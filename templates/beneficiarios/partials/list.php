@@ -1,4 +1,4 @@
-<section x-data="BeneficiariosList" class="shadow rounded-bottom">
+<section x-data="BeneficiariosList" x-bind="events" class="shadow rounded-bottom">
   <template x-if="Boolean(error)">
     <p class="p-3 text-bg-light border rounded small m-0">
       No se ha logrado recuperar el listado de beneficiarios. Lo sentimos.

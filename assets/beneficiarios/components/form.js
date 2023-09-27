@@ -36,7 +36,7 @@ export default () => ({
                 this.state
             ).finally(hideLoader);
 
-            this.$dispatch("added-beneficiario", { ...this.state, id: data.id });
+            this.dispatchAdded( data );
             this.show = false;
             successAlert();
         } catch(e) {
@@ -47,4 +47,17 @@ export default () => ({
         }
     },
 
+    dispatchAdded( id ) {
+        this.$dispatch("added-beneficiario", {
+            id: id,
+            nombre: [
+                this.state.nom1,
+                this.state.nom2,
+                this.state.ape1,
+                this.state.ape2
+            ].filter(x => Boolean(x)).join(" ").toUpperCase(),
+            documento: this.state.documento,
+            parentesco: this.state.parentesco.toUpperCase()
+        });
+    }
 });

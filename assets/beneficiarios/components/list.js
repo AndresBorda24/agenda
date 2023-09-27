@@ -4,6 +4,9 @@ export default () => ({
     list: [],
     error: undefined,
     fetched: false,
+    events: {
+        ["@added-beneficiario.document.stop"]: "add($event.detail)"
+    },
 
     init () {
         this.fetch()
@@ -25,6 +28,13 @@ export default () => ({
         } catch(e) {
             this.error = e.message;
         }
+    },
+
+    /**
+     * Agrega un registro al listado.
+    */
+    add( data ) {
+        this.list.push( data );
     },
 
     get isEmpty() {
