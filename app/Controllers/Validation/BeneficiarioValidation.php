@@ -7,6 +7,7 @@ use App\Models\Beneficiario;
 use Rakit\Validation\Validator;
 use App\Controllers\Validation\Rules\UniqueRule;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use App\Models\Usuario;
 
 class BeneficiarioValidation
 {
@@ -45,23 +46,24 @@ class BeneficiarioValidation
         $tipoDoc = array_map(
             fn($c) => $c->name, \App\Enums\TipoDocumentos::cases()
         );
+        $sexo = array_map(
+            fn($c) => $c->name, \App\Enums\Sexo::cases()
+        );
         return [
             "ape1" => 'required',
             "ape2" => 'nullable',
             "nom1" => 'required',
             "nom2" => 'nullable',
-            "sexo" => 'required',
+            "sexo" => 'required:in'.implode(",", $sexo),
             "fecha_nac"  => 'required|date',
             "parentesco" => 'required',
             "tipo_doc"   => 'required:in'.implode(",", $tipoDoc),
-            "documento"  => [
-                'required',
-                'digits_between:6,15',
-                sprintf(
-                    "unique:%s,%s,%s",
-                    Beneficiario::TABLE, 'documento', $data["documento"]
-                )
-            ],
+            "documento"  => sprintf(
+                // Notece el usuo doble de unique
+                "required|digits_between:6,15|unique:%s,%s|unique:%s,%s",
+                Beneficiario::TABLE, 'documento',
+                Usuario::TABLE, "num_histo"
+            ),
         ];
     }
 
@@ -74,9 +76,11 @@ class BeneficiarioValidation
         $validator->addValidator("unique", $this->uniqueRule);
         $validator->setMessages([
             "required" => "Valor es requerido.",
+            "digits_between" => "Debe tener una longitud entre :min y :max. Y ser un numero.",
             "min" => "Debe tener una longitud mayor.",
             "date" => "Fecha no valida.",
             "same" => "El valor no coincide.",
+            "unique" => ":value, ya está registrado como beneficiario o titular"
         ]);
 
         return $validator;

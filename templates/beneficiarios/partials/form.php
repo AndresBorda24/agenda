@@ -143,8 +143,9 @@ class="vh-100 vw-100 bg-black bg-opacity-50 fixed-top flex overflow-auto pb-5">
         x-model="state.sexo"
         class="form-select form-select-sm">
           <option hidden value="">- Selecciona -</option>
-          <option value="MA">Masculino</option>
-          <option value="FE">Femenino</option>
+          <?php foreach(\App\Enums\Sexo::cases() as $t): ?>
+            <option value="<?= $t->value ?>"><?= $t->human() ?></option>
+          <?php endforeach ?>
         </select>
       </div>
     </section>

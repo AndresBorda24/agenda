@@ -19,11 +19,11 @@ class Beneficiario
             $this->db->insert(self::TABLE, [
                 "titular_id" => $data["titular_id"],
                 "ape1" => mb_strtoupper($data["ape1"]),
-                "ape2" => $data["ape2"]
+                "ape2" => @$data["ape2"]
                     ? mb_strtoupper($data["ape2"])
                     : null,
                 "nom1" => mb_strtoupper($data["nom1"]),
-                "nom2" => $data["nom2"]
+                "nom2" => @$data["nom2"]
                     ? mb_strtoupper($data["nom2"])
                     : null,
                 "sexo" => $data["sexo"],
