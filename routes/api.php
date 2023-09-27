@@ -4,6 +4,7 @@ declare(strict_types=1);
 use Slim\App;
 use App\Controllers\Api\AgendaController;
 use App\Controllers\Api\AuthController;
+use App\Controllers\Api\BeneficiarioController;
 use App\Controllers\Api\EpsController;
 use App\Controllers\Api\MedicosController;
 use App\Middleware\JsonBodyParserMiddleware;
@@ -32,9 +33,10 @@ return function(App $app) {
 
         $api->group("/auth", function(Group $auth) {
             $auth->get("/basic", [UsuarioController::class, "getBasic"]);
+            $auth->post("/beneficiario", [BeneficiarioController::class, "store"]);
             $auth->put("/update-basic", [UsuarioController::class, "update"]);
             $auth->put("/password-update", [UsuarioController::class, "updatePass"]);
-        })->add(AuthMiddleware::class);;
+        })->add(AuthMiddleware::class);
 
         $api->group("/agenda", function(Group $agenda) {
             $agenda->get("/mis-citas", [AgendaController::class, "getCitasAgendadas"]);
