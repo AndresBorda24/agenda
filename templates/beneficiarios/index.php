@@ -23,7 +23,7 @@
     </main>
   </div>
 
-  <?= $this->fetch("./beneficiarios/partials/form.php") ?>
+
   <?= $this->fetch("./partials/footer.php") ?>
   <?= $this->fetch("./partials/loader.php") ?>
 </body>

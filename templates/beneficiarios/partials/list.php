@@ -10,7 +10,7 @@
     <p class="p-3 text-bg-light border rounded small m-0">
       A&uacute;n no has registrado ning&uacute;n beneficiario. Recuerda que
       puedes hacerlo dando clic en el bot&oacute;n
-      <span class="bagde px-3 text-bg-warning d-inline-block small roudned shadow-sm">
+      <span class="bagde px-3 text-bg-warning d-inline-block small rounded shadow-sm">
         Agregar Beneficiarios
       </span> que est&aacute; arriba.
     </p>
@@ -29,6 +29,8 @@
       </template>
     </ol>
   </template>
+
+  <?= $this->fetch("./beneficiarios/partials/form.php") ?>
 </section>
 
 
