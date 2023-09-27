@@ -16,7 +16,7 @@ class Beneficiario
     public function create(array $data): int
     {
         try {
-            $this->db->create(self::TABLE, [
+            $this->db->insert(self::TABLE, [
                 "titular_id" => $data["titular_id"],
                 "ape1" => mb_strtoupper($data["ape1"]),
                 "ape2" => $data["ape2"]
@@ -27,7 +27,7 @@ class Beneficiario
                     ? mb_strtoupper($data["nom2"])
                     : null,
                 "sexo" => $data["sexo"],
-                "fech_nac" => $data["fech_nac"],
+                "fecha_nac" => $data["fecha_nac"],
                 "parentesco" => mb_strtoupper($data["parentesco"]),
                 "tipo_doc" => $data["tipo_doc"],
                 "documento" => $data["documento"],

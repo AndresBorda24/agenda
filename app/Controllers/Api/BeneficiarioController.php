@@ -31,8 +31,7 @@ class BeneficiarioController
             ]);
 
             return responseJSON($response, [
-                "__id" => $id,
-                "redirect" => "/planes"
+                "__id" => $id
             ]);
         } catch(\Exception|FormValidationException $e) {
             return responseJSON($response, [

@@ -33,9 +33,9 @@ class BeneficiarioValidation
                 "nom1" => 'required',
                 "nom2" => 'nullable',
                 "sexo" => 'required',
-                "fech_nac"   => 'required|date',
+                "fecha_nac"  => 'required|date',
                 "parentesco" => 'required',
-                "tipo_doc"   => 'required|date',
+                "tipo_doc"   => 'required',
                 "documento"  => [
                     'required',
                     'digits_between:6,15',
