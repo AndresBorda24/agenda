@@ -1,18 +1,19 @@
 <div
-x-data="{ state: {}, show: false }"
-x-show="show" x-cloak
-x-transition.opacity.300ms
+x-data="BeneficiarioForm"
+x-bind="bindings"
 class="vh-100 vw-100 bg-black bg-opacity-50 fixed-top flex overflow-auto pb-5">
   <template x-teleport="#new-beneficiario-container">
     <button
     type="button"
-    @click="show = true"
+    @click="open"
     class="btn btn-warning btn-sm px-4 shadow">
       Agregar Beneficiario!
     </button>
   </template>
 
   <form
+  id="beneficiario-form"
+  @submit.prevent="save"
   style="min-width: 290px; max-width: 400px;"
   class="rounded shadow-lg m-auto form-uppercase bg-opacity-100 w-100 mt-4">
     <header class="d-flex justify-content-between p-2 rounded-top shadow text-bg-primary">
@@ -47,7 +48,7 @@ class="vh-100 vw-100 bg-black bg-opacity-50 fixed-top flex overflow-auto pb-5">
         id="documento"
         autofocus
         required
-        x-model="state.num_histo"
+        x-model="state.documento"
         placeholder="xxxxxxxxx"
         type="text"
         minlength="6"
@@ -142,8 +143,8 @@ class="vh-100 vw-100 bg-black bg-opacity-50 fixed-top flex overflow-auto pb-5">
         x-model="state.sexo"
         class="form-select form-select-sm">
           <option hidden value="">- Selecciona -</option>
-          <option>Masculino</option>
-          <option>Femenino</option>
+          <option value="MA">Masculino</option>
+          <option value="FE">Femenino</option>
         </select>
       </div>
     </section>
