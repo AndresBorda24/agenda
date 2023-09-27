@@ -33,6 +33,7 @@ return function(App $app) {
 
         $api->group("/auth", function(Group $auth) {
             $auth->get("/basic", [UsuarioController::class, "getBasic"]);
+            $auth->get("/beneficiarios", [BeneficiarioController::class, "all"]);
             $auth->post("/beneficiario", [BeneficiarioController::class, "store"]);
             $auth->put("/update-basic", [UsuarioController::class, "update"]);
             $auth->put("/password-update", [UsuarioController::class, "updatePass"]);

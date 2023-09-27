@@ -38,4 +38,22 @@ class Beneficiario
             throw $e;
         }
     }
+
+    /**
+     * Selecciona todos los los beneficiarios para un titular.
+    */
+    public function all(int $titular): array
+    {
+        try {
+            return $this->db->select(self::TABLE, [
+                "nombre" => Medoo::raw(
+                    "CONCAT_WS(' ', <nom1>, <nom2>, <ape1>, <ape2>)"
+                ), "id", "documento", "parentesco"
+            ], [
+                "titular_id" => $titular
+            ]);
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
 }

@@ -40,4 +40,21 @@ class BeneficiarioController
             ], 422);
         }
     }
+
+    public function all(Response $response, UserInterface $user): Response
+    {
+        try {
+            return responseJSON(
+                $response,
+                $this->beneficiario->all($user->id())
+            );
+        } catch(\Exception|FormValidationException $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+                "fields" => $e instanceof FormValidationException
+                    ? $e->getInvalidFields()
+                    : []
+            ], 422);
+        }
+    }
 }
