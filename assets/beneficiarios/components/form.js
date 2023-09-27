@@ -6,6 +6,8 @@ import { setInvalid, removeInvalid } from "@/partials/form-validation";
 export default () => ({
     show: false,
     state: {},
+    /** Cuantos beneficiarios se pueden crear */
+    limit: 8,
     bindings: {
         "x-show": "show",
         "x-cloak": "",
@@ -47,6 +49,9 @@ export default () => ({
         }
     },
 
+    /**
+     * Despachamos un evento para que se agrege el beneficiario al listado.
+    */
     dispatchAdded( id ) {
         this.$dispatch("added-beneficiario", {
             id: id,
@@ -59,5 +64,15 @@ export default () => ({
             documento: this.state.documento,
             parentesco: this.state.parentesco.toUpperCase()
         });
+    },
+
+    /**
+     * Determina si se pueden agregar nuevos beneficiarios.
+     * @return {boolean}
+    */
+    get canAddMore() {
+        return this.fetched // Esta propiedad sale del componente de lista
+        && ! Boolean(this.error) // Esta tambien
+        && this.list.length < this.limit;
     }
 });
