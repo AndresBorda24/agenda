@@ -34,9 +34,9 @@ class="vh-100 vw-100 bg-black bg-opacity-50 fixed-top flex overflow-auto pb-5">
         x-model="state.tipo_doc"
         class="form-select form-select-sm">
           <option hidden value="">- Selecciona -</option>
-          <option>Tarjeta de Identidad</option>
-          <option>C&eacute;dula</option>
-          <option>C&eacute;dula Extranjer&iacute;a</option>
+          <?php foreach(\App\Enums\TipoDocumentos::cases() as $t): ?>
+            <option value="<?= $t->value ?>"><?= $t->human() ?></option>
+          <?php endforeach ?>
         </select>
       </div>
 
