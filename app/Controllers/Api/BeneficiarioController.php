@@ -30,9 +30,7 @@ class BeneficiarioController
                 "titular_id" => $user->id()
             ]);
 
-            return responseJSON($response, [
-                "__id" => $id
-            ]);
+            return responseJSON($response, $id);
         } catch(\Exception|FormValidationException $e) {
             return responseJSON($response, [
                 "error"  => $e->getMessage(),
