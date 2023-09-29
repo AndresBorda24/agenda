@@ -19,9 +19,27 @@ class MercadoPagoController
         $pago = $this->mercadoPagoService->getPayment($id);
 
         if ($pago !== null) {
-            return responseJSON($response, $pago->toArray());
+            $m = \MercadoPago\MerchantOrder::find_by_id($pago->order->id);
+            return responseJSON($response, [
+                "pago" => $pago?->toArray(),
+                "merch" => $m?->toArray()
+            ]);
         }
 
         return responseJSON($response, false);
+    }
+
+    public function getMerch(Response $response, string $id): Response
+    {
+        $m = \MercadoPago\MerchantOrder::find_by_id($id);
+
+        // if ($pago !== null) {
+        //     return responseJSON($response, [
+        //         "pago" => $pago?->toArray(),
+        //         "merch" => $m?->toArray()
+        //     ]);
+        // }
+
+        return responseJSON($response, $m?->toArray());
     }
 }

@@ -9,7 +9,7 @@
       'btn btn-secondary disabled': ! canAddMore,
     }">
       Agregar Beneficiario!
-      <span class="border border-dark d-inline-block ms-2 p-1 rounded small text-bg-dark">
+      <span class="shadow d-inline-block ms-2 p-1 rounded small text-bg-light">
         <span x-text="list.length"></span> /
         <span x-text="limit"></span>
       </span>

@@ -65,6 +65,7 @@ return function(App $app) {
 
         $api->group("/mp", function(Group $mp) {
             $mp->get("/{id}/pago", [MercadoPagoController::class, "getPayment"]);
+            $mp->get("/{id}/merch", [MercadoPagoController::class, "getMerch"]);
             $mp->put("/pago/{id}/set-status/{status}", [MercadoPagoController::class, "setPaymentStatus"]);
         });
 

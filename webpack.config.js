@@ -15,7 +15,7 @@ Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
-    .setPublicPath(process.env.APP_URL + '/build')
+    .setPublicPath(process.env.APP_PATH + '/build')
     // .setPublicPath('/build')
     .setManifestKeyPrefix('build/')
     .addEntry('home/app', './assets/agenda/index.js')
