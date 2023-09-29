@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers\Api;
 
+use Slim\App;
 use App\Auth;
 use App\Models\Usuario;
 use App\Controllers\Validation\CreateUserValidation;
@@ -10,7 +11,6 @@ use App\Controllers\Validation\UpdateUserValidation;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
-use Slim\App;
 
 use function App\responseJSON;
 
@@ -18,8 +18,11 @@ class UsuarioController
 {
     public function __construct(private Usuario $usuario) {}
 
-    public function registro(Request $request, Response $response, Auth $auth): Response
-    {
+    public function registro(
+        Request $request,
+        Response $response,
+        Auth $auth
+    ): Response {
         try {
             $data = $request->getParsedBody();
             CreateUserValidation::check($data, $this->usuario);
@@ -31,33 +34,12 @@ class UsuarioController
                 "__id" => $id,
                 "redirect" => "/planes"
             ]);
-        } catch(FormValidationException $e) {
+        } catch(\Exception|FormValidationException $e) {
             return responseJSON($response, [
                 "error"  => $e->getMessage(),
-                "fields" => $e->getInvalidFields()
-            ], 422);
-        } catch(\Exception $e) {
-            return responseJSON($response, [
-                "error"  => $e->getMessage(),
-                "fields" => []
-            ], 422);
-        }
-    }
-
-    public function getBasic(Response $response, Auth $auth): Response
-    {
-        try {
-            $_ = $auth->user();
-            return responseJSON($response, $this->usuario->basic($_->id()));
-        } catch(FormValidationException $e) {
-            return responseJSON($response, [
-                "error"  => $e->getMessage(),
-                "fields" => $e->getInvalidFields()
-            ], 422);
-        } catch(\Exception $e) {
-            return responseJSON($response, [
-                "error"  => $e->getMessage(),
-                "fields" => []
+                "fields" => $e instanceof FormValidationException
+                    ? $e->getInvalidFields()
+                    : []
             ], 422);
         }
     }
@@ -108,6 +90,21 @@ class UsuarioController
                 "error"  => $e->getMessage(),
                 "fields" => $e instanceof FormValidationException
                     ? $e->getInvalidFields() : []
+            ], 422);
+        }
+    }
+
+    public function getBasic(Response $response, Auth $auth): Response
+    {
+        try {
+            $_ = $auth->user();
+            return responseJSON($response, $this->usuario->basic($_->id()));
+        } catch(\Exception|FormValidationException $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+                "fields" => $e instanceof FormValidationException
+                    ? $e->getInvalidFields()
+                    : []
             ], 422);
         }
     }

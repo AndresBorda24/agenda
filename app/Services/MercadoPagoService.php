@@ -11,6 +11,7 @@ use MercadoPago\Payment;
 use MercadoPago\Preference;
 use App\DataObjects\PlanDTO;
 use App\Contracts\UserInterface;
+use MercadoPago\MerchantOrder;
 
 class MercadoPagoService
 {
@@ -33,14 +34,35 @@ class MercadoPagoService
         if (! $this->user) null;
 
         $item = new \MercadoPago\Item();
-        $item->title = 'Plan - ' . $plan->nombre;
-        $item->quantity = 1;
-        $item->unit_price = $plan->valor;
+        $item->id          = $plan->id;
+        $item->title       = 'Plan - ' . $plan->nombre;
+        $item->quantity    = 1;
+        $item->unit_price  = $plan->valor;
         $item->currency_id = "COP";
+
+        // Informacion del Payer
+        $payer = new \MercadoPago\Payer();
+        $payer->email      = $this->user->getData("email");
+        $payer->name       = $this->user->getData("nom1");
+        $payer->surname    = $this->user->getData("ape1");
+        $payer->identification  = [
+            "type" => "CC",
+            "number" => $this->user->getData("num_histo")
+        ];
+        $payer->phone           = [
+            "area_code" => "57",
+            "number" => $this->user->getData("telefono")
+        ];
 
         $preference = new Preference();
         $preference->items = array($item);
-        $preference->auto_return = "approved";
+        // $preference->auto_return = "approved";
+        $preference->notification_url = sprintf(
+            "https://intranet.asotrauma.com.co/mpipn/%s/plan/%s",
+            $this->user->id(),
+            $plan->id
+        );
+        $preference->payer = $payer;
 
         // Aqui guardamos los id's que necesitamos, tambien se podria guardar
         // mas informacion.
@@ -76,5 +98,10 @@ class MercadoPagoService
     public function getPayment(string $id)
     {
         return Payment::find_by_id($id);
+    }
+
+    public function getMerhant(string $id)
+    {
+        return MerchantOrder::find_by_id($id);
     }
 }

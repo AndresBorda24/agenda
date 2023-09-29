@@ -89,7 +89,10 @@ body {
     pointer-events: none;
 }
 .form-control-sm, .form-select-sm{
-    font-size: 12px;
+    font-size: 13px;
+}
+.form-uppercase input {
+    text-transform: uppercase;
 }
 
 @media (width <= 768px) {

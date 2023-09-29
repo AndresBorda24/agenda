@@ -4,6 +4,7 @@ declare(strict_types=1);
 use Slim\App;
 use App\Controllers\Api\AgendaController;
 use App\Controllers\Api\AuthController;
+use App\Controllers\Api\BeneficiarioController;
 use App\Controllers\Api\EpsController;
 use App\Controllers\Api\MedicosController;
 use App\Middleware\JsonBodyParserMiddleware;
@@ -32,9 +33,11 @@ return function(App $app) {
 
         $api->group("/auth", function(Group $auth) {
             $auth->get("/basic", [UsuarioController::class, "getBasic"]);
+            $auth->get("/beneficiarios", [BeneficiarioController::class, "all"]);
+            $auth->post("/beneficiario", [BeneficiarioController::class, "store"]);
             $auth->put("/update-basic", [UsuarioController::class, "update"]);
             $auth->put("/password-update", [UsuarioController::class, "updatePass"]);
-        })->add(AuthMiddleware::class);;
+        })->add(AuthMiddleware::class);
 
         $api->group("/agenda", function(Group $agenda) {
             $agenda->get("/mis-citas", [AgendaController::class, "getCitasAgendadas"]);
@@ -62,6 +65,7 @@ return function(App $app) {
 
         $api->group("/mp", function(Group $mp) {
             $mp->get("/{id}/pago", [MercadoPagoController::class, "getPayment"]);
+            $mp->get("/{id}/merch", [MercadoPagoController::class, "getMerch"]);
             $mp->put("/pago/{id}/set-status/{status}", [MercadoPagoController::class, "setPaymentStatus"]);
         });
 

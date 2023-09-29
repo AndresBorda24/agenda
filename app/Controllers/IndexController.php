@@ -50,6 +50,13 @@ class IndexController
             ->render($response, "login/index.php");
     }
 
+    public function beneficiarios(Response $response): Response
+    {
+        return $this
+            ->view
+            ->render($response, "beneficiarios/index.php");
+    }
+
     public function planes(Response $response): Response
     {
         return $this

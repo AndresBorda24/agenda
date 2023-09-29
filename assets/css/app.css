@@ -60,10 +60,10 @@
         min-height: 100vh;
         overflow: auto;
     }
-    .aside {
+/*    .aside {
         height: auto;
         min-width: auto;
-    }
+    }*/
     .show-selected-day-hours {
         border-radius: .3rem;
         border-radius: 1rem 0 0 0;
