@@ -7,9 +7,12 @@ use App\Contracts\UserInterface;
 
 class User implements UserInterface
 {
+    private ?int $edad = null;
+
     public function __construct(
         private readonly string|int $id,
-        private readonly array  $data,
+        private readonly array $data,
+        private readonly ?array $plan
     ) {}
 
     public function id(): string|int
@@ -62,6 +65,25 @@ class User implements UserInterface
         return $default;
     }
 
+    public function plan(string $key): mixed
+    {
+        $p = $this->plan ?? [];
+
+        if (array_key_exists($key, $p)) {
+            return $p[$key];
+        }
+
+        return null;
+    }
+
+    public function isPlanValid(): bool
+    {
+        $x = $this->plan("expires_at");
+        if ($x === null) return false;
+
+        return strtotime($x) > time();
+    }
+
     /**
      * @return int Devuelve la edad caculada del paciente.
     */
@@ -69,24 +91,24 @@ class User implements UserInterface
     {
         if (! $_ = $this->getData("fech_nac")) return null;
 
-        $a = new \DateTimeImmutable($_);
-        $edad = $a->diff(new \DateTimeImmutable);
+        if ($this->edad === null) {
+            $a = new \DateTimeImmutable($_);
+            $edad = $a->diff(new \DateTimeImmutable);
+            $this->edad = (int) $edad->format('%y');
+        }
 
-        return (int) $edad->format('%y');
+        return $this->edad;
     }
 
-    public function hasPlan(bool $strict = false): bool
+    public function hasPlan(): bool
     {
-        $hasPlan = $this->getData("pago_id") !== null;
-
-        return $strict
-        ? $hasPlan
-            && ($this->getData("pago_status") == \App\Enums\MpStatus::APROVADO->value)
-        : $hasPlan;
+        return $this->plan("plan_id") !== null
+        && $this->plan("paid")
+        && $this->isPlanValid();
     }
 
     public function isTitular(): bool
     {
-        return $this->id() == $this->getData("titular");
+        return $this->id() == $this->plan("usuario_id");
     }
 }
