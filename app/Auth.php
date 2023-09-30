@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace App;
 
-use App\Contracts\UserInterface;
 use App\Models\Usuario;
+use App\Contracts\UserInterface;
 
 class Auth
 {

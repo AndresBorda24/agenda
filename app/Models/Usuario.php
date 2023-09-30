@@ -99,19 +99,11 @@ class Usuario
     {
         try {
             $_ = $this->db->get(static::TABLE." (U)", [
-                "[>]pagos (P)" => ["pago_id" => "id"],
-                "[>]planes (N)" => ["P.plan_id" => "id"]
-            ], [
                 // Informacion del usuario
                 "U.id", "U.eps", "U.ape1", "U.ape2",
                 "U.nom1", "U.nom2", "U.clave", "U.email",
                 "U.ciudad", "U.telefono", "U.direccion",
                 "U.fech_nac", "U.num_histo (documento)",
-                // Informacion de su pago
-                "P.status (pago_status)", "P.id (pago_id)",
-                "P.expires_at (pago_expires)", "P.usuario_id (titular)",
-                // Info del plan al que esta relacionado
-                "N.nombre (plan_nombre)"
             ], [
                 "AND" => [
                     "U.$field" => $id,
@@ -121,7 +113,11 @@ class Usuario
 
             if (! $_) return null;
 
-            return new User($_["id"], $_);
+            return new User(
+                $_["id"],
+                $_,
+                (new Order($this->db))->find((int) $_["id"])
+            );
         } catch(\Exception $e) {
             throw $e;
         }
