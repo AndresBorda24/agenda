@@ -3,18 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controllers\Validation;
 
-use App\Models\Beneficiario;
-use Rakit\Validation\Validator;
-use App\Controllers\Validation\Rules\UniqueRule;
-use App\Controllers\Validation\Exceptions\FormValidationException;
 use App\Models\Usuario;
+use App\Models\Beneficiario;
 
-class BeneficiarioValidation
+class BeneficiarioValidation extends Request
 {
-    public function __construct(
-        private UniqueRule $uniqueRule
-    ) {}
-
     /**
      * Valida que los datos que se envian en el request sean los necesarios para
      * realizar un insert correctamente.
@@ -24,14 +17,7 @@ class BeneficiarioValidation
     public function check(array $data): void
     {
         try {
-            $validator = $this->getInstance();
-            $validation = $validator->validate($data, $this->insertRules($data));
-
-            if ($validation->fails()) {
-                throw new FormValidationException(
-                    $validation->errors()->toArray()
-                );
-            }
+            $this->validate($data, $this->insertRules($data));
         } catch(\Exception $e) {
             throw $e;
         }
@@ -41,7 +27,7 @@ class BeneficiarioValidation
      * Estas son las reglas de validacion para la creacion de un nuevo
      * beneficiario.
     */
-    private function insertRules(array $data): array
+    private function insertRules(): array
     {
         $tipoDoc = array_map(
             fn($c) => $c->name, \App\Enums\TipoDocumentos::cases()
@@ -63,26 +49,7 @@ class BeneficiarioValidation
                 "required|digits_between:6,15|unique:%s,%s|unique:%s,%s",
                 Beneficiario::TABLE, 'documento',
                 Usuario::TABLE, "num_histo"
-            ),
+            )
         ];
-    }
-
-    /**
-     * Crea una instancia del validator y establece los mensajes.
-    */
-    private function getInstance(): Validator
-    {
-        $validator = new Validator;
-        $validator->addValidator("unique", $this->uniqueRule);
-        $validator->setMessages([
-            "required" => "Valor es requerido.",
-            "digits_between" => "Debe tener una longitud entre :min y :max. Y ser un numero.",
-            "min" => "Debe tener una longitud mayor.",
-            "date" => "Fecha no valida.",
-            "same" => "El valor no coincide.",
-            "unique" => ":value, ya está registrado como beneficiario o titular"
-        ]);
-
-        return $validator;
     }
 }

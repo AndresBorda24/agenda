@@ -6,60 +6,23 @@ namespace App\Controllers\Validation;
 use App\Auth;
 use App\Models\Usuario;
 use Rakit\Validation\Validator;
-use App\Controllers\Validation\Exceptions\FormValidationException;
 use App\Controllers\Validation\Rules\UniqueRule;
 
-class UpdateUserValidation
+class UpdateUserValidation extends Request
 {
     public function __construct(
+        private UniqueRule $ur,
+        protected Validator $validator,
         public readonly Auth $auth,
-        public readonly Usuario $usuario,
-        private UniqueRule $uniqueRule
-    ) {}
+        public readonly Usuario $usuario
+    ) {
+        parent::__construct($ur, $validator);
+    }
 
-    public function check(array $data): void
+    public function checkUpdate(array $data): void
     {
         try {
-            $validator  = new Validator;
-            $validator->addValidator("unique", $this->uniqueRule);
-
-            $validator->setMessages([
-                "required" => "Valor es requerido.",
-                "email" => "Debe ser un correo valido.",
-                "min" => "Debe tener una longitud mayor.",
-                "date" => "Fecha no valida.",
-                "same" => "El valor no coincide.",
-                "digits_between" => "Debe tener una longitud entre :min y :max. Y ser un numero."
-            ]);
-
-            $validation = $validator->validate($data, [
-                "eps" => 'required',
-                "ape1" => 'required',
-                "ape2" => 'nullable',
-                "nom1" => 'required',
-                "nom2" => 'nullable',
-                "email" => 'required|email',
-                "ciudad" => 'required|min:3',
-                "telefono" => 'required',
-                "fech_nac" => 'required|date',
-                "direccion" => 'required',
-                "num_histo" => [
-                    'required',
-                    'digits_between:6,15',
-                    sprintf(
-                        "unique:%s,%s,%s",
-                        Usuario::TABLE, 'num_histo', $this->auth->user()->getData("documento")
-                    )
-                ],
-            ]);
-
-            if ($validation->fails()) {
-                $errors = $validation->errors();
-
-                throw new FormValidationException(
-                    $errors->toArray()
-                );
-            }
+           $this->validate($data, $this->updateRules());
         } catch(\Exception $e) {
             throw $e;
         }
@@ -68,34 +31,51 @@ class UpdateUserValidation
     public function checkPassword(array $data): void
     {
         try {
-            $validator  = new Validator;
-
-            $validator->setMessages([
-                "required" => "Valor es requerido.",
-                "min" => "Debe tener una longitud mayor.",
-                "same" => "El valor no coincide.",
-            ]);
-
-            $pass = $this->auth->user()->clave();
-            $validation = $validator->validate($data, [
-                "_password" => ["required", function ($val) use ($pass) {
-                    if (! password_verify($val, $pass)) {
-                        return "Revisa...";
-                    }
-                }],
-                "new_password" => "required|min:8",
-                "new_password_confirm" => "required|same:new_password"
-            ]);
-
-            if ($validation->fails()) {
-                $errors = $validation->errors();
-
-                throw new FormValidationException(
-                    $errors->toArray()
-                );
-            }
+            $this->validate($data, $this->passRules());
         } catch(\Exception $e) {
             throw $e;
         }
+    }
+
+    private function updateRules(): array
+    {
+        return [
+            "eps" => 'required',
+            "ape1" => 'required',
+            "ape2" => 'nullable',
+            "nom1" => 'required',
+            "nom2" => 'nullable',
+            "email" => 'required|email',
+            "ciudad" => 'required|min:3',
+            "telefono" => 'required',
+            "fech_nac" => 'required|date',
+            "direccion" => 'required',
+            "email" => sprintf(
+                "required|email|unique:%s,%s,%s",
+                Usuario::TABLE, "email", $this->auth->user()->getData("email")
+            ),
+            "telefono" => sprintf(
+                "required|digits:10|unique:%s,%s,%s",
+                Usuario::TABLE, "telefono", $this->auth->user()->getData("telefono")
+            ),
+            "num_histo" => sprintf(
+                "required|digits_between:6,15|unique:%s,%s,%s",
+                Usuario::TABLE, "num_histo", $this->auth->user()->getData("documento")
+            ),
+        ];
+    }
+
+    private function passRules(): array
+    {
+        $pass = $this->auth->user()->clave();
+        return [
+            "_password" => ["required", function ($val) use ($pass) {
+                if (! password_verify($val, $pass)) {
+                    return "Revisa...";
+                }
+            }],
+            "new_password" => "required|min:8",
+            "new_password_confirm" => "required|same:new_password"
+        ];
     }
 }

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controllers\Api;
 
-use Slim\App;
 use App\Auth;
 use App\Models\Usuario;
 use App\Controllers\Validation\CreateUserValidation;
@@ -21,11 +20,12 @@ class UsuarioController
     public function registro(
         Request $request,
         Response $response,
+        CreateUserValidation $validation,
         Auth $auth
     ): Response {
         try {
             $data = $request->getParsedBody();
-            CreateUserValidation::check($data, $this->usuario);
+            $validation->check($data);
 
             $id = $this->usuario->create($data);
             $auth->logIn($this->usuario->find($id));
@@ -51,7 +51,7 @@ class UsuarioController
     ): Response {
         try {
             $data = $request->getParsedBody();
-            $validator->check($data, $this->usuario);
+            $validator->checkUpdate($data, $this->usuario);
 
             return responseJSON($response, [
                 "status" => true,
@@ -69,7 +69,6 @@ class UsuarioController
     }
 
     public function updatePass(
-        App $app,
         Request $request,
         Response $response,
         UpdateUserValidation $validator
@@ -80,7 +79,6 @@ class UsuarioController
 
             return responseJSON($response, [
                 "status" => true,
-                "logout" =>  $app->getRouteCollector()->getRouteParser()->urlFor("logout"),
                 "__ctrl" => $this
                     ->usuario
                     ->updatePassword($data, $validator->auth->user()->id())
