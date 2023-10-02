@@ -4,10 +4,9 @@ declare(strict_types=1);
 use function DI\create;
 
 use App\Config;
-use App\DataObjects\SessionConfig;
-use App\Services\MercadoPagoService;
 use Medoo\Medoo;
 use Slim\Views\PhpRenderer;
+use App\DataObjects\SessionConfig;
 
 return [
     Config::class => create()
