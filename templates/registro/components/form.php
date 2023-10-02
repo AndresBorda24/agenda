@@ -1,6 +1,5 @@
 <form
 x-data="Form"
-data-end-point="/pacientes/registro"
 @submit.prevent="save"
 class="p-0 shadow border d-flex flex-column rounded bg-body-tertiary overflow-hidden"
 autocomplete="off">

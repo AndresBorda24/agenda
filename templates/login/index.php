@@ -78,7 +78,7 @@
         href="<?= $this->link("registro") ?>"
         style="font-size: .75rem;"
         class="btn btn-outline-light btn-sm d-block m-auto">
-          Registrate
+          Reg&iacute;strate
         </a>
       </div>
     </form>

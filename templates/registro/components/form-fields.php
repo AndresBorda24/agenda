@@ -14,31 +14,40 @@
     class="form-control form-control-sm m-1">
   </div>
 
-  <div class="small p-1 mb-2">
-    <label for="nombre"
-    class="form-label text-muted small m-0">Apellidos y Nombres:</label>
-    <div class="d-flex gap-2 flex-wrap">
+  <div class="small p-1">
+    <span class="form-label small text-muted">Nombres:</span>
+    <div class="d-flex gap-1">
       <input
-      placeholder="Apellido"
+      id="nom1"
       required
-      x-model="state.ape1"
       type="text"
-      class="form-control form-control-sm">
-      <input
-      placeholder="Seg. Apellido"
-      x-model="state.ape2"
-      type="text"
-      class="form-control form-control-sm">
-      <input
-      placeholder="Nombre"
-      required
       x-model="state.nom1"
-      type="text"
+      placeholder="Requerido"
       class="form-control form-control-sm">
       <input
-      placeholder="Seg. Nombre"
-      x-model="state.nom2"
+      id="nom2"
       type="text"
+      x-model="state.nom2"
+      placeholder="Opcional"
+      class="form-control form-control-sm">
+    </div>
+  </div>
+
+  <div class="small p-1 mb-2">
+    <span class="form-label small text-muted">Apellidos:</span>
+    <div class="d-flex gap-1">
+      <input
+      id="ape1"
+      required
+      type="text"
+      x-model="state.ape1"
+      placeholder="Requerido"
+      class="form-control form-control-sm">
+      <input
+      id="ape2"
+      type="text"
+      x-model="state.ape2"
+      placeholder="Opcional"
       class="form-control form-control-sm">
     </div>
   </div>
@@ -67,8 +76,9 @@
       for="email">Correo:</label>
       <input
       id="email"
-      x-model="state.email"
       required
+      autocomplete="email"
+      x-model="state.email"
       placeholder="correo-usuario@corro.com"
       type="email"
       class="form-control form-control-sm">
@@ -140,9 +150,9 @@
       for="clave"
       class="form-label text-muted small text-muted m-0">Contrase&ntilde;a:</label>
       <input
-      required
-      min="8"
       id="clave"
+      required
+      minlength="8"
       x-model="state.clave"
       type="password"
       class="form-control form-control-sm">
@@ -152,9 +162,9 @@
       for="clave_confirm"
       class="form-label text-muted small text-muted m-0">Confirma Contrase&ntilde;a:</label>
       <input
-      required
-      min="8"
       id="clave_confirm"
+      required
+      minlength="8"
       x-model="state.clave_confirm"
       type="password"
       class="form-control form-control-sm">
