@@ -9,6 +9,7 @@
 .planes-item {
     flex-grow: 1;
     max-width: 400px;
+    min-width: 280px;
     transition: scale 100ms;
 }
 .planes-item:hover {
