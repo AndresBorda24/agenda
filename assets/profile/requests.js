@@ -1,6 +1,5 @@
 import axios from "axios";
 import { showLoader, hideLoader } from "@/partials/loader";
-import { removeInvalid, setInvalid } from "@/partials/form-validation";
 
 const ax = axios.create({
   baseURL: process.env.API
@@ -27,31 +26,37 @@ export async function getUserData() {
  * @param { object } dt Informacion del formulario.
 */
 export async function updateUser( dt ) {
-  showLoader();
-  removeInvalid();
+  let res = null;
+  let error = null;
 
-  const { data } = await ax
-    .put("/auth/update-basic", dt)
-    .catch(e => setInvalid(e.response?.data?.fields || []))
-    .finally(hideLoader);
-
-  return data;
+  try {
+    showLoader();
+    const { data } = await ax.put("/auth/update-basic", dt);
+    res = data;
+  } catch(e) {
+    error = e;
+  } finally {
+    hideLoader();
+    return [ res, error ];
+  }
 }
 
 /**
  * @param { object } dt Informacion del formulario.
 */
 export async function updatePassword( state ) {
+  let res = null;
+  let error = null;
+
   try {
     showLoader();
-    removeInvalid();
+    const { data } = await ax.put("/auth/password-update", state);
 
-    const { data } = await ax
-      .put("/auth/password-update", state)
-      .finally(hideLoader);
-
-    return data;
+    res = data;
   } catch(e) {
-    setInvalid(e.response?.data?.fields || {});
+    error = e;
+  } finally {
+    hideLoader();
+    return [ res, error ]
   }
 }
