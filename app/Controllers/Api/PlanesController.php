@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers\Api;
 
+use App\Contracts\UserInterface;
 use App\Models\Plan;
 use App\Services\MercadoPagoService;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -16,10 +17,13 @@ class PlanesController
     ){}
 
     /** Obtiene todas las especialidades con citas disponibles */
-    public function getAvailable(Response $response): Response
+    public function getAvailable(Response $response, UserInterface $user): Response
     {
         try {
-            return responseJSON($response, $this->plan->getAll());
+            return responseJSON(
+                $response,
+                $this->plan->getAll($user->isFromIntranet())
+            );
         } catch(\Exception $e) {
             $data = [ "error" => $e->getMessage() ];
             return responseJSON($response, $data, 500);

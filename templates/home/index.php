@@ -13,6 +13,12 @@
 
   <div class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
+
+    <main class="flex-grow-1 p-3">
+      <pre>
+        <?= print_r($this->auth()->user()->isFromIntranet() ) ?>
+      </pre>
+    </main>
   </div>
 
   <?= $this->fetch("./partials/footer.php") ?>

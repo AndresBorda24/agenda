@@ -57,7 +57,7 @@ return function(App $app) {
             $planes->post("/info-pagos",
                 [PlanesController::class, 'createPreference']
             );
-        });
+        })->add(AuthMiddleware::class);
 
         $api->group("/pacientes", function(Group $paciente) {
             $paciente->post("/registro", [UsuarioController::class, 'registro']);
