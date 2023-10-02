@@ -88,10 +88,11 @@ class="p-3 bg-white shadow border rounded small">
       for="email">Correo:</label>
       <input
       id="email"
-      x-model="state.email"
       required
-      placeholder="correo-usuario@corro.com"
       type="email"
+      autocomplete="email"
+      x-model="state.email"
+      placeholder="correo-usuario@corro.com"
       class="form-control form-control-sm text-uppercase">
     </div>
   </div>
