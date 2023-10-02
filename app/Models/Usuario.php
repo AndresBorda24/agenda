@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+// use App\CalidadDb;
 use App\User;
 use Medoo\Medoo;
 use App\Contracts\UserInterface;
@@ -14,7 +15,9 @@ class Usuario
     public CONST TABLE = "usuarios";
 
     public function __construct(
-        private Medoo $db
+        private Medoo $db,
+        public readonly Calidad $calidad
+        // public readonly CalidadDb $intranet
     ) {}
 
     /**
@@ -112,6 +115,7 @@ class Usuario
             ]);
 
             if (! $_) return null;
+            $_["intranet"] = $this->calidad->userExistsByDoc($_["documento"]);
 
             return new User(
                 $_["id"],
