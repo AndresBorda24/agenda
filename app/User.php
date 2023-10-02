@@ -111,4 +111,9 @@ class User implements UserInterface
     {
         return $this->id() == $this->plan("usuario_id");
     }
+
+    public function isFromIntranet(): bool
+    {
+        return $this->getData("intranet");
+    }
 }
