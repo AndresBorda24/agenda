@@ -15,11 +15,14 @@
     <?= $this->fetch("./partials/aside.php") ?>
     <main class="flex-grow-1 p-3">
       <section class="mx-auto" style="max-width: 700px;">
+        <?php if( $this->auth()->user()->hasPlan() )
+          echo $this->fetch("./profile/partials/plan-info.php")  ?>
+
         <section class="mb-5">
           <?= $this->fetch("./profile/partials/basic.php") ?>
         </section>
 
-        <section>
+        <section class="mb-5">
           <?= $this->fetch("./profile/partials/password.php") ?>
         </section>
       </section>
