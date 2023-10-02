@@ -52,4 +52,10 @@ interface UserInterface
      * realizo la compra.
     */
     public function isTitular(): bool;
+
+    /**
+     * Determina si el usuario ya esta registrado en la base de datos de
+     * usuarios de intranet
+    */
+    public function isFromIntranet(): bool;
 }
