@@ -39,6 +39,10 @@ class MercadoPagoService
         $item->quantity    = 1;
         $item->unit_price  = $plan->valor;
         $item->currency_id = "COP";
+        $item->description =
+            "Beneficios: \n"
+            . " - "
+            . preg_replace("/;/", "\n -", $plan->beneficios);
 
         // Informacion del Payer
         $payer = new \MercadoPago\Payer();

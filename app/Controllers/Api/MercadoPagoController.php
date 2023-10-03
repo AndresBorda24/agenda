@@ -42,4 +42,11 @@ class MercadoPagoController
 
         return responseJSON($response, $m?->toArray());
     }
+
+    public function getPref(Response $response, string $id): Response
+    {
+        $pre = \MercadoPago\Preference::find_by_id($id);
+        return responseJSON($response, $pre?->toArray());
+    }
+
 }

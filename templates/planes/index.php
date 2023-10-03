@@ -21,7 +21,7 @@
     class="container flex-grow-1 px-md-2"
     style="min-height: 60vh;">
       <section x-cloak x-show="tab === 1" x-transition.opacity>
-        <h2 class="text-center text-primary mb-0 mt-3">Selecciona tu plan</h2>
+        <h2 class="text-center text-primary mt-3">Selecciona tu plan</h2>
         <?= $this->fetch("./planes/partials/plan/component.php") ?>
       </section>
 
