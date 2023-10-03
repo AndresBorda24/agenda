@@ -15,9 +15,6 @@
     <?= $this->fetch("./partials/aside.php") ?>
 
     <main class="flex-grow-1 p-3">
-      <pre>
-        <?= print_r($this->auth()->user()->isFromIntranet() ) ?>
-      </pre>
     </main>
   </div>
 

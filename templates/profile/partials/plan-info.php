@@ -20,6 +20,7 @@
         <?= $this->auth()->user()->plan("expires_at") ?>
       </span>
     </header>
+
     <span>Beneficios:</span>
     <ul class="small">
       <?php foreach(
@@ -29,6 +30,10 @@
         <li class="small fw-light"><?= $beneficio ?>.</li>
       <?php endforeach ?>
     </ul>
+
+    <div class="text-light fw-light">
+      <?= $this->fetch("./planes/partials/plan/exclusiones.php") ?>
+    </div>
   </section>
 </article>
 
