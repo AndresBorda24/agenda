@@ -40,10 +40,11 @@ return function(App $app) {
 
             $app->group("/planes", function(Group $app) {
                 $app->get("", [IndexController::class, "planes"])
-                    ->setName("planes");
+                    ->setName("planes")
+                    ->add(NoPlanMiddleware::class);
 
-                $app->get("/feedback", [MpController::class, "finish"]);
-            })->add(NoPlanMiddleware::class);
+                $app->get("/feedback", [IndexController::class, "planesResponse"]);
+            });
         })->add(AuthMiddleware::class);
 
         $app->group("", function(Group $app) {
