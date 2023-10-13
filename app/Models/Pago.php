@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Medoo\Medoo;
-use App\Enums\MpStatus;
+use App\DataObjects\CreatePagoInfo;
+use App\DataObjects\UpdatePagoInfo;
 
 class Pago
 {
@@ -16,24 +17,20 @@ class Pago
 
     /**
      * Guarda el registro de un pago en la base de datos.
+     *
+     * @return int|bool El id en caso que se realice la insercion o FALSE en
+     *                  caso contrario.
     */
-    public function store(array $data, MpStatus $status): int|bool
+    public function create(CreatePagoInfo $data): int
     {
         try {
-            // Si ya hay un pago con ese id (solo por si acaso)
-            if ($this->db->has(self::TABLE, [ "payment_id" => $data["payment_id"] ])) {
-                return $this->update($data, $status);
-            }
-
-            $_ = $this->db->insert(self::TABLE, [
-                "status" => $status->value,
-                "plan_id" => $data["plan_id"],
-                "usuario_id" => $data["usuario_id"],
-                "expires_at" =>  $data["expires_at"],
-                "payment_id" => $data["payment_id"],
+            $this->db->insert(self::TABLE, [
+                "status" => $data->status,
+                "plan_id" => $data->planId,
+                "usuario_id" => $data->userId
             ], 'id');
 
-            return $_ ? (int) $this->db->id() : false;
+            return (int) $this->db->id();
         } catch(\Exception $e) {
             throw $e;
         }
@@ -41,32 +38,23 @@ class Pago
 
     /**
      * Actualiza la informacion de un pago.
+     * @throws \Exception En caso de que no se encuentre el pago con el id
+     *                    suministrado.
     */
-    public function update(array $data, MpStatus $status): bool
+    public function updateInfo(int $id, UpdatePagoInfo $data): bool
     {
         try {
-            $this->db->update(self::TABLE, [
-                "status" => $status->value,
-                "plan_id" => $data["plan_id"],
-                "usuario_id" => $data["usuario_id"],
-                "expires_at" =>  $data["expires_at"]
-            ],  [ "payment_id" => $data["payment_id"] ]);
+            if (! $this->db->has(self::TABLE, [ "id" => $id])) {
+                throw new \Exception("Local Pay not found.");
+            }
 
-            return true;
-        } catch(\Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Actualiza unicamente el estado de un pago.
-    */
-    public function updateStatus($id, MpStatus $status)
-    {
-        try {
             $this->db->update(self::TABLE, [
-                "status" => $status->value,
-            ],  [ "id" => $id ]);
+                "type" => $data->type,
+                "status" => $data->status,
+                "detail" => $data->detail,
+                "payment_id" => $data->id,
+                "created_at" => $data->start
+            ], [ "id" => $id ]);
 
             return true;
         } catch(\Exception $e) {
