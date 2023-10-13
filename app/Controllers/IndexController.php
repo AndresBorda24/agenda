@@ -67,7 +67,6 @@ class IndexController
     public function planesResponse(Request $request, Response $response): Response
     {
         $data = $request->getQueryParams();
-
         return $this
             ->view
             ->render($response, "planes/finished.php", $data);

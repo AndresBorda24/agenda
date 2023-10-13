@@ -2,18 +2,18 @@
 declare(strict_types=1);
 
 use Slim\App;
-use App\Controllers\Api\AgendaController;
-use App\Controllers\Api\AuthController;
-use App\Controllers\Api\BeneficiarioController;
+use App\Middleware\AuthMiddleware;
 use App\Controllers\Api\EpsController;
+use App\Controllers\Api\AuthController;
+use App\Controllers\Api\PlanesController;
+use App\Controllers\Api\AgendaController;
+use App\Controllers\Api\UsuarioController;
 use App\Controllers\Api\MedicosController;
 use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
+use App\Controllers\Api\BeneficiarioController;
 use App\Controllers\Api\EspecialidadController;
 use App\Controllers\Api\MercadoPagoController;
-use App\Controllers\Api\PlanesController;
-use App\Controllers\Api\UsuarioController;
-use App\Middleware\AuthMiddleware;
 
 /**
  * Mapea TODAS las rutas relacionadas con la API
@@ -52,7 +52,7 @@ return function(App $app) {
         $api->group("/planes", function(Group $planes) {
             $planes->get("/get-available", [PlanesController::class, 'getAvailable']);
             $planes->post("/{planId:[0-9]+}/create-preference",
-                [PlanesController::class, 'createPreference']
+                [MercadoPagoController::class, 'createPreference']
             );
             $planes->post("/info-pagos",
                 [PlanesController::class, 'createPreference']

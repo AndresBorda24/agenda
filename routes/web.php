@@ -8,6 +8,7 @@ use App\Middleware\GuestMiddleware;
 use App\Controllers\IndexController;
 use App\Middleware\HasPlanMiddleware;
 use App\Controllers\Api\AuthController;
+use App\Controllers\Api\PagoController;
 use App\Middleware\NoPlanMiddleware;
 use App\Middleware\SetRouteContextMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
@@ -43,7 +44,10 @@ return function(App $app) {
                     ->setName("planes")
                     ->add(NoPlanMiddleware::class);
 
-                $app->get("/feedback", [IndexController::class, "planesResponse"]);
+                $app->get("/fbk", [IndexController::class, "planesResponse"])
+                    ->setName("planes.feedback");
+
+                $app->get("/feedback", [PagoController::class, "development"]);
             });
         })->add(AuthMiddleware::class);
 
