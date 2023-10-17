@@ -29,14 +29,14 @@
         <h2 class="text-center text-primary">Selecciona un medio de pago.</h2>
         <div
         id="medios-de-pago"
+        x-data="mp" x-bind="events"
         class="d-flex flex-column gap-3 my-4 mx-auto"
         style="max-width: 400px;">
-          <div x-data="mp" x-bind="events"></div>
           <div id="mercadopago"></div>
+          <button
+          class="planes-next-btn py-2 text-bg-danger"
+          @click="cancelPay">Cancelar</button>
         </div>
-        <button
-        class="planes-next-btn py-2 text-bg-danger"
-        @click="prev">Cancelar</button>
       </section>
     </section>
   </div>

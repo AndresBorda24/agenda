@@ -40,7 +40,8 @@ class MercadoPagoController
             if (!$prefId) throw new \Exception("Couldn generate preference");
 
             return responseJSON($response, [
-                "id" => $prefId
+                "id" => $prefId,
+                "pago" => $pago
             ]);
         } catch(\Exception $e) {
             $data = [ "error" => $e->getMessage() ];

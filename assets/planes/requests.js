@@ -32,3 +32,17 @@ export async function getPlanes(h = false) {
     throw e;
   }
 }
+
+/**
+ * Elimina un pago de la base de datos.
+*/
+export async function deletePago( pagoId, h = false) {
+  try {
+    const {data} = await ax
+      .delete(`/pagos/${pagoId}/delete`)
+      .finally(() => h ? hideLoader() : false);
+    return data;
+  } catch(e) {
+    throw e;
+  }
+};
