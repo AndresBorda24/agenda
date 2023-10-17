@@ -9,8 +9,8 @@ use App\DataObjects\UpdatePagoInfo;
 class UpdatePagoService
 {
     public function __construct(
-        public Pago $pago,
-        public MercadoPagoService $mp,
+        public readonly Pago $pago,
+        public readonly MercadoPagoService $mp,
     ) {}
 
     /**

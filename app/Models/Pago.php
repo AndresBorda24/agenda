@@ -10,6 +10,7 @@ use App\DataObjects\UpdatePagoInfo;
 class Pago
 {
     public const TABLE = "pagos";
+    public const VIEW = "vista_pagos_usuario";
 
     public function __construct(
         public readonly Medoo $db
@@ -57,6 +58,64 @@ class Pago
             ], [ "id" => $id ]);
 
             return true;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Encuentra la informacion del ultimo pago realizado por un usuario junto
+     * con informacion sobre el plan
+     *
+     * @return array|null Nulo Si el usuario no tiene alguna orden registrada.
+     *                    De otra manera la informacion de la orden.
+    */
+    public function getCurrentForUser(int $userId): ?array
+    {
+        try {
+            return $this->db->get(self::VIEW. " PG", [
+                "[>]".Plan::TABLE." (P)" => ["plan_id" => "id"]
+            ], [
+                "PG.id", "PG.usuario_id", "PG.plan_id",
+                "PG.payment_id", "PG.status", "PG.detail",
+                "PG.type", "PG.created_at",
+                // Informacion del plan asociado a la orden
+                "P.nombre", "P.vigencia", "P.beneficios",
+                "P.valor", "P.status (active)"
+            ], [ "usuario_id" => $userId ]);
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Encuentra la informacion de referente a un pago. No retorna datos de
+     * ninguna otra tabla, dicho de otra manera, no hay JOINS.
+     *
+     * @param mixed $value Valor a buscar
+     * @param string $field Campo por el que se realiza la busqueda.
+    */
+    public function find(mixed $value, string $field = "id"): ?array
+    {
+        try {
+            return $this->db->get(self::TABLE, "*", [
+                "$field" => $value
+            ]);
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Elimina el registro de un pago.
+    */
+    public function remove(int $id): int
+    {
+        try {
+            $_ = $this->db->delete(self::TABLE, [
+                "id" => $id
+            ]);
+            return $_->rowCount();
         } catch(\Exception $e) {
             throw $e;
         }

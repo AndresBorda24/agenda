@@ -72,4 +72,18 @@ class PagoController
             ], 422);
         }
     }
+
+    public function remove(Response $response, int $id): Response
+    {
+        try {
+           return responseJSON($response, $this
+                ->updatePagoService
+                ->pago
+                ->remove($id));
+       } catch (\Exception $e) {
+            return responseJSON($response, [
+                "message" => $e->getMessage()
+           ], 422);
+       }
+    }
 }
