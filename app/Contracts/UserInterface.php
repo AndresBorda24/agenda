@@ -58,4 +58,10 @@ interface UserInterface
      * usuarios de intranet
     */
     public function isFromIntranet(): bool;
+
+    /**
+     * Esta funcion determina si el usuario tiene un plan en estado pendiente
+     * ya sea por completar la compra o desembolsar el dinero.
+    */
+    public function hasPlanPendiente(): bool;
 }

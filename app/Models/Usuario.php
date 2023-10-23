@@ -120,7 +120,7 @@ class Usuario
             return new User(
                 $_["id"],
                 $_,
-                (new Order($this->db))->find((int) $_["id"])
+                (new Pago($this->db))->getCurrentForUser((int) $_["id"])
             );
         } catch(\Exception $e) {
             throw $e;
