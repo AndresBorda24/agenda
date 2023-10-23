@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\PagoInterface;
 use Medoo\Medoo;
 use App\DataObjects\CreatePagoInfo;
+use App\DataObjects\PagoInfo;
 use App\DataObjects\UpdatePagoInfo;
 
 class Pago
@@ -88,22 +90,27 @@ class Pago
      * Encuentra la informacion del ultimo pago realizado por un usuario junto
      * con informacion sobre el plan
      *
-     * @return array|null Nulo Si el usuario no tiene alguna orden registrada.
-     *                    De otra manera la informacion de la orden.
+     * @return ?\App\Pago Nulo Si el usuario no tiene alguna
+     *          orden registrada. De otra manera la informacion del pago.
     */
-    public function getCurrentForUser(int $userId): ?array
+    public function get(int $userId): ?\App\Pago
     {
         try {
-            return $this->db->get(self::VIEW. " (PG)", [
+            $info = $this->db->get(self::VIEW. " (PG)", [
                 "[>]".Plan::TABLE." (P)" => ["plan_id" => "id"]
             ], [
                 "PG.id", "PG.usuario_id", "PG.plan_id",
-                "PG.payment_id", "PG.status", "PG.detail",
                 "PG.type", "PG.created_at",
+                "PG.payment_id", "PG.status", "PG.detail",
                 // Informacion del plan asociado a la orden
                 "P.nombre", "P.vigencia", "P.beneficios",
                 "P.valor", "P.status (active)"
             ], [ "usuario_id" => $userId ]);
+
+            if (! $info) return null;
+
+            $class = new \ReflectionClass(\App\Pago::class);
+            return $class->newInstanceArgs($info);
         } catch(\Exception $e) {
             throw $e;
         }

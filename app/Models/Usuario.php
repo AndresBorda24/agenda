@@ -7,6 +7,7 @@ namespace App\Models;
 use App\User;
 use Medoo\Medoo;
 use App\Contracts\UserInterface;
+use App\DataObjects\UserInfo;
 
 use function App\uppercase;
 
@@ -17,7 +18,6 @@ class Usuario
     public function __construct(
         private Medoo $db,
         public readonly Calidad $calidad
-        // public readonly CalidadDb $intranet
     ) {}
 
     /**
@@ -98,15 +98,34 @@ class Usuario
     /**
      * Busca un usuario por su iD
     */
-    public function find(string|int $id, string $field = "id"): ?UserInterface
+    public function find(string|int $id): ?UserInterface
     {
         try {
-            $_ = $this->db->get(static::TABLE." (U)", [
-                // Informacion del usuario
-                "U.id", "U.eps", "U.ape1", "U.ape2",
+            $userInfo = $this->get($id);
+            if (! $userInfo) return null;
+
+            $pagoInfo = (new Pago($this->db))
+                ->get((int) $userInfo->id);
+
+            return new User($userInfo, $pagoInfo);
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Busca un usuario por el campo deseado.
+     * @param string|int $id El valor del campo a buscar.
+     * @param string $field El campo por el cual buscar.
+    */
+    public function get(string|int $id, string $field = "id"): ?UserInfo
+    {
+        try {
+            $userInfo = $this->db->get(static::TABLE." (U)", [
+                "U.id [int]", "U.eps", "U.ape1", "U.ape2",
                 "U.nom1", "U.nom2", "U.clave", "U.email",
                 "U.ciudad", "U.telefono", "U.direccion",
-                "U.fech_nac", "U.num_histo (documento)",
+                "U.fech_nac", "U.num_histo (documento)"
             ], [
                 "AND" => [
                     "U.$field" => $id,
@@ -114,14 +133,14 @@ class Usuario
                 ]
             ]);
 
-            if (! $_) return null;
-            $_["intranet"] = $this->calidad->userExistsByDoc($_["documento"]);
+            if (! $userInfo) return null;
 
-            return new User(
-                $_["id"],
-                $_,
-                (new Pago($this->db))->getCurrentForUser((int) $_["id"])
-            );
+            $userInfo["intranet"] = $this
+                ->calidad
+                ->userExistsByDoc($userInfo["documento"]);
+
+            $class = new \ReflectionClass(\App\DataObjects\UserInfo::class);
+            return $class->newInstanceArgs($userInfo);
         } catch(\Exception $e) {
             throw $e;
         }
