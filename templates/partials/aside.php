@@ -48,7 +48,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
       </a>
     <?php endif ?>
 
-    <?php if(false): ?>
+    <?php if(true): ?>
       <div class="border-top border-warning-subtle">
         <span class="d-block small text-warning p-2"> Citas </span>
         <div class="ps-4 d-flex flex-column gap-2">

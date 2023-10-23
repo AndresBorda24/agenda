@@ -1,6 +1,6 @@
 <div class="mb-5">
   <p class="text-danger fs-1 text-center">
-    <?= $state->publicName() ?>
+    <?= $state?->publicName() ?? "Error en Compra" ?>
   </p>
   <img
   alt="Compra Rechazada"

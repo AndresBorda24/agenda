@@ -11,6 +11,8 @@ class Pago
 {
     public const TABLE = "pagos";
     public const VIEW = "vista_pagos_usuario";
+    public const ASO_PENDIENTE = "ASO_PENDIENTE";
+    public const PLAN_DAYS_PLAZO = 2;
 
     public function __construct(
         public readonly Medoo $db
@@ -64,6 +66,25 @@ class Pago
     }
 
     /**
+     * Establece temporalmente el ID de la preferencia generada por Mercado Pago
+     * hasta que se complete el pago. Esto con la finalidad de retomar la compra.
+     *
+     * @return int El numero de filas afectadas en el Update
+    */
+    public function setPrefId(int $id, string $prefId): int
+    {
+        try {
+            $_ = $this->db->update(self::TABLE, [
+                "payment_id" => $prefId
+            ], [ "id" => $id ]);
+
+            return $_->rowCount();
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Encuentra la informacion del ultimo pago realizado por un usuario junto
      * con informacion sobre el plan
      *
@@ -73,7 +94,7 @@ class Pago
     public function getCurrentForUser(int $userId): ?array
     {
         try {
-            return $this->db->get(self::VIEW. " PG", [
+            return $this->db->get(self::VIEW. " (PG)", [
                 "[>]".Plan::TABLE." (P)" => ["plan_id" => "id"]
             ], [
                 "PG.id", "PG.usuario_id", "PG.plan_id",

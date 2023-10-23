@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App;
 
 use App\Contracts\UserInterface;
+use App\Enums\MpStatus;
+use App\Models\Pago;
 
 class User implements UserInterface
 {
@@ -52,6 +54,16 @@ class User implements UserInterface
             $this->getData("nom2", ""),
         ]);
     }
+
+    /**
+     * @return Un array con la info del plan asociado al usuario o Null si no
+     *          tiene.
+    */
+    public function getFullPlan(): ?array
+    {
+        return $this->plan;
+    }
+
 
     /**
      * Retorna datos mas generales dependiendo de $key
@@ -115,5 +127,19 @@ class User implements UserInterface
     public function isFromIntranet(): bool
     {
         return $this->getData("intranet");
+    }
+
+    public function hasPlanPendiente(): bool
+    {
+        $mpPendiente = match($this->plan("status")) {
+            MpStatus::EN_PROCESO->value,
+            MpStatus::PENDIENTE->value,
+            MpStatus::AUTORIZADO->value => true,
+            default => false
+        };
+
+        $_ = $this->plan("status") === Pago::ASO_PENDIENTE;
+
+        return $mpPendiente || $_;
     }
 }

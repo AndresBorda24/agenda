@@ -94,6 +94,18 @@ class MercadoPagoService
 
         return $payer;
     }
+
+    /**
+     * Busca la informacion de una referencia basado en el extarnal id
+    */
+    public function findByExternalId($id)
+    {
+        return Preference::search([
+            "external_reference" => $id,
+            "limit" => 1
+        ]);
+    }
+
     /**
      * Busca la info de una preferencia.
     */
