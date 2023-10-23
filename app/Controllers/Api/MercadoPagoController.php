@@ -33,11 +33,13 @@ class MercadoPagoController
             $pago = $this->pago->create(new CreatePagoInfo(
                 planId: $plan->id,
                 userId: $user->id(),
-                status: "ASO_PENDIENTE"
+                status: PAGO::ASO_PENDIENTE
             ));
 
             $prefId = $this->mercadoPagoService->genPreference($plan, $pago);
             if (!$prefId) throw new \Exception("Couldn generate preference");
+
+            $this->pago->setPrefId($pago, $prefId);
 
             return responseJSON($response, [
                 "id" => $prefId,

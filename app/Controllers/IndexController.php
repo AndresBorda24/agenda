@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Auth;
-use App\Enums\MpStatus;
 use App\Views;
+use App\Enums\MpStatus;
+use App\Services\MercadoPagoService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -58,18 +59,35 @@ class IndexController
             ->render($response, "beneficiarios/index.php");
     }
 
-    public function planes(Response $response): Response
+    public function planes(Response $response, MercadoPagoService $mps): Response
     {
+        /** @var \App\Contracts\UserInterface */
+        $user = $this->auth->user();
+        $pago = null;
+
+        if ($user->hasPlanPendiente()) {
+            /* Si es ASO_PENDIENTE, lo que buscamos es la referencia, no el pago */
+            if ($user->plan("status") === \App\Models\Pago::ASO_PENDIENTE) {
+                $pago = $mps->getPreference($user->plan("payment_id"));
+            } else {
+                $pago = $mps->getPayment($user->plan("payment_id"));
+            }
+        }
+
+        $this->view->addAttribute("user", $user);
         return $this
             ->view
-            ->render($response, "planes/index.php");
+            ->render($response, "planes/index.php", [
+                "pref" => $pago
+            ]);
     }
 
     public function planesResponse(Request $request, Response $response): Response
     {
         $data = $request->getQueryParams();
         $this->view->setLayout("planes-feedback/layout.php");
-        $state = MpStatus::tryFrom($data["status"]);
+        @$data["status"] ??= '';
+        $state = MpStatus::tryFrom(@$data["status"]);
 
         [$view, $title] = match($state) {
             MpStatus::APROVADO   => ["planes-feedback/ok.php", "Compra Aprobada"],
