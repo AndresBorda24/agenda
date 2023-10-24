@@ -15,7 +15,9 @@
     <?= $this->fetch("./partials/aside.php") ?>
     <main class="flex-grow-1 p-3">
       <section class="mx-auto" style="max-width: 700px;">
-        <?php if( $this->auth()->user()->hasPlan() ): ?>
+        <?php dump($this->user()->hasPago()); die; ?>
+
+        <?php if( $this->user()->hasPago() ): ?>
           <h2 class="fs-6">Informaci&oacute;n sobre tu Plan:</h2>
           <section class="mb-3 small">
             <?= $this->fetch("./profile/partials/plan-info.php") ?>

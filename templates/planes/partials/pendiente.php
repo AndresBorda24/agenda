@@ -1,13 +1,16 @@
+<?php /** @var \App\Contracts\UserInterface $user */ ?>
 <div x-data="PagoPendiente">
-  <section class="mb-3 small">
-    <?= $this->fetch("./profile/partials/plan-info.php") ?>
-  </section>
+  <?php if ($user->hasPago()): ?>
+    <section class="mb-3 small">
+      <?= $this->fetch("./profile/partials/plan-info.php") ?>
+    </section>
+  <?php endif ?>
 
-  <?php if ($user->plan("status") === \App\Models\Pago::ASO_PENDIENTE ): ?>
+  <?php if ($user->pago?->status === \App\Models\Pago::ASO_PENDIENTE ): ?>
     <template
     id="pago-pendiente-metadata"
     data-pref-id="<?= $pref?->id ?>"
-    data-pago-id="<?= $user->plan("id") ?>"
+    data-pago-id="<?= $user->pago?->id ?>"
     ></template>
 
     <div class="d-flex gap-2 align-items-between small">

@@ -15,7 +15,7 @@
   <div class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
     <section
-    x-data="Tabs( <?= $user->hasPlanPendiente() ? 1 : 2 ?> )"
+    x-data="Tabs( <?= $user->pago?->isPendiente() ? 1 : 2 ?> )"
     x-bind="events"
     class="container flex-grow-1 px-md-2"
     style="min-height: 60vh;">

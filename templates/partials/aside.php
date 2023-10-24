@@ -27,7 +27,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
       <?= $this->fetch("./icons/home.php") ?> Home
     </a>
 
-    <?php if($this->auth->user()->hasPlan(true)): ?>
+    <?php if($this->user()->hasPago()): ?>
       <?php if (false): ?>
         <a href="<?= $this->link("planes") ?>"
         <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
@@ -35,7 +35,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
         </a>
       <?php endif ?>
 
-      <?php if($this->auth->user()->isTitular()): ?>
+      <?php if($this->user()->isTitular()): ?>
         <a href="<?= $this->link("beneficiarios") ?>"
         <?= $this->isRoute("beneficiarios") ? 'class="is-active"' : '' ?>>
           <?= $this->fetch("./icons/users.php") ?> Beneficiarios
@@ -48,7 +48,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
       </a>
     <?php endif ?>
 
-    <?php if(true): ?>
+    <?php if(false): ?>
       <div class="border-top border-warning-subtle">
         <span class="d-block small text-warning p-2"> Citas </span>
         <div class="ps-4 d-flex flex-column gap-2">
