@@ -5,6 +5,7 @@ namespace App;
 
 use App\Abstracts\AbstractPago;
 use App\Contracts\PagoInterface;
+use DateTimeImmutable;
 
 class Pago extends AbstractPago
 {
@@ -45,18 +46,15 @@ class Pago extends AbstractPago
     }
 
     /**
-     * Determina si el usuario logeado tiene un plan.
-    */
-    public function hasPlan(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Determina si la vigencia del plan es valida
+     * Determina si la vigencia y el estado del plan es valida
     */
     public function isValid(): bool
     {
+        if ($this->created_at === null) return false;
+        if ($this->isPendiente()) return false;
+        if ($this->expireAt() < new \DateTime()) return false;
+        if ($this->status !== \App\Enums\MpStatus::APROVADO->value) return false;
+
         return true;
     }
 

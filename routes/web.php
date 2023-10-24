@@ -6,10 +6,10 @@ use App\Controllers\MpController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use App\Controllers\IndexController;
-use App\Middleware\HasPlanMiddleware;
+use App\Middleware\PagoValidoMiddleware;
 use App\Controllers\Api\AuthController;
 use App\Controllers\Api\PagoController;
-use App\Middleware\NoPlanMiddleware;
+use App\Middleware\NoPagoMiddleware;
 use App\Middleware\SetRouteContextMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 
@@ -27,11 +27,11 @@ return function(App $app) {
 
             $app->get("/agenda", [IndexController::class, "agenda"])
                 ->setName("agenda")
-                ->add(HasPlanMiddleware::class);
+                ->add(PagoValidoMiddleware::class);
 
             $app->get("/beneficiarios", [IndexController::class, "beneficiarios"])
                 ->setName("beneficiarios")
-                ->add(HasPlanMiddleware::class);
+                ->add(PagoValidoMiddleware::class);
 
             $app->post("/logout", [AuthController::class, "logout"])
                 ->setName("logout");
@@ -42,7 +42,7 @@ return function(App $app) {
             $app->group("/planes", function(Group $app) {
                 $app->get("", [IndexController::class, "planes"])
                     ->setName("planes")
-                    ->add(NoPlanMiddleware::class);
+                    ->add(NoPagoMiddleware::class);
 
                 $app->get("/fbk", [IndexController::class, "planesResponse"])
                     ->setName("planes.feedback");
