@@ -13,6 +13,7 @@ class Pago
 {
     public const TABLE = "pagos";
     public const VIEW = "vista_pagos_usuario";
+    public const ASO_NOMINA = "ASO_NOMINA";
     public const ASO_PENDIENTE = "ASO_PENDIENTE";
     public const PLAN_DAYS_PLAZO = 2;
 
@@ -143,6 +144,25 @@ class Pago
             $_ = $this->db->delete(self::TABLE, [
                 "id" => $id
             ]);
+            return $_->rowCount();
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Actualiza el estado de un pago para el pago con nomina
+     * @return int El numero de filas afectadas.
+    */
+    public function nomina(int $id): int
+    {
+        try {
+            $_ = $this->db->update(self::TABLE, [
+                "type" => "nomina",
+                "status" => self::ASO_NOMINA,
+                "created_at" => null,
+                "payment_id" => null
+            ], [ "id" => $id ]);
             return $_->rowCount();
         } catch(\Exception $e) {
             throw $e;

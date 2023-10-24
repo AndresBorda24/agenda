@@ -86,4 +86,18 @@ class PagoController
            ], 422);
        }
     }
+
+    public function nomina(Response $response, int $id): Response
+    {
+        try {
+           return responseJSON($response, $this
+                ->updatePagoService
+                ->pago
+                ->nomina($id));
+        } catch (\Exception $e) {
+            return responseJSON($response, [
+                "message" => $e->getMessage()
+           ], 422);
+        }
+    }
 }
