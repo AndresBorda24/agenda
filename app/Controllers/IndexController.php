@@ -9,6 +9,7 @@ use App\Enums\MpStatus;
 use App\Services\MercadoPagoService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use stdClass;
 
 class IndexController
 {
@@ -66,12 +67,12 @@ class IndexController
         $pago = null;
 
         if ($user->hasPago()) {
-            /* Si es ASO_PENDIENTE, lo que buscamos es la referencia, no el pago */
-            if ($user->pago->status === \App\Models\Pago::ASO_PENDIENTE) {
-                $pago = $mps->getPreference($user->pago->payment_id);
-            } else {
-                $pago = $mps->getPayment($user->pago->payment_id);
-            }
+            $pago = match($user->pago->status) {
+                /* Si es ASO_PENDIENTE, lo que buscamos es la referencia, no el pago */
+                \App\Models\Pago::ASO_PENDIENTE => $mps->getPreference($user->pago->payment_id),
+                \App\Models\Pago::ASO_NOMINA => null,
+                default => $mps->getPayment($user->pago->payment_id)
+            };
         }
 
         $this->view->addAttribute("user", $user);

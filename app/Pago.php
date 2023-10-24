@@ -40,7 +40,10 @@ class Pago extends AbstractPago
             default => false
         };
 
-        $_ = $this->status === \App\Models\Pago::ASO_PENDIENTE;
+        $_ = (
+            $this->status === \App\Models\Pago::ASO_PENDIENTE ||
+            $this->status === \App\Models\Pago::ASO_NOMINA
+        );
 
         return $mpPendiente || $_;
     }

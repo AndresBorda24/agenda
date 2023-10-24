@@ -1,5 +1,6 @@
-import { deletePago } from "@/planes/requests";
+import { deletePago, setNominaPago } from "@/planes/requests";
 import { showLoader, hideLoader } from "@/partials/loader";
+import { errorAlert, questionAlert } from "@/partials/alerts";
 
 export default () => ({
     button: undefined,
@@ -48,5 +49,31 @@ export default () => ({
         } catch(e) {
             console.error(e);
         }
+    },
+
+    /**
+     * Actualiza la informacion del pago y lo setea a nomina.
+    */
+    nomina() {
+        const callback = async (i, t) => {
+            showLoader();
+            const [e, data] = await setNominaPago(this.pagoId,  false);
+
+            if (! e) {
+                location.reload();
+                return;
+            }
+
+            hideLoader();
+            errorAlert("Intenta con otro medio de pago.");
+            i.hide({ transitionOut: 'fadeOut' }, t, 'button')
+        };
+
+        questionAlert({
+            message: `Realmente deseas pagar por medio de <br />
+            <span class="fw-bold">descuentos</span> en
+            <span class="fw-bold">N&oacute;mina?</span>`,
+            yesAction: callback
+        });
     }
 })
