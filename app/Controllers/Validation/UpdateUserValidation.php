@@ -52,15 +52,15 @@ class UpdateUserValidation extends Request
             "direccion" => 'required',
             "email" => sprintf(
                 "required|email|unique:%s,%s,%s",
-                Usuario::TABLE, "email", $this->auth->user()->getData("email")
+                Usuario::TABLE, "email", $this->auth->user()->info->email
             ),
             "telefono" => sprintf(
                 "required|digits:10|unique:%s,%s,%s",
-                Usuario::TABLE, "telefono", $this->auth->user()->getData("telefono")
+                Usuario::TABLE, "telefono", $this->auth->user()->info->telefono
             ),
             "num_histo" => sprintf(
                 "required|digits_between:6,15|unique:%s,%s,%s",
-                Usuario::TABLE, "num_histo", $this->auth->user()->getData("documento")
+                Usuario::TABLE, "num_histo", $this->auth->user()->info->documento
             ),
         ];
     }

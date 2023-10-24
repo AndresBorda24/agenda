@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
+/**
+ * @property ?\App\Abstracts\AbstractPago $pago
+ * @property \App\DataObjects\UserInfo $info
+*/
 interface UserInterface
 {
     public function id(): string|int;
@@ -16,36 +20,14 @@ interface UserInterface
     public function fullName(bool $apFirst = true): string;
 
     /**
-     * Retorna informacion sobre el plan.
-     *
-     * @param string $key Llave para buscar en la info del plan.
-     *
-     * @return mixed Si $key existe en la info del plan la retorna, de otro
-     * modo sera null.
-    */
-    public function plan(string $key): mixed;
-
-    /**
      * Determina si el usuario logeado tiene un plan.
     */
-    public function hasPlan(): bool;
-
-
-    /**
-     * Determina si la vigencia del plan es valida
-    */
-    public function isPlanValid(): bool;
-
-    /**
-     * Retorna datos mas generales dependiendo de $key
-    */
-    public function getData(string $key, mixed $default = null): mixed;
+    public function hasPago(): bool;
 
     /**
      * @return int Devuelve la edad caculada del paciente.
     */
     public function edad(): ?int;
-
 
     /**
      * Determina si el usuario es el titular del plan, es decir, quien

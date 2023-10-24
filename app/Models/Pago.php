@@ -3,12 +3,18 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\PagoInterface;
 use Medoo\Medoo;
-use App\Enums\MpStatus;
+use App\DataObjects\CreatePagoInfo;
+use App\DataObjects\PagoInfo;
+use App\DataObjects\UpdatePagoInfo;
 
 class Pago
 {
     public const TABLE = "pagos";
+    public const VIEW = "vista_pagos_usuario";
+    public const ASO_PENDIENTE = "ASO_PENDIENTE";
+    public const PLAN_DAYS_PLAZO = 2;
 
     public function __construct(
         public readonly Medoo $db
@@ -16,24 +22,20 @@ class Pago
 
     /**
      * Guarda el registro de un pago en la base de datos.
+     *
+     * @return int|bool El id en caso que se realice la insercion o FALSE en
+     *                  caso contrario.
     */
-    public function store(array $data, MpStatus $status): int|bool
+    public function create(CreatePagoInfo $data): int
     {
         try {
-            // Si ya hay un pago con ese id (solo por si acaso)
-            if ($this->db->has(self::TABLE, [ "payment_id" => $data["payment_id"] ])) {
-                return $this->update($data, $status);
-            }
-
-            $_ = $this->db->insert(self::TABLE, [
-                "status" => $status->value,
-                "plan_id" => $data["plan_id"],
-                "usuario_id" => $data["usuario_id"],
-                "expires_at" =>  $data["expires_at"],
-                "payment_id" => $data["payment_id"],
+            $this->db->insert(self::TABLE, [
+                "status" => $data->status,
+                "plan_id" => $data->planId,
+                "usuario_id" => $data->userId
             ], 'id');
 
-            return $_ ? (int) $this->db->id() : false;
+            return (int) $this->db->id();
         } catch(\Exception $e) {
             throw $e;
         }
@@ -41,16 +43,23 @@ class Pago
 
     /**
      * Actualiza la informacion de un pago.
+     * @throws \Exception En caso de que no se encuentre el pago con el id
+     *                    suministrado.
     */
-    public function update(array $data, MpStatus $status): bool
+    public function updateInfo(int $id, UpdatePagoInfo $data): bool
     {
         try {
+            if (! $this->db->has(self::TABLE, [ "id" => $id])) {
+                throw new \Exception("Local Pay not found.");
+            }
+
             $this->db->update(self::TABLE, [
-                "status" => $status->value,
-                "plan_id" => $data["plan_id"],
-                "usuario_id" => $data["usuario_id"],
-                "expires_at" =>  $data["expires_at"]
-            ],  [ "payment_id" => $data["payment_id"] ]);
+                "type" => $data->type,
+                "status" => $data->status,
+                "detail" => $data->detail,
+                "payment_id" => $data->id,
+                "created_at" => $data->start
+            ], [ "id" => $id ]);
 
             return true;
         } catch(\Exception $e) {
@@ -59,16 +68,82 @@ class Pago
     }
 
     /**
-     * Actualiza unicamente el estado de un pago.
+     * Establece temporalmente el ID de la preferencia generada por Mercado Pago
+     * hasta que se complete el pago. Esto con la finalidad de retomar la compra.
+     *
+     * @return int El numero de filas afectadas en el Update
     */
-    public function updateStatus($id, MpStatus $status)
+    public function setPrefId(int $id, string $prefId): int
     {
         try {
-            $this->db->update(self::TABLE, [
-                "status" => $status->value,
-            ],  [ "id" => $id ]);
+            $_ = $this->db->update(self::TABLE, [
+                "payment_id" => $prefId
+            ], [ "id" => $id ]);
 
-            return true;
+            return $_->rowCount();
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Encuentra la informacion del ultimo pago realizado por un usuario junto
+     * con informacion sobre el plan
+     *
+     * @return ?\App\Pago Nulo Si el usuario no tiene alguna
+     *          orden registrada. De otra manera la informacion del pago.
+    */
+    public function get(int $userId): ?\App\Pago
+    {
+        try {
+            $info = $this->db->get(self::VIEW. " (PG)", [
+                "[>]".Plan::TABLE." (P)" => ["plan_id" => "id"]
+            ], [
+                "PG.id", "PG.usuario_id", "PG.plan_id",
+                "PG.type", "PG.created_at",
+                "PG.payment_id", "PG.status", "PG.detail",
+                // Informacion del plan asociado a la orden
+                "P.nombre", "P.vigencia", "P.beneficios",
+                "P.valor", "P.status (active)"
+            ], [ "usuario_id" => $userId ]);
+
+            if (! $info) return null;
+
+            $class = new \ReflectionClass(\App\Pago::class);
+            return $class->newInstanceArgs($info);
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Encuentra la informacion de referente a un pago. No retorna datos de
+     * ninguna otra tabla, dicho de otra manera, no hay JOINS.
+     *
+     * @param mixed $value Valor a buscar
+     * @param string $field Campo por el que se realiza la busqueda.
+    */
+    public function find(mixed $value, string $field = "id"): ?array
+    {
+        try {
+            return $this->db->get(self::TABLE, "*", [
+                "$field" => $value
+            ]);
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Elimina el registro de un pago.
+    */
+    public function remove(int $id): int
+    {
+        try {
+            $_ = $this->db->delete(self::TABLE, [
+                "id" => $id
+            ]);
+            return $_->rowCount();
         } catch(\Exception $e) {
             throw $e;
         }

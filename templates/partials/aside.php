@@ -1,3 +1,4 @@
+<?php /** @var \App\View $this */?>
 <aside
 x-data="{ show: false }" @click.outside="show = false"
 x-transition.opacity
@@ -27,7 +28,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
       <?= $this->fetch("./icons/home.php") ?> Home
     </a>
 
-    <?php if($this->auth->user()->hasPlan(true)): ?>
+    <?php if($this->user()->hasPago()): ?>
       <?php if (false): ?>
         <a href="<?= $this->link("planes") ?>"
         <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
@@ -35,13 +36,15 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
         </a>
       <?php endif ?>
 
-      <?php if($this->auth->user()->isTitular()): ?>
+      <?php if($this->user()->isTitular() && $this->user()->pago->isValid()): ?>
         <a href="<?= $this->link("beneficiarios") ?>"
         <?= $this->isRoute("beneficiarios") ? 'class="is-active"' : '' ?>>
           <?= $this->fetch("./icons/users.php") ?> Beneficiarios
         </a>
       <?php endif ?>
-    <?php else: ?>
+    <?php endif ?>
+
+    <?php if(! $this->user()->pago?->isValid()): ?>
       <a href="<?= $this->link("planes") ?>"
       <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
         <?= $this->fetch("./icons/plans.php") ?> Planes

@@ -1,5 +1,5 @@
-export default () => ({
-    tab: 1,
+export default ( initialTab ) => ({
+    tab: initialTab,
     events: {
         ["@next-tab"]: "next",
         ["@prev-tab"]: "prev"

@@ -11,7 +11,7 @@ use Slim\Interfaces\RouteParserInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
-class HasPlanMiddleware implements MiddlewareInterface
+class PagoValidoMiddleware implements MiddlewareInterface
 {
     private RouteParserInterface $routerParser;
 
@@ -32,11 +32,11 @@ class HasPlanMiddleware implements MiddlewareInterface
         }
 
         // Si tiene un plan y NO esta pendiente
-        if ($user->hasPago()) {
+        if ($user->hasPago() && $user->pago->isValid()) {
             return $handler->handle($request);
         }
 
         return (new Response(302))
-            ->withHeader('Location', $this->routerParser->urlFor("planes.pending"));
+            ->withHeader('Location', $this->routerParser->urlFor("planes"));
     }
 }

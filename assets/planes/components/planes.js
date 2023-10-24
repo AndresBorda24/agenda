@@ -30,7 +30,7 @@ export default () => ({
         try {
             showLoader();
             const data = await createPreference( this.selectedPlan, true );
-            this.$dispatch("start-checkin-process", data.id);
+            this.$dispatch("start-checkin-process", data);
             this.$dispatch("next-tab");
         } catch(e) {
             errorAlert();

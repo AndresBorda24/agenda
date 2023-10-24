@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Models\Pago;
+use App\Enums\MpStatus;
+use App\DataObjects\UserInfo;
+use App\Abstracts\AbstractPago;
 use App\Contracts\UserInterface;
 
 class User implements UserInterface
@@ -10,23 +14,18 @@ class User implements UserInterface
     private ?int $edad = null;
 
     public function __construct(
-        private readonly string|int $id,
-        private readonly array $data,
-        private readonly ?array $plan
+        public readonly UserInfo $info,
+        public readonly ?AbstractPago $pago
     ) {}
 
     public function id(): string|int
     {
-        return $this->id;
+        return $this->info->id;
     }
 
     public function clave(): string
     {
-        if (!$c = $this->getData("clave")) {
-            throw new \Exception("Error fetching user info...");
-        }
-
-        return $c;
+        return  $this->info->clave;
     }
 
     /**
@@ -38,50 +37,19 @@ class User implements UserInterface
     {
         if (! $apFirst) {
             return implode(" ", [
-                $this->getData("nom2", ""),
-                $this->getData("nom1", ""),
-                $this->getData("ape2", ""),
-                $this->getData("ape1", ""),
+                $this->info->nom2,
+                $this->info->nom1,
+                $this->info->ape2,
+                $this->info->ape1,
             ]);
         }
 
         return implode(" ", [
-            $this->getData("ape1", ""),
-            $this->getData("ape2", ""),
-            $this->getData("nom1", ""),
-            $this->getData("nom2", ""),
+            $this->info->ape1,
+            $this->info->ape2,
+            $this->info->nom1,
+            $this->info->nom2,
         ]);
-    }
-
-    /**
-     * Retorna datos mas generales dependiendo de $key
-    */
-    public function getData(string $key, mixed $default = null): mixed
-    {
-        if (array_key_exists($key, $this->data)) {
-            return $this->data[ $key ];
-        }
-
-        return $default;
-    }
-
-    public function plan(string $key): mixed
-    {
-        $p = $this->plan ?? [];
-
-        if (array_key_exists($key, $p)) {
-            return $p[$key];
-        }
-
-        return null;
-    }
-
-    public function isPlanValid(): bool
-    {
-        $x = $this->plan("expires_at");
-        if ($x === null) return false;
-
-        return strtotime($x) > time();
     }
 
     /**
@@ -89,31 +57,24 @@ class User implements UserInterface
     */
     public function edad(): ?int
     {
-        if (! $_ = $this->getData("fech_nac")) return null;
+        $a = new \DateTimeImmutable($this->info->fech_nac);
+        $edad = $a->diff(new \DateTimeImmutable);
 
-        if ($this->edad === null) {
-            $a = new \DateTimeImmutable($_);
-            $edad = $a->diff(new \DateTimeImmutable);
-            $this->edad = (int) $edad->format('%y');
-        }
-
-        return $this->edad;
-    }
-
-    public function hasPlan(): bool
-    {
-        return $this->plan("plan_id") !== null
-        && $this->plan("paid")
-        && $this->isPlanValid();
+        return $edad->y;
     }
 
     public function isTitular(): bool
     {
-        return $this->id() == $this->plan("usuario_id");
+        return $this->info->id === $this->pago?->usuario_id;
     }
 
     public function isFromIntranet(): bool
     {
-        return $this->getData("intranet");
+        return $this->info->intranet;
+    }
+
+    public function hasPago(): bool
+    {
+        return $this->pago !== null;
     }
 }
