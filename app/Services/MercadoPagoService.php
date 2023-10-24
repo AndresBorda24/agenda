@@ -80,16 +80,16 @@ class MercadoPagoService
     private function generatePayer(): \MercadoPago\Payer
     {
         $payer = new \MercadoPago\Payer();
-        $payer->email   = $this->user->getData("email");
-        $payer->name    = $this->user->getData("nom1");
-        $payer->surname = $this->user->getData("ape1");
+        $payer->email   = $this->user->info->email;
+        $payer->name    = $this->user->info->nom1;
+        $payer->surname = $this->user->info->ape1;
         $payer->identification  = [
             "type" => "CC",
-            "number" => $this->user->getData("documento")
+            "number" => $this->user->info->documento
         ];
         $payer->phone           = [
             "area_code" => "57",
-            "number" => $this->user->getData("telefono")
+            "number" => $this->user->info->telefono
         ];
 
         return $payer;

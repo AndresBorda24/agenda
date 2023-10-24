@@ -65,12 +65,12 @@ class IndexController
         $user = $this->auth->user();
         $pago = null;
 
-        if ($user->hasPlanPendiente()) {
+        if ($user->hasPago()) {
             /* Si es ASO_PENDIENTE, lo que buscamos es la referencia, no el pago */
-            if ($user->plan("status") === \App\Models\Pago::ASO_PENDIENTE) {
-                $pago = $mps->getPreference($user->plan("payment_id"));
+            if ($user->pago->status === \App\Models\Pago::ASO_PENDIENTE) {
+                $pago = $mps->getPreference($user->pago->payment_id);
             } else {
-                $pago = $mps->getPayment($user->plan("payment_id"));
+                $pago = $mps->getPayment($user->pago->payment_id);
             }
         }
 

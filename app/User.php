@@ -15,7 +15,7 @@ class User implements UserInterface
 
     public function __construct(
         public readonly UserInfo $info,
-        private readonly ?AbstractPago $pago
+        public readonly ?AbstractPago $pago
     ) {}
 
     public function id(): string|int
@@ -65,7 +65,7 @@ class User implements UserInterface
 
     public function isTitular(): bool
     {
-        return $this->info->id === $this->pago?->id;
+        return $this->info->id === $this->pago?->usuario_id;
     }
 
     public function isFromIntranet(): bool

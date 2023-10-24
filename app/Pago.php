@@ -6,17 +6,17 @@ namespace App;
 use App\Abstracts\AbstractPago;
 use App\Contracts\PagoInterface;
 
-class Pago extends AbstractPago implements PagoInterface
+class Pago extends AbstractPago
 {
     public function __construct(
         public readonly int $id,
         public readonly int $usuario_id,
         public readonly int $plan_id,
-        public readonly string $payment_id,
+        public readonly ?string $payment_id,
         public readonly string $status,
         public readonly ?string $detail,
         public readonly ?string $type,
-        public readonly string $created_at,
+        public readonly ?string $created_at,
         // Informacion del plan asociado a la orden
         public readonly string $nombre,
         public readonly int $vigencia,
@@ -32,22 +32,16 @@ class Pago extends AbstractPago implements PagoInterface
     */
     public function isPendiente(): bool
     {
-        /*
-        $mpPendiente = match($this->plan("status")) {
-            MpStatus::EN_PROCESO->value,
-            MpStatus::PENDIENTE->value,
-            MpStatus::AUTORIZADO->value => true,
+        $mpPendiente = match($this->status) {
+            \App\Enums\MpStatus::EN_PROCESO->value,
+            \App\Enums\MpStatus::PENDIENTE->value,
+            \App\Enums\MpStatus::AUTORIZADO->value => true,
             default => false
         };
 
-        $_ = $this->plan("status") === Pago::ASO_PENDIENTE;
+        $_ = $this->status === \App\Models\Pago::ASO_PENDIENTE;
 
         return $mpPendiente || $_;
-        */
-
-
-
-        return true;
     }
 
     /**
@@ -61,8 +55,18 @@ class Pago extends AbstractPago implements PagoInterface
     /**
      * Determina si la vigencia del plan es valida
     */
-    public function isPlanValid(): bool
+    public function isValid(): bool
     {
         return true;
+    }
+
+    public function expireAt(): ?\DateTimeImmutable
+    {
+        if ($this->created_at === null) return null;
+
+        $created = new \DateTimeImmutable($this->created_at);
+        $interval = \DateInterval::createFromDateString($this->vigencia." day");
+
+        return $created->add($interval);
     }
 }

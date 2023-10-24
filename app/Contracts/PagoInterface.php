@@ -19,5 +19,11 @@ interface PagoInterface
     /**
      * Determina si la vigencia del plan es valida
     */
-    public function isPlanValid(): bool;
+    public function isValid(): bool;
+
+    /**
+     * Retorna un Objeto DateTime que representa la fecha de expiracion del
+     * pago.
+    */
+    public function expireAt(): ?\DateTimeImmutable;
 }

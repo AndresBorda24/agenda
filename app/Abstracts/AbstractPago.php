@@ -15,7 +15,7 @@ abstract class AbstractPago implements PagoInterface
     /** Plan anclado al Pago*/
     public readonly int $plan_id;
     /** ID de la pasarela de pago */
-    public readonly string $payment_id;
+    public readonly ?string $payment_id;
     /** Estado actual del pago */
     public readonly string $status;
     /** Detalles sobre el pago */
@@ -23,7 +23,7 @@ abstract class AbstractPago implements PagoInterface
     /** Tipo de medio de pago */
     public readonly ?string $type;
     /** Fecha de creacion del pago*/
-    public readonly string $created_at;
+    public readonly ?string $created_at;
 
     // Informacion del plan asociado a la orden
     /** Nombre del plan */

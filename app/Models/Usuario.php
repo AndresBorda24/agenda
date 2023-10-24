@@ -98,10 +98,10 @@ class Usuario
     /**
      * Busca un usuario por su iD
     */
-    public function find(string|int $id): ?UserInterface
+    public function find(string|int $id, string $field = "id"): ?UserInterface
     {
         try {
-            $userInfo = $this->get($id);
+            $userInfo = $this->get($id, $field);
             if (! $userInfo) return null;
 
             $pagoInfo = (new Pago($this->db))

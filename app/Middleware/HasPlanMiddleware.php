@@ -26,13 +26,13 @@ class HasPlanMiddleware implements MiddlewareInterface
         $user = $request->getAttribute("user");
 
         // Si no tiene ningun plan
-        if (! $user->hasPlan()) {
+        if (! $user->hasPago()) {
             return (new Response(302))
                 ->withHeader('Location', $this->routerParser->urlFor("planes"));
         }
 
         // Si tiene un plan y NO esta pendiente
-        if ($user->hasPlan(true)) {
+        if ($user->hasPago()) {
             return $handler->handle($request);
         }
 

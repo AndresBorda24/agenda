@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Contracts\UserInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Interfaces\RouteInterface;
 use Slim\Routing\RouteContext;
@@ -127,5 +128,13 @@ class Views extends PhpRenderer
     public function auth(): Auth
     {
         return $this->auth;
+    }
+
+    /**
+     * Helper para acceder al usuario de session mas rapidamente
+    */
+    public function user(): ?UserInterface
+    {
+        return $this->auth->user();
     }
 }

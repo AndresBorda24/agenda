@@ -16,7 +16,7 @@ class NoPlanMiddleware implements MiddlewareInterface
         /** @var \App\Contracts\UserInterface $user */
         $user = $request->getAttribute("user");
 
-        if (! $user->hasPlan()) {
+        if (! $user->hasPago()) {
             return $handler->handle($request);
         }
 

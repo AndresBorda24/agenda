@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
+/**
+ * @property ?\App\Abstracts\AbstractPago $pago
+ * @property \App\DataObjects\UserInfo $info
+*/
 interface UserInterface
 {
     public function id(): string|int;
