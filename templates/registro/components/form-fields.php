@@ -138,6 +138,7 @@
       class="form-label text-muted small text-muted m-0">Fecha Nacimiento:</label>
       <input
       id="fech_nac"
+      required
       x-model="state.fech_nac"
       type="date"
       class="form-control form-control-sm">
