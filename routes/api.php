@@ -56,12 +56,12 @@ return function (App $app) {
         $api->group("/planes", function (Group $planes) {
             $planes->get("/get-available", [PlanesController::class, 'getAvailable']);
             $planes->post("/info-pagos", [PlanesController::class, 'createPreference']);
-            $planes->post("/{planId:[0-9]+}/create-preference", [MercadoPagoController::class, 'createPreference']
-            );
+            $planes->post("/{planId:[0-9]+}/create-preference", [MercadoPagoController::class, 'createPreference']);
         })->add(AuthMiddleware::class);
 
 
         $api->group("/pagos", function (Group $pagos) {
+            $pagos->put("/{id:[0-9]+}/set-nomina", [PagoController::class, 'nomina']);
             $pagos->delete("/{id:[0-9]+}/delete", [PagoController::class, "remove"]);
         });
 

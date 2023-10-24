@@ -34,6 +34,25 @@ export async function getPlanes(h = false) {
 }
 
 /**
+ * Establecer el descuento por nomina.
+*/
+export async function setNominaPago( pagoId, h = false ) {
+  let _data = null;
+  let error = null;
+
+  try {
+    const {data} = await ax
+      .put(`/pagos/${pagoId}/set-nomina`)
+      .finally(() => h ? hideLoader() : false);
+    _data = data;
+  } catch(e) {
+    error = e;
+  } finally {
+    return [error, _data];
+  }
+}
+
+/**
  * Elimina un pago de la base de datos.
 */
 export async function deletePago( pagoId, h = false) {

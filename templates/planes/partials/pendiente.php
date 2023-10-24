@@ -6,13 +6,13 @@
     </section>
   <?php endif ?>
 
-  <?php if ($user->pago?->status === \App\Models\Pago::ASO_PENDIENTE ): ?>
-    <template
-    id="pago-pendiente-metadata"
-    data-pref-id="<?= $pref?->id ?>"
-    data-pago-id="<?= $user->pago?->id ?>"
-    ></template>
+  <template
+  id="pago-pendiente-metadata"
+  data-pref-id="<?= $pref?->id ?>"
+  data-pago-id="<?= $user->pago?->id ?>"
+  ></template>
 
+  <?php if ($user->pago?->status === \App\Models\Pago::ASO_PENDIENTE ): ?>
     <div class="d-flex gap-2 align-items-between small">
       <button
       class="planes-next-btn small p-2 text-bg-danger"
@@ -23,6 +23,23 @@
         class="planes-next-btn small p-2 text-bg-primary"
         @click="continuePay">Continuar</button>
       <?php endif ?>
+    </div>
+  <?php elseif ($user->pago?->status === \App\Models\Pago::ASO_NOMINA ): ?>
+    <section  class="mt-5 d-flex flex-column flex-sm-row align-items-center justify-content-center
+    p-4 rounded-5 border border-5 border-info-subtle shadow-lg text-bg-primary">
+      <p style="max-width: 200px;" class="text-center">
+        Para realizar el pago dirigete a la oficina de
+        <span class="badge text-bg-light"> Talento Humano. </span>
+      </p>
+      <?= $this->fetch("./icons/th.php", [
+        "props" => 'style="width: 100px; height: 100px;"'
+      ]) ?>
+    </section>
+
+    <div class="d-flex gap-2 align-items-between small my-4">
+      <button
+      class="planes-next-btn small p-2 text-bg-danger"
+      @click="cancelPay">Seleccionar Otro Plan</button>
     </div>
   <?php elseif($pref): // Esto ya no es una preferencia sino un pago   ?>
     <section class="bg-body p-2 border rounded shadow small mb-4">
