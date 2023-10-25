@@ -22,7 +22,11 @@ export default () => ({
         if (error) return this.handleError(error);
 
         successAlert("Registro realizado.");
-        if (res.redirect) window.location.replace(res.redirect);
+        if (res.redirect) {
+            window.location.replace(res.redirect);
+        } else {
+            window.location.reload();
+        };
     },
 
     handleError( e ) {

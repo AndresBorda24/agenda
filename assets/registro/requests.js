@@ -18,8 +18,8 @@ export async function saveRegistro( state ) {
         res = data;
     } catch(e) {
         error = e;
-    } finally {
         hideLoader();
+    } finally {
         return [ res, error ];
     }
 }
