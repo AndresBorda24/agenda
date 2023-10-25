@@ -9,10 +9,10 @@ class UserInfo
         public readonly int $id,
         public readonly string $eps,
         public readonly string $ape1,
-        public readonly string $ape2,
+        public readonly ?string $ape2,
 
         public readonly string $nom1,
-        public readonly string $nom2,
+        public readonly ?string $nom2,
         public readonly string $clave,
         public readonly string $email,
 

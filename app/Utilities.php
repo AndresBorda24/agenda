@@ -24,10 +24,12 @@ if (! function_exists('App\responseJSON')) {
 
 if (! function_exists('App\uppercase')) {
     /**
-     * Da formato a la respuesta para devolverla como JSON
+     * Hace un trim a la cadena de texto y la convierte en Mayusculas.
     */
-    function uppercase(string $string): string
+    function uppercase(?string $string): ?string
     {
+        if ($string === null) return null;
+
         return mb_strtoupper(
             trim($string),
             "UTF-8"

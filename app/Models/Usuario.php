@@ -29,9 +29,9 @@ class Usuario
             $this->db->insert(static::TABLE, [
                 "eps"  => uppercase($data["eps"]),
                 "ape1" => uppercase($data["ape1"]),
-                "ape2" => uppercase($data["ape2"]),
+                "ape2" => uppercase(@$data["ape2"]),
                 "nom1" => uppercase($data["nom1"]),
-                "nom2" => uppercase($data["nom2"]),
+                "nom2" => uppercase(@$data["nom2"]),
                 "clave"  => password_hash(trim($data["clave"]), PASSWORD_BCRYPT),
                 "email"  => trim($data["email"]),
                 "ciudad" => uppercase($data["ciudad"]),
@@ -61,9 +61,9 @@ class Usuario
             $_ = $this->db->update(static::TABLE, [
                 "eps" => uppercase($data["eps"]),
                 "ape1" => uppercase($data["ape1"]),
-                "ape2" => uppercase($data["ape2"]),
+                "ape2" => uppercase(@$data["ape2"]),
                 "nom1" => uppercase($data["nom1"]),
-                "nom2" => uppercase($data["nom2"]),
+                "nom2" => uppercase(@$data["nom2"]),
                 "email" => uppercase($data["email"]),
                 "ciudad" => uppercase($data["ciudad"]),
                 "telefono" => $data["telefono"],
