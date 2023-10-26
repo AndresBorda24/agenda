@@ -8,6 +8,7 @@ class CreatePagoInfo
     public function __construct(
         public readonly int $userId,
         public readonly int $planId,
-        public readonly string $status
+        public readonly string $status,
+        public readonly bool $tarjeta
     ) {}
 }

@@ -3,7 +3,6 @@ import { errorAlert } from "@/partials/alerts"
 import { showLoader } from "@/partials/loader";
 
 export default () => ({
-    planes: [],
     state: {
         plan: "",
         tarjeta: false
@@ -13,14 +12,16 @@ export default () => ({
      * Confirma el inicio del proceso de pago
     */
     async confirmPlan() {
-        try {
-            showLoader();
-            const data = await createPreference( this.selectedPlan, true );
-            this.$dispatch("start-checkin-process", data);
-            this.$dispatch("next-tab");
-        } catch(e) {
+        showLoader();
+        const [error, data] = await createPreference( this.state, true );
+
+        if (error) {
             errorAlert();
-            console.error("Get Planes: ", e);
+            console.error("Get Planes: ", error);
+            return;
         }
+
+        this.$dispatch("start-checkin-process", data);
+        this.$dispatch("next-tab");
     }
 });

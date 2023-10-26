@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App;
 
 use App\Abstracts\AbstractPago;
-use App\Contracts\PagoInterface;
-use DateTimeImmutable;
 
 class Pago extends AbstractPago
 {
@@ -18,6 +16,7 @@ class Pago extends AbstractPago
         public readonly ?string $detail,
         public readonly ?string $type,
         public readonly ?string $created_at,
+        public readonly bool $tarjeta,
         // Informacion del plan asociado a la orden
         public readonly string $nombre,
         public readonly int $vigencia,
