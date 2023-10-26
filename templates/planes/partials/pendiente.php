@@ -28,7 +28,7 @@
     <section  class="mt-5 d-flex flex-column flex-sm-row align-items-center justify-content-center
     p-4 rounded-5 border border-5 border-info-subtle shadow-lg text-bg-primary">
       <p style="max-width: 200px;" class="text-center">
-        Para realizar el pago dirigete a la oficina de
+        Para realizar el pago dir&iacute;gete a la oficina de
         <span class="badge text-bg-light"> Talento Humano. </span>
       </p>
       <?= $this->fetch("./icons/th.php", [
