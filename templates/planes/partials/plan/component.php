@@ -1,15 +1,24 @@
+<hr>
 <form
 x-data="Planes"
-x-show="planesLoaded"
 x-transition
 @submit.prevent="confirmPlan">
   <div class="planes-container row-cols-12 row-cols-md-4  p-4">
-    <template x-for="(plan, index) in planes" :key="plan.id">
-      <?= $this->fetch("./planes/partials/plan/plan.php") ?>
-    </template>
+    <?php foreach($planes as $plan): ?>
+      <?= $this->fetch("./planes/partials/plan/plan.php", [
+        "plan" => $plan
+      ]) ?>
+    <?php endforeach ?>
   </div>
+  <hr>
+  <?= $this->fetch("./planes/partials/checks.php") ?>
 
-  <div class="mt-5">
+  <div class="mt-3">
+    <div
+      id="info-plan"
+      style="max-width: 280px;"
+      class="bg-dark rounded small mx-auto shadow mb-2"
+    ></div>
     <button
     type="submit"
     class="planes-next-btn">

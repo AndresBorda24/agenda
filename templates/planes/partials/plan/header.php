@@ -1,14 +1,14 @@
-<div class="p-3 border-bottom">
-  <span
-  x-text="`Plan ${plan.nombre}`"
-  class="d-block text-center text-primary fs-5"></span>
-  <span class="text-secondary d-block text-center fs-1 fw-bold">
-    $ <span x-text="plan.valor_formatted"></span>
+<div class="bg-primary border-bottom p-3">
+  <span class="d-block fs-5 text-center text-warning">
+    <?= $nombre ?>
   </span>
-  <span class="d-block text-center small">
+  <span class="d-block fs-1 fw-bold text-center text-light">
+    $ <?= $valor ?? "" ?>
+  </span>
+  <span class="d-block small text-center text-light">
     Vigencia:
-    <span
-    class="text-bg-warning badge"
-    x-text="plan.vigencia"></span> (d&iacute;as)
+    <span class="text-bg-warning badge">
+      <?= $vigencia ?? "" ?>
+    </span> (d&iacute;as)
   </span>
 </div>

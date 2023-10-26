@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Auth;
 use App\Views;
 use App\Enums\MpStatus;
+use App\Models\Plan;
 use App\Services\MercadoPagoService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -60,7 +61,11 @@ class IndexController
             ->render($response, "beneficiarios/index.php");
     }
 
-    public function planes(Response $response, MercadoPagoService $mps): Response
+    public function planes(
+        Response $response,
+        Plan $plan,
+        MercadoPagoService $mps
+    ): Response
     {
         /** @var \App\Contracts\UserInterface */
         $user = $this->auth->user();
@@ -79,7 +84,8 @@ class IndexController
         return $this
             ->view
             ->render($response, "planes/index.php", [
-                "pref" => $pago
+                "pref" => $pago,
+                "planes" => $plan->getAll($user->isFromIntranet())
             ]);
     }
 

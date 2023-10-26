@@ -35,30 +35,14 @@
 
       <section x-cloak x-show="tab === 2" x-transition.opacity>
         <h2 class="text-center text-primary mt-3">Selecciona tu plan</h2>
-        <?= $this->fetch("./planes/partials/plan/component.php") ?>
+        <?= $this->fetch("./planes/partials/plan/component.php", [
+          "planes" => $planes
+        ]) ?>
       </section>
 
       <section x-cloak x-show="tab === 3" x-transition.opacity>
         <h2 class="text-center text-primary">Selecciona un medio de pago.</h2>
-        <div
-        id="medios-de-pago"
-        x-data="mp" x-bind="events"
-        class="d-flex flex-column gap-3 my-4 mx-auto"
-        style="max-width: 400px;">
-          <div id="mercadopago"></div>
-
-          <?php if( $user->isFromIntranet() ): ?>
-            <button
-              class="planes-next-btn py-2 text-bg-primary w-100"
-              @click="nomina"
-            > Descuento de Nómina
-            </button>
-          <?php endif ?>
-
-          <button
-          class="planes-next-btn py-2 text-bg-danger"
-          @click="cancelPay">Cancelar</button>
-        </div>
+        <?= $this->fetch("./planes/partials/medios-pago.php") ?>
       </section>
     </section>
   </div>

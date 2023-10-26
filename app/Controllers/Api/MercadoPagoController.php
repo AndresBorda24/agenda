@@ -9,6 +9,7 @@ use App\Contracts\UserInterface;
 use App\DataObjects\CreatePagoInfo;
 use App\Services\MercadoPagoService;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 use function App\responseJSON;
 
@@ -24,13 +25,16 @@ class MercadoPagoController
      * Antes de continuar con el pago se debe crear una "Preferencia".
     */
     public function createPreference(
+        Request $request,
         Response $response,
         int $planId,
         UserInterface $user
     ): Response {
         try {
+            $tarjeta = (bool) @$request->getParsedBody()["tarjeta"];
             $plan = $this->plan->find($planId);
             $pago = $this->pago->create(new CreatePagoInfo(
+                tarjeta: $tarjeta,
                 planId: $plan->id,
                 userId: $user->id(),
                 status: PAGO::ASO_PENDIENTE

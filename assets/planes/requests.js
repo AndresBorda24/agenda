@@ -7,15 +7,24 @@ const ax = axios.create({
 
 /**
  * Crea la preferencia para continuar con el proceso de pago.
+ * @param {object} st Los datos necesarios para la solicitud
+ * @param {string} st.plan Id del plan seleccionado
+ * @param {bool}   st.tarjeta Si el usuario desea recibir la tarjeta en casa
 */
-export async function createPreference( planId, h = true ) {
+export async function createPreference( st, h = true ) {
+  let error = null;
+  let _data = null;
+
   try {
     const {data} = await ax
-      .post(`/planes/${planId}/create-preference`)
-      .finally(() => h ? hideLoader() : false);
-    return data;
+      .post(`/planes/${st.plan}/create-preference`, {
+        tarjeta: st.tarjeta
+      }).finally(() => h ? hideLoader() : false);
+    _data = data;
   } catch(e) {
-    throw e;
+    error = e;
+  } finally {
+    return [error, _data];
   }
 };
 

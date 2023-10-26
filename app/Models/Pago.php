@@ -31,7 +31,8 @@ class Pago
             $this->db->insert(self::TABLE, [
                 "status" => $data->status,
                 "plan_id" => $data->planId,
-                "usuario_id" => $data->userId
+                "usuario_id" => $data->userId,
+                "tarjeta" => $data->tarjeta
             ], 'id');
 
             return (int) $this->db->id();
@@ -99,7 +100,7 @@ class Pago
                 "[>]".Plan::TABLE." (P)" => ["plan_id" => "id"]
             ], [
                 "PG.id", "PG.usuario_id", "PG.plan_id",
-                "PG.type", "PG.created_at",
+                "PG.type", "PG.created_at", "PG.tarjeta [Bool]",
                 "PG.payment_id", "PG.status", "PG.detail",
                 // Informacion del plan asociado a la orden
                 "P.nombre", "P.vigencia", "P.beneficios",
