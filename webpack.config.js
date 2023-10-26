@@ -18,7 +18,7 @@ Encore
     .setPublicPath(process.env.APP_PATH + '/build')
     // .setPublicPath('/build')
     .setManifestKeyPrefix('build/')
-    .addEntry('home/app', './assets/agenda/index.js')
+    .addEntry('home/app', './assets/home/index.js')
     .addEntry('beneficiarios/app', './assets/beneficiarios/index.js')
     .addEntry('agenda/app', './assets/agenda/index.js')
     .addEntry('profile/app', './assets/profile/index.js')

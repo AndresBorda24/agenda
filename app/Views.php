@@ -58,7 +58,7 @@ class Views extends PhpRenderer
         */
         $types = [
             "css" => "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">",
-            "js"  => "<script src=\"%s\" type=\"text/javascript\"></script>",
+            "js"  => "<script src=\"%s\" type=\"text/javascript\" defer></script>",
         ];
 
         foreach ($ep["entrypoints"][$k] as $type => $assets) {

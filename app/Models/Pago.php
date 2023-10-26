@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Contracts\PagoInterface;
 use Medoo\Medoo;
 use App\DataObjects\CreatePagoInfo;
-use App\DataObjects\PagoInfo;
 use App\DataObjects\UpdatePagoInfo;
 
 class Pago
