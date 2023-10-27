@@ -11,15 +11,11 @@ export default () => ({
     init() {
         this.$watch("state.plan", () => {
             const plan = document.querySelector(".planes-item-checked div");
-            const div = document.getElementById('info-plan');
-            if (plan) {
-                div.innerHTML = `
+            document.querySelectorAll(".info-plan").forEach(el =>
+                el.innerHTML = `
                     <span class="badge">Plan seleccionado:</span>
                     <div class="pb-2"> ${plan.innerHTML} </div>
-                `;
-            } else {
-                div.innerHtml = "";
-            }
+                `);
         })
     },
 

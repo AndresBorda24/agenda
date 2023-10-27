@@ -15,9 +15,8 @@ x-transition
 
   <div class="mt-3">
     <div
-      id="info-plan"
       style="max-width: 280px;"
-      class="bg-dark rounded small mx-auto shadow mb-2"
+      class="info-plan bg-dark rounded small mx-auto shadow mb-2"
     ></div>
     <button
     type="submit"

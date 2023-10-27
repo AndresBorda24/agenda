@@ -4,8 +4,13 @@
   class="d-flex flex-column gap-3 my-4 mx-auto"
   style="max-width: 400px;"
 >
-  <div id="mercadopago"></div>
+  <div
+    style="max-width: 280px;"
+    class="info-plan bg-dark rounded small mx-auto shadow mb-2 px-5"
+  ></div>
+  <hr>
 
+  <div id="mercadopago"></div>
   <?php if( $user->isFromIntranet() ): ?>
     <button
       class="planes-next-btn py-2 text-bg-primary w-100"
