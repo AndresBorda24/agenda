@@ -1,0 +1,10 @@
+.camara-div {
+    height: 100%;
+    width: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    border: 1px dashed #232323;
+    background-color: #23232340;
+}
