@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?= $this->loadAssets("activar/app") ?>
-  <title>Home</title>
+  <title>Activar Tarjeta</title>
 </head>
 <body>
   <?= $this->fetch("./partials/header.php", [
-    "title" => "Home"
+    "title" => "Activar Mi Tarjeta"
   ]) ?>
 
   <div class="d-flex p-1 main-container">
