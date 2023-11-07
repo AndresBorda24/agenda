@@ -5,12 +5,11 @@ namespace App\Controllers;
 
 use App\Auth;
 use App\Views;
-use App\Enums\MpStatus;
 use App\Models\Plan;
+use App\Enums\MpStatus;
 use App\Services\MercadoPagoService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use stdClass;
 
 class IndexController
 {

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
+use App\Abstracts\AbstractPago;
+
 /**
  * @property ?\App\Abstracts\AbstractPago $pago
  * @property \App\DataObjects\UserInfo $info
@@ -40,4 +42,9 @@ interface UserInterface
      * usuarios de intranet
     */
     public function isFromIntranet(): bool;
+
+    /**
+     * Obtiene la informacion del pago.
+    */
+    public function getPago(): ?AbstractPago;
 }

@@ -100,7 +100,7 @@ class Pago
                 "[>]".Plan::TABLE." (P)" => ["plan_id" => "id"]
             ], [
                 "PG.id", "PG.usuario_id", "PG.plan_id",
-                "PG.type", "PG.created_at", "PG.tarjeta [Bool]",
+                "PG.type", "PG.created_at", "PG.tarjeta",
                 "PG.payment_id", "PG.status", "PG.detail",
                 // Informacion del plan asociado a la orden
                 "P.nombre", "P.vigencia", "P.beneficios",

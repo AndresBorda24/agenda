@@ -16,7 +16,7 @@ class Pago extends AbstractPago
         public readonly ?string $detail,
         public readonly ?string $type,
         public readonly ?string $created_at,
-        public readonly bool $tarjeta,
+        public readonly ?string $tarjeta,
         // Informacion del plan asociado a la orden
         public readonly string $nombre,
         public readonly int $vigencia,
