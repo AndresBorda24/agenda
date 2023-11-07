@@ -29,17 +29,14 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
     </a>
 
     <?php if($this->user()->hasPago()): ?>
-      <?php if (false): ?>
-        <a href="<?= $this->link("planes") ?>"
-        <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
-          <?= $this->fetch("./icons/card-check.php") ?> Activar mi Tarjeta
-        </a>
-      <?php endif ?>
-
       <?php if($this->user()->isTitular() && $this->user()->pago->isValid()): ?>
         <a href="<?= $this->link("beneficiarios") ?>"
         <?= $this->isRoute("beneficiarios") ? 'class="is-active"' : '' ?>>
           <?= $this->fetch("./icons/users.php") ?> Beneficiarios
+        </a>
+        <a href="<?= $this->link("activar-tarjeta") ?>"
+        <?= $this->isRoute("activar-tarjeta") ? 'class="is-active"' : '' ?>>
+          <?= $this->fetch("./icons/card-check.php") ?> Activar mi Tarjeta
         </a>
       <?php endif ?>
     <?php endif ?>

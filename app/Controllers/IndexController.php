@@ -61,6 +61,13 @@ class IndexController
             ->render($response, "beneficiarios/index.php");
     }
 
+    public function activarTarjeta(Response $response): Response
+    {
+        return $this
+            ->view
+            ->render($response, "activar-tarjeta/index.php");
+    }
+
     public function planes(
         Response $response,
         Plan $plan,

@@ -33,6 +33,10 @@ return function(App $app) {
                 ->setName("beneficiarios")
                 ->add(PagoValidoMiddleware::class);
 
+            $app->get("/activar-tarjeta", [IndexController::class, "activarTarjeta"])
+                ->setName("activar-tarjeta")
+                ->add(PagoValidoMiddleware::class);
+
             $app->post("/logout", [AuthController::class, "logout"])
                 ->setName("logout");
 
