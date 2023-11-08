@@ -5,12 +5,11 @@ namespace App\Controllers;
 
 use App\Auth;
 use App\Views;
-use App\Enums\MpStatus;
 use App\Models\Plan;
+use App\Enums\MpStatus;
 use App\Services\MercadoPagoService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use stdClass;
 
 class IndexController
 {
@@ -59,6 +58,13 @@ class IndexController
         return $this
             ->view
             ->render($response, "beneficiarios/index.php");
+    }
+
+    public function activarTarjeta(Response $response): Response
+    {
+        return $this
+            ->view
+            ->render($response, "activar-tarjeta/index.php");
     }
 
     public function planes(

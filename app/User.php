@@ -3,16 +3,12 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Models\Pago;
-use App\Enums\MpStatus;
 use App\DataObjects\UserInfo;
 use App\Abstracts\AbstractPago;
 use App\Contracts\UserInterface;
 
 class User implements UserInterface
 {
-    private ?int $edad = null;
-
     public function __construct(
         public readonly UserInfo $info,
         public readonly ?AbstractPago $pago
@@ -76,5 +72,10 @@ class User implements UserInterface
     public function hasPago(): bool
     {
         return $this->pago !== null;
+    }
+
+    public function getPago(): ?AbstractPago
+    {
+        return $this->pago;
     }
 }

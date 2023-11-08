@@ -9,6 +9,7 @@ use App\Controllers\IndexController;
 use App\Middleware\PagoValidoMiddleware;
 use App\Controllers\Api\AuthController;
 use App\Controllers\Api\PagoController;
+use App\Middleware\HasActiveCardMiddleware;
 use App\Middleware\NoPagoMiddleware;
 use App\Middleware\SetRouteContextMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
@@ -31,6 +32,11 @@ return function(App $app) {
 
             $app->get("/beneficiarios", [IndexController::class, "beneficiarios"])
                 ->setName("beneficiarios")
+                ->add(PagoValidoMiddleware::class);
+
+            $app->get("/activar-tarjeta", [IndexController::class, "activarTarjeta"])
+                ->setName("activar-tarjeta")
+                ->add(HasActiveCardMiddleware::class)
                 ->add(PagoValidoMiddleware::class);
 
             $app->post("/logout", [AuthController::class, "logout"])

@@ -32,7 +32,7 @@ class Pago
                 "status" => $data->status,
                 "plan_id" => $data->planId,
                 "usuario_id" => $data->userId,
-                "tarjeta" => $data->tarjeta
+                "envio" => $data->envio
             ], 'id');
 
             return (int) $this->db->id();
@@ -100,7 +100,7 @@ class Pago
                 "[>]".Plan::TABLE." (P)" => ["plan_id" => "id"]
             ], [
                 "PG.id", "PG.usuario_id", "PG.plan_id",
-                "PG.type", "PG.created_at", "PG.tarjeta [Bool]",
+                "PG.type", "PG.created_at", "PG.tarjeta", "PG.envio [Bool]",
                 "PG.payment_id", "PG.status", "PG.detail",
                 // Informacion del plan asociado a la orden
                 "P.nombre", "P.vigencia", "P.beneficios",
@@ -129,6 +129,25 @@ class Pago
             return $this->db->get(self::TABLE, "*", [
                 "$field" => $value
             ]);
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Relaciona el serial de una tarjeta con un pago.
+     *
+     * @param int $id ID del pago
+     * @param string $serial Serial de la Tarjeta.
+    */
+    public function setCard(int $id, string $serial): bool
+    {
+        try {
+            $this->db->update(self::TABLE, [
+                "tarjeta" => $serial
+            ], [ "id" => $id ]);
+
+            return true;
         } catch(\Exception $e) {
             throw $e;
         }

@@ -25,7 +25,9 @@ abstract class AbstractPago implements PagoInterface
     /** Fecha de creacion del pago*/
     public readonly ?string $created_at;
     /** Si el usuario quiere ña tarjeta en casa */
-    public readonly bool $tarjeta;
+    public readonly bool $envio;
+    /** El serial de la tarjeta, si la hay */
+    public readonly ?string $tarjeta;
 
     // Informacion del plan asociado a la orden
     /** Nombre del plan */
