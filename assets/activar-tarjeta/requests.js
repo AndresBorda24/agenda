@@ -14,7 +14,7 @@ export async function activarTarjeta( serial ) {
     let _data = null;
     let error = null;
     try {
-        const { data } = await ax.post("/set-card-serial", { serial });
+        const { data } = await ax.post("/auth/set-card-serial", { serial });
         _data = data;
     } catch(e) {
         error = e;

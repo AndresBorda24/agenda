@@ -10,6 +10,8 @@ use App\Controllers\Validation\UpdateUserValidation;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use App\Controllers\Validation\SetCardValidation;
+use App\Models\Pago;
 
 use function App\responseJSON;
 
@@ -88,6 +90,37 @@ class UsuarioController
                 "error"  => $e->getMessage(),
                 "fields" => $e instanceof FormValidationException
                     ? $e->getInvalidFields() : []
+            ], 422);
+        }
+    }
+
+    /**
+     * Relaciona una tarjeta con un pago.
+    */
+    public function activateCard(
+        Request $request,
+        Response $response,
+        Pago $pago,
+        SetCardValidation $val,
+        Auth $auth
+    ): Response
+    {
+        try {
+            $data = $request->getParsedBody();
+            $val->check($data); // Se valida que este el serial y que sea unico
+
+            $pagoId = $auth->user()?->getPago()?->id;
+            if ($pagoId === null) throw new \Exception("Pago not found");
+
+            $_ = $pago->setCard($pagoId, $data["serial"]);
+
+            return responseJSON($response, $_);
+        } catch(\Exception|FormValidationException $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+                "fields" => $e instanceof FormValidationException
+                    ? $e->getInvalidFields()
+                    : []
             ], 422);
         }
     }

@@ -135,6 +135,25 @@ class Pago
     }
 
     /**
+     * Relaciona el serial de una tarjeta con un pago.
+     *
+     * @param int $id ID del pago
+     * @param string $serial Serial de la Tarjeta.
+    */
+    public function setCard(int $id, string $serial): bool
+    {
+        try {
+            $this->db->update(self::TABLE, [
+                "tarjeta" => $serial
+            ], [ "id" => $id ]);
+
+            return true;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Elimina el registro de un pago.
     */
     public function remove(int $id): int

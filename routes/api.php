@@ -36,6 +36,7 @@ return function (App $app) {
             $auth->get("/basic", [UsuarioController::class, "getBasic"]);
             $auth->get("/beneficiarios", [BeneficiarioController::class, "all"]);
             $auth->post("/beneficiario", [BeneficiarioController::class, "store"]);
+            $auth->post("/set-card-serial", [UsuarioController::class, "activateCard"]);
             $auth->put("/update-basic", [UsuarioController::class, "update"]);
             $auth->put("/password-update", [UsuarioController::class, "updatePass"]);
         })->add(AuthMiddleware::class);
