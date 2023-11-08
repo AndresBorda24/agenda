@@ -81,6 +81,7 @@ return function (App $app) {
 
 
         $api->post("/login", [AuthController::class, 'login']);
+        $api->post("/start-reset-passwd", [UsuarioController::class, 'startResetPasswd']);
         $api->get("/get-all-eps", EpsController::class);
     })->add(JsonBodyParserMiddleware::class);
 };

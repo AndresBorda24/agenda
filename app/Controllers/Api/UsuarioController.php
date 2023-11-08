@@ -12,6 +12,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
 use App\Controllers\Validation\SetCardValidation;
 use App\Models\Pago;
+use App\Models\PasswordReset;
 
 use function App\responseJSON;
 
@@ -124,6 +125,40 @@ class UsuarioController
             ], 422);
         }
     }
+
+    /**
+     * Restablecer contrasenia.
+    */
+    public function startResetPasswd(
+        Request $request,
+        Response $response,
+        PasswordReset $passwd
+    ): Response
+    {
+        try {
+            $cc = @$request->getParsedBody()["doc"] ?? "";
+            $user = $this->usuario->get($cc, "num_histo");
+
+            if ($user === null) throw new \Exception("User not found");
+
+            $passwd->create($user->id);
+            // Aqui se enviaria el mensaje al wp
+            // implementar
+
+            return responseJSON($response, [
+                "doc" => $user->documento,
+                "tel" => sprintf("%s******%s",
+                    substr($user->telefono, 0, 3),
+                    substr($user->telefono, -1)
+                )
+            ]);
+        } catch(\Exception $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage()
+            ], 422);
+        }
+    }
+
 
     public function getBasic(Response $response, Auth $auth): Response
     {
