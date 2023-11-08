@@ -3,35 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?= $this->loadAssets("login/app") ?>
-  <title>Inicio de Sesi&oacute;n</title>
+  <?= $this->loadAssets("activar/app") ?>
+  <title>Restablecer Contrese&ntilde;a</title>
 </head>
 <body>
   <?= $this->fetch("./partials/header.php", [
-    "title" => "Inicio de Sesi&oacute;n"
+    "title" => "Restablecer Contrase&ntilde;a"
   ]) ?>
 
-  <div
-  class="align-items-center container d-flex flex-wrap gap-5 justify-content-center my-5"
-  style="min-height: 60vh;">
+  <div class="d-flex p-1 main-container">
+    <main class="flex-grow-1 mx-auto py-4"  style="max-width: 700px; min-height: 60vh;">
     <form
-    x-data="form"
+    x-data="{ state: {} }"
     autocomplete="off"
     @submit.prevent="login"
-    style="max-width: 400px; min-width: 300px;"
-    class="shadow border rounded overflow-hidden bg-body-tertiary">
-      <span class="text-muted small d-block p-3 text-bg-primary text-center">
-        En la <span class="text-bg-warning badge">Cl&iacute;nica Asotrauma</span>
-        trabajamos para ti y para todos, por
-        eso buscamos que tu paso por nuestra cl&iacute;nica sea agradable,
-        siempre en pro de tu pronta recuperaci&oacute;n.
+    style="max-width: 400px; min-width: 280px;"
+    class="shadow border rounded overflow-hidden bg-body-tertiary mx-auto">
+      <span class="text-muted d-block p-3 text-bg-primary" style="font-size: .8em;">
+        Se enviar&aacute; un mensaje con código al número de teléfono registrado con el documento de identidad.
       </span>
 
       <div class="bg-white p-1">
         <img
         class="mx-auto d-block my-4"
-        src="https://asotrauma.com.co/wp-content/uploads/2021/10/participacion.svg"
-        alt="logo-asotrauma-color"
+        src="<?= $this->asset("img/reset-passwd.svg")  ?>"
+        alt="Reset Password Image"
         width="130"
         height="130">
       </div>
@@ -49,32 +45,19 @@
         class="form-control form-control-sm w-100">
       </div>
 
-      <div class="p-3 mb-3">
-        <label for="clave" class="form-label small">Contrase&ntilde;a:</label>
-        <input
-        id="clave"
-        x-model="state.clave"
-        minlength="4"
-        required
-        placeholder="***********"
-        type="password"
-        class="form-control form-control-sm w-100">
-      </div>
-
       <div class="bg-secondary p-4">
         <button class="btn btn-warning btn-sm d-block m-auto">
-          Inicia Sesi&oacute;n
+          Continuar
         </button>
       </div>
 
       <div class="bg-primary py-3 px-2 d-flex justify-content-between small">
         <a
-        href="<?= $this->link("reset-password") ?>"
+        href="<?= $this->link("login") ?>"
         style="font-size: .75rem;"
         class="btn btn-outline-warning btn-sm d-block m-auto">
-          Olvidaste la contrase&ntilde;a?
+          Inicia Sesi&oacute;n
         </a>
-
         <a
         href="<?= $this->link("registro") ?>"
         style="font-size: .75rem;"
@@ -83,6 +66,7 @@
         </a>
       </div>
     </form>
+    </main>
   </div>
 
   <?= $this->fetch("./partials/footer.php") ?>

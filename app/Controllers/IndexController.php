@@ -53,6 +53,13 @@ class IndexController
             ->render($response, "login/index.php");
     }
 
+    public function resetPasswd(Response $response): Response
+    {
+        return $this
+            ->view
+            ->render($response, "forgot/index.php");
+    }
+
     public function beneficiarios(Response $response): Response
     {
         return $this
