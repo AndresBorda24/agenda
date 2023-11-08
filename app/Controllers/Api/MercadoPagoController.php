@@ -34,7 +34,7 @@ class MercadoPagoController
             $tarjeta = (bool) @$request->getParsedBody()["tarjeta"];
             $plan = $this->plan->find($planId);
             $pago = $this->pago->create(new CreatePagoInfo(
-                tarjeta: $tarjeta,
+                envio: $tarjeta,
                 planId: $plan->id,
                 userId: $user->id(),
                 status: PAGO::ASO_PENDIENTE

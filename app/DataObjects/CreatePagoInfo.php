@@ -9,6 +9,6 @@ class CreatePagoInfo
         public readonly int $userId,
         public readonly int $planId,
         public readonly string $status,
-        public readonly bool $tarjeta
+        public readonly bool $envio
     ) {}
 }
