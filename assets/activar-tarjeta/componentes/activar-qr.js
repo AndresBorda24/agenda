@@ -29,10 +29,12 @@ export default () => ({
         hideLoader();
 
         if (e) {
-            this.error = "No se ha conseguido activar la tarjeta. "
-                + "Intenta luego. "
-                + "\n Scanned QR: "
-                + data;
+            const ms = e.response?.data?.fields?.serial[0];
+            this.error = "No se ha conseguido activar la tarjeta. \n\n";
+
+            if (ms) this.error += ms;
+            else this.error += `Scanned: ${data}`
+
             return;
         }
 
