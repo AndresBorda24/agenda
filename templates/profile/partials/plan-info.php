@@ -31,8 +31,15 @@
     <?php endforeach ?>
   </ul>
 
-  <div class="text-light fw-light">
+  <div class="rounded overflow-hidden">
     <?= $this->fetch("./planes/partials/plan/exclusiones.php") ?>
   </div>
+
+  <?php if($pago->tarjeta !== null): ?>
+    <span class="border d-block mt-3 p-2 rounded small">
+      <?= $this->fetch("./icons/card-check.php") ?> Tu Tarjeta:
+      <span class="fst-italic"> <?= $pago->tarjeta ?> </span>
+    </span>
+  <?php endif ?>
 </article>
 

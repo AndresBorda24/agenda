@@ -48,7 +48,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
             <span>
               <?= $this->fetch("./icons/card-check.php") ?> Tarjeta Activada!
             </span>
-            <span class="small fst-italic badge">
+            <span class="small fst-italic badge fw-light">
               <?= $this->user()->getPago()->tarjeta ?>
             </span>
           </a>
