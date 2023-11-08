@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?= $this->loadAssets("activar/app") ?>
+  <?= $this->loadAssets("forgot/app") ?>
   <title>Restablecer Contrese&ntilde;a</title>
 </head>
 <body>
@@ -14,9 +14,9 @@
   <div class="d-flex p-1 main-container">
     <main class="flex-grow-1 mx-auto py-4"  style="max-width: 700px; min-height: 60vh;">
     <form
-    x-data="{ state: {} }"
+    x-data="PasswdReset"
     autocomplete="off"
-    @submit.prevent="login"
+    @submit.prevent="action"
     style="max-width: 400px; min-width: 280px;"
     class="shadow border rounded overflow-hidden bg-body-tertiary mx-auto">
       <span class="text-muted d-block p-3 text-bg-primary" style="font-size: .8em;">
@@ -36,19 +36,60 @@
         <label for="documento" class="form-label small">C&eacute;dula:</label>
         <input
         id="documento"
-        x-model="state.documento"
+        x-model="state.doc"
         autofocus
         required
         minlength="4"
         placeholder="123456789"
         type="text"
-        class="form-control form-control-sm w-100">
+        class="form-control form-control-sm w-100 mb-2">
+
+        <template x-if="state.tel">
+          <div>
+            <label for="codigo-super-secreto" class="form-label small">C&oacute;digo:</label>
+            <input
+            id="codigo-super-secreto"
+            x-model="state.cod"
+            autofocus
+            required
+            minlength="4"
+            placeholder="Tu codigo secreto"
+            type="text"
+            class="form-control form-control-sm w-100 mb-2">
+
+            <label for="password" class="form-label small">Nueva Contrase&ntilde;a:</label>
+            <input
+            id="password"
+            x-model="state.password"
+            autofocus
+            required
+            minlength="8"
+            placeholder="123456789"
+            type="password"
+            class="form-control form-control-sm w-100 mb-2">
+
+            <label
+              for="confirm_password"
+              class="form-label small"
+            >Confirmar Contrase&ntilde;a:</label>
+            <input
+            id="confirm_password"
+            x-model="state.confirm_password"
+            autofocus
+            required
+            minlength="8"
+            placeholder="123456789"
+            type="password"
+            class="form-control form-control-sm w-100 mb-3">
+          </div>
+        </template>
       </div>
 
       <div class="bg-secondary p-4">
-        <button class="btn btn-warning btn-sm d-block m-auto">
-          Continuar
-        </button>
+        <button
+          type="submit"
+          class="btn btn-warning btn-sm d-block m-auto"
+        > Continuar </button>
       </div>
 
       <div class="bg-primary py-3 px-2 d-flex justify-content-between small">
