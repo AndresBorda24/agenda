@@ -38,6 +38,7 @@
         id="documento"
         x-model="state.doc"
         autofocus
+        :disabled="state.tel !== null"
         required
         minlength="4"
         placeholder="123456789"
@@ -46,9 +47,13 @@
 
         <template x-if="state.tel">
           <div>
+            <span class="d-block p-3 small text-center text-muted">
+              El C&oacute;digo se env&iacute;o al tel&eacute;fono:
+              <span class="badge text-bg-primary" x-text="state.tel"></span>
+            </span>
             <label for="codigo-super-secreto" class="form-label small">C&oacute;digo:</label>
             <input
-            id="codigo-super-secreto"
+            id="cod"
             x-model="state.cod"
             autofocus
             required
