@@ -10,6 +10,7 @@ use App\Controllers\Validation\UpdateUserValidation;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use App\Controllers\Validation\ResetPasswdValidation;
 use App\Controllers\Validation\SetCardValidation;
 use App\Models\Pago;
 use App\Models\PasswordReset;
@@ -159,6 +160,40 @@ class UsuarioController
         }
     }
 
+    /**
+     * Actualiza la contrasenia en caso de olvido.
+    */
+    public function resetPasswd(
+        Request $request,
+        Response $response,
+        // PasswordReset $passwd,
+        ResetPasswdValidation $validation
+    ): Response
+    {
+        try {
+            $data = $request->getParsedBody();
+            $user = $this->usuario->get(@$data["doc"] ?? "", "num_histo");
+
+            if ($user === null) throw new \Exception("User not found");
+            $validation->check($data, $user->id);
+
+            // $passwd->setUsed($user->id, $data["cod"]);
+
+            return responseJSON($response, $this
+                ->usuario
+                ->updatePassword([
+                    "new_password" => $data["password"]
+                ], $user->id)
+            );
+        } catch(\Exception|FormValidationException $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+                "fields" => $e instanceof FormValidationException
+                    ? $e->getInvalidFields()
+                    : []
+            ], 422);
+        }
+    }
 
     public function getBasic(Response $response, Auth $auth): Response
     {
