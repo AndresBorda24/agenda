@@ -22,7 +22,7 @@ class PasswordReset
             $this->db->insert(self::TABLE, [
                 "usuario_id" => $userId,
                 "cod" => substr(md5(uniqid((string) rand(0,9), true)), 0, 10),
-                "expira" => date("Y-m-d H:m:i", time() + 60) // mas 5 minutos
+                "expira" => Medoo::raw("DATE_ADD(NOW(), INTERVAL 10 MINUTE)")
             ]);
 
             return (int) $this->db->id("id");
@@ -38,18 +38,20 @@ class PasswordReset
     public function check(int $userId, string $cod): bool
     {
         try {
-            $lastCode = $this->db->get(self::TABLE, "cod", [
-                "ORDER" => [
-                    "id" => "DESC"
-                ],
-                "AND" => [
-                    "used" => false,
-                    "usuario_id" => $userId,
-                    "expira[>]" => Medoo::raw("NOW()")
-                ]
+            $lastCode = $this->db->get(self::TABLE, [
+                "cod",
+                "used [Bool]",
+                "expired [Bool]" => Medoo::raw("<expira> < NOW()")
+            ], [
+                "ORDER" => ["id" => "DESC"],
+                "usuario_id" => $userId
             ]);
 
-            return $lastCode === $cod;
+            if ($lastCode === null) return false;
+
+            return $lastCode["cod"] === $cod
+                && ! $lastCode["used"]
+                && ! $lastCode["expired"];
         } catch(\Exception $e) {
             throw $e;
         }
