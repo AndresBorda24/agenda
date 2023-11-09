@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Controllers\Api;
 
 use App\Auth;
+use App\Models\Pago;
 use App\Models\Usuario;
+use App\Models\PasswordReset;
 use App\Controllers\Validation\CreateUserValidation;
 use App\Controllers\Validation\UpdateUserValidation;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -12,8 +14,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
 use App\Controllers\Validation\ResetPasswdValidation;
 use App\Controllers\Validation\SetCardValidation;
-use App\Models\Pago;
-use App\Models\PasswordReset;
 
 use function App\responseJSON;
 
@@ -166,7 +166,7 @@ class UsuarioController
     public function resetPasswd(
         Request $request,
         Response $response,
-        // PasswordReset $passwd,
+        PasswordReset $passwd,
         ResetPasswdValidation $validation
     ): Response
     {
@@ -177,7 +177,7 @@ class UsuarioController
             if ($user === null) throw new \Exception("User not found");
             $validation->check($data, $user->id);
 
-            // $passwd->setUsed($user->id, $data["cod"]);
+            $passwd->setUsed($user->id, $data["cod"]);
 
             return responseJSON($response, $this
                 ->usuario
