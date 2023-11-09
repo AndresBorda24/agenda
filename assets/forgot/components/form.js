@@ -14,6 +14,7 @@ export default () => ({
         confirm_password: ""
     },
     error: null,
+    finished: false,
 
     /**
      * Se genera el codigo en el backend y se obtiene el telefono al que se
@@ -39,6 +40,7 @@ export default () => ({
      * Realiza la solicitud para actualizar definitivamente la contrasenia.
     */
     async resetPass() {
+        if (! this.checkPassword()) return;
         showLoader();
         const [e, data] = await resetPasswd(this.state);
         hideLoader();
@@ -49,7 +51,21 @@ export default () => ({
             return;
         }
 
-        if (data) successAlert("Contraseña actualizada!");
+        successAlert("Contraseña actualizada!")
+        this.finished = true;
+    },
+
+    checkPassword() {
+        if (this.state.password !== this.state.confirm_password) {
+            setInvalid({
+                "confirm_password": [
+                    "Las contraseñas no coinciden"
+                ]
+            });
+
+            return false;
+        }
+        return true;
     },
 
     /**
