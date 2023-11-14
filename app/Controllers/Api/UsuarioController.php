@@ -4,14 +4,16 @@ declare(strict_types=1);
 namespace App\Controllers\Api;
 
 use App\Auth;
+use App\Models\Pago;
 use App\Models\Usuario;
+use App\Models\PasswordReset;
 use App\Controllers\Validation\CreateUserValidation;
 use App\Controllers\Validation\UpdateUserValidation;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use App\Controllers\Validation\ResetPasswdValidation;
 use App\Controllers\Validation\SetCardValidation;
-use App\Models\Pago;
 
 use function App\responseJSON;
 
@@ -115,6 +117,74 @@ class UsuarioController
             $_ = $pago->setCard($pagoId, $data["serial"]);
 
             return responseJSON($response, $_);
+        } catch(\Exception|FormValidationException $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+                "fields" => $e instanceof FormValidationException
+                    ? $e->getInvalidFields()
+                    : []
+            ], 422);
+        }
+    }
+
+    /**
+     * Restablecer contrasenia.
+    */
+    public function startResetPasswd(
+        Request $request,
+        Response $response,
+        PasswordReset $passwd
+    ): Response
+    {
+        try {
+            $cc = @$request->getParsedBody()["doc"] ?? "";
+            $user = $this->usuario->get($cc, "num_histo");
+
+            if ($user === null) throw new \Exception("User not found");
+
+            $passwd->create($user->id);
+            // Aqui se enviaria el mensaje al wp
+            // implementar
+
+            return responseJSON($response, [
+                "doc" => $user->documento,
+                "tel" => sprintf("%s******%s",
+                    substr($user->telefono, 0, 3),
+                    substr($user->telefono, -1)
+                )
+            ]);
+        } catch(\Exception $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage()
+            ], 422);
+        }
+    }
+
+    /**
+     * Actualiza la contrasenia en caso de olvido.
+    */
+    public function resetPasswd(
+        Request $request,
+        Response $response,
+        PasswordReset $passwd,
+        ResetPasswdValidation $validation
+    ): Response
+    {
+        try {
+            $data = $request->getParsedBody();
+            $user = $this->usuario->get(@$data["doc"] ?? "", "num_histo");
+
+            if ($user === null) throw new \Exception("User not found");
+            $validation->check($data, $user->id);
+
+            $passwd->setUsed($user->id, $data["cod"]);
+
+            return responseJSON($response, $this
+                ->usuario
+                ->updatePassword([
+                    "new_password" => $data["password"]
+                ], $user->id)
+            );
         } catch(\Exception|FormValidationException $e) {
             return responseJSON($response, [
                 "error"  => $e->getMessage(),

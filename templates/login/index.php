@@ -68,12 +68,13 @@
       </div>
 
       <div class="bg-primary py-3 px-2 d-flex justify-content-between small">
-        <button
-        type="button"
+        <a
+        href="<?= $this->link("reset-password") ?>"
         style="font-size: .75rem;"
         class="btn btn-outline-warning btn-sm d-block m-auto">
           Olvidaste la contrase&ntilde;a?
-        </button>
+        </a>
+
         <a
         href="<?= $this->link("registro") ?>"
         style="font-size: .75rem;"

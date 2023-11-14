@@ -6,6 +6,11 @@ use App\Middleware\StartSessionsMiddleware;
 require __DIR__ . "/../vendor/autoload.php";
 
 /**
+ * Fecha - Hora | Colombia
+ */
+date_default_timezone_set('America/Bogota');
+
+/**
  * Carga las rutas web
  * @var Callable
  * @return void

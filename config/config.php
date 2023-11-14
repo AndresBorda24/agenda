@@ -29,5 +29,9 @@ return [
     "mp" => [
         "public" => $_ENV["MP_PUBLIC"],
         "token"  => $_ENV["MP_TOKEN"]
+    ],
+    "wp" => [
+        "token" => $_ENV["WP_TOKEN"],
+        "instance" => $_ENV["WP_INSTANCE"]
     ]
 ];

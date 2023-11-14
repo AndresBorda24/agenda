@@ -63,6 +63,9 @@ return function(App $app) {
 
             $app->get("/login", [IndexController::class, "login"])
                 ->setName("login");
+
+            $app->get("/reset-password", [IndexController::class, "resetPasswd"])
+                ->setName("reset-password");
         })->add(GuestMiddleware::class);
     })->add(SetRouteContextMiddleware::class);
 };

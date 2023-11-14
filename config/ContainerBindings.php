@@ -7,6 +7,7 @@ use App\Config;
 use Medoo\Medoo;
 use Slim\Views\PhpRenderer;
 use App\DataObjects\SessionConfig;
+use UltraMsg\WhatsAppApi;
 
 return [
     Config::class => create()
@@ -17,6 +18,11 @@ return [
 
     Medoo::class => fn(Config $c) =>
         new Medoo($c->get("db")),
+
+    WhatsAppApi::class => fn(Config $c) => new WhatsAppApi(
+        $c->get("wp.token"),
+        $c->get("wp.instance")
+    ),
 
     SessionConfig::class => fn(Config $c) => new SessionConfig(
         $c->get("session.name"),

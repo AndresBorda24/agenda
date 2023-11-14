@@ -15,7 +15,8 @@
         "vlucas/phpdotenv": "^5.5",
         "catfan/medoo": "^2.1",
         "rakit/validation": "^1.4",
-        "mercadopago/dx-php": "^2.6"
+        "mercadopago/dx-php": "^2.6",
+        "ultramsg/whatsapp-php-sdk": "^2.0"
     },
     "config": {
         "platform": {
