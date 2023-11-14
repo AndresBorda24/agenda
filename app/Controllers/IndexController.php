@@ -39,6 +39,13 @@ class IndexController
             ->render($response, "agenda/index.php");
     }
 
+    public function citas(Response $response): Response
+    {
+        return $this
+            ->view
+            ->render($response, "mis-citas/index.php");
+    }
+
     public function registro(Response $response): Response
     {
         return $this

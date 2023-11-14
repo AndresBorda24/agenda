@@ -30,6 +30,10 @@ return function(App $app) {
                 ->setName("agenda")
                 ->add(PagoValidoMiddleware::class);
 
+            $app->get("/mis-citas", [IndexController::class, "citas"])
+                ->setName("mis-citas")
+                ->add(PagoValidoMiddleware::class);
+
             $app->get("/beneficiarios", [IndexController::class, "beneficiarios"])
                 ->setName("beneficiarios")
                 ->add(PagoValidoMiddleware::class);

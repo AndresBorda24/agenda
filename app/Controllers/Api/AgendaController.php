@@ -34,16 +34,16 @@ class AgendaController {
                 "hora_agendada"     => $agenda["hora_programada"],
                 "fecha_agendada"    => $agenda["fecha_programada"],
                 "medico_agendado"   => $agenda["medico"],
-                "paciente_ape1"     => $user->getData("ape1"),
-                "paciente_ape2"     => $user->getData("ape2"),
-                "paciente_nom1"     => $user->getData("nom1"),
-                "paciente_nom2"     => $user->getData("nom2"),
+                "paciente_ape1"     => $user->info->ape1,
+                "paciente_ape2"     => $user->info->ape2,
+                "paciente_nom1"     => $user->info->nom1,
+                "paciente_nom2"     => $user->info->nom2,
                 "paciente_id"       => $user->id(),
-                "paciente_ciudad"   => $user->getData("ciudad"),
-                "eps"               => $user->getData("eps"),
+                "paciente_ciudad"   => $user->info->ciudad,
+                "eps"               => $user->info->eps,
                 "solicitada"        => 1,
-                "paciente_telefono" => $user->getData("telefono"),
-                "paciente_direccion"=> $user->getData("direccion")
+                "paciente_telefono" => $user->info->telefono,
+                "paciente_direccion"=> $user->info->direccion
             ], [
                 "id" => $body["__id"]
             ]);
@@ -63,6 +63,7 @@ class AgendaController {
                 "[>]medicos (M)" => ["medico" => "codigo"],
                 "[>]especialidad (E)" => "especialidad"
             ], [
+                "C.id",
                 "E.nombre (especialidad)",
                 "M.nombre (medico)",
                 "C.fecha_programada (fecha)",
