@@ -29,7 +29,7 @@
           x-model="serial"
           name="serial-tarjeta"
           style="max-width: 300px;"
-          placeholder="Escribe aquí el coódigo de tu tarjeta"
+          placeholder="Escribe aquí el código de tu tarjeta"
           class="mx-auto d-block form-control form-control-sm mb-4 shadow"
         >
         <button

@@ -85,7 +85,7 @@
     </div>
   </div>
 
-  <div class="row g-0 mb-3 small">
+  <div class="row g-0 mb-2 small">
     <div class="col-lg-5 p-1">
       <label
       class="form-label text-muted small m-0"
@@ -113,7 +113,8 @@
     </div>
   </div>
 
-  <div class="row g-o m-0 mb-3 small w-100">
+  <div class="row g-o m-0 mb-2 small w-100">
+    <!--
     <div class="col-12 col-md-6 p-2 border rounded bg-blue-50 border-primary-subtle small">
       <label
       class="form-label text-muted small m-0"
@@ -132,7 +133,8 @@
         </template>
       </select>
     </div>
-    <div class="col-12 col-md-6 p-1 p-md-2">
+    -->
+    <div class="col-12 col-md-5 p-1 p-md-2">
       <label
       for="fech_nac"
       class="form-label text-muted small text-muted m-0">Fecha Nacimiento:</label>

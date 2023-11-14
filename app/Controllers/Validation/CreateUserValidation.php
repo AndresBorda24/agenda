@@ -19,7 +19,7 @@ class CreateUserValidation extends Request
     private function insertRules(): array
     {
         return [
-            "eps" => 'required',
+            // "eps" => 'required',
             "ape1" => 'required',
             "ape2" => 'nullable',
             "nom1" => 'required',

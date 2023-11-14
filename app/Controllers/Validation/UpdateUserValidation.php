@@ -40,7 +40,7 @@ class UpdateUserValidation extends Request
     private function updateRules(): array
     {
         return [
-            "eps" => 'required',
+            // "eps" => 'required',
             "ape1" => 'required',
             "ape2" => 'nullable',
             "nom1" => 'required',
