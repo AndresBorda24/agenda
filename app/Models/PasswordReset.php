@@ -56,4 +56,23 @@ class PasswordReset
             throw $e;
         }
     }
+
+    /**
+     * marca un codigo como usado.
+    */
+    public function setUsed(int $userId, string $cod): Bool
+    {
+        try {
+            $this->db->update(self::TABLE, [
+                "used" => true
+            ], [
+                "usuario_id" => $userId,
+                "cod" => $cod
+            ]);
+
+            return true;
+        } catch(\Exception $e) {
+            return false;
+        }
+    }
 }
