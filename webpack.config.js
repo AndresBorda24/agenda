@@ -3,7 +3,11 @@ const dotenv = require('dotenv-webpack');
 const resolve = require('path').resolve;
 const { DefinePlugin } = require('webpack');
 
-require("dotenv").config();
+require("dotenv").config({
+    path: `./.env${Encore.isProduction() ? '.prod' : ''}`
+});
+
+console.log(process.env);
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.

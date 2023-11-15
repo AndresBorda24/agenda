@@ -56,7 +56,7 @@ class Plan
 
             $this->db->select("planes", "*", $where, function($plan) use (&$data) {
                 $plan["valor_formatted"] = number_format(
-                    $plan["valor"],
+                    (int) $plan["valor"],
                     thousands_separator: '.'
                 );
 
