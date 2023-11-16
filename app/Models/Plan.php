@@ -20,7 +20,14 @@ class Plan
     public function find(string|int $id, string $field = "id"): ?PlanDTO
     {
         try {
-            $_ = $this->db->get(static::TABLE, "*", [
+            $_ = $this->db->get(static::TABLE, [
+                "id [Int]",
+                "nombre",
+                "vigencia [Int]",
+                "beneficios",
+                "valor [Int]",
+                "status [Int]"
+            ], [
                 $field => $id,
                 "status" => 1
             ]);
