@@ -85,7 +85,7 @@
     </div>
   </div>
 
-  <div class="row g-0 mb-3 small">
+  <div class="row g-0 mb-2 small">
     <div class="col-lg-5 p-1">
       <label
       class="form-label text-muted small m-0"
@@ -113,7 +113,8 @@
     </div>
   </div>
 
-  <div class="row g-o m-0 mb-3 small w-100">
+  <div class="row g-o m-0 mb-2 small w-100">
+    <!--
     <div class="col-12 col-md-6 p-2 border rounded bg-blue-50 border-primary-subtle small">
       <label
       class="form-label text-muted small m-0"
@@ -131,6 +132,27 @@
           x-text="option.nombre"></option>
         </template>
       </select>
+    </div>
+    -->
+
+    <div class="col-12 col-md-6 p-2 border rounded bg-blue-50 border-primary-subtle small">
+      <span
+      class="form-label text-muted small m-0"
+      for="eps">Tipo Usuario:</span>
+      <div class="form-check" style="font-size: 13px!important;">
+        <input
+          class="form-check-input"
+          checked
+          type="radio"
+          name="flexRadioDefault"
+          id="tipo-usuario"
+        >
+        <label
+          class="form-check-label"
+          role="button"
+          for="tipo-usuario"
+        > Particular </label>
+      </div>
     </div>
     <div class="col-12 col-md-6 p-1 p-md-2">
       <label

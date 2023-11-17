@@ -36,11 +36,18 @@ class MercadoPagoService
         $preference->items = [ $this->generateItem($plan) ];
         $preference->payer = $this->generatePayer();
         $preference->external_reference = $pagoId;
-        $preference->notification_url = sprintf(
-            "https://intranet.asotrauma.com.co/mpipn/%s/plan/%s",
-            $this->user->id(),
-            $plan->id
-        );
+
+        if ($this->config->get("app.env") === "prod") {
+            $preference->notification_url = sprintf(
+                $this->config->get("app.url") . "api/pagos/%s/webhook",
+                $pagoId
+            );
+        } else {
+            $preference->notification_url = sprintf(
+                "https://panelusuario.asotrauma.com.co/api/pagos/%s/webhook",
+                $pagoId
+            );
+        }
 
         // Una vez que el pago se completa, independientemente de su estado,
         // mecado pago redirecciona al usuario a una de estas url

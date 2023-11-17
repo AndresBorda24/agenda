@@ -27,7 +27,7 @@ class Usuario
     {
         try {
             $this->db->insert(static::TABLE, [
-                "eps"  => uppercase($data["eps"]),
+                // "eps"  => uppercase($data["eps"]),
                 "ape1" => uppercase($data["ape1"]),
                 "ape2" => uppercase(@$data["ape2"]),
                 "nom1" => uppercase($data["nom1"]),

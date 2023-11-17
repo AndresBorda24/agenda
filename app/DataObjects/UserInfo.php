@@ -7,7 +7,7 @@ class UserInfo
 {
     public function __construct(
         public readonly int $id,
-        public readonly string $eps,
+        public readonly ?string $eps,
         public readonly string $ape1,
         public readonly ?string $ape2,
 

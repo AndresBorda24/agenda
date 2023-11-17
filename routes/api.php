@@ -62,6 +62,7 @@ return function (App $app) {
 
 
         $api->group("/pagos", function (Group $pagos) {
+            $pagos->post("/{pagoId:[0-9]+}/webhook", [PagoController::class, 'webhook']);
             $pagos->put("/{id:[0-9]+}/set-nomina", [PagoController::class, 'nomina']);
             $pagos->delete("/{id:[0-9]+}/delete", [PagoController::class, "remove"]);
         });

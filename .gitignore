@@ -5,3 +5,4 @@ public/build
 public/css
 public/js
 .env
+.env.prod

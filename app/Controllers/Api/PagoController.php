@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers\Api;
 
 use Slim\App;
+use App\Config;
 use App\Services\UpdatePagoService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -41,20 +42,27 @@ class PagoController
         }
     }
 
-    public function development(Request $request, Response $response): Response
+    public function development(
+        Request $request,
+        Response $response,
+        Config $config
+    ): Response
     {
         try {
             $data = $request->getQueryParams();
-            $pagoId = $data["external_reference"];
-            $mpPayId = $data["payment_id"];
+            // Esto es para simular los pagos
+            if ($config->get("app.env") !== "prod" && false) {
+                $pagoId = $data["external_reference"];
+                $mpPayId = $data["payment_id"];
 
-            if (
-                ($mpPayId != "null" && $pagoId != "null")
-                && ($mpPayId && $pagoId)
-            ) {
-                $this
-                    ->updatePagoService
-                    ->update((int) $pagoId, $mpPayId);
+                if (
+                    ($mpPayId != "null" && $pagoId != "null")
+                    && ($mpPayId && $pagoId)
+                ) {
+                    $this
+                        ->updatePagoService
+                        ->update((int) $pagoId, $mpPayId);
+                }
             }
 
             $parser = $this->app
