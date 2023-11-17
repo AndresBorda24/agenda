@@ -51,7 +51,7 @@ class PagoController
         try {
             $data = $request->getQueryParams();
             // Esto es para simular los pagos
-            if ($config->get("app.env") !== "prod" && false) {
+            if ($config->get("app.env") !== "prod") {
                 $pagoId = $data["external_reference"];
                 $mpPayId = $data["payment_id"];
 

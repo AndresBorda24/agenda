@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Auth;
+use App\Contracts\UserInterface;
 use App\Views;
 use App\Models\Plan;
 use App\Enums\MpStatus;
@@ -109,11 +110,15 @@ class IndexController
             ]);
     }
 
-    public function planesResponse(Request $request, Response $response): Response
+    public function planesResponse(
+        Request $request,
+        Response $response,
+        UserInterface $user
+    ): Response
     {
         $data = $request->getQueryParams();
         $this->view->setLayout("planes-feedback/layout.php");
-        @$data["status"] ??= '';
+        @$data["status"] ??= $user->getPago()?->status;
         $state = MpStatus::tryFrom(@$data["status"]);
 
         [$view, $title] = match($state) {

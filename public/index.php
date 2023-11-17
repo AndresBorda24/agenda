@@ -37,12 +37,6 @@ $app = \DI\Bridge\Slim\Bridge::create($c);
 $config = $c->get(\App\Config::class);
 
 /* -----------------------------------------------------------------------------
-|  Errores
-+ ------------------------------------------------------------------------------
-*/
-$app->addErrorMiddleware(true, false, true);
-
-/* -----------------------------------------------------------------------------
 | Cargamos las rutas
 + ------------------------------------------------------------------------------
 */
@@ -50,5 +44,13 @@ $app->setBasePath($config->get('app.base'));
 $app->add(StartSessionsMiddleware::class);
 $web($app);
 $api($app);
+
+/* -----------------------------------------------------------------------------
+|  Errores
++ ------------------------------------------------------------------------------
+*/
+($config->get("app.env") === "prod")
+    ? $app->addErrorMiddleware(false, false, false)
+    : $app->addErrorMiddleware(true, false, true);
 
 $app->run();
