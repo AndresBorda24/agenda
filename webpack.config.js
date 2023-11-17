@@ -7,8 +7,6 @@ require("dotenv").config({
     path: `./.env${Encore.isProduction() ? '.prod' : ''}`
 });
 
-console.log(process.env);
-
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
@@ -52,7 +50,8 @@ Encore
 
     // dotenv
     .addPlugin(new dotenv({
-        ignoreStub: true
+        ignoreStub: true,
+        path: `./.env${Encore.isProduction() ? '.prod' : ''}`
     }))
     .addPlugin(new DefinePlugin({
         __VUE_OPTIONS_API__: true,
