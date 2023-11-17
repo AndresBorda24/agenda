@@ -11,11 +11,11 @@
       </span>
     <?php endif ?>
   </div>
-  <div class="p-1 text-bg-warning text-center bg-blue-800">
+<!--   <div class="p-1 text-bg-warning text-center bg-blue-800">
     <span class="fs-6 text-light fst-italic fw-bold">
       Programa de Fidelización
     </span>
-  </div>
+  </div> -->
 </header>
 <div class="bg-secondary text-light shadow sticky-top">
   <div class="container nav-scroller p-1 d-flex container justify-content-between align-items-center">

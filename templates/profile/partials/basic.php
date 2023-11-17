@@ -126,6 +126,25 @@ class="p-3 bg-white shadow border rounded small">
   </div>
 
   <div class="row g-o m-0 mb-3 small w-100">
+    <div class="col-12 col-md-6 p-2 border rounded bg-blue-50 border-primary-subtle small">
+      <span
+      class="form-label text-muted small m-0"
+      for="eps">Tipo Usuario:</span>
+      <div class="form-check" style="font-size: 13px!important;">
+        <input
+          class="form-check-input"
+          checked
+          type="radio"
+          name="flexRadioDefault"
+          id="tipo-usuario"
+        >
+        <label
+          class="form-check-label"
+          role="button"
+          for="tipo-usuario"
+        > Particular </label>
+      </div>
+    </div>
     <!-- <div class="col-12 col-md-6 p-2 border rounded bg-blue-50 border-primary-subtle small">
       <label
       class="form-label text-muted small m-0"

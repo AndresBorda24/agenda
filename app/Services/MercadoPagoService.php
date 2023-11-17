@@ -44,9 +44,8 @@ class MercadoPagoService
             );
         } else {
             $preference->notification_url = sprintf(
-                "https://intranet.asotrauma.com.co/mpipn/%s/plan/%s",
-                $this->user->id(),
-                $plan->id
+                "https://panelusuario.asotrauma.com.co/api/pagos/%s/webhook",
+                $pagoId
             );
         }
 
