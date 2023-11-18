@@ -1,0 +1,46 @@
+<hr>
+<div x-data="Regalo">
+  <form
+    class="mb-4"
+    @submit.prevent="save"
+  >
+    <input
+      required
+      type="text"
+      id="gift-code"
+      maxlength="6"
+      minlength="6"
+      x-model="code"
+      style="max-width: 300px;"
+      placeholder="Escribe aqu&iacute; tu código"
+      class="form-control text-center d-block mx-auto mb-3"
+    >
+    <button
+      type="submit"
+      class="btn btn-warning btn-sm d-block mx-auto"
+    > Redimir </button>
+  </form>
+
+  <template x-if="success">
+    <div
+    class="vh-100 vw-100 fixed-top bg-black bg-opacity-75 flex flex-column"
+    style="z-index: 3000;">
+      <div class="m-auto rounded p-4 bg-white border border-4" style="max-width: 400px;">
+        <p>Has redimido correctamente tu código!</p>
+        <p class="m-0">
+          Da clic
+          <a
+            class="badge text-bg-warning shadow text-decoration-none fs-6"
+            href="<?= $this->link("activar-tarjeta") ?>"
+          >aquí</a>
+          para ir a <span class="fst-italic fw-bold">activar tu tarjeta</span>.
+        </p>
+      </div>
+    </div>
+  </template>
+</div>
+
+<p class="text-center">
+  Copia el código que encontrarás en la parte trasera de la tarjeta.
+</p>
+

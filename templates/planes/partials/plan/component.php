@@ -1,4 +1,10 @@
 <hr>
+
+<button
+  @click="tab = 4"
+  class="btn btn-sm btn-warning d-block mx-auto"
+>Tengo un c&oacute;digo de regalo!</button>
+
 <form
 x-data="Planes"
 x-transition

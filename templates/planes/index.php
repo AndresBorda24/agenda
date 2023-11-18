@@ -44,6 +44,21 @@
         <h2 class="text-center text-primary">Selecciona un medio de pago.</h2>
         <?= $this->fetch("./planes/partials/medios-pago.php") ?>
       </section>
+
+      <section
+        x-show="tab === 4"
+        x-cloak x-transition.opacity
+        style="max-width: 700px;"
+        class="mx-auto"
+      >
+        <button
+          @click="tab = 2"
+          style="font-size: 10px;"
+          class="btn btn-sm btn-dark"
+        > < Volver</button>
+        <h2 class="text-center text-primary mt-1">Tarjeta Regalo</h2>
+        <?= $this->fetch("./planes/partials/regalo.php") ?>
+      </section>
     </section>
   </div>
   <?= $this->fetch("./partials/footer.php") ?>
