@@ -74,3 +74,22 @@ export async function deletePago( pagoId, h = false) {
     throw e;
   }
 };
+
+/**
+ * Redime un codigo de regalo
+ *
+ * @param {string} code Codigo de Regalo
+*/
+export async function redimir( code ) {
+  let _data = null;
+  let error = null;
+
+  try {
+    const { data } = await ax.post(`/regalo/${code}/redimir`)
+    _data = data;
+  } catch(e) {
+    error = e;
+  } finally {
+    return [error, _data];
+  }
+}

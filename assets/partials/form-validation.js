@@ -15,7 +15,9 @@ function setInvalid(ids) {
             'text-wrap',
             'custom-error-msg'
         );
-        m.textContent = ids[ id ][0];
+        m.textContent = (typeof ids[ id ] == "string")
+            ? ids[ id ]
+            : ids[ id ][0];
 
         if (el) {
             el.classList.add('is-invalid');

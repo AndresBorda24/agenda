@@ -4,17 +4,18 @@
     class="mb-4"
     @submit.prevent="save"
   >
-    <input
-      required
-      type="text"
-      id="gift-code"
-      maxlength="6"
-      minlength="6"
-      x-model="code"
-      style="max-width: 300px;"
-      placeholder="Escribe aqu&iacute; tu código"
-      class="form-control text-center d-block mx-auto mb-3 shadow"
-    >
+    <div style="max-width: 300px;" class="mx-auto">
+      <input
+        required
+        type="text"
+        id="gift-code"
+        maxlength="6"
+        minlength="6"
+        x-model="code"
+        placeholder="Escribe aqu&iacute; tu código"
+        class="form-control text-center d-block mb-3 shadow"
+      >
+    </div>
     <button
       type="submit"
       class="btn btn-warning btn-sm d-block mx-auto shadow"
@@ -51,4 +52,3 @@
 <p class="text-center">
   Copia el código que encontrarás en la parte trasera de la tarjeta.
 </p>
-
