@@ -14,12 +14,16 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
 use App\Controllers\Validation\ResetPasswdValidation;
 use App\Controllers\Validation\SetCardValidation;
+use UltraMsg\WhatsAppApi;
 
 use function App\responseJSON;
 
 class UsuarioController
 {
-    public function __construct(private Usuario $usuario) {}
+    public function __construct(
+        private Usuario $usuario,
+        private WhatsAppApi $wp
+    ) {}
 
     public function registro(
         Request $request,
@@ -142,9 +146,16 @@ class UsuarioController
 
             if ($user === null) throw new \Exception("User not found");
 
-            $passwd->create($user->id);
-            // Aqui se enviaria el mensaje al wp
-            // implementar
+            $cod = $passwd->create($user->id);
+
+            $this->wp->sendChatMessage($user->telefono, "
+                Este es tu código para restablecer tu contraseña:
+
+                *$cod*
+
+                Recuerda que el código expira pronto...
+            ", 2);
+
 
             return responseJSON($response, [
                 "doc" => $user->documento,

@@ -19,13 +19,15 @@ class PasswordReset
     public function create(int $userId): int
     {
         try {
+            $cod = rand(328010, 973888);
+
             $this->db->insert(self::TABLE, [
+                "cod" => $cod,
                 "usuario_id" => $userId,
-                "cod" => substr(md5(uniqid((string) rand(0,9), true)), 0, 10),
                 "expira" => Medoo::raw("DATE_ADD(NOW(), INTERVAL 10 MINUTE)")
             ]);
 
-            return (int) $this->db->id("id");
+            return $cod;
         } catch(\Exception $e) {
             throw $e;
         }
