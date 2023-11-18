@@ -2,7 +2,7 @@
 
 <button
   @click="tab = 4"
-  class="btn btn-sm btn-warning d-block mx-auto"
+  class="btn btn-sm btn-warning d-block mx-auto shadow"
 >Tengo un c&oacute;digo de regalo!</button>
 
 <form

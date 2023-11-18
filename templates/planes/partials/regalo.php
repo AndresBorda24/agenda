@@ -13,11 +13,11 @@
       x-model="code"
       style="max-width: 300px;"
       placeholder="Escribe aqu&iacute; tu código"
-      class="form-control text-center d-block mx-auto mb-3"
+      class="form-control text-center d-block mx-auto mb-3 shadow"
     >
     <button
       type="submit"
-      class="btn btn-warning btn-sm d-block mx-auto"
+      class="btn btn-warning btn-sm d-block mx-auto shadow"
     > Redimir </button>
   </form>
 
@@ -39,6 +39,14 @@
     </div>
   </template>
 </div>
+
+<picture class="mx-auto mb-3 d-block" style="max-width: 400px;">
+  <img
+    class="w-100 h-100 object-fit"
+    src="<?= $this->asset("img/gift-card.png") ?>"
+    alt="gift-card"
+  >
+</picture>
 
 <p class="text-center">
   Copia el código que encontrarás en la parte trasera de la tarjeta.
