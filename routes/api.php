@@ -16,6 +16,7 @@ use App\Controllers\Api\BeneficiarioController;
 use App\Controllers\Api\EspecialidadController;
 use App\Controllers\Api\MercadoPagoController;
 use App\Controllers\Api\PagoController;
+use App\Controllers\Api\RegaloController;
 
 /**
  * Mapea TODAS las rutas relacionadas con la API
@@ -80,6 +81,8 @@ return function (App $app) {
             $mp->put("/pago/{id}/set-status/{status}", [MercadoPagoController::class, "setPaymentStatus"]);
         });
 
+        $api->post("/regalo/{code}/redimir", RegaloController::class)
+            ->add(AuthMiddleware::class);
 
         $api->post("/login", [AuthController::class, 'login']);
         $api->post("/reset-passwd", [UsuarioController::class, 'resetPasswd']);
