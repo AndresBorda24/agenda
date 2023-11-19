@@ -13,7 +13,7 @@
         minlength="6"
         x-model="code"
         placeholder="Escribe aqu&iacute; tu código"
-        class="form-control text-center d-block mb-3 shadow"
+        class="form-control form-control-sm text-center d-block mb-3 shadow"
       >
     </div>
     <button

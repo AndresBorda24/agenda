@@ -6,6 +6,18 @@ export default () => ({
     serial: "",
     error: null,
 
+    init() {
+        this.$watch("tab", (val) => {
+            if (val == 2) {
+                setTimeout(() => document
+                    .querySelector('[name="serial-tarjeta"]')?.focus()
+                    ,50
+                )
+            }
+        });
+    },
+
+
     /**
      * Funcion que se ejecuta al escanear correctamente el QR.
     */

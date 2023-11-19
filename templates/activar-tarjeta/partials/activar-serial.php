@@ -21,6 +21,7 @@
       <form
         @submit.prevent="activar"
         class="mb-3"
+        autocomplete="off"
       >
         <input
           type="text"

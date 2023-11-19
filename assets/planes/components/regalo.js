@@ -8,6 +8,17 @@ export default () => ({
     code: "",
     success: false,
 
+    init() {
+        this.$watch("tab", (tab) => {
+            if (tab == 4) {
+                setTimeout(() => document
+                    .getElementById("gift-code")?.focus()
+                    , 50
+                );
+            }
+        });
+    },
+
     async save() {
         removeInvalid();
         showLoader();
