@@ -10,6 +10,8 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+use function App\responseJSON;
+
 class AuthMiddleware implements MiddlewareInterface
 {
     public function __construct(
@@ -22,6 +24,13 @@ class AuthMiddleware implements MiddlewareInterface
     ): ResponseInterface {
         if ($user = $this->auth->user()) {
             return $handler->handle($request->withAttribute('user', $user));
+        }
+
+        $isAPI = preg_match("#^/api/.*#", $request->getUri()->getPath());
+        if ($isAPI) {
+            return responseJSON(new Response(401), [
+                "location" => "/login"
+            ], 401);
         }
 
         return (new Response(302))->withHeader('Location', '/login');
