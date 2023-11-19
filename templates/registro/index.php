@@ -14,7 +14,7 @@
   <div
   class="d-lg-flex align-items-baseline my-4 container"
   style="min-height: 70vh;">
-    <div class="col-lg-6 p-3 p-md-5 sticky-md-top">
+    <div class="col-lg-6 p-3 p-md-5 sticky-lg-top z-0">
       <span class="p-2 text-center mt-2 text-muted small d-block">
         Trabajamos por tu bienestar y el bienestar de tu familia, por eso en
         la Cl&iacute;nica Asotrauma trabajamos para ti y para todos.
