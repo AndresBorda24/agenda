@@ -1,6 +1,6 @@
 <footer class="pt-4 bg-secondary overflow-hidden small">
-  <div class="mb-4 row container m-auto g-5 g-md-4 row-cols-1 row-cols-md-3 align-items-center">
-    <ul class="list-group list-group-flush small text-center">
+  <div class="mb-4 row container m-auto gap-4 gap-md-0 g-md-4 row-cols-1 row-cols-md-3 align-items-center">
+    <ul class="list-group list-group-flush small text-center m-0 p-0">
       <li class="list-group-item bg-transparent text-light">
         <span class="text-warning"><?= $this->fetch("./icons/location.php") ?></span>
         Cra. 4D No. 32 - 34 , Ibagu&eacute;, Tolima
@@ -22,10 +22,11 @@
 
     <img
     height="25"
+    class="m-0"
     src="https://asotrauma.com.co/wp-content/uploads/2021/08/logo-asotrauma-w.svg"
     alt="logo-blanco">
 
-    <ul class="list-group list-group-flush small text-center">
+    <ul class="list-group list-group-flush small text-center m-0 p-0">
       <li class="list-group-item bg-transparent text-light">
         <span class="link-hover">
           <span class=""><?= $this->fetch("./icons/facebook.php") ?></span>
@@ -62,9 +63,9 @@
     </ul>
   </div>
 
-  <div class="bg-blue-900 p-2 text-center text-white small">
-    <p class="m-0 small">
-      Si tienes alg&uacute;n problema con la p&aacute;gina puedes enviar un correo a
+  <div class="bg-blue-900 px-2 py-3 text-center text-white small">
+    <p class="my-0 mx-auto" style="max-width: 400px;">
+      Si tienes alg&uacute;n problema con la p&aacute;gina o alguna solicitud puedes enviar un correo a
       <a
         href="mailto:soporte@asotrauma.com.co"
         class="fw-bold text-decoration-none text-white"

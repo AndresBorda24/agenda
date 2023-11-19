@@ -31,6 +31,7 @@ Encore
     .addEntry('planes/app', './assets/planes/index.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
+    .enableVersioning()
     /*
      * FEATURE CONFIG
      *

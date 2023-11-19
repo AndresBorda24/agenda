@@ -18,9 +18,9 @@
         <h1  class="fs-5 text-primary">Listado de beneficiarios</h1>
         <div id="new-beneficiario-container" class="mb-4"> </div>
 
-        <section class="d-flex align-items-center mb-4 bg-danger p-2 bg-opacity-50 small border-start border-5 border-danger rounded-end shadow">
+        <section class="d-flex align-items-center mb-4 p-2 small border-start border-5 border-danger rounded-end shadow" style="background-color: #ffdede;">
           <?= $this->fetch("./icons/sign.php", [
-            "props" => 'style="width: 60px; height:60px;"'
+            "props" => 'style="min-width: 55px; height:60px;"'
           ]) ?>
           <span>
             Una vez agregado no se podr&aacute; modificar la informaci&oacute;n del
