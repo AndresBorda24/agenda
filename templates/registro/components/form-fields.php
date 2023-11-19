@@ -17,38 +17,62 @@
   <div class="small p-1">
     <span class="form-label small text-muted">Nombres:</span>
     <div class="d-flex gap-1">
-      <input
-      id="nom1"
-      required
-      type="text"
-      x-model="state.nom1"
-      placeholder="Requerido"
-      class="form-control form-control-sm">
-      <input
-      id="nom2"
-      type="text"
-      x-model="state.nom2"
-      placeholder="Opcional"
-      class="form-control form-control-sm">
+      <div class="small w-100">
+        <label
+          for="nom1"
+          class="form-label small mb-0 text-muted"
+        >Primer Nombre</label>
+        <input
+        id="nom1"
+        required
+        type="text"
+        x-model="state.nom1"
+        placeholder="Requerido"
+        class="form-control form-control-sm">
+      </div>
+      <div class="small w-100">
+        <label
+          for="nom2"
+          class="form-label small mb-0 text-muted"
+        >Segundo Nombre</label>
+        <input
+        id="nom2"
+        type="text"
+        x-model="state.nom2"
+        placeholder="Opcional"
+        class="form-control form-control-sm">
+      </div>
     </div>
   </div>
 
   <div class="small p-1 mb-2">
     <span class="form-label small text-muted">Apellidos:</span>
     <div class="d-flex gap-1">
-      <input
-      id="ape1"
-      required
-      type="text"
-      x-model="state.ape1"
-      placeholder="Requerido"
-      class="form-control form-control-sm">
-      <input
-      id="ape2"
-      type="text"
-      x-model="state.ape2"
-      placeholder="Opcional"
-      class="form-control form-control-sm">
+      <div class="small w-100">
+        <label
+          for="ape1"
+          class="form-label small mb-0 text-muted"
+        >Primer Apellido</label>
+        <input
+        id="ape1"
+        required
+        type="text"
+        x-model="state.ape1"
+        placeholder="Requerido"
+        class="form-control form-control-sm">
+      </div>
+      <div class="small w-100">
+        <label
+          for="ape2"
+          class="form-label small mb-0 text-muted"
+        >Segundo Apellido</label>
+        <input
+        id="ape2"
+        type="text"
+        x-model="state.ape2"
+        placeholder="Opcional"
+        class="form-control form-control-sm">
+      </div>
     </div>
   </div>
 
