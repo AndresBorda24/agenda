@@ -6,15 +6,15 @@ namespace App\Controllers\Api;
 use App\Auth;
 use App\Models\Pago;
 use App\Models\Usuario;
+use UltraMsg\WhatsAppApi;
 use App\Models\PasswordReset;
+use App\Controllers\Validation\SetCardValidation;
+use Psr\Http\Message\ResponseInterface as Response;
 use App\Controllers\Validation\CreateUserValidation;
 use App\Controllers\Validation\UpdateUserValidation;
-use Psr\Http\Message\ResponseInterface as Response;
+use App\Controllers\Validation\ResetPasswdValidation;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
-use App\Controllers\Validation\ResetPasswdValidation;
-use App\Controllers\Validation\SetCardValidation;
-use UltraMsg\WhatsAppApi;
 
 use function App\responseJSON;
 
@@ -119,6 +119,7 @@ class UsuarioController
             if ($pagoId === null) throw new \Exception("Pago not found");
 
             $_ = $pago->setCard($pagoId, $data["serial"]);
+            $val->tarjeta->setUsed($data["serial"]);
 
             return responseJSON($response, $_);
         } catch(\Exception|FormValidationException $e) {
@@ -148,14 +149,11 @@ class UsuarioController
 
             $cod = $passwd->create($user->id);
 
-            $this->wp->sendChatMessage($user->telefono, "
-                Este es tu código para restablecer tu contraseña:
-
-                *$cod*
-
-                Recuerda que el código expira pronto...
-            ", 2);
-
+            $this->wp->sendChatMessage($user->telefono,
+                "Este es tu código para restablecer tu contraseña:"
+                . "\n\n*$cod*\n\n"
+                . "Recuerda que el código expira pronto..."
+            , 2);
 
             return responseJSON($response, [
                 "doc" => $user->documento,
