@@ -1,9 +1,6 @@
 import axios from "axios";
+import ax from "@/partials/ax";
 import { hideLoader } from "@/partials/loader";
-
-const ax = axios.create({
-  baseURL: process.env.API
-});
 
 /**
  * Crea la preferencia para continuar con el proceso de pago.

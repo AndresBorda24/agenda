@@ -1,9 +1,5 @@
-import axios from "axios";
+import ax from "@/partials/ax";
 import { showLoader, hideLoader } from "@/partials/loader";
-
-const ax = axios.create({
-  baseURL: process.env.API
-});
 
 /**
  * Obtiene informacion basica sobre el usuario que ha iniciado sesion

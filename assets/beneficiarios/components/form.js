@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import ax from "@/partials/ax";
+import { AxiosError } from "axios";
 import { showLoader, hideLoader } from "@/partials/loader";
 import { successAlert, errorAlert } from "@/partials/alerts";
 import { setInvalid, removeInvalid } from "@/partials/form-validation";
@@ -33,8 +34,8 @@ export default () => ({
             removeInvalid();
             showLoader();
 
-            const { data } = await axios.post(
-                process.env.API + "/auth/beneficiario",
+            const { data } = await ax.post(
+                "/auth/beneficiario",
                 this.state
             ).finally(hideLoader);
 

@@ -1,8 +1,4 @@
-import axios from "axios";
-
-const ax = axios.create({
-  baseURL: process.env.API
-});
+import ax from "@/partials/ax";
 
 /**
  * Se encarga de realzar la solicitud que relaciona un usuario con una

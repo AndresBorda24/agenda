@@ -1,9 +1,5 @@
-import axios from "axios";
+import ax from "@/partials/ax";
 import { showLoader, hideLoader } from "@/partials/loader";
-
-const ax = axios.create({
-  baseURL: process.env.API
-});
 
 /**
  * Intenta registrar la informacion de un nuevo usuario.
