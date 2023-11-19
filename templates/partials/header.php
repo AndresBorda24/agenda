@@ -1,9 +1,11 @@
 <header class="bg-primary">
   <div class="container p-3 d-flex align-items-center justify-content-between">
-    <img
-    height="25"
-    src="https://asotrauma.com.co/wp-content/uploads/2021/08/logo-asotrauma-w.svg"
-    alt="logo-blanco">
+    <a href="https://asotrauma.com.co/" target="_blank" class="d-block">
+      <img
+      height="25"
+      src="https://asotrauma.com.co/wp-content/uploads/2021/08/logo-asotrauma-w.svg"
+      alt="logo-blanco">
+    </a>
     <?php if($this->user() !== null): ?>
       <span class="text-light small fw-bold text-end">
         <span class="small fw-light">Hola:</span>

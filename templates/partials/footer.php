@@ -1,5 +1,5 @@
-<footer class="py-5 bg-secondary overflow-hidden">
-  <div class="row container m-auto g-5 g-md-4 row-cols-1 row-cols-md-3 align-items-center">
+<footer class="pt-4 bg-secondary overflow-hidden small">
+  <div class="mb-4 row container m-auto g-5 g-md-4 row-cols-1 row-cols-md-3 align-items-center">
     <ul class="list-group list-group-flush small text-center">
       <li class="list-group-item bg-transparent text-light">
         <span class="text-warning"><?= $this->fetch("./icons/location.php") ?></span>
@@ -60,5 +60,15 @@
         </span>
       </li>
     </ul>
+  </div>
+
+  <div class="bg-blue-900 p-2 text-center text-white small">
+    <p class="m-0 small">
+      Si tienes alg&uacute;n problema con la p&aacute;gina puedes enviar un correo a
+      <a
+        href="mailto:soporte@asotrauma.com.co"
+        class="fw-bold text-decoration-none text-white"
+      >soporte@asotrauma.com.co</a>
+    </p>
   </div>
 </footer>
