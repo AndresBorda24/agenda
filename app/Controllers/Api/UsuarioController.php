@@ -145,7 +145,9 @@ class UsuarioController
             $cc = @$request->getParsedBody()["doc"] ?? "";
             $user = $this->usuario->get($cc, "num_histo");
 
-            if ($user === null) throw new \Exception("User not found");
+            if ($user === null) throw new FormValidationException([
+                "documento" => ["Documento no registrado."]
+            ]);
 
             $cod = $passwd->create($user->id);
 
@@ -162,9 +164,12 @@ class UsuarioController
                     substr($user->telefono, -1)
                 )
             ]);
-        } catch(\Exception $e) {
+        } catch(\Exception|FormValidationException $e) {
             return responseJSON($response, [
-                "error"  => $e->getMessage()
+                "error"  => $e->getMessage(),
+                "fields" => $e instanceof FormValidationException
+                    ? $e->getInvalidFields()
+                    : []
             ], 422);
         }
     }

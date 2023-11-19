@@ -26,7 +26,8 @@ export default () => ({
         hideLoader();
 
         if (e) {
-            this.error = e.response?.data?.message;
+            if (e instanceof AxiosError) setInvalid(e.response.data.fields || {});
+            errorAlert();
             return;
         }
 
