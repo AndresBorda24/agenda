@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Slim\App;
+use App\Middleware\CorsMiddleware;
 use App\Middleware\AuthMiddleware;
 use App\Controllers\Api\EpsController;
 use App\Controllers\Api\AuthController;
@@ -14,6 +15,7 @@ use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 use App\Controllers\Api\BeneficiarioController;
 use App\Controllers\Api\EspecialidadController;
+use App\Controllers\Api\ExternalController;
 use App\Controllers\Api\MercadoPagoController;
 use App\Controllers\Api\PagoController;
 use App\Controllers\Api\RegaloController;
@@ -58,8 +60,9 @@ return function (App $app) {
         $api->group("/planes", function (Group $planes) {
             $planes->get("/get-available", [PlanesController::class, 'getAvailable']);
             $planes->post("/info-pagos", [PlanesController::class, 'createPreference']);
-            $planes->post("/{planId:[0-9]+}/create-preference", [MercadoPagoController::class, 'createPreference']);
-        })->add(AuthMiddleware::class);
+            $planes->post("/{planId:[0-9]+}/create-preference", [MercadoPagoController::class, 'createPreference'])
+                ->add(AuthMiddleware::class);
+        });
 
 
         $api->group("/pagos", function (Group $pagos) {
@@ -81,6 +84,7 @@ return function (App $app) {
             $mp->put("/pago/{id}/set-status/{status}", [MercadoPagoController::class, "setPaymentStatus"]);
         });
 
+
         $api->post("/regalo/{code}/redimir", RegaloController::class)
             ->add(AuthMiddleware::class);
 
@@ -89,4 +93,13 @@ return function (App $app) {
         $api->post("/start-reset-passwd", [UsuarioController::class, 'startResetPasswd']);
         $api->get("/get-all-eps", EpsController::class);
     })->add(JsonBodyParserMiddleware::class);
+
+    $app->group("/api/external", function (Group $ext) {
+        $ext->get("/get-planes", [ExternalController::class, "getPlanes"]);
+        $ext->get("/{doc}/fetch", [ExternalController::class, "fetch"]);
+        $ext->post("/create-user", [ExternalController::class, "createUser"]);
+        $ext->post("/validate-user", [ExternalController::class, "checkDatos"]);
+        $ext->post("/{userId:[0-9]+}/create-pago", [ExternalController::class, "createPago"]);
+        $ext->options("/{routes:.+}", fn($response) => $response);
+    })->add(CorsMiddleware::class)->add(JsonBodyParserMiddleware::class);
 };
