@@ -10,6 +10,7 @@ class UpdatePagoInfo
         public readonly ?string $start,
         public readonly string $status,
         public readonly string $detail,
-        public readonly string $type
+        public readonly string $type,
+        public readonly ?string $soporte = null
     ) {}
 }
