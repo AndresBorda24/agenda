@@ -34,5 +34,6 @@ return [
     "wp" => [
         "token" => $_ENV["WP_TOKEN"],
         "instance" => $_ENV["WP_INSTANCE"]
-    ]
+    ],
+    "soportes" => __DIR__ . "/../soportes"
 ];

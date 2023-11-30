@@ -16,12 +16,12 @@ class PlanesController
     ){}
 
     /** Obtiene todas las especialidades con citas disponibles */
-    public function getAvailable(Response $response, UserInterface $user): Response
+    public function getAvailable(Response $response, ?UserInterface $user = null): Response
     {
         try {
             return responseJSON(
                 $response,
-                $this->plan->getAll($user->isFromIntranet())
+                $this->plan->getAll($user?->isFromIntranet() ?? false)
             );
         } catch(\Exception $e) {
             $data = [ "error" => $e->getMessage() ];

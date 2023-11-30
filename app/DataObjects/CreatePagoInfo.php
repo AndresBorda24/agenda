@@ -9,6 +9,7 @@ class CreatePagoInfo
         public readonly int $userId,
         public readonly int $planId,
         public readonly string $status,
-        public readonly bool $envio
+        public readonly bool $envio,
+        public readonly ?string $soporte = null
     ) {}
 }

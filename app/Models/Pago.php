@@ -32,7 +32,8 @@ class Pago
                 "status" => $data->status,
                 "plan_id" => $data->planId,
                 "usuario_id" => $data->userId,
-                "envio" => $data->envio
+                "envio" => $data->envio,
+                "soporte" => $data->soporte
             ], 'id');
 
             return (int) $this->db->id();
@@ -57,6 +58,7 @@ class Pago
                 "type" => $data->type,
                 "status" => $data->status,
                 "detail" => $data->detail,
+                "soporte" => $data->soporte ?? Medoo::raw("<soporte>"),
                 "payment_id" => $data->id,
                 "created_at" => $data->start
             ], [ "id" => $id ]);
