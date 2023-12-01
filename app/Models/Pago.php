@@ -33,7 +33,8 @@ class Pago
                 "plan_id" => $data->planId,
                 "usuario_id" => $data->userId,
                 "envio" => $data->envio,
-                "soporte" => $data->soporte
+                "soporte" => $data->soporte,
+                "quien" => $data->quien
             ], 'id');
 
             return (int) $this->db->id();
@@ -56,6 +57,7 @@ class Pago
 
             $this->db->update(self::TABLE, [
                 "type" => $data->type,
+                "quien" => $data->quien ?? Medoo::raw("<quien>"),
                 "status" => $data->status,
                 "detail" => $data->detail,
                 "soporte" => $data->soporte ?? Medoo::raw("<soporte>"),

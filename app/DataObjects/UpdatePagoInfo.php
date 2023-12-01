@@ -11,6 +11,7 @@ class UpdatePagoInfo
         public readonly string $status,
         public readonly string $detail,
         public readonly string $type,
-        public readonly ?string $soporte = null
+        public readonly ?string $soporte = null,
+        public readonly ?int $quien = null
     ) {}
 }

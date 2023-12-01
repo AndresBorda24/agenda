@@ -34,7 +34,7 @@ class ExternalController
         try {
             return responseJSON(
                 $response,
-                $this->plan->getAll(false)
+                $this->plan->getAll(true)
             );
         } catch(\Exception $e) {
             $data = [ "error" => $e->getMessage() ];
@@ -70,7 +70,7 @@ class ExternalController
     /** Crea un pago y lo relaciona con el usuario */
     public function createPago(Request $request, Response $response, int $userId): Response
     {
-        $pago = $request->getParsedBody();
+        $data = $request->getParsedBody();
         /** @var \Psr\Http\Message\UploadedFileInterface | null */
         $soporte = @$request->getUploadedFiles()["soporte"];
 
@@ -85,21 +85,22 @@ class ExternalController
 
         /** @var \Exception|null */
         $error = null;
-        $this->db->action(function() use($userId, $pago, $soporteName, &$error) {
+        $this->db->action(function() use($userId, $data, $soporteName, &$error) {
             try {
                 $pagoId = $this->pago->create(new CreatePagoInfo(
                     userId: $userId,
-                    planId: (int) $pago["plan"],
+                    planId: (int) $data["plan"],
                     status: \App\Enums\MpStatus::APROVADO->value,
                     envio:  false,
-                    soporte: $soporteName
+                    soporte: $soporteName,
+                    quien: (int) $data["quien"]
                 ));
 
                 $this->pago->updateInfo($pagoId, new UpdatePagoInfo(
                     id: "PAGO-PRESENCIAL-$pagoId",
-                    type: $pago["medioPago"],
+                    type: $data["medioPago"],
                     start: date("Y-m-d"),
-                    detail: $pago["referencia"],
+                    detail: $data["referencia"],
                     status: \App\Enums\MpStatus::APROVADO->value
                 ));
             } catch(\Exception $e) {
