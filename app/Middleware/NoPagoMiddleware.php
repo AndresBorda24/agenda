@@ -20,6 +20,6 @@ class NoPagoMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        return (new Re(302))->withHeader('Location', '/');
+        return (new Re(302))->withHeader('Location', '/home');
     }
 }
