@@ -1,4 +1,12 @@
-<section class="index-section py-5 d-md-flex px-3 gap-3 justify-content-center bg-secondary" style="color: #d3f3ff;">
+<section class="index-section position-relative py-5 mb-5 d-md-flex px-3 gap-3 justify-content-center bg-secondary" style="color: #d3f3ff;">
+  <div class="position-absolute top-100 start-0 w-100" style="height: 40px;">
+    <img
+      alt="svg-divisor"
+      class="h-100 w-100"
+      style="object-fit: fill;"
+      src="<?= $this->asset("img/index/waves.svg") ?>"
+    >
+  </div>
   <div class="mx-auto" style="max-width: 800px;">
     <h3 class="fw-bold">Nuestra Capacidad Instalada</h3>
     <ul>

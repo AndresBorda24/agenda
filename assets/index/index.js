@@ -1,26 +1,14 @@
-import "@/css/root.css";
-import "@/css/index.css";
-import 'tippy.js/dist/tippy.css';
+import "@/css/root.css"
+import "@/css/index.css"
+import "@/index/comp/tooltips"
 
-import tippy from 'tippy.js';
+import Alpine from "alpinejs"
+import videos from "@/index/comp/videos"
 
-tippy.setDefaultProps({allowHTML: true, trigger: 'mouseenter click'})
+window.Alpine = Alpine
 
-document.addEventListener("DOMContentLoaded", () => {
-    tippy("#beneficios-1", {
-        content: document.getElementById("beneficios-1-dt")?.innerHTML
-    })
-    tippy("#beneficios-2", {
-        content: document.getElementById("beneficios-2-dt")?.innerHTML
-    })
-    tippy("#beneficios-3", {
-        content: document.getElementById("beneficios-3-dt")?.innerHTML
-    })
-    tippy("#beneficios-4", {
-        content: document.getElementById("beneficios-4-dt")?.innerHTML
-    })
-    tippy("#beneficios-5", {
-        content: document.getElementById("beneficios-5-dt")?.innerHTML
-    })
-
+document.addEventListener("alpine:init", () => {
+    Alpine.data("Videos", videos)
 })
+
+Alpine.start()

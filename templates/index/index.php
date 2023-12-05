@@ -11,10 +11,19 @@
 
   <main style="min-height: 70vh;">
     <?= $this->fetch("./index/partials/hero.php") ?>
+  <div style="height: 50px;">
+    <img
+      alt="svg-divisor"
+      class="h-100 w-100"
+      style="object-fit: fill;"
+      src="<?= $this->asset("img/index/arrow.svg") ?>"
+    >
+  </div>
 
     <?= $this->fetch("./index/partials/section-beneficios.php") ?>
     <?= $this->fetch("./index/partials/section-capacidad.php") ?>
     <?= $this->fetch("./index/partials/section-adicionales.php") ?>
+    <?= $this->fetch("./index/partials/section-videos.php") ?>
   </main>
 
 
