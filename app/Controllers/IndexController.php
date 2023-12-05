@@ -19,6 +19,13 @@ class IndexController
         private Auth $auth
     ){}
 
+    public function index(Response $response): Response
+    {
+        return $this
+            ->view
+            ->render($response, "index/index.php");
+    }
+
     public function home(Response $response): Response
     {
         return $this
