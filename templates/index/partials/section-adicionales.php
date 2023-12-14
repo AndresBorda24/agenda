@@ -2,7 +2,7 @@
   style="margin: 5rem auto;"
   class="index-section position-relativepy-4"
 >
-  <div class="w-100" style="height: 60px;">
+  <div class="w-100" style="height: 6vw; margin-bottom: -5px;">
     <img
       alt="svg-divisor"
       class="h-100 w-100"
@@ -62,7 +62,7 @@
     </div>
   </div>
 
-  <div class="w-100" style="height: 60px;">
+  <div class="w-100" style="height: 6vw;">
     <img
       alt="svg-divisor"
       class="h-100 w-100"

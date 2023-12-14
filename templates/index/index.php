@@ -24,6 +24,7 @@
     <?= $this->fetch("./index/partials/section-capacidad.php") ?>
     <?= $this->fetch("./index/partials/section-adicionales.php") ?>
     <?= $this->fetch("./index/partials/section-videos.php") ?>
+    <?= $this->fetch("./index/partials/section-donde.php") ?>
   </main>
 
 
