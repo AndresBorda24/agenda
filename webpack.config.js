@@ -20,6 +20,7 @@ Encore
     .setPublicPath(process.env.APP_PATH + '/build')
     // .setPublicPath('/build')
     .setManifestKeyPrefix('build/')
+    .addEntry('index/app', './assets/index/index.js')
     .addEntry('home/app', './assets/home/index.js')
     .addEntry('activar/app', './assets/activar-tarjeta/index.js')
     .addEntry('forgot/app', './assets/forgot/index.js')

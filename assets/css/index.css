@@ -1,0 +1,30 @@
+#main-hero {
+  background-image:
+    linear-gradient(to top, #0c3953cf, #001a26cc),
+    url("http://agenda.test/img/index/hero-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 80vh;
+  padding: 20px;
+  color: #fff;
+}
+#main-hero fieldset {
+  max-width: 400px;
+  border-color: #4793b76e !important;
+}
+#main-hero legend {
+  color: #4793b7;
+}
+#main-hero button {
+  color: white;
+  border-width: 2px;
+  border-radius: 3px;
+  border-color: #a0cde2;
+  transition: all 150ms ease-in;
+  background-color: #4793b7;
+  bottom: -20px;
+}
+#main-hero button:hover {
+  border-color: #6996ab;
+  background-color: #28627d;
+}

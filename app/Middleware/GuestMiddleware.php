@@ -23,7 +23,7 @@ class GuestMiddleware implements MiddlewareInterface
         if ($this->auth->user()) {
             return (new Response)
                 ->withStatus(302)
-                ->withHeader('Location', '/');
+                ->withHeader('Location', '/home');
         }
 
         return $handler->handle($request);
