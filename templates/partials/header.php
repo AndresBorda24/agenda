@@ -14,9 +14,9 @@
     <?php endif ?>
   </div>
   <div class="p-1 text-bg-warning text-center bg-blue-800">
-    <span class="fs-6 text-light fst-italic fw-bold">
-      Programa de Fidelización
-    </span>
+    <a
+    class="fs-6 text-light fst-italic fw-bold text-decoration-none"
+    href="<?= $this->link("index") ?>">Programa de Fidelización</a>
   </div>
 </header>
 <div class="bg-secondary text-light shadow sticky-top">
@@ -25,17 +25,20 @@
       <span class="fs-5 p-1"><?=  $title ?? "Cl&iacute;nica Asotrauma" ?></span>
     <?php endif ?>
 
-    <nav class="nav small gap-1" id="header-nav">
-
+    <nav class="nav ms-auto small gap-1" id="header-nav">
       <?php if($this->user() == null): ?>
         <a
-        class="btn btn-outline-light border-0 btn-sm
+        class="btn btn-outline-light border-0 btn-sm m-1
         <?= $this->isRoute('login') ? 'active' : '' ?>"
         href="<?= $this->link("login") ?>">Login</a>
         <a
-        class="btn btn-outline-light border-0 btn-sm
+        class="btn btn-outline-light border-0 btn-sm m-1
         <?= $this->isRoute('registro') ? 'active' : '' ?>"
         href="<?= $this->link("registro") ?>">Registro!</a>
+      <?php elseif($this->isRoute("index")): ?>
+        <a
+        class="btn btn-outline-light border-0 btn-sm m-1"
+        href="<?= $this->link("home") ?>">Home!</a>
       <?php endif ?>
     </nav>
   </div>
