@@ -8,9 +8,11 @@
         Es un programa pensado para un momento de la vida, en el que se quiera acceder a nuestros servicios directamente sin intermediarios, de manera oportuna y personalizada brindando una atención segura, efectiva y con calidad.
       </p>
 
-      <button class="position-absolute btn d-block">
-        Me interesa!
-      </button>
+      <button
+      x-data
+      @click="document.getElementById('section-beneficios')?.scrollIntoView({ behavior: 'smooth'})"
+      class="position-absolute btn d-block"
+      > Me interesa! </button>
     </fieldset>
   </div>
 </section>

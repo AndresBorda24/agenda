@@ -1,5 +1,5 @@
-<section class="index-section py-5 d-md-flex container justify-content-center align-items-center px-3 gap-3">
-  <div class="text-center text-primary" style="order: 2;">
+<section id="section-beneficios" class="index-section py-5 d-md-flex flex-column container justify-content-center align-items-center px-3 gap-3" style="margin-bottom: 8rem;">
+  <div class="text-center text-primary">
     <div class="p-4">
       <span class="d-block mx-auto" style="width: 100px;">
         <?= $this->fetch("./icons/star.php") ?>
@@ -7,22 +7,25 @@
       <span class="fs-2 text-primary">
         Tus beneficios
       </span>
+
+      <p class="text-dark" style="max-width: 600px;">Hemos diseñado dos planes que atienden las necesidades de pacientes particulares: el <strong>Plan Amarillo</strong> & el <strong>Plan Celeste</strong>.</p>
+
       <hr>
     </div>
   </div>
 
   <div class="p-3 bg-white rounded shadow table-responsive" style="order: 1;">
     <table class="small">
-      <thead>
+      <thead class="border-bottom">
         <tr>
           <th></th>
-          <th class="text-center">
-            <span class="badge text-bg-warning">Amarillo</span>
+          <th class="text-center p-2">
+            <span class="badge fs-6 text-bg-warning">Amarillo</span>
           </th>
-          <th class="text-center text-secondary">
-            <span class="badge text-bg-primary">Celeste</span>
+          <th class="text-center text-secondary p-2">
+            <span class="badge fs-6 text-bg-primary">Celeste</span>
           </th>
-        </th>
+        </tr>
       </thead>
       <tbody>
         <tr>

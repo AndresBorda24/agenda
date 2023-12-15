@@ -14,6 +14,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Controllers\Validation\CreateUserValidation;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use UltraMsg\WhatsAppApi;
 
 use function App\ddh;
 use function App\responseJSON;
@@ -68,8 +69,12 @@ class ExternalController
     }
 
     /** Crea un pago y lo relaciona con el usuario */
-    public function createPago(Request $request, Response $response, int $userId): Response
-    {
+    public function createPago(
+        Request $request,
+        Response $response,
+        WhatsAppApi $whatsapp,
+        int $userId
+    ): Response {
         $data = $request->getParsedBody();
         /** @var \Psr\Http\Message\UploadedFileInterface | null */
         $soporte = @$request->getUploadedFiles()["soporte"];
@@ -115,6 +120,11 @@ class ExternalController
             ], 422);
         }
 
+        $user = $this->usuario->basic($userId);
+        $whatsapp->sendChatMessage($user["telefono"], sprintf(
+            "¡Bienvenido al Programa de Fidelización Asotrauma!🌟\n\nNo olvides registrar a tus beneficiarios desde nuestra página: %s. Recuerda que tu usuario y contraseña son tu documento de identidad.\n\nGracias por ser parte de nuestra familia y por tu continuo apoyo. ¡Estamos aquí para cuidarte! 🏥💙✌",
+            $this->config->get("app.url")
+        ), 3);
         return responseJSON($response, true);
     }
 
