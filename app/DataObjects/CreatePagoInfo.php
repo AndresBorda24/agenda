@@ -8,9 +8,10 @@ class CreatePagoInfo
     public function __construct(
         public readonly int $userId,
         public readonly int $planId,
-        public readonly string $status,
         public readonly bool $envio,
-        public readonly ?string $soporte = null,
-        public readonly ?int $quien = null
+        public readonly string $status,
+        public readonly int $valorPagado,
+        public readonly ?int $quien = null,
+        public readonly ?string $soporte = null
     ) {}
 }

@@ -34,6 +34,7 @@ class Pago
                 "usuario_id" => $data->userId,
                 "envio" => $data->envio,
                 "soporte" => $data->soporte,
+                "valor_pagado" => $data->valorPagado,
                 "quien" => $data->quien
             ], 'id');
 
@@ -186,6 +187,37 @@ class Pago
                 "payment_id" => null
             ], [ "id" => $id ]);
             return $_->rowCount();
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Obtiene la lista completa de los pagos. Utilizado principalmente para
+     * cargar una grilla.
+    */
+    public function fullList(): array
+    {
+        try {
+            $data = $this->db->pdo->prepare(sprintf("
+                SELECT
+                    PG.id, PG.usuario_id, PG.plan_id,
+                    PG.type, PG.created_at, PG.payment_id,
+                    PG.status, PG.detail, PG.quien, CONCAT_WS(' ',
+                        U.usuario_apellido1,
+                        U.usuario_nombre1
+                    ) AS quien_nombre, PG.valor_pagado
+                FROM %s AS PG
+                LEFT JOIN asotraum_calidad.usuario AS U
+                    ON U.usuario_id = PG.quien
+                WHERE PG.status = :status
+            ", self::TABLE));
+
+            $data->execute([
+                ":status" => \App\Enums\MpStatus::APROVADO->value
+            ]);
+
+            return $data->fetchAll(\PDO::FETCH_ASSOC);
         } catch(\Exception $e) {
             throw $e;
         }
