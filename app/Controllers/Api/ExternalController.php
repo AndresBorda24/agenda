@@ -92,12 +92,14 @@ class ExternalController
         $error = null;
         $this->db->action(function() use($userId, $data, $soporteName, &$error) {
             try {
+                $plan = $this->plan->find((int) $data["plan"]);
                 $pagoId = $this->pago->create(new CreatePagoInfo(
                     userId: $userId,
-                    planId: (int) $data["plan"],
-                    status: \App\Enums\MpStatus::APROVADO->value,
                     envio:  false,
+                    planId: $plan->id,
                     soporte: $soporteName,
+                    valorPagado: $plan->valor,
+                    status: \App\Enums\MpStatus::APROVADO->value,
                     quien: (int) $data["quien"]
                 ));
 
@@ -120,11 +122,11 @@ class ExternalController
             ], 422);
         }
 
-        $user = $this->usuario->basic($userId);
-        $whatsapp->sendChatMessage($user["telefono"], sprintf(
-            "¡Bienvenido al Programa de Fidelización Asotrauma!🌟\n\nNo olvides registrar a tus beneficiarios desde nuestra página: %s. Recuerda que tu usuario y contraseña son tu documento de identidad.\n\nGracias por ser parte de nuestra familia y por tu continuo apoyo. ¡Estamos aquí para cuidarte! 🏥💙✌",
-            $this->config->get("app.url")
-        ), 3);
+        // $user = $this->usuario->basic($userId);
+        // $whatsapp->sendChatMessage($user["telefono"], sprintf(
+        //     "¡Bienvenido al Programa de Fidelización Asotrauma!🌟\n\nNo olvides registrar a tus beneficiarios desde nuestra página: %s. Recuerda que tu usuario y contraseña son tu documento de identidad.\n\nGracias por ser parte de nuestra familia y por tu continuo apoyo. ¡Estamos aquí para cuidarte! 🏥💙✌",
+        //     $this->config->get("app.url")
+        // ), 3);
         return responseJSON($response, true);
     }
 
@@ -149,5 +151,33 @@ class ExternalController
                 "error"  => $e->getMessage(),
             ], 422);
         }
+    }
+
+    public function getPagosList(Request $request, Response $response): Response
+    {
+        try {
+            @[
+                "desde" => $desde,
+                "hasta" => $hasta
+            ] = $request->getQueryParams() + [
+                "desde" => date("Y-m-d", strtotime("-1 month")),
+                "hasta" => date("Y-m-d")
+            ];
+
+            return responseJSON($response, [
+                "data"  => $this->pago->fullList($desde, $hasta),
+                "rango" => [$desde, $hasta]
+            ]);
+        } catch(\Exception $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+            ], 422);
+        }
+    }
+
+    public function setRegistradoVal(Request $request, Response $response, int $pagoId): Response
+    {
+        $reg = $request->getParsedBody()["registrado"];
+        return responseJSON($response, $this->pago->setRegistrado($pagoId, $reg));
     }
 }

@@ -97,9 +97,14 @@ return function (App $app) {
     $app->group("/api/external", function (Group $ext) {
         $ext->get("/get-planes", [ExternalController::class, "getPlanes"]);
         $ext->get("/{doc}/fetch", [ExternalController::class, "fetch"]);
+        $ext->get("/pagos-list", [ExternalController::class, "getPagosList"]);
         $ext->post("/create-user", [ExternalController::class, "createUser"]);
         $ext->post("/validate-user", [ExternalController::class, "checkDatos"]);
         $ext->post("/{userId:[0-9]+}/create-pago", [ExternalController::class, "createPago"]);
+        $ext->post(
+            "/{pagoId:[0-9]+}/set-registrado",
+            [ExternalController::class, "setRegistradoVal"]
+        );
         $ext->options("/{routes:.+}", fn($response) => $response);
     })->add(CorsMiddleware::class)->add(JsonBodyParserMiddleware::class);
 };

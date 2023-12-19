@@ -196,28 +196,70 @@ class Pago
      * Obtiene la lista completa de los pagos. Utilizado principalmente para
      * cargar una grilla.
     */
-    public function fullList(): array
+    public function fullList(string $desde, string $hasta): array
     {
         try {
-            $data = $this->db->pdo->prepare(sprintf("
+            $query = $this->db->pdo->prepare(sprintf("
                 SELECT
-                    PG.id, PG.usuario_id, PG.plan_id,
-                    PG.type, PG.created_at, PG.payment_id,
-                    PG.status, PG.detail, PG.quien, CONCAT_WS(' ',
+                    PG.id, PG.usuario_id, PG.plan_id, PG.soporte,
+                    PG.type, DATE(PG.created_at) AS created_at, PG.payment_id,
+                    PG.status, PG.detail, PG.quien, U.usuario_documento AS quien_documento,
+                    AR.area_servicio_nombre as quien_area, CONCAT_WS(' ',
                         U.usuario_apellido1,
                         U.usuario_nombre1
-                    ) AS quien_nombre, PG.valor_pagado
+                    ) AS quien_nombre, PG.valor_pagado, PG.registrado,
+                    -- Informacion del cliente:
+                    US.telefono AS cliente_telefono, US.num_histo as cliente_documento,
+                    US.direccion as cliente_direccion, US.email as cliente_email,
+                    CONCAT_WS(' ',
+                        US.ape1,
+                        US.nom1
+                    ) AS cliente_nombre
                 FROM %s AS PG
                 LEFT JOIN asotraum_calidad.usuario AS U
                     ON U.usuario_id = PG.quien
-                WHERE PG.status = :status
+                LEFT JOIN asotraum_calidad.area_servicio AS AR
+                    ON U.area_servicio_id = AR.area_servicio_id
+                LEFT JOIN usuarios as US
+                    ON US.id = PG.usuario_id
+                WHERE
+                    PG.status = :status AND
+                    PG.created_at BETWEEN :desde AND :hasta
             ", self::TABLE));
 
-            $data->execute([
-                ":status" => \App\Enums\MpStatus::APROVADO->value
+            $query->execute([
+                ":status" => \App\Enums\MpStatus::APROVADO->value,
+                ":desde" => $desde,
+                ":hasta" => $hasta
             ]);
 
-            return $data->fetchAll(\PDO::FETCH_ASSOC);
+            $data = [];
+            while($d = $query->fetch(\PDO::FETCH_ASSOC)) {
+                $d["registrado"] = (bool) $d["registrado"];
+                $d["valor_pagado"] = number_format(
+                    (int) $d["valor_pagado"],
+                    thousands_separator: '.'
+                );
+                $data[] = $d;
+            }
+
+            return $data;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Establece el valor del campo registrado.
+    */
+    public function setRegistrado(int|string $id, bool $registrado): bool
+    {
+        try {
+            $this->db->update(self::TABLE, [
+                "registrado" => $registrado
+            ], [ "id" => $id ]);
+
+            return true;
         } catch(\Exception $e) {
             throw $e;
         }
