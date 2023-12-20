@@ -95,6 +95,7 @@ return function (App $app) {
     })->add(JsonBodyParserMiddleware::class);
 
     $app->group("/api/external", function (Group $ext) {
+        $ext->get("/soporte/{file}", [ExternalController::class, "showSoporte"]);
         $ext->get("/get-planes", [ExternalController::class, "getPlanes"]);
         $ext->get("/{doc}/fetch", [ExternalController::class, "fetch"]);
         $ext->get("/pagos-list", [ExternalController::class, "getPagosList"]);

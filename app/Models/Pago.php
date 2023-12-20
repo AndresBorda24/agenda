@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Config;
 use Medoo\Medoo;
 use App\DataObjects\CreatePagoInfo;
 use App\DataObjects\UpdatePagoInfo;

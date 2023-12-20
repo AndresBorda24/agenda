@@ -8,15 +8,14 @@ use Medoo\Medoo;
 use App\Models\Plan;
 use App\Models\Pago;
 use App\Models\Usuario;
+use UltraMsg\WhatsAppApi;
 use App\DataObjects\CreatePagoInfo;
 use App\DataObjects\UpdatePagoInfo;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Controllers\Validation\CreateUserValidation;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
-use UltraMsg\WhatsAppApi;
 
-use function App\ddh;
 use function App\responseJSON;
 
 class ExternalController
@@ -173,6 +172,25 @@ class ExternalController
                 "error"  => $e->getMessage(),
             ], 422);
         }
+    }
+
+    // Retorna el soporte que se adjunto con un pago.
+    public function showSoporte(Response $response, string $file): Response
+    {
+        $fullRoute = $this->config->get("soportes") . "/$file";
+
+        if (! file_exists($fullRoute))
+            return responseJSON($response, "No se encontró el archivo", 404);
+
+        $f = fopen($fullRoute, 'rb');
+
+        return $response
+            ->withHeader('Content-Type', mime_content_type($fullRoute))
+            ->withHeader('Content-Disposition', 'inline; filename='.$file)
+            ->withAddedHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->withHeader('Cache-Control', 'post-check=0, pre-check=0')
+            ->withHeader('Pragma', 'no-cache')
+            ->withBody((new \Slim\Psr7\Stream($f)));
     }
 
     public function setRegistradoVal(Request $request, Response $response, int $pagoId): Response
