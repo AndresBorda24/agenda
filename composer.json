@@ -16,7 +16,8 @@
         "catfan/medoo": "^2.1",
         "rakit/validation": "^1.4",
         "mercadopago/dx-php": "^2.6",
-        "ultramsg/whatsapp-php-sdk": "^2.0"
+        "ultramsg/whatsapp-php-sdk": "^2.0",
+        "avadim/fast-excel-writer": "^4.8"
     },
     "config": {
         "platform": {

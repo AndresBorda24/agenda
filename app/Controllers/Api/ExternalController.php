@@ -15,6 +15,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Controllers\Validation\CreateUserValidation;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use avadim\FastExcelWriter\Excel;
 
 use function App\responseJSON;
 
@@ -121,11 +122,13 @@ class ExternalController
             ], 422);
         }
 
-        // $user = $this->usuario->basic($userId);
-        // $whatsapp->sendChatMessage($user["telefono"], sprintf(
-        //     "¡Bienvenido al Programa de Fidelización Asotrauma!🌟\n\nNo olvides registrar a tus beneficiarios desde nuestra página: %s. Recuerda que tu usuario y contraseña son tu documento de identidad.\n\nGracias por ser parte de nuestra familia y por tu continuo apoyo. ¡Estamos aquí para cuidarte! 🏥💙✌",
-        //     $this->config->get("app.url")
-        // ), 3);
+        if ($this->config->get("app.env", "dev") == "prod") {
+            $user = $this->usuario->basic($userId);
+            $whatsapp->sendChatMessage($user["telefono"], sprintf(
+                "¡Bienvenido al Programa de Fidelización Asotrauma!🌟\n\nNo olvides registrar a tus beneficiarios desde nuestra página: %s. Recuerda que tu usuario y contraseña son tu documento de identidad.\n\nGracias por ser parte de nuestra familia y por tu continuo apoyo. ¡Estamos aquí para cuidarte! 🏥💙✌",
+                $this->config->get("app.url")
+            ), 3);
+        }
         return responseJSON($response, true);
     }
 
@@ -152,6 +155,9 @@ class ExternalController
         }
     }
 
+    /**
+     * Obtiene el listado de pagos.
+    */
     public function getPagosList(Request $request, Response $response): Response
     {
         try {
@@ -174,7 +180,9 @@ class ExternalController
         }
     }
 
-    // Retorna el soporte que se adjunto con un pago.
+    /**
+     * Retorna el soporte que se adjunto con un pago.
+    */
     public function showSoporte(Response $response, string $file): Response
     {
         $fullRoute = $this->config->get("soportes") . "/$file";
@@ -193,9 +201,77 @@ class ExternalController
             ->withBody((new \Slim\Psr7\Stream($f)));
     }
 
+    /**
+     * Establece como registrado (o no registrado) el pago que corresponda a
+     * $pagoId
+    */
     public function setRegistradoVal(Request $request, Response $response, int $pagoId): Response
     {
         $reg = $request->getParsedBody()["registrado"];
         return responseJSON($response, $this->pago->setRegistrado($pagoId, $reg));
     }
+
+    /**
+     * Genera y remorna el listado de los pagos en excel. Las fechas aplican como
+     * en la generacion del listado.
+    */
+    public function getExcelPagos(Request $request, Response $response): Response
+    {
+        try {
+            @[
+                "desde" => $desde,
+                "hasta" => $hasta
+            ] = $request->getQueryParams() + [
+                "desde" => date("Y-m-d", strtotime("-1 month")),
+                "hasta" => date("Y-m-d")
+            ];
+
+            $excel = Excel::create(["Pagos $desde - $hasta"]);
+            $sheet = $excel->sheet();
+
+            $sheet->writeRow([
+                "Identificador", "Registrado", "Tipo", "Valor", "Fecha de Pago",
+                "Estado", "Detalle", "Quien Documento", "Quien Nombre", "Quien Area",
+                "Cliente Documento", "Cliente Nombre", "Cliente Telefono", "Cliente Correo"
+            ]);
+
+            foreach ($this->pago->fullList($desde, $hasta) as $pago) {
+                $sheet->writeRow([
+                    $pago["id"],
+                    $pago["registrado"],
+                    $pago["type"],
+                    $pago["valor_pagado"],
+                    $pago["created_at"],
+                    $pago["status"],
+                    $pago["detail"],
+                    $pago["quien_documento"],
+                    $pago["quien_nombre"],
+                    $pago["quien_area"],
+                    $pago["cliente_documento"],
+                    $pago["cliente_nombre"],
+                    $pago["cliente_telefono"],
+                    $pago["cliente_email"],
+                ]);
+            }
+
+            $excel->save("excel.xlsx");
+            $f = fopen("excel.xlsx", 'rb');
+
+            $response = $response
+                ->withHeader('Content-Type', mime_content_type("excel.xlsx"))
+                ->withHeader('Content-Disposition', 'inline; filename='."pagos-$desde-$hasta.xlsx")
+                ->withAddedHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+                ->withHeader('Cache-Control', 'post-check=0, pre-check=0')
+                ->withHeader('Pragma', 'no-cache')
+                ->withBody((new \Slim\Psr7\Stream($f)));
+
+            unlink("excel.xlsx");
+            return $response;
+        } catch(\Exception $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+            ], 422);
+        }
+    }
+
 }
