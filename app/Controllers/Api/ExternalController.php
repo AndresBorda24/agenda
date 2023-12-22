@@ -15,8 +15,10 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Controllers\Validation\CreateUserValidation;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use App\Enums\TipoBusquedaFidelizado;
 use avadim\FastExcelWriter\Excel;
 
+use function App\ddh;
 use function App\responseJSON;
 
 class ExternalController
@@ -274,4 +276,17 @@ class ExternalController
         }
     }
 
+    /**
+     * Busca informacion de un fidelizado si existe
+    */
+    public function searchFidelizado(Response $response, string $cc, string $tp): Response
+    {
+        $type = TipoBusquedaFidelizado::tryFrom($tp);
+        if ($type === null) throw new \Exception("Search Type unknown.");
+
+        return responseJSON(
+            $response,
+            $this->usuario->searchFidelizado($type, $cc)
+        );
+    }
 }

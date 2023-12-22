@@ -103,6 +103,7 @@ return function (App $app) {
         $ext->post("/create-user", [ExternalController::class, "createUser"]);
         $ext->post("/validate-user", [ExternalController::class, "checkDatos"]);
         $ext->post("/{userId:[0-9]+}/create-pago", [ExternalController::class, "createPago"]);
+        $ext->get("/{cc}/search-fidelizado/{tp}", [ExternalController::class, "searchFidelizado"]);
         $ext->post(
             "/{pagoId:[0-9]+}/set-registrado",
             [ExternalController::class, "setRegistradoVal"]

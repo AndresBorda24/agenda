@@ -8,12 +8,14 @@ use App\User;
 use Medoo\Medoo;
 use App\Contracts\UserInterface;
 use App\DataObjects\UserInfo;
+use App\Enums\TipoBusquedaFidelizado;
 
 use function App\uppercase;
 
 class Usuario
 {
     public CONST TABLE = "usuarios";
+    public const FIDELIZADOS = "vista_fidelizados";
 
     public function __construct(
         private Medoo $db,
@@ -200,6 +202,92 @@ class Usuario
             ]);
 
             return $_ ? $_ : null;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Busca la informacion de un usuario fidelizado.
+     *
+     * @return array Informacion del usuario
+    */
+    public function searchFidelizado(TipoBusquedaFidelizado $type, string $cc): ?array
+    {
+        try {
+           return match ($type) {
+               TipoBusquedaFidelizado::CC => $this->searchFidelizadoByCC($cc),
+               TipoBusquedaFidelizado::TARJETA => $this->searchFidelizadoByCard($cc),
+               default => null,
+           };
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+
+    /**
+     * Busca la informacion de un usuario fidelizado dependiendo de su tarjeta.
+     * Se realiza una busqueda tanto de usuarios como de beneficiarios.
+    */
+    public function searchFidelizadoByCard(string $card): ?array
+    {
+        try {
+            $titular = $this->db->get(self::FIDELIZADOS, [
+                "id", "plan_id", "pago_id", "documento", "nombre", "plan_nombre", "tarjeta"
+            ], ["tarjeta" => $card]);
+
+            if ($titular !== null) {
+                return [
+                    "type" => "T",
+                    "data" => $titular,
+                    "beneficiarios" => (new Beneficiario($this->db))
+                        ->all((int) $titular["id"])
+                ];
+            }
+
+            return null;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Busca la informacion de un usuario fidelizado dependiendo de su documento.
+     * Se realiza una busqueda tanto de usuarios como de beneficiarios.
+    */
+    public function searchFidelizadoByCC(string $cc): ?array
+    {
+        try {
+            $getTitular = fn(array $where) => $this->db->get(self::FIDELIZADOS, [
+                "id", "plan_id", "pago_id", "documento", "nombre", "plan_nombre", "tarjeta"
+            ], $where);
+
+            $titular = $getTitular([ "documento" => $cc ]);
+            if ($titular !== null) {
+                return [
+                    "type" => "T",
+                    "data" => $titular,
+                    "beneficiarios" => (new Beneficiario($this->db))
+                        ->all((int) $titular["id"])
+                ];
+            }
+
+            $beneficiario = $this->db->get(Beneficiario::TABLE." (B)", [
+                "[>]".self::FIDELIZADOS => ["titular_id" => "id"]
+            ],[
+                "nombre" => Medoo::raw(
+                    "CONCAT_WS(' ', <nom1>, <nom2>, <ape1>, <ape2>)"
+                ), "B.id", "B.documento", "parentesco", "titular_id"
+            ], [ "B.documento" => $cc ]);
+
+            if ($beneficiario === null) return null;
+
+            return [
+                "type" => "B",
+                "data" => $beneficiario,
+                "titular" => $getTitular([ "id" => $beneficiario["titular_id"] ])
+            ];
         } catch(\Exception $e) {
             throw $e;
         }
