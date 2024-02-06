@@ -45,7 +45,7 @@
         x-text="day"
         @click="handleSelect"
         type="button"
-        :class="['bg-transparent position-relative text-white text-center small border-0 fw-light rounded-full', hasDate && 'tiene-agenda']"
+        :class="['bg-transparent position-relative text-white text-center small border-0 fw-light rounded-full', hasDate && 'tiene-agenda', (date == $store.agenda.selectedDay) &&    'dia-seleccionado']"
       ></button>
     </template>
 

@@ -9,7 +9,7 @@
       <div class="d-flex gap-2 flex-wrap">
         <template x-for="h in horas">
           <button
-            class="bg-transparent border-0"
+            class="bg-transparent border-0 hour-btn"
             x-text="h"
           > </button>
         </template>

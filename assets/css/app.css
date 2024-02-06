@@ -29,7 +29,33 @@
 .tiene-agenda:hover::before {
     transform: scale(1.2);
 }
-
+.dia-seleccionado::before {
+    outline: 2px solid var(--bs-warning);
+}
+.hour-btn {
+    position: relative;
+    text-align: center;
+    color: #000;
+}
+.hour-btn::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    inset: 100% 0 auto 0;
+    margin: auto;
+    height: 2px;
+    background-color: var(--bs-primary);
+    transition: all 150ms ease-in;
+}
+.hour-btn-active::before,
+.hour-btn:hover::before {
+    width: 50px;
+    height: 50px;
+    inset: 0;
+    margin: auto;
+    border-radius: 50%;
+    background-color: rgb(var(--bs-primary-rgb), .3);
+}
 
 .flex {
     display: flex;
