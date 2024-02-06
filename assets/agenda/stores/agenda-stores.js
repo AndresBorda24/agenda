@@ -4,16 +4,9 @@ import Alpine from "alpinejs";
  * Los `stores` son objetos (o cualquier tipo de dato) a los
  * que puedo acceder desde cualquier script (JS) del proyecto.
  * Son algo asi como variables globales.
- *
- * Para acceder a un `store`
- *
- *  - Alpine.store("llave") -- Globalmete
- *  - $store["llave"] -- desde 'dentro' de un componente
 */
 document.addEventListener('alpine:init', () => {
-    /**
-     * Aqui se almacena la informacion de la agenda
-    */
+    /** Aqui se almacena la informacion de la agenda */
     Alpine.store("agenda", {
         data: {},
         selectedDay: null,
@@ -21,18 +14,18 @@ document.addEventListener('alpine:init', () => {
             return Object.keys(this.data);
         }
     });
-    /**
-     * Doctores relacionados con la especialidad seleccionada
-    */
+
+    /** Doctores relacionados con la especialidad seleccionada */
     Alpine.store("doctores", {});
-    /**
-     * Esta es la fecha que aparece arriba en el calendario
-    */
+
+    /** Esta es la fecha que aparece arriba en el calendario */
     Alpine.store("ctrlDate", undefined);
-    /**
-     * La especialidad que esta seleccionada actualmente en el panel
-    */
-    Alpine.store("selectedEsp", "");
+
+    /** Guarda el codigo del medico y el nombre de la especialidad  */
+    Alpine.store("selectedItems", {
+        med: null,
+        especialidad: ""
+    });
 
     Alpine.store("loader", {
         _: document.getElementById('loader'),

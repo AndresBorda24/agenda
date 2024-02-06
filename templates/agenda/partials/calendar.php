@@ -1,5 +1,5 @@
 <section
-  class="flex-fill bg-secondary position-relative overflow-hidden border px-2 text-light rounded-3 shadow-lg pb-3"
+  class="flex-fill bg-secondary position-relative overflow-hidden border px-2 text-light rounded-3 shadow-lg pb-3 mx-auto"
   style="max-width: 400px;"
   x-data="calendar"
 >

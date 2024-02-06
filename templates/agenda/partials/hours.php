@@ -1,4 +1,4 @@
-<div x-data="selectHours">
+<div x-data="selectHours" class="mx-3">
   <template x-if="$store.agenda.selectedDay !== null">
     <div>
       <h5 class="mb-1 text-center">Horas Disponibles</h5>

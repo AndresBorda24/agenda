@@ -14,17 +14,17 @@
   <main class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
     <div class="flex-grow-1 p-md-4">
-      <div x-data="fetchData" class="p-1 mb-3" x-bind="events">
+      <div x-data="fetchData" class="p-3 pb-1 p-md-1 mb-0 mb-md-3" x-bind="events">
         <select
         class="form-select form-select-sm rounded-0"
-        @change="getData( $el.value )">
+        @change="getData(...$event.target.value.split('@') )">
           <option selected hidden>Seleccione especialidad</option>
           <template x-for="e in Object.keys(esps)" :key="e">
             <optgroup :label="e || 'Generales'">
               <template x-for="m in esps[e]" :key="e+m.cod">
                 <option
                   x-text="m.medico"
-                  :value="m.cod"
+                  :value="`${e}@${m.cod}`"
                 ></option>
               </template>
             </optgroup>
@@ -32,14 +32,16 @@
         </select>
       </div>
 
-      <section class="row align-items-baseline">
-        <div class="col-6">
-          <?= $this->fetch("./agenda/partials/hours.php") ?>
-        </div>
-        <div class="col-6">
-          <p class="small">Los dias que cuenten con horas de agendamiento disponibles estarán resaltados de color amarillo.</p>
+      <section class="d-lg-flex mx-auto" style="max-width: 900px;">
+        <div class="col-lg-6 p-3 p-lg-2" style="order: 2;">
+          <?= $this->fetch("./agenda/partials/help-calendar.php") ?>
           <?= $this->fetch("./agenda/partials/calendar.php") ?>
         </div>
+        <div class="col-lg-6 p-3 p-lg-2">
+          <?= $this->fetch("./agenda/partials/help-hours.php") ?>
+          <?= $this->fetch("./agenda/partials/hours.php") ?>
+        </div>
+        <div class="border-start border-secondary-subtle"></div>
       </section>
     </div>
   </main>

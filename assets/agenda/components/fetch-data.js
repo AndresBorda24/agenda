@@ -28,16 +28,18 @@ export default () => ({
         }
     },
     /** Obtiene los dias en los que hay agenda */
-    async getData( esp ) {
+    async getData(esp, medico) {
         try {
             Alpine.store('loader').show();
             const { data } = await axios.get(
-                `http://192.168.1.16/fox-api/agenda/${esp}/libre`,
+                `http://192.168.1.16/fox-api/agenda/${medico}/libre`,
                 this.config
             );
             Alpine.store('loader').hide();
-            Alpine.store("selectedEsp", esp);
+            Alpine.store("selectedItems").med = medico;
+            Alpine.store("selectedItems").especialidad = esp;
             Alpine.store("agenda").data = data.data;
+            Alpine.store("agenda").selectedDay = null;
         } catch(e) {
             Alpine.store('loader').hide();
             console.error("Fetch data: ", e);
