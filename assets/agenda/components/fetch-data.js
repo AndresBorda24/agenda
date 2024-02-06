@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default () => ({
-    esps: [],
+    esps: {},
     baseUri: process.env.APP_URL + "api",
     espUri: '/especialidades/get-available',
     /**
@@ -20,8 +20,8 @@ export default () => ({
     async init() {
         try {
             const { data } =  await axios
-                .get(`${this.baseUri}${this.espUri}`, this.config);
-            this.esps = data;
+                .get(`http://192.168.1.16/fox-api/agenda/especialidades`, this.config);
+            this.esps = data.data;
         } catch(e) {
             alert("Error al recuperar las especialidades");
             console.error("Error especialidades: ", e);
@@ -31,19 +31,15 @@ export default () => ({
     async getData( esp ) {
         try {
             Alpine.store('loader').show();
-            const [{data: agenda}, {data: docs}] = await Promise.all([
-                axios.get(`${this.baseUri}/especialidades/${esp}/get-agenda`, this.config),
-                axios.get(`${this.baseUri}/medicos/${esp}/get-available`, this.config),
-            ]);
+            const { data } = await axios.get(
+                `http://192.168.1.16/fox-api/agenda/${esp}/libre`,
+                this.config
+            );
             Alpine.store('loader').hide();
-
-            Alpine.store("doctores", docs);
-            Alpine.store("agenda", agenda);
             Alpine.store("selectedEsp", esp);
-
-            this.$dispatch("date-has-changed");
+            Alpine.store("agenda").data = data.data;
         } catch(e) {
-            Alpine.store('loader').hide()
+            Alpine.store('loader').hide();
             console.error("Fetch data: ", e);
         }
     }

@@ -14,7 +14,13 @@ document.addEventListener('alpine:init', () => {
     /**
      * Aqui se almacena la informacion de la agenda
     */
-    Alpine.store("agenda", []);
+    Alpine.store("agenda", {
+        data: {},
+        selectedDay: null,
+        get days() {
+            return Object.keys(this.data);
+        }
+    });
     /**
      * Doctores relacionados con la especialidad seleccionada
     */
@@ -24,8 +30,7 @@ document.addEventListener('alpine:init', () => {
     */
     Alpine.store("ctrlDate", undefined);
     /**
-     * La especialidad que esta seleccionada actualmente
-     * en el panel
+     * La especialidad que esta seleccionada actualmente en el panel
     */
     Alpine.store("selectedEsp", "");
 
