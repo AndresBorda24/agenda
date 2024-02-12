@@ -28,5 +28,9 @@ export default () => ({
         Alpine.store("agenda").selectedMed = medico;
         Alpine.store("agenda").selectedDay = null;
         Alpine.store("agenda").selectedHour = null;
+    },
+
+    get espsLoaded() {
+        return Object.keys(this.esps).length > 0;
     }
 });

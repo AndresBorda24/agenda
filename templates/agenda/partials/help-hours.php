@@ -6,7 +6,7 @@
     </p>
   </template>
 
-  <template x-if="$store.selectedItems.med && ! $store.agenda.days.length">
+  <template x-if="$store.agenda.selectedMed && $store.agenda.days.length === 0">
     <p class="bg-danger-subtle border-4 border-danger border-start px-3 py-2 rounded shadow small">
       <?= $this->fetch("./icons/lock.php") ?>
       Parece que el medico seleccionado no tiene agenda disponible. Lo sentimos.

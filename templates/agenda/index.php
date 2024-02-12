@@ -14,24 +14,7 @@
   <main class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
     <div class="flex-grow-1 p-md-4">
-      <div x-data="fetchData" class="p-3 pb-1 p-md-1 mb-0 mb-md-3" x-bind="events">
-        <select
-        name="select-medico"
-        class="form-select form-select-sm rounded-0"
-        @change="getData(...$event.target.value.split('@') )">
-          <option selected hidden>Seleccione especialidad</option>
-          <template x-for="e in Object.keys(esps)" :key="e">
-            <optgroup :label="e || 'Generales'">
-              <template x-for="m in esps[e]" :key="e+m.cod">
-                <option
-                  x-text="m.medico"
-                  :value="`${e}@${m.cod}`"
-                ></option>
-              </template>
-            </optgroup>
-          </template>
-        </select>
-      </div>
+      <?= $this->fetch("./agenda/partials/especialidades.php") ?>
 
       <section class="d-lg-flex mx-auto" style="max-width: 900px;">
         <div class="col-lg-6 p-3 p-lg-2" style="order: 2;">
