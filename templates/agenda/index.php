@@ -16,7 +16,7 @@
     <div class="flex-grow-1 p-md-4">
       <?= $this->fetch("./agenda/partials/especialidades.php") ?>
 
-      <section class="d-lg-flex mx-auto" style="max-width: 900px;">
+      <section class="d-lg-flex mx-auto mb-4" style="max-width: 900px;">
         <div class="col-lg-6 p-3 p-lg-2" style="order: 2;">
           <?= $this->fetch("./agenda/partials/help-calendar.php") ?>
           <?= $this->fetch("./agenda/partials/calendar.php") ?>
@@ -27,6 +27,8 @@
         </div>
         <div class="border-start border-secondary-subtle"></div>
       </section>
+
+      <?= $this->fetch("./agenda/partials/subir-archivos.php") ?>
     </div>
   </main>
 
