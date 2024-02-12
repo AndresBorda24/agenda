@@ -8,6 +8,13 @@ export default () => ({
         day: "numeric"
     }),
 
+    handleClick(hour) {
+        if (Alpine.store("agenda").selectedHour === hour)
+            return Alpine.store("agenda").selectedHour = null;
+
+        Alpine.store("agenda").selectedHour = hour;
+    },
+
     get selectedDay() {
         if (Alpine.store("agenda").selectedDay) {
             return this.formatter.format(

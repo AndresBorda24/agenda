@@ -8,9 +8,13 @@ export default (date) => ({
     },
 
     handleSelect() {
-        if (this.hasDate) {
-            Alpine.store("agenda").selectedDay = this.date;
-        }
+        if (! this.hasDate) return;
+        Alpine.store("agenda").selectedHour = null;
+
+        if(Alpine.store("agenda").selectedDay === this.date)
+            return Alpine.store("agenda").selectedDay = null;
+
+        Alpine.store("agenda").selectedDay = this.date;
     },
 
     get hasDate() {

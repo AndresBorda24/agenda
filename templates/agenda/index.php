@@ -16,6 +16,7 @@
     <div class="flex-grow-1 p-md-4">
       <div x-data="fetchData" class="p-3 pb-1 p-md-1 mb-0 mb-md-3" x-bind="events">
         <select
+        name="select-medico"
         class="form-select form-select-sm rounded-0"
         @change="getData(...$event.target.value.split('@') )">
           <option selected hidden>Seleccione especialidad</option>

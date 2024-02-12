@@ -10,6 +10,9 @@ document.addEventListener('alpine:init', () => {
     Alpine.store("agenda", {
         data: {},
         selectedDay: null,
+        selectedMed: null,
+        selectedEsp: null,
+        selectedHour:  null,
         get days() {
             return Object.keys(this.data);
         }

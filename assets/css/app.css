@@ -47,7 +47,7 @@
     background-color: var(--bs-primary);
     transition: all 150ms ease-in;
 }
-.hour-btn-active::before,
+.hour-selected::before,
 .hour-btn:hover::before {
     width: 50px;
     height: 50px;
@@ -56,7 +56,9 @@
     border-radius: 50%;
     background-color: rgb(var(--bs-primary-rgb), .3);
 }
-
+.hour-selected::before {
+    outline: 2px solid rgb(var(--bs-primary-rgb));
+}
 .flex {
     display: flex;
 }

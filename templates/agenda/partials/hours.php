@@ -6,10 +6,11 @@
         class="badge text-bg-primary d-block mb-4"
         x-text="selectedDay"
       ></span>
-      <div class="d-flex gap-2 flex-wrap">
+      <div class="d-flex gap-4 flex-wrap justify-content-center">
         <template x-for="h in horas">
           <button
-            class="bg-transparent border-0 hour-btn"
+            @click="handleClick(h)"
+            :class="['bg-transparent border-0 hour-btn', ($store.agenda.selectedHour === h) && 'hour-selected']"
             x-text="h"
           > </button>
         </template>

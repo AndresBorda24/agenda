@@ -38,14 +38,7 @@ export default () => ({
     change(next = true) {
         this.animate();
         const m = this.getMonth();
-
-        if (m == 0 || m == 11) {
-            this.ctrl.setMonth(m ? 0 : 11);
-            this.ctrl.setFullYear(this.ctrl.getFullYear() - (next ? -1 : 1));
-        } else {
-            this.ctrl.setMonth(m - (next ? -1 : 1));
-        }
-
+        this.ctrl.setMonth(m - (next ? -1 : 1));
         this.setUp();
     },
 
