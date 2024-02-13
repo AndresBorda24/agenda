@@ -1,4 +1,5 @@
 import Alpine from 'alpinejs'
+import archivos from "./components/archivos";
 import calendar from './components/calendar';
 import dateName from './components/dateName';
 import fetchData from './components/fetch-data';
@@ -10,7 +11,7 @@ import loadAgendadas from './components/load-agendadas';
 import "./stores/agenda-stores"
 import "../css/app.css";
 
-window.Alpine = Alpine
+if (process.env.APP_ENV === "dev") window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
     Alpine.data("dateName", dateName);
@@ -18,6 +19,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.data("fetchData", fetchData);
     Alpine.data("calendarDay", calendarDay);
     Alpine.data("selectHours", selectHours);
+    Alpine.data("agendaFiles", archivos);
     Alpine.data("showDayHours", showDayHours);
     Alpine.data("loadAgendadas", loadAgendadas);
     Alpine.data("changeCalendarMonth", (back = false) => ({

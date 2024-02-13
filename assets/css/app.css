@@ -85,7 +85,58 @@
     outline: 2px solid rgb(var(--bs-primary-rgb));
     outline-offset: 2px;
 }
-
+/* estilos para la seleccion de archivos en agendamiento */
+.agenda-files label {
+    --agenda-file-bg: var(--bs-secondary-bg-subtle);
+    text-align: center;
+    position: relative;
+    border-style: dashed;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    transition: backgroud-color 150ms ease-in,
+                border 150ms ease-in;
+}
+.agenda-files .file-name {
+    display: block;
+    font-size: 11px;
+    font-style: italic;
+}
+.agenda-files label::before {
+    content: "\2605 Opcional";
+    position: relative;
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+}
+.agenda-files label[is-required] {
+    --agenda-file-bg: var(--bs-danger-bg-subtle);
+    border-color: rgb(var(--bs-danger-rgb));
+    color: rgb(var(--bs-danger-rgb));
+}
+.agenda-files label[is-required]::before {
+    content: "! Requerido";
+    color: rgb(var(--bs-danger-rgb));
+}
+.agenda-files label.filled {
+    --agenda-file-bg: var(--bs-success-bg-subtle);
+    background-color: var(--bs-success-bg-subtle);
+    border-color: rgb(var(--bs-success-rgb));
+    color: rgb(var(--bs-success-rgb));
+}
+.agenda-files label.filled::before {
+    content: "\2713 Hecho";
+    color: rgb(var(--bs-success-rgb));
+}
+.agenda-files label:hover {
+    background-color: var(--agenda-file-bg);
+    border-style: solid;
+}
 .flex {
     display: flex;
 }

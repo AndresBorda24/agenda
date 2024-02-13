@@ -14,6 +14,7 @@ document.addEventListener('alpine:init', () => {
         selectedEsp: null,
         selectedHour: null,
         selectedTipo: null,
+        files: {},
         get days() {
             return Object.keys(this.data);
         }
