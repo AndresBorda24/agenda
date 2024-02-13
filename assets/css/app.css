@@ -59,6 +59,33 @@
 .hour-selected::before {
     outline: 2px solid rgb(var(--bs-primary-rgb));
 }
+.select-tipo-atencion {
+    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.select-tipo-atencion > label {
+    padding: 1rem 1.5rem;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 5px;
+    background-color: white;
+    color: rgb(var(--bs-primary-rgb));
+    transition: background-color 150ms ease-in,
+                color 150ms ease-in;
+}
+.select-tipo-atencion > label:hover,
+.select-tipo-atencion > label.active {
+    background-color: rgb(var(--bs-primary-rgb));
+    color: white;
+}
+.select-tipo-atencion > label.active {
+    outline: 2px solid rgb(var(--bs-primary-rgb));
+    outline-offset: 2px;
+}
+
 .flex {
     display: flex;
 }

@@ -28,6 +28,7 @@
         <div class="border-start border-secondary-subtle"></div>
       </section>
 
+      <?= $this->fetch("./agenda/partials/select-tipo-atencion.php") ?>
       <?= $this->fetch("./agenda/partials/subir-archivos.php") ?>
     </div>
   </main>
