@@ -2,11 +2,17 @@ import Alpine from "alpinejs";
 
 export default () => ({
     fechaAgenda: "",
+    selectedTipo: "",
     init() {
         this.$watch("$store.agenda.selectedDay", () =>{
             this.fechaAgenda = document
                 .querySelector("[x-text='selectedDay']")?.innerText || "";
-        })
+        });
+
+        this.$watch("$store.agenda.selectedTipo", (val) =>{
+            this.selectedTipo = document
+                .querySelector(`[value="${val}"]`)?.dataset.name || "";
+        });
     },
 
     handleClick() {

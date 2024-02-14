@@ -26,6 +26,7 @@
           class="visually-hidden"
           x-model="$store.agenda.selectedTipo"
           value="<?= $cod ?>"
+          data-name="<?= $name ?>"
         >
         <?= $name ?>
       </label>
@@ -39,6 +40,7 @@
           class="visually-hidden"
           x-model="$store.agenda.selectedTipo"
           value="PARTIC"
+          data-name="Particular"
         > Particular
       </label>
     <?php endif ?>

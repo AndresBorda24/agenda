@@ -3,16 +3,45 @@
   class="mx-auto border-top p-3 mt-4"
   style="max-width: 900px;"
 >
-  <p
-    class="mx-auto text-center"
-    style="max-width: 500px;"
-  >
-    Esta seguro que desea agendar una cita para el día
-    <span class="fw-bold" x-text="fechaAgenda"></span> a las <span x-text="$store.agenda.selectedHour" class="fw-bold"></span> para la especialidad <span x-text="$store.agenda.selectedEsp" class="fw-bold"></span> con el medico <span x-text="$store.agenda.medico" class="fw-bold"></span>?
-  </p>
-  <button
-    @click="handleClick"
-    x-show="canConfirmar" x-cloak
-    class="btn btn-success mx-auto block"
-  >Confirmar Agendamiento</button>
+  <template x-if="!canConfirmar">
+    <p
+      class="mx-auto text-center"
+      style="max-width: 500px;"
+    >
+      Por favor termina de seleccionar todas las opciones para continuar. 😊
+    </p>
+  </template>
+
+  <template x-if="canConfirmar">
+    <div style="max-width: 500px;" class="mx-auto mt-4 p-4 bg-secondary text-light shadow-lg rounded">
+      <p class="mx-auto text-center fw-bold fs-5 fw-bold"> Agendamiento: </p>
+      <ul class="py-3 border-top border-bottom">
+        <li>
+          <span class="fw-bold">Dia:</span>
+          <span class="" x-text="fechaAgenda"></span>
+        </li>
+        <li>
+          <span class="fw-bold">Hora:</span>
+          <span x-text="$store.agenda.selectedHour" class=""></span>
+        </li>
+        <li>
+          <span class="fw-bold">Medico:</span>
+          <span x-text="$store.agenda.medico" class="">
+          </li>
+        <li>
+          <span class="fw-bold">Especialidad:</span>
+          <span x-text="$store.agenda.selectedEsp"></span>
+        </li>
+        <li>
+          <span class="fw-bold">Tipo Atención:</span>
+          <span x-text="selectedTipo"></span>
+        </li>
+      </ul>
+      <button
+        @click="handleClick"
+        x-show="canConfirmar" x-cloak
+        class="btn btn-warning mx-auto block"
+      >Confirmar Agendamiento</button>
+    </div>
+  </template>
 </div>
