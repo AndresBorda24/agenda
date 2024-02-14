@@ -22,7 +22,7 @@ export default () => ({
      * @param file {File | undefined} El archivo seleccionado por el usuario. Puede ser undefined
      * @param tipo {String} Correspone a 'formula' o 'auto'
     */
-    async onChange( file, tipo ) {
+    onChange( file, tipo ) {
         if (! Boolean(file) || !(file instanceof File))
             return this.files[tipo] = null;
 
@@ -37,6 +37,16 @@ export default () => ({
         }
 
         this.files[tipo] = file;
+    },
+
+    /** @param tipo {String} Correspone a 'formula' o 'auto' */
+    cleanFile( tipo ) {
+        let input = document.getElementById("file-"+tipo);
+        if (! input) return;
+
+        input.value = "";
+        let e = new Event("change", { bubbles: false });
+        input.dispatchEvent(e);
     },
 
     get required() {
