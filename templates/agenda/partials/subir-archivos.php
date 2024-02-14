@@ -3,7 +3,10 @@
   class="mx-auto border-top p-3"
   style="max-width: 900px;"
 >
-  <p class="fw-bold">Por favor sube los siguientes archivos:</p>
+  <p class="fw-bold mb-0">Por favor sube los siguientes archivos:</p>
+  <p class="small">
+    Los archivos deben pesar como máximo <span class="fw-bold">5 mb</span> y ser un <span class="fw-bold">PDF</span>.
+  </p>
   <section class="d-flex gap-3 agenda-files justify-content-center">
     <label
       for="file-formula"
@@ -19,7 +22,8 @@
         :required="required"
         id="file-formula"
         type="file"
-        @change="files.formula = $event.target.files[0]"
+        @change="onChange($event.target.files[0], 'formula')"
+        :accept="acceptedTypes"
         name="formula"
         class="visually-hidden"
       >
@@ -38,7 +42,8 @@
         :required="required"
         id="file-autotizacion"
         type="file"
-        @change="files.auto = $event.target.files[0]"
+        @change="onChange($event.target.files[0], 'auto')"
+        :accept="acceptedTypes"
         name="autorizacion"
         class="visually-hidden"
       >
