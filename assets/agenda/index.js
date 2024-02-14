@@ -2,6 +2,7 @@ import Alpine from 'alpinejs'
 import archivos from "./components/archivos";
 import calendar from './components/calendar';
 import dateName from './components/dateName';
+import confirmar from './components/confirmar';
 import fetchData from './components/fetch-data';
 import calendarDay from './components/calendarDay';
 import selectHours from './components/select-hours';
@@ -17,6 +18,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.data("dateName", dateName);
     Alpine.data("calendar", calendar);
     Alpine.data("fetchData", fetchData);
+    Alpine.data("confirmar", confirmar);
     Alpine.data("calendarDay", calendarDay);
     Alpine.data("selectHours", selectHours);
     Alpine.data("agendaFiles", archivos);

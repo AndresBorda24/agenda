@@ -137,9 +137,8 @@
     background-color: var(--agenda-file-bg);
     border-style: solid;
 }
-.flex {
-    display: flex;
-}
+.flex {display: flex}
+.block {display: block}
 
 @media (max-width: 767px) {
     .main-container {

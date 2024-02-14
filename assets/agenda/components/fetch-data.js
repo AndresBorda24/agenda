@@ -1,4 +1,5 @@
 import { getEspecialidades, getAgenda } from "@/agenda/requests";
+import Alpine from "alpinejs";
 
 export default () => ({
     esps: {},
@@ -13,7 +14,15 @@ export default () => ({
     /** Obtiene las especialidades disponibles */
     async init() {
         const {data, error} = await getEspecialidades();
-        if (error === null) this.esps = data.data;
+        if (error !== null) return;
+        this.esps = data.data;
+
+        const medicos = Object.values(this.esps)
+            .reduce(/** @param c {Array} */(a,c) => {
+                c.forEach(m => a[m.cod] = m.medico);
+                return a;
+            }, {});
+        Alpine.store("medicos", medicos);
     },
 
     /** Obtiene los dias en los que hay agenda */

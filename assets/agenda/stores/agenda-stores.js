@@ -17,11 +17,14 @@ document.addEventListener('alpine:init', () => {
         files: {},
         get days() {
             return Object.keys(this.data);
+        },
+        get medico() {
+            return Alpine.store("medicos")[this.selectedMed] || "";
         }
     });
 
     /** Doctores relacionados con la especialidad seleccionada */
-    Alpine.store("doctores", {});
+    Alpine.store("medicos", {});
 
     /** Esta es la fecha que aparece arriba en el calendario */
     Alpine.store("ctrlDate", undefined);

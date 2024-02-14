@@ -30,6 +30,7 @@
 
       <?= $this->fetch("./agenda/partials/select-tipo-atencion.php") ?>
       <?= $this->fetch("./agenda/partials/subir-archivos.php") ?>
+      <?= $this->fetch("./agenda/partials/confirmar.php") ?>
     </div>
   </main>
 
