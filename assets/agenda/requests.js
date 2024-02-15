@@ -1,3 +1,4 @@
+import local from "@/partials/ax"
 import fox from "@/partials/fox-ax"
 
 /**
@@ -32,4 +33,16 @@ export async function getEspecialidades() {
 */
 export async function getAgenda( med ) {
     return await request(() => fox.get(`/agenda/${med}/libre`));
+}
+
+/**
+ * Realiza la peticion para (pre)Agendar un usuario
+*/
+export async function agendar( data ) {
+    return await request(() => fox.post("/agenda/agendar", data));
+}
+
+/** Info basica del usuario en sesion */
+export async function getAuthInfo() {
+    return await request(() => local.get(`/auth/basic`));
 }
