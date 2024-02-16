@@ -27,9 +27,9 @@ export default () => ({
 
     get horas() {
         if (Alpine.store("agenda").selectedDay) {
-            return Alpine.store("agenda").data[
+            return Object.keys(Alpine.store("agenda").data[
                 Alpine.store("agenda").selectedDay
-            ];
+            ]);
         }
         return [];
     }

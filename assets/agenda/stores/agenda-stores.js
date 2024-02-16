@@ -19,6 +19,11 @@ document.addEventListener('alpine:init', () => {
         get days() {
             return Object.keys(this.data);
         },
+        get lugar() {
+            return (this.selectedHour === null)
+                ? ""
+                : this.data[ this.selectedDay ][ this.selectedHour ]
+        },
         get medico() {
             return Alpine.store("medicos")[this.selectedMed] || "";
         }

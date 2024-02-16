@@ -30,6 +30,7 @@ export default () => ({
             tipo: Alpine.store("agenda").selectedTipo,
             email: data.email,
             fecha: Alpine.store("agenda").selectedDay,
+            lugar: Alpine.store("agenda").lugar,
             ciudad: data.ciudad,
             medico: Alpine.store("agenda").selectedMed,
             nombre1: data.nom1,
