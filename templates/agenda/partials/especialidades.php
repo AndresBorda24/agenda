@@ -1,7 +1,8 @@
 <div
   x-data="fetchData"
   x-bind="events"
-  class="p-3 pb-1 p-md-1 mb-0 mb-md-3"
+  class="mx-auto border-top p-3"
+  style="max-width: 900px;"
 >
   <template x-if="espsLoaded">
     <div>

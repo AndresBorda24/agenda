@@ -4,6 +4,7 @@ import { getAuthInfo, agendar } from "@/agenda/requests"
 export default () => ({
     fechaAgenda: "",
     selectedTipo: "",
+    selectedClase: "",
     init() {
         this.$watch("$store.agenda.selectedDay", () =>{
             this.fechaAgenda = document
@@ -14,26 +15,33 @@ export default () => ({
             this.selectedTipo = document
                 .querySelector(`[value="${val}"]`)?.dataset.name || "";
         });
+
+        this.$watch("$store.agenda.selectedClase", (val) =>{
+            this.selectedClase = document
+                .querySelector(`[value="${val}"]`)?.dataset.name || "";
+        });
     },
 
     async handleClick() {
         const { data } = await getAuthInfo();
 
         let body = {
-            medico: Alpine.store("agenda").selectedMed,
-            num_histo: data.num_histo,
-            cod_enti: data.eps,
-            fecha: Alpine.store("agenda").selectedDay,
             hora: Alpine.store("agenda").selectedHour,
             tipo: Alpine.store("agenda").selectedTipo,
-            apellido1: data.ape1,
-            apellido2: data.ape2,
+            email: data.email,
+            fecha: Alpine.store("agenda").selectedDay,
+            ciudad: data.ciudad,
+            medico: Alpine.store("agenda").selectedMed,
             nombre1: data.nom1,
             nombre2: data.nom2,
-            ciudad: data.ciudad,
-            direccion: data.direccion,
+            cod_enti: (Alpine.store("agenda").selectedTipo == 'PARTIC')
+                ? "PARTIC" : data.eps,
             telefono: data.telefono,
-            email: data.email
+            claseCon: Alpine.store("agenda").selectedClase,
+            num_histo: data.num_histo,
+            apellido1: data.ape1,
+            apellido2: data.ape2,
+            direccion: data.direccion
         };
         const { data: aData, error } = await agendar( body );
         if (!error) alert("Cita agendada");
@@ -44,6 +52,7 @@ export default () => ({
             Alpine.store("agenda").selectedDay,
             Alpine.store("agenda").selectedMed,
             Alpine.store("agenda").selectedEsp,
+            Alpine.store("agenda").selectedClase,
             Alpine.store("agenda").selectedHour
         ].some(x => x === null);
 

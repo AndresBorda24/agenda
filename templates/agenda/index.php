@@ -14,6 +14,7 @@
   <main class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
     <div class="flex-grow-1 p-md-4">
+      <?= $this->fetch("./agenda/partials/clase-consulta.php") ?>
       <?= $this->fetch("./agenda/partials/especialidades.php") ?>
 
       <section class="d-lg-flex mx-auto mb-4" style="max-width: 900px;">

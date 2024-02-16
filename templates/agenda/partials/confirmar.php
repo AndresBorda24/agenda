@@ -36,6 +36,10 @@
           <span class="fw-bold">Tipo Atención:</span>
           <span x-text="selectedTipo"></span>
         </li>
+        <li>
+          <span class="fw-bold">Clase de Consulta:</span>
+          <span x-text="selectedClase"></span>
+        </li>
       </ul>
       <button
         @click="handleClick"
