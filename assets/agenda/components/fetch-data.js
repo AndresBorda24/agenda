@@ -8,7 +8,8 @@ export default () => ({
      * con su respectivo callback - handler
     */
     events: {
-        ["@cita-agendada.document"]:"getData( $store.selectedEsp )"
+        ["@re-fetch-agenda.document.stop"]:
+            "getData( $store.agenda.selectedEsp, $store.agenda.selectedMed )"
     },
 
     /** Obtiene las especialidades disponibles */

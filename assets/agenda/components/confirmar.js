@@ -5,6 +5,8 @@ export default () => ({
     fechaAgenda: "",
     selectedTipo: "",
     selectedClase: "",
+    errorMessage: null,
+    misCitasLink: process.env.APP_PATH + "/mis-citas",
     init() {
         this.$watch("$store.agenda.selectedDay", () =>{
             this.fechaAgenda = document
@@ -22,10 +24,11 @@ export default () => ({
         });
     },
 
-    async handleClick() {
+    /** Arma el cuerpo de la solicitud */
+    async getBody() {
         const { data } = await getAuthInfo();
 
-        let body = {
+        return {
             hora: Alpine.store("agenda").selectedHour,
             tipo: Alpine.store("agenda").selectedTipo,
             email: data.email,
@@ -44,8 +47,29 @@ export default () => ({
             apellido2: data.ape2,
             direccion: data.direccion
         };
-        const { data: aData, error } = await agendar( body );
-        if (!error) alert("Cita agendada");
+    },
+
+    async handleClick() {
+        const { data: aData, error } = await agendar( await this.getBody() );
+
+        if (error) {
+            if (aData.cod == 2442) {
+                this.errorMessage = `
+                    <p class="fs-4 text-danger fw-bold">Error en Agendamiento</p>
+                    <p class="text-muted border-top border-bottom py-3">Parece que la fecha y hora que seleccionaste ya han sido agendadas por otra persona. Por favor intenta con fechas diferentes.</p>
+                    <button @click="() => { errorMessage = ''; $dispatch('re-fetch-agenda'); window.scrollTo({ top: 0, behavior: 'smooth' }); }" class="btn btn-sm btn-dark">Continuar</button>
+                `;
+            }
+            return;
+        }
+
+        const x = document.getElementById("resumen-list")?.outerHTML;
+        this.errorMessage = `
+            <p class="fs-4 text-success fw-bold">Cita Agendada</p>
+            ${x ? '<div class="small">'+x+'</div>' : '<hr />'}
+            <p class="text-muted">Tu Cita ha sido (pre)agendada. Te notificarémos cuando el proceso esté completo con la fecha y hora definitivas.♥</p>
+            <a href="${this.misCitasLink}" class="btn btn-sm btn-dark">Continuar</a>
+        `;
     },
 
     get canConfirmar() {

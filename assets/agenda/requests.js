@@ -11,8 +11,9 @@ async function request( request ) {
     try {
         const { data } = await request();
         d = data;
-    } catch(e) {
-        e = e;
+    } catch(error) {
+        e = error;
+        d = error.response?.data;
     } finally {
         return { error: e, data: d }
     }
