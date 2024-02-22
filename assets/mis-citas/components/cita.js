@@ -1,9 +1,27 @@
+import { cancelPreAgenda } from "@/mis-citas/requests"
+import Alpine from "alpinejs";
+
 export default (cita) => ({
     data: cita,
+    showCancel: false,
 
     init() {
-        const f = this.data.fecha.split('-');
-        this.data.fecha = new Date(f[0], f[1] - 1, f[2]);
+        this.el = this.$el;
+    },
+
+    async cancel() {
+        Alpine.store("loader").show();
+        const { data, error } = await cancelPreAgenda(this.data.id);
+        Alpine.store("loader").hide();
+        if (error !== null) return;
+        console.log("data", data);
+        if (data != true) return;
+
+        this.data.estado = "C";
+    },
+
+    confirm() {
+        this.showCancel = true;
     },
 
     get fecha() {
