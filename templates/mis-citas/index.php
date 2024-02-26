@@ -17,14 +17,26 @@
       <section class="mx-auto" style="max-width: 1000px;">
         <h1 class="fs-5 fw-bold text-primary">Citas Agendadas</h1>
         <?= $this->fetch("./mis-citas/partials/nota.php") ?>
-        <ul
-          class="citas-list my-3 p-0 px-2 px-md-3"
-          x-data="Citas('<?= $this->user()->info->documento ?>')"
-        >
-          <template x-for="cita in citasActivas" :key="cita.id">
-            <?= $this->fetch("./mis-citas/partials/cita.php") ?>
-          </template>
-        </ul>
+        <div x-data="Citas('<?= $this->user()->info->documento ?>')">
+          <div class="form-check">
+            <input class="form-check-input" x-model="previous" type="checkbox" id="show-prev">
+            <label class="form-check-label" for="show-prev" role="button">
+              Mostrar Citas Anteriores
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" x-model="canceled" type="checkbox" id="show-canceled">
+            <label class="form-check-label" for="show-canceled" role="button">
+              Mostrar Canceladas
+            </label>
+          </div>
+
+          <ul class="citas-list my-3 p-0 px-2 px-md-3" >
+            <template x-for="cita in citasActivas" :key="cita.id">
+              <?= $this->fetch("./mis-citas/partials/cita.php") ?>
+            </template>
+          </ul>
+        </div>
       </section>
     </main>
   </div>

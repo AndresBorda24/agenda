@@ -4,6 +4,8 @@ import { getAuthCitas } from "@/mis-citas/requests"
 export default (documento) => ({
     documento,
     citas: [],
+    previous: false,
+    canceled: false,
     tomorrow: new Date(),
 
     async init() {
@@ -25,6 +27,11 @@ export default (documento) => ({
 
     /** Listado de citas cuya fecha aun no se ha vencido */
     get citasActivas() {
-        return this.citas.filter(c => c.fecha >= new Date() && c.estado != 'C');
+        const hoy =  new Date();
+        hoy.setHours(0, 0, 0, 0);
+
+        return this.citas.filter(c =>
+            (c.fecha >= hoy || this.previous) && (c.estado != 'C' || this.canceled)
+        );
     }
 });
