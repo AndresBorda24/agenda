@@ -11,16 +11,22 @@
     <button
       type="button"
       @click="change(false)"
-      class="bg-transparent text-white p-1 text-center border-0 fw-bold rounded-full"
+      class="bg-transparent text-white p-1 text-center border-0 fw-bold rounded-full calendar-mv-btn"
     > <?= $this->fetch("./icons/left.php") ?> </button>
-    <span class="text-center flex-fill fw-light">
+    <span class="text-center flex-fill fw-light position-relative">
+      <button
+        type="button"
+        @click="goToday"
+        style="margin-top: -3px;"
+        class="btn ms-3 btn-sm btn-outline-light position-absolute start-0 top-0"
+      > Hoy </button>
       <span x-text="visualMonth"></span>
       <span x-text="visualYear"></span>
     </span>
     <button
       type="button"
       @click="change(true)"
-      class="bg-transparent text-white p-1 text-center border-0 fw-bold rounded-full"
+      class="bg-transparent text-white p-1 text-center border-0 fw-bold rounded-full calendar-mv-btn"
     > <?= $this->fetch("./icons/right.php") ?> </button>
   </div>
 

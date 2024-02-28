@@ -9,6 +9,24 @@
     border-color: lightgray !important;
     transition: margin 200ms ease;
 }
+.calendar-mv-btn {
+    position: relative;
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 0;
+        border-radius: 50%;
+        aspect-ratio: 1;
+        background-color: rgb(255, 255, 255, 0.2);
+        transition: width 150ms ease-in;
+    }
+    &:hover::before {
+        width: 1.5rem;
+    }
+}
+
 .show-selected-day-hours {
     position: fixed;
     inset: auto 0 0 0;

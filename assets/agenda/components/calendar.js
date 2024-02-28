@@ -42,13 +42,20 @@ export default () => ({
         this.setUp();
     },
 
+    goToday() {
+        this.animate();
+        this.ctrl = new Date();
+        this.ctrl.setDate(1);
+        this.setUp();
+    },
+
     /** Pelicula que se muestra al cambiar de mes */
     animate() {
         this.loader.style.display = 'block';
         this.loader.animate([
             {left: '0', opacity: '50%'},
             {left:'100%', opacity: '40%'}
-        ], {duration: 500, easing: 'ease-in-out'});
+        ], {duration: 250, easing: 'ease-in-out'});
     },
 
     /** Retorna el anio de ctrl */
