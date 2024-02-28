@@ -29,6 +29,13 @@ export default (cita) => ({
     },
 
     get canCancel() {
-        return this.data.fecha > this.$data.tomorrow;
+        return this.data.fecha > this.$data.tomorrow && this.data.estado != 'C';
+    },
+
+    get isPast() {
+        const hoy =  new Date();
+        hoy.setHours(0, 0, 0, 0);
+
+        return this.data.fecha < hoy;
     }
 })

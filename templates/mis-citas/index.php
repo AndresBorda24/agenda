@@ -32,7 +32,7 @@
           </div>
 
           <ul class="citas-list my-3 p-0 px-2 px-md-3" >
-            <template x-for="cita in citasActivas" :key="cita.id">
+            <template x-for="cita in citasActivas" :key="cita.id + cita.estado">
               <?= $this->fetch("./mis-citas/partials/cita.php") ?>
             </template>
           </ul>

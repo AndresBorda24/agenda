@@ -150,10 +150,11 @@
 .citas-list > li {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
     background-color: white;
     border-radius: 5px;
-    padding: 1rem;
+    padding: .75rem;
     font-size: .9rem;
     color: #555;
     border: 1px solid #ccc;
@@ -164,6 +165,19 @@
     background-color: var(--bs-secondary);
     color: #dfdfdf;
     border-color: var(--bs-warning);
+}
+.citas-list > li.canceled {
+    background-color: #fff2f2;
+}
+.citas-list > li.canceled:hover {
+    color: #555;
+    border-color: var(--bs-danger);
+}
+.citas-list > li.past,
+.citas-list > li.past:hover {
+    color: #666;
+    background-color: #e5e5e5;
+    border-color: #999;
 }
 .citas-list > li button {
     font-size: .8rem;

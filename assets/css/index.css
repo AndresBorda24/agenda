@@ -1,7 +1,7 @@
 #main-hero {
   background-image:
     linear-gradient(to top, #0c3953cf, #001a26cc),
-    url("http://agenda.test/img/index/hero-bg.jpg");
+    url("../../public/img/index/hero-bg.jpg");
   background-size: cover;
   background-position: center;
   min-height: 80vh;
