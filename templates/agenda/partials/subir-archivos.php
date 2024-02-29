@@ -1,7 +1,6 @@
 <div
   x-data="agendaFiles"
-  class="mx-auto border-top p-3"
-  style="max-width: 900px;"
+  style="grid-column: 1 / -1;"
 >
   <p class="fw-bold mb-0">Por favor sube los siguientes archivos:</p>
   <p class="small">

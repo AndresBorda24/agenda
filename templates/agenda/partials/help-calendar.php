@@ -1,9 +1,5 @@
-<div x-data class="mx-3">
-  <template x-if="$store.selectedItems.med">
-    <p class="small">Los dias que cuenten con horas de agendamiento disponibles estarán resaltados de color amarillo.</p>
-  </template>
+<div x-data>
+  <span class="form-label fw-bold" >Selecciona el día:</span>
 
-  <template x-if="$store.selectedItems.med === null">
-    <p class="small">Selecciona un médico del listado desplegable de arriba.</p>
-  </template>
+  <p class="small">Recuerda que los dias que cuenten con horas de agendamiento disponibles estarán resaltados de color amarillo.</p>
 </div>

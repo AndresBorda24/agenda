@@ -1,30 +1,21 @@
-<div
-  x-data
-  class="mx-auto border-top p-3"
-  style="max-width: 900px;"
->
-  <span class="form-label fw-bold">Selecciona la clase de consulta que buscas:</span>
-  <section
-    class="select-tipo-atencion p-3"
+<div x-data>
+  <label
+    for="clase-consulta"
+    class="form-label fw-bold"
+  >Selecciona la clase de consulta que buscas:</label>
+  <select
+    class="form-select form-select-sm"
     id="clase-consulta"
+    x-model="$store.agenda.selectedClase"
     name="clase-consulta"
   >
+    <option hidden selected value=""> Selecciona </option>
     <?php foreach([
       'N' => 'Nueva Cita',
       'P' => 'Primera Cita',
       'C' => 'Control'
     ] as $cod => $name): ?>
-      <label :class="['d-block shadow', ($store.agenda.selectedClase == '<?= $cod ?>') && 'active']">
-        <input
-          type="radio"
-          name="clase-consulta"
-          class="visually-hidden"
-          x-model="$store.agenda.selectedClase"
-          value="<?= $cod ?>"
-          data-name="<?= $name ?>"
-        >
-        <?= $name ?>
-      </label>
+      <option value="<?= $cod ?>"> <?= $name ?> </option>
     <?php endforeach ?>
   </select>
 </div>

@@ -1,8 +1,13 @@
 <div
+  class="p-3"
   x-data="confirmar"
-  class="mx-auto border-top p-3 mt-4"
-  style="max-width: 900px;"
+  style="grid-column: 1 / -1;"
 >
+  <span
+    for="tipo-atencion"
+    class="form-label fw-bold"
+  >Confirmación:</span>
+
   <template x-if="!canConfirmar">
     <p
       class="mx-auto text-center"
@@ -13,7 +18,7 @@
   </template>
 
   <template x-if="canConfirmar">
-    <div style="max-width: 500px;" class="mx-auto mt-4 p-4 bg-secondary text-light shadow-lg rounded">
+    <div style="max-width: 500px;" class="mx-auto p-4 bg-secondary text-light shadow-lg rounded">
       <p class="mx-auto text-center fw-bold fs-5 fw-bold"> Agendamiento: </p>
       <ul class="py-3 border-top border-bottom" id="resumen-list">
         <li>

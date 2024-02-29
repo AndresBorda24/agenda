@@ -9,6 +9,37 @@
     border-color: lightgray !important;
     transition: margin 200ms ease;
 }
+
+.agemdamiento-container {
+    margin: auto;
+    display: flex;
+    max-width: 900px;
+    flex-direction: column;
+    /* Esto es porque tiene un d-lg-grid */
+    grid-template-columns: 1fr 1fr;
+    counter-reset: agendamiento;
+
+    &>div {
+        padding: 1rem;
+        position: relative;
+        box-shadow: 0px 6px 1rem -2px rgba(0,0,0,.15);
+        border: 1px solid #dfdfdf;
+        border-radius: 5px;
+        background-color: white;
+        &::before {
+            inset: -15px auto auto -15px;
+            color: white;
+            padding: 5px 10px;
+            position: absolute;
+            font-size: .7rem;
+            border-radius: 5px;
+            background-color: var(--bs-primary);
+            counter-increment: agendamiento;
+            content: "Paso: "counter(agendamiento);
+        }
+    }
+}
+
 .calendar-mv-btn {
     position: relative;
     &::before {

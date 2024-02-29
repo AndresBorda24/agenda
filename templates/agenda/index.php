@@ -13,25 +13,28 @@
 
   <main class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
-    <div class="flex-grow-1 p-md-4">
-      <?= $this->fetch("./agenda/partials/clase-consulta.php") ?>
-      <?= $this->fetch("./agenda/partials/especialidades.php") ?>
+    <div class="flex-grow-1 p-3 p-md-4">
+      <div
+        class="d-lg-grid gap-3 gap-md-4 agemdamiento-container"
+        style="max-width: 900px; grid-template-columns: 1fr 1fr;"
+      >
+        <?= $this->fetch("./agenda/partials/select-tipo-atencion.php") ?>
+        <?= $this->fetch("./agenda/partials/clase-consulta.php") ?>
+        <?= $this->fetch("./agenda/partials/especialidades.php") ?>
 
-      <section class="d-lg-flex mx-auto mb-4" style="max-width: 900px;">
-        <div class="col-lg-6 p-3 p-lg-2" style="order: 2;">
+        <div>
           <?= $this->fetch("./agenda/partials/help-calendar.php") ?>
           <?= $this->fetch("./agenda/partials/calendar.php") ?>
         </div>
-        <div class="col-lg-6 p-3 p-lg-2">
+
+        <div>
           <?= $this->fetch("./agenda/partials/help-hours.php") ?>
           <?= $this->fetch("./agenda/partials/hours.php") ?>
         </div>
-        <div class="border-start border-secondary-subtle"></div>
-      </section>
 
-      <?= $this->fetch("./agenda/partials/select-tipo-atencion.php") ?>
-      <?= $this->fetch("./agenda/partials/subir-archivos.php") ?>
-      <?= $this->fetch("./agenda/partials/confirmar.php") ?>
+        <?= $this->fetch("./agenda/partials/subir-archivos.php") ?>
+        <?= $this->fetch("./agenda/partials/confirmar.php") ?>
+      </div>
     </div>
   </main>
 
