@@ -29,7 +29,9 @@ export default (cita) => ({
     },
 
     get canCancel() {
-        return this.data.fecha > this.$data.tomorrow && this.data.estado != 'C';
+        return  this.data.fecha > this.$data.tomorrow
+                && this.data.estado   != 'C'
+                && this.data.tipo.cod == 1;
     },
 
     get isPast() {

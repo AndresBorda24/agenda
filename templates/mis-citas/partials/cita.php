@@ -1,8 +1,8 @@
 <li x-data="Cita(cita)" :id="`cita-${cita.id}`" :class="['shadow-sm overflow-auto', data.estado === 'C' && 'canceled', isPast && 'past']">
   <span
     x-text="data.tipo.nombre"
-    class="position-absolute top-0 start-0 m-1 badge"
-    :class="isPast ? 'text-bg-secondary' : data.tipo.cod == 1 ? 'text-bg-warning' : 'text-bg-success'"
+    class="position-absolute top-0 start-0 m-1 badge border"
+    :class="isPast ? 'text-bg-secondary' : data.tipo.cod == 1 ? 'border-warning-subtle text-bg-warning' : 'border-success-subtle text-bg-success'"
   ></span>
 
   <div class="d-flex flex-column justify-content-start mt-3">
@@ -49,10 +49,34 @@
     </div>
   </template>
 
+  <template x-if="data.estado == 'N'">
+    <div
+      style="writing-mode: vertical-rl; text-orientation: mixed; margin-inline: -0.75rem; margin-right: -0.75rem;"
+      class="p-1 small border-start border-danger text-dark text-center bg-danger-subtle"
+    >No Cumplida</div>
+  </template>
   <template x-if="data.estado == 'C'">
     <div
       style="writing-mode: vertical-rl; text-orientation: mixed; margin-inline: -0.75rem; margin-right: -0.75rem;"
       class="p-1 small border-start border-danger text-dark text-center bg-danger-subtle"
     >Cancelada</div>
+  </template>
+  <template x-if="data.estado == 'P' && data.tipo.cod == 2">
+    <div
+      style="writing-mode: vertical-rl; text-orientation: mixed; margin-inline: -0.75rem; margin-right: -0.75rem;"
+      class="p-1 small border-start border-warning text-dark text-center bg-warning-subtle"
+    >Pendiente</div>
+  </template>
+  <template x-if="data.estado == 'P' && data.tipo.cod == 1">
+    <div
+      style="writing-mode: vertical-rl; text-orientation: mixed; margin-inline: -0.75rem; margin-right: -0.75rem;"
+      class="p-1 small border-start border-warning text-dark text-center bg-warning-subtle"
+    >Pendiente <br /> Agendamiento</div>
+  </template>
+  <template x-if="data.estado == 'A'">
+    <div
+      style="writing-mode: vertical-rl; text-orientation: mixed; margin-inline: -0.75rem; margin-right: -0.75rem;"
+      class="p-1 small border-start border-success text-dark text-center bg-success-subtle"
+    >Cumplida</div>
   </template>
 </li>

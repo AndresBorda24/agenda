@@ -30,8 +30,8 @@ export default (documento) => ({
         const hoy =  new Date();
         hoy.setHours(0, 0, 0, 0);
 
-        return this.citas.filter(c =>
-            (c.fecha >= hoy || this.previous) && (c.estado != 'C' || this.canceled)
-        ).sort((c1, c2) => c2.fecha - c1.fecha);
+        return this.citas.filter(c => {
+            return (c.fecha >= hoy || this.previous) && (c.estado != 'C' || this.canceled)
+        }).sort((c1, c2) => c2.fecha - c1.fecha);
     }
 });
