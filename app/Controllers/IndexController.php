@@ -9,6 +9,7 @@ use App\Views;
 use App\Models\Plan;
 use App\Enums\MpStatus;
 use App\Services\MercadoPagoService;
+use Medoo\Medoo;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -40,11 +41,14 @@ class IndexController
             ->render($response, "profile/index.php");
     }
 
-    public function agenda(Response $response): Response
+    public function agenda(Response $response, Medoo $db): Response
     {
+        $eps = $db->select("eps", ["codigo", "nombre"], ["ORDER" => "nombre"]);
         return $this
             ->view
-            ->render($response, "agenda/index.php");
+            ->render($response, "agenda/index.php", [
+                "epsList" => empty($eps) ? [] : $eps
+            ]);
     }
 
     public function citas(Response $response): Response

@@ -12,9 +12,11 @@
     <p
       class="mx-auto text-center"
       style="max-width: 500px;"
-    >
-      Por favor termina de seleccionar todas las opciones para continuar. 😊
-    </p>
+    > Por favor termina de seleccionar todas las opciones para continuar. 😊 </p>
+  </template>
+
+  <template x-if="canConfirmar">
+    <p>Revisa que todos los datos que has seleccionados estén bien. Luego da clic en "Confirmar Agendamiento".</p>
   </template>
 
   <template x-if="canConfirmar">

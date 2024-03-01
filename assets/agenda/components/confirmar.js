@@ -3,6 +3,7 @@ import { getAuthInfo, agendar } from "@/agenda/requests"
 
 export default () => ({
     fechaAgenda: "",
+    selectedEps: "",
     selectedTipo: "",
     selectedClase: "",
     errorMessage: null,
@@ -10,17 +11,22 @@ export default () => ({
     init() {
         this.$watch("$store.agenda.selectedDay", () =>{
             this.fechaAgenda = document
-                .querySelector("[x-text='selectedDay']")?.innerText || "";
+                .querySelector("[x-text='selectedDay']")?.innerText || " -- ";
         });
 
         this.$watch("$store.agenda.selectedTipo", (val) =>{
             this.selectedTipo = document
-                .querySelector(`[value="${val}"]`)?.dataset.name || "";
+                .querySelector(`[value="${val}"]`)?.textContent || " -- ";
         });
 
         this.$watch("$store.agenda.selectedClase", (val) =>{
             this.selectedClase = document
-                .querySelector(`[value="${val}"]`)?.dataset.name || "";
+                .querySelector(`[value="${val}"]`)?.textContent || " -- ";
+        });
+
+        this.$watch("$store.agenda.selectedEps", (val) =>{
+            this.selectedEps = document
+                .querySelector(`[value="${val}"]`)?.textContent || " -- ";
         });
     },
 
@@ -83,6 +89,7 @@ export default () => ({
 
         if (x) return false;
         if (Alpine.store("agenda").selectedTipo === "PARTIC") return true;
+        if (Alpine.store("agenda").selectedEps === null) return false;
 
         return Alpine.store("agenda").files.formula instanceof File
             && Alpine.store("agenda").files.auto  instanceof File;

@@ -18,7 +18,9 @@
         class="d-lg-grid gap-3 gap-md-4 agemdamiento-container"
         style="max-width: 900px; grid-template-columns: 1fr 1fr;"
       >
-        <?= $this->fetch("./agenda/partials/select-tipo-atencion.php") ?>
+        <?= $this->fetch("./agenda/partials/select-tipo-atencion.php", [
+          "epsList" => $epsList
+        ]) ?>
         <?= $this->fetch("./agenda/partials/clase-consulta.php") ?>
         <?= $this->fetch("./agenda/partials/especialidades.php") ?>
 

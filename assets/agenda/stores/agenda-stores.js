@@ -11,7 +11,8 @@ document.addEventListener('alpine:init', () => {
         data: {},
         selectedDay: null,
         selectedMed: null,
-        selectedEsp: null,
+        selectedEsp: null, // Especialidad
+        selectedEps: null, // Eps
         selectedHour: null,
         selectedTipo: null,
         selectedClase: null,
