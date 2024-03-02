@@ -45,7 +45,8 @@ export default () => ({
             nombre1: data.nom1,
             nombre2: data.nom2,
             cod_enti: (Alpine.store("agenda").selectedTipo == 'PARTIC')
-                ? "PARTIC" : data.eps,
+                ? "PARTIC"
+                : Alpine.store("agenda").selectedEps || data.eps,
             telefono: data.telefono,
             claseCon: Alpine.store("agenda").selectedClase,
             num_histo: data.num_histo,

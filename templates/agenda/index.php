@@ -14,8 +14,12 @@
   <main class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
     <div class="flex-grow-1 p-3 p-md-4">
+      <header class="mx-auto mb-3" style="max-width: 900px;">
+        <h1 class="fs-5 fw-bold text-primary">(Pre) Agendamiento </h1>
+        <p class="mb-0">Aquí puedes realizar el <span class="fw-bold">(pre)</span>Agendamiento de tus citas o controles. Simplemente sigue los pasos a continuación:</p>
+      </header>
       <div
-        class="d-lg-grid gap-3 gap-md-4 agemdamiento-container"
+        class="d-lg-grid gap-4 p-3 agemdamiento-container"
         style="max-width: 900px; grid-template-columns: 1fr 1fr;"
       >
         <?= $this->fetch("./agenda/partials/select-tipo-atencion.php", [
