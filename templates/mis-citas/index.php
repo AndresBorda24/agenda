@@ -11,6 +11,10 @@
     "title" => "Citas Agendadas"
   ]) ?>
 
+  <?php if(App\isLocalIp($_SERVER["REMOTE_ADDR"])): ?>
+    <span style="display: none;" id="user-is-in-local-network"></span>
+  <?php endif ?>
+
   <div class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
     <main class="flex-grow-1 p-3">

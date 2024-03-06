@@ -50,6 +50,21 @@ if (!function_exists('ddh')) {
     }
 }
 
+/**
+ * Determina si el usuario esta ingresando desde la red de la clinia o no
+ * @param string $ip Direccion a validar 
+ */
+if (!function_exists('isLocalIp')) {
+    function isLocalIp(string $ip) {
+        $LOCAL_IP = [
+            "190.71.235.38",
+            "127.0.0.1" // Para el desarrollo local
+        ];
+
+        return in_array($ip, $LOCAL_IP);
+    }
+}
+
 /*
  * dump() with headers
  */
