@@ -199,7 +199,7 @@
 .citas-list > li {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
+    gap: 1rem;
     justify-content: space-between;
     background-color: white;
     border-radius: 5px;

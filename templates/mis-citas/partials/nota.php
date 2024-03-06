@@ -2,10 +2,11 @@
   <?= $this->fetch("./icons/sign.php", [
     "props" => 'style="width: 48px; height:48px;"'
   ]) ?>
-  <p class="m-0 ps-2">
-    <span class="fw-bold text-danger">Importante:</span> <br>
-    <span>
-      Solo puedes cancelar citas con <strong>M&aacute;ximo 1 d&iacute;a</strong> de anticipaci&oacute;n.
-    </span>
-  </p>
+  <div class="ps-2">
+    <span class="fw-bold d-block text-danger">Importante:</span>
+    <ul class="m-0">
+      <li>Solo puedes cancelar citas con <strong>Máximo 1 día</strong> de anticipación.</li>
+      <li>Las fechas pueden cambiar una vez la cita pase a estar <strong>Agendada</strong>.</li> 
+    </ul>
+  </div>
 </section>

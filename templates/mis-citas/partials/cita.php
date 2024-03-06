@@ -5,7 +5,7 @@
     :class="isPast ? 'text-bg-secondary' : data.tipo.cod == 1 ? 'border-warning-subtle text-bg-warning' : 'border-success-subtle text-bg-success'"
   ></span>
 
-  <div class="d-flex flex-column justify-content-start mt-3">
+  <div class="d-flex flex-column justify-content-start mt-3 flex-fill">
     <span class="fs-6 fw-bold" x-text="data.especialidad"></span>
     <span class="fw-bold mb-2">
       <span x-text="data.fecha.toJSON().substring(0,10)"></span>
@@ -13,41 +13,36 @@
     </span>
     <span class="fw-bold small text-capitalize" x-text="`Med. ${data.medico.toLowerCase()}`"></span>
     <span class="small" x-text="data.consultorio"></span>
-  </div>
 
-  <template x-if="canCancel">
-    <div>
-      <p
-        class="p-2 m-0 rounded border mb-2 text-dark bg-warning-subtle"
-        style="border-style: dashed !important;"
-      >
-        <span class="fw-bold d-inline-block me-2">Nota:</span>La fecha u hora pueden cambiar una vez la cita esté <span class="text-decoration-underline">Agendada</span>
-      </p>
-      <button
-        type="button" @click="confirm"
-        class="btn btn-danger block w-100 btn-small"
-      >Cancelar Cita</button>
-
-      <div
-        x-show="showCancel" x-transition
-        class="text-dark bg-white confirmar-cancelacion-cita rounded"
-      >
-        <div class="text-dark">
-          <p class="mb-4">Está seguro de que desea <span class="fw-bold">CANCELAR</span> esta cita pre-agendada?</p>
-          <div class="d-flex justify-content-between">
-            <button
-              class="btn btn-sm btn-link text-dark"
-              @click="showCancel = false"
-            > Volver </button>
-            <button
-              class="confirmar-btn btn btn-danger"
-              @click="cancel"
-            > Confirmar </button>
+    <template x-if="canCancel">
+      <div class="mt-3">
+        <button
+          type="button" @click="confirm"
+          class="btn btn-danger block w-100 btn-small"
+        >Cancelar Cita</button>
+  
+        <div
+          x-show="showCancel" x-transition
+          class="text-dark bg-white confirmar-cancelacion-cita"
+        >
+          <div class="text-dark">
+            <p class="mb-4">Estás seguro de que deseas <span class="fw-bold">CANCELAR</span> esta cita pre-agendada?</p>
+            <div class="d-flex justify-content-between">
+              <button
+                class="btn btn-sm btn-link text-dark"
+                @click="showCancel = false"
+              > Volver </button>
+              <button
+                class="confirmar-btn btn btn-danger"
+                @click="cancel"
+              > Confirmar </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </template>
+    </template>
+  </div>
+
 
   <template x-if="data.estado == 'N'">
     <div
