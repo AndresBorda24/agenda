@@ -1,5 +1,5 @@
 import Alpine from "alpinejs";
-import { getAuthInfo, agendar } from "@/agenda/requests"
+import { agendar } from "@/agenda/requests"
 
 export default () => ({
     fechaAgenda: "",
@@ -31,33 +31,33 @@ export default () => ({
     },
 
     /** Arma el cuerpo de la solicitud */
-    async getBody() {
-        const { data } = await getAuthInfo();
-
+    getBody() {
         return {
             hora: Alpine.store("agenda").selectedHour,
             tipo: Alpine.store("agenda").selectedTipo,
-            email: data.email,
+            email: Alpine.store("agenda").userData.email,
             fecha: Alpine.store("agenda").selectedDay,
             lugar: Alpine.store("agenda").lugar,
-            ciudad: data.ciudad,
+            ciudad: Alpine.store("agenda").userData.ciudad,
             medico: Alpine.store("agenda").selectedMed,
-            nombre1: data.nom1,
-            nombre2: data.nom2,
+            nombre1: Alpine.store("agenda").userData.nom1,
+            nombre2: Alpine.store("agenda").userData.nom2,
             cod_enti: (Alpine.store("agenda").selectedTipo == 'PARTIC')
                 ? "PARTIC"
-                : Alpine.store("agenda").selectedEps || data.eps,
-            telefono: data.telefono,
+                : Alpine.store("agenda").selectedEps || Alpine.store("agenda").userData.eps,
+            telefono: Alpine.store("agenda").userData.telefono,
             claseCon: Alpine.store("agenda").selectedClase,
-            num_histo: data.num_histo,
-            apellido1: data.ape1,
-            apellido2: data.ape2,
-            direccion: data.direccion
+            num_histo: Alpine.store("agenda").userData.num_histo,
+            apellido1: Alpine.store("agenda").userData.ape1,
+            apellido2: Alpine.store("agenda").userData.ape2,
+            direccion: Alpine.store("agenda").userData.direccion
         };
     },
 
     async handleClick() {
-        const { data: aData, error } = await agendar( await this.getBody() );
+        const body = this.getBody();
+        const { data: aData, error } = await agendar( body );
+
 
         if (error) {
             if (aData.cod == 2442) {
@@ -81,6 +81,7 @@ export default () => ({
 
     get canConfirmar() {
         let x = [
+            Alpine.store("agenda").userData,
             Alpine.store("agenda").selectedDay,
             Alpine.store("agenda").selectedMed,
             Alpine.store("agenda").selectedEsp,

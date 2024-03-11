@@ -5,6 +5,7 @@ import dateName from './components/dateName';
 import confirmar from './components/confirmar';
 import selectEps from './components/select-eps';
 import fetchData from './components/fetch-data';
+import selectUser from './components/select-user';
 import calendarDay from './components/calendarDay';
 import selectHours from './components/select-hours';
 import showDayHours from './components/show-day-hours';
@@ -21,9 +22,10 @@ document.addEventListener('alpine:init', () => {
     Alpine.data("fetchData", fetchData);
     Alpine.data("selectEps", selectEps);
     Alpine.data("confirmar", confirmar);
+    Alpine.data("agendaFiles", archivos);
+    Alpine.data("selectUser", selectUser);
     Alpine.data("calendarDay", calendarDay);
     Alpine.data("selectHours", selectHours);
-    Alpine.data("agendaFiles", archivos);
     Alpine.data("showDayHours", showDayHours);
     Alpine.data("loadAgendadas", loadAgendadas);
     Alpine.data("changeCalendarMonth", (back = false) => ({
