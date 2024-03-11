@@ -17,7 +17,7 @@
       <section class="mx-auto" style="max-width: 1000px;">
         <h1 class="fs-5 fw-bold text-primary">Citas Agendadas</h1>
         <?= $this->fetch("./mis-citas/partials/nota.php") ?>
-        <div x-data="Citas('<?= $this->user()->info->documento ?>')">
+        <div x-data="Citas('<?= $this->user()->info->documento ?>')" @cita-canceled.document="citaCanceled">
           <div class="form-check">
             <input class="form-check-input" x-model="previous" type="checkbox" id="show-prev">
             <label class="form-check-label" for="show-prev" role="button">
@@ -41,6 +41,7 @@
     </main>
   </div>
 
+  <?= $this->fetch("./mis-citas/partials/modal-cancelar.php") ?>
   <?= $this->fetch("./partials/footer.php") ?>
   <?= $this->fetch("./partials/loader.php") ?>
 </body>

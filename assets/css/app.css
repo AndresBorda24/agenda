@@ -244,9 +244,8 @@
     inset: 0;
     outline: 2px solid tomato;
 }
-.confirmar-cancelacion-cita > div {
-    width: 70%;
-    margin: auto;
+.confirmar-cancelacion-cita > form {
+    padding: .8rem;
 }
 .confirmar-cancelacion-cita p {
     text-wrap: pretty;

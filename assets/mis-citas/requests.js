@@ -24,6 +24,6 @@ export async function getAuthCitas( documento ) {
 }
 
 /**  Cancela */
-export async function cancelPreAgenda( id ) {
-    return request(() => fox.delete(`/agenda/citas/${id}/cancelar`));
+export async function cancelPreAgenda( id, data ) {
+    return request(() => fox.delete(`/agenda/citas/${id}/cancelar`, { data }));
 }

@@ -25,6 +25,13 @@ export default (documento) => ({
         });
     },
 
+    citaCanceled({ detail: id }) {
+        let cita = this.citas.find(c => c.id == id);
+        if (cita) {
+            cita.estado = "C";
+        }
+    },
+
     /** Listado de citas cuya fecha aun no se ha vencido */
     get citasActivas() {
         const hoy =  new Date();
