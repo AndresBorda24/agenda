@@ -56,4 +56,24 @@ class Beneficiario
             throw $e;
         }
     }
+
+    /**
+     * Encuentra datos sobre un beneficiario junto con datos importantes del 
+     * titular. 
+     * 
+     * @param string $field Representa el campo por el que se desea buscar el 
+     *                      beneficiario. Debe ir precedido de B.
+     */
+    public function find(int $documento, string $field = "documento"): ?array
+    {
+        return $this->db->get(self::TABLE." (B)", [
+            "[>]".Usuario::TABLE." (T)" => ["titular_id" => "id"]
+        ], [
+            "B.nom1", "B.nom2", "B.ape1", "B.ape2", "B.documento", "B.tipo_doc", 
+            "B.sexo", "T.email", "T.telefono", "T.ciudad", "T.eps", "B.titular_id",
+            "T.direccion"
+        ], [
+            "$field" => $documento
+        ]);
+    }
 }

@@ -8,6 +8,7 @@ use App\Contracts\UserInterface;
 use App\Views;
 use App\Models\Plan;
 use App\Enums\MpStatus;
+use App\Models\Beneficiario;
 use App\Services\MercadoPagoService;
 use Medoo\Medoo;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -41,13 +42,16 @@ class IndexController
             ->render($response, "profile/index.php");
     }
 
-    public function agenda(Response $response, Medoo $db): Response
+    public function agenda(Response $response, Medoo $db, UserInterface $user): Response
     {
         $eps = $db->select("eps", ["codigo", "nombre"], ["ORDER" => "nombre"]);
+        $beneficiarios = (new Beneficiario($db))->all( $user->id() );
+
         return $this
             ->view
             ->render($response, "agenda/index.php", [
-                "epsList" => empty($eps) ? [] : $eps
+                "epsList" => empty($eps) ? [] : $eps,
+                "beneficiarios" => $beneficiarios
             ]);
     }
 
