@@ -47,3 +47,7 @@ export async function agendar( data ) {
 export async function getAuthInfo() {
     return await request(() => local.get(`/auth/basic`));
 }
+
+export async function getBeneficiarioInfo(documento) {
+    return await request(() => local.get(`/auth/beneficiario/${documento}/info`));
+}

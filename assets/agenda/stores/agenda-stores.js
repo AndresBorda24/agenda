@@ -9,6 +9,7 @@ document.addEventListener('alpine:init', () => {
     /** Aqui se almacena la informacion de la agenda */
     Alpine.store("agenda", {
         data: {},
+        userData: null,
         selectedDay: null,
         selectedMed: null,
         selectedEsp: null, // Especialidad

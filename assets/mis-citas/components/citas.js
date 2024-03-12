@@ -1,19 +1,23 @@
 import Alpine from "alpinejs";
 import { getAuthCitas } from "@/mis-citas/requests"
 
-export default (documento) => ({
-    documento,
+export default () => ({
+    user: '',
     citas: [],
     previous: false,
     canceled: false,
     tomorrow: new Date(),
 
-    async init() {
+    init() {
         this.tomorrow.setDate( this.tomorrow.getDate() + 1 );
         this.tomorrow.setHours(11, 59, 59);
+    
+        this.$watch("user", async () => await this.getCitas());
+    },
 
+    async getCitas() {
         Alpine.store("loader").show();
-        const { data, error } = await getAuthCitas(this.documento);
+        const { data, error } = await getAuthCitas(this.user);
         Alpine.store("loader").hide();
 
         if (error !== null) return;
@@ -40,5 +44,9 @@ export default (documento) => ({
         return this.citas.filter(c => {
             return (c.fecha >= hoy || this.previous) && (c.estado != 'C' || this.canceled)
         }).sort((c1, c2) => c2.fecha - c1.fecha);
+    },
+
+    get totalCitas() {
+        return this.citas.length;
     }
 });
