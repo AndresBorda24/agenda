@@ -55,11 +55,17 @@ class IndexController
             ]);
     }
 
-    public function citas(Response $response): Response
-    {
+    public function citas(
+        Response $response, 
+        Beneficiario $beneficiario, 
+        UserInterface $user
+    ): Response {
+        $beneficiarios = $beneficiario->all( $user->id() );
         return $this
             ->view
-            ->render($response, "mis-citas/index.php");
+            ->render($response, "mis-citas/index.php", [
+                "beneficiarios" => $beneficiarios
+            ]);
     }
 
     public function registro(Response $response): Response
