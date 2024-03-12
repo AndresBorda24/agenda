@@ -30,12 +30,12 @@ return function(App $app) {
                 ->setName("perfil");
 
             $app->get("/agenda", [IndexController::class, "agenda"])
-                ->setName("agenda")
-                ->add(PagoValidoMiddleware::class);
+                ->setName("agenda");
+                // ->add(PagoValidoMiddleware::class);
 
             $app->get("/mis-citas", [IndexController::class, "citas"])
-                ->setName("mis-citas")
-                ->add(PagoValidoMiddleware::class);
+                ->setName("mis-citas");
+                // ->add(PagoValidoMiddleware::class);
 
             $app->get("/beneficiarios", [IndexController::class, "beneficiarios"])
                 ->setName("beneficiarios")

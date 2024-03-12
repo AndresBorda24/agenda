@@ -27,6 +27,7 @@ Encore
     .addEntry('beneficiarios/app', './assets/beneficiarios/index.js')
     .addEntry('agenda/app', './assets/agenda/index.js')
     .addEntry('profile/app', './assets/profile/index.js')
+    .addEntry('citas/app', './assets/mis-citas/index.js')
     .addEntry('login/app', './assets/login/index.js')
     .addEntry('registro/app', './assets/registro/index.js')
     .addEntry('planes/app', './assets/planes/index.js')

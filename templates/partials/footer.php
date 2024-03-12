@@ -20,11 +20,13 @@
       </li>
     </ul>
 
-    <img
-    height="25"
-    class="m-0"
-    src="https://asotrauma.com.co/wp-content/uploads/2021/08/logo-asotrauma-w.svg"
-    alt="logo-blanco">
+    <div class="m-0">
+      <img
+      height="40"
+      class="mx-auto d-block"
+      src="<?= $this->asset("img/logo-blanco-full.png") ?>"
+      alt="logo-blanco">
+    </div>
 
     <ul class="list-group list-group-flush small text-center m-0 p-0">
       <li class="list-group-item bg-transparent text-light">

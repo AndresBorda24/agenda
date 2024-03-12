@@ -1,50 +1,46 @@
-import axios from 'axios';
+import { getEspecialidades, getAgenda } from "@/agenda/requests";
+import Alpine from "alpinejs";
 
 export default () => ({
-    esps: [],
-    baseUri: process.env.APP_URL + "api",
-    espUri: '/especialidades/get-available',
+    esps: {},
     /**
      * Estos son los eventos que 'escucha' este componente
      * con su respectivo callback - handler
     */
     events: {
-        ["@cita-agendada.document"]:"getData( $store.selectedEsp )"
+        ["@re-fetch-agenda.document.stop"]:
+            "getData( $store.agenda.selectedEsp, $store.agenda.selectedMed )"
     },
-    config: {
-        headers: {
-            'Content-Type': "application/json"
-        },
-    },
+
     /** Obtiene las especialidades disponibles */
     async init() {
-        try {
-            const { data } =  await axios
-                .get(`${this.baseUri}${this.espUri}`, this.config);
-            this.esps = data;
-        } catch(e) {
-            alert("Error al recuperar las especialidades");
-            console.error("Error especialidades: ", e);
-        }
+        const {data, error} = await getEspecialidades();
+        if (error !== null) return;
+        this.esps = data.data;
+
+        const medicos = Object.values(this.esps)
+            .reduce(/** @param c {Array} */(a,c) => {
+                c.forEach(m => a[m.cod] = m.medico);
+                return a;
+            }, {});
+        Alpine.store("medicos", medicos);
     },
+
     /** Obtiene los dias en los que hay agenda */
-    async getData( esp ) {
-        try {
-            Alpine.store('loader').show();
-            const [{data: agenda}, {data: docs}] = await Promise.all([
-                axios.get(`${this.baseUri}/especialidades/${esp}/get-agenda`, this.config),
-                axios.get(`${this.baseUri}/medicos/${esp}/get-available`, this.config),
-            ]);
-            Alpine.store('loader').hide();
+    async getData(esp, medico) {
+        Alpine.store('loader').show();
+        const {data, error} = await getAgenda( medico );
+        Alpine.store('loader').hide();
+        if (error !== null) return;
 
-            Alpine.store("doctores", docs);
-            Alpine.store("agenda", agenda);
-            Alpine.store("selectedEsp", esp);
+        Alpine.store("agenda").data = data.data;
+        Alpine.store("agenda").selectedEsp = esp;
+        Alpine.store("agenda").selectedMed = medico;
+        Alpine.store("agenda").selectedDay = null;
+        Alpine.store("agenda").selectedHour = null;
+    },
 
-            this.$dispatch("date-has-changed");
-        } catch(e) {
-            Alpine.store('loader').hide()
-            console.error("Fetch data: ", e);
-        }
+    get espsLoaded() {
+        return Object.keys(this.esps).length > 0;
     }
 });

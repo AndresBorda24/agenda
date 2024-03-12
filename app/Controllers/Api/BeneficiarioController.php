@@ -57,4 +57,23 @@ class BeneficiarioController
             ], 422);
         }
     }
+
+    public function find(Response $response, UserInterface $user, int $doc): Response 
+    {
+        $ben = $this->beneficiario->find($doc);
+
+        if ($ben === null) {
+            return responseJSON($response, [
+                "message" => "Beneficiario no encontrado."
+            ], 422);
+        }
+
+        if ($ben["titular_id"] != $user->id()) {
+            return responseJSON($response, [
+                "message" => "Titular no coincide"
+            ], 422);
+        }
+
+        return responseJSON($response, $ben);
+    }
 }

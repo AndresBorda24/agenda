@@ -3,53 +3,257 @@
     background-color: #fbfbfb;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='Artboard-5' fill='%23767676' fill-opacity='0.03' fill-rule='nonzero'%3E%3Cpath d='M6 18h12V6H6v12zM4 4h16v16H4V4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
-.calendar-grid {
-    grid-template-columns: repeat(7, minmax(20px, 1fr));
-    background-color: var(--bs-border-color);
-    grid-auto-rows: 1fr;
-    min-height: 65vh;
-    gap: 1px;
-}
 .border-dasshed-light {
     border-width: 0;
     border-style: dashed !important;
     border-color: lightgray !important;
     transition: margin 200ms ease;
 }
-.calendar-days-medicos-wrapper {
-    opacity: 45% !important;
+
+.agemdamiento-container {
+    margin: auto;
+    display: flex;
+    max-width: 900px;
+    flex-direction: column;
+    /* Esto es porque tiene un d-lg-grid */
+    grid-template-columns: 1fr 1fr;
+    counter-reset: agendamiento;
+
+    &>div {
+        padding: 1rem;
+        position: relative;
+        box-shadow: 0px 6px 1rem -2px rgba(0,0,0,.15);
+        border: 1px solid #dfdfdf;
+        border-radius: 5px;
+        background-color: white;
+        &::before {
+            inset: -15px auto auto -15px;
+            color: white;
+            padding: 5px 10px;
+            position: absolute;
+            font-size: .7rem;
+            border-radius: 5px;
+            background-color: var(--bs-primary);
+            counter-increment: agendamiento;
+            content: "Paso: "counter(agendamiento);
+        }
+    }
 }
-.calendar-header {
-    grid-template-columns: repeat(7, minmax(20px, 1fr));
+
+.calendar-mv-btn {
+    position: relative;
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 0;
+        border-radius: 50%;
+        aspect-ratio: 1;
+        background-color: rgb(255, 255, 255, 0.2);
+        transition: width 150ms ease-in;
+    }
+    &:hover::before {
+        width: 1.5rem;
+    }
 }
-.calendar-grid > div {
-    pointer-events: none;
-}
-.calendar-grid > div:nth-of-type(7n + 1) {
-    background-color: #fffad1 !important;
-}
-.has-dates {
-    pointer-events: auto !important;
-}
-.has-dates:hover {
-    cursor: pointer;
-    box-shadow: inset 0px 10px 20px 0px rgba(0,0,0,0.15);
-}
-.has-dates:hover .calendar-days-medicos-wrapper {
-    opacity: 80% !important;
-}
-.header-bg {
-    background-color: #3679ed;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='152' height='152' viewBox='0 0 152 152'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='temple' fill='%236ca6fe' fill-opacity='0.4'%3E%3Cpath d='M152 150v2H0v-2h28v-8H8v-20H0v-2h8V80h42v20h20v42H30v8h90v-8H80v-42h20V80h42v40h8V30h-8v40h-42V50H80V8h40V0h2v8h20v20h8V0h2v150zm-2 0v-28h-8v20h-20v8h28zM82 30v18h18V30H82zm20 18h20v20h18V30h-20V10H82v18h20v20zm0 2v18h18V50h-18zm20-22h18V10h-18v18zm-54 92v-18H50v18h18zm-20-18H28V82H10v38h20v20h38v-18H48v-20zm0-2V82H30v18h18zm-20 22H10v18h18v-18zm54 0v18h38v-20h20V82h-18v20h-20v20H82zm18-20H82v18h18v-18zm2-2h18V82h-18v18zm20 40v-18h18v18h-18zM30 0h-2v8H8v20H0v2h8v40h42V50h20V8H30V0zm20 48h18V30H50v18zm18-20H48v20H28v20H10V30h20V10h38v18zM30 50h18v18H30V50zm-2-40H10v18h18V10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
+
 .show-selected-day-hours {
     position: fixed;
     inset: auto 0 0 0;
     max-width: 400px;
     z-index: 1;
 }
-.flex {
+.tiene-agenda::before {
+    content: '';
+    position: absolute;
+    background-color: rgb(var(--bs-warning-rgb), .4);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    inset: 0;
+    margin: auto;
+    transition: transform 150ms ease-out;
+}
+.tiene-agenda:hover::before {
+    transform: scale(1.2);
+}
+.dia-seleccionado::before {
+    outline: 2px solid var(--bs-warning);
+}
+.hour-btn {
+    position: relative;
+    text-align: center;
+    color: #000;
+}
+.hour-btn::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    inset: 100% 0 auto 0;
+    margin: auto;
+    height: 2px;
+    background-color: var(--bs-primary);
+    transition: all 150ms ease-in;
+}
+.hour-selected::before,
+.hour-btn:hover::before {
+    width: 50px;
+    height: 50px;
+    inset: 0;
+    margin: auto;
+    border-radius: 50%;
+    background-color: rgb(var(--bs-primary-rgb), .3);
+}
+.hour-selected::before {
+    outline: 2px solid rgb(var(--bs-primary-rgb));
+}
+.select-tipo-atencion {
+    gap: 1rem;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.select-tipo-atencion > label {
+    padding: 1rem 1.5rem;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 5px;
+    background-color: white;
+    color: rgb(var(--bs-primary-rgb));
+    transition: background-color 150ms ease-in,
+                color 150ms ease-in;
+}
+.select-tipo-atencion > label:hover,
+.select-tipo-atencion > label.active {
+    background-color: rgb(var(--bs-primary-rgb));
+    color: white;
+}
+.select-tipo-atencion > label.active {
+    outline: 2px solid rgb(var(--bs-primary-rgb));
+    outline-offset: 2px;
+}
+/* estilos para la seleccion de archivos en agendamiento */
+.agenda-files label {
+    --agenda-file-bg: var(--bs-secondary-bg-subtle);
+    text-align: center;
+    position: relative;
+    border-style: dashed;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    transition: backgroud-color 150ms ease-in,
+                border 150ms ease-in;
+}
+.agenda-files .file-name {
+    display: block;
+    font-size: 11px;
+    font-style: italic;
+}
+.agenda-files label::before {
+    content: "\2605 Opcional";
+    position: relative;
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+}
+.agenda-files label[is-required] {
+    --agenda-file-bg: var(--bs-danger-bg-subtle);
+    border-color: rgb(var(--bs-danger-rgb));
+    color: rgb(var(--bs-danger-rgb));
+}
+.agenda-files label[is-required]::before {
+    content: "! Requerido";
+    color: rgb(var(--bs-danger-rgb));
+}
+.agenda-files label.filled {
+    --agenda-file-bg: var(--bs-success-bg-subtle);
+    background-color: var(--bs-success-bg-subtle);
+    border-color: rgb(var(--bs-success-rgb));
+    color: rgb(var(--bs-success-rgb));
+}
+.agenda-files label.filled::before {
+    content: "\2713 Hecho";
+    color: rgb(var(--bs-success-rgb));
+}
+.agenda-files label:hover {
+    background-color: var(--agenda-file-bg);
+    border-style: solid;
+}
+.flex {display: flex}
+.block {display: block}
+
+/* Estilos para vista: Mis citas  */
+.citas-list {
+    display: grid;
+    list-style: none;
+    gap: 1.5rem;
+    grid-template-columns:  repeat(auto-fill, minmax(280px, 1fr));
+}
+.citas-list > li {
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 5px;
+    padding: .75rem;
+    font-size: .9rem;
+    color: #555;
+    border: 1px solid #ccc;
+    transition: background-color 150ms ease-in,
+                color 150ms ease;
+}
+.citas-list > li:hover {
+    background-color: var(--bs-secondary);
+    color: #dfdfdf;
+    border-color: var(--bs-warning);
+}
+.citas-list > li.canceled {
+    background-color: #fff2f2;
+}
+.citas-list > li.canceled:hover {
+    color: #555;
+    border-color: var(--bs-danger);
+}
+.citas-list > li.past,
+.citas-list > li.past:hover {
+    color: #666;
+    background-color: #e5e5e5;
+    border-color: #999;
+}
+.citas-list > li button {
+    font-size: .8rem;
+}
+
+.citas-list li > ul li {
+    padding-block: 3px;
+}
+
+.confirmar-cancelacion-cita {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    outline: 2px solid tomato;
+}
+.confirmar-cancelacion-cita > form {
+    padding: .8rem;
+}
+.confirmar-cancelacion-cita p {
+    text-wrap: pretty;
+}
+.confirmar-cancelacion-cita button {
+    display: block;
+    margin-inline: auto;
+    margin-bottom: 5;
 }
 
 @media (max-width: 767px) {
@@ -60,10 +264,6 @@
         min-height: 100vh;
         overflow: auto;
     }
-/*    .aside {
-        height: auto;
-        min-width: auto;
-    }*/
     .show-selected-day-hours {
         border-radius: .3rem;
         border-radius: 1rem 0 0 0;

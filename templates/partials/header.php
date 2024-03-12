@@ -3,7 +3,7 @@
     <a href="https://asotrauma.com.co/" target="_blank" class="d-block">
       <img
       height="25"
-      src="https://asotrauma.com.co/wp-content/uploads/2021/08/logo-asotrauma-w.svg"
+      src="<?= $this->asset("img/logo-blanco-full.png") ?>"
       alt="logo-blanco">
     </a>
     <?php if($this->user() !== null): ?>

@@ -1,25 +1,16 @@
+import Alpine from "alpinejs";
+
 export default () => ({
+    months: [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ],
+    visualMonth: "",
+    visualYear: "",
     /** Fecha que se emplea como Referencia para hacer los calculos*/
     ctrl: new Date(),
-    /**
-     * Determina el numero de celdas vacias al principio de cada
-     * mes.
-    */
-    blankSpaces: 0,
-    /**
-     * Determina el numero de celdas vacias al final de cada
-     * mes.
-    */
-    blankSpacesBtm: 0,
-    /**
-     * El numero total de dias que tiene el mes.
-    */
     totalSpaces: 0,
-    /** Eventos que escucha este componenete */
-    events: {
-        ["@next-month.document"]: "next",
-        ["@previous-month.document"]: "previous"
-    },
+    blankSpaces: 0,
+    blankSpacesBtm: 0,
     loader: document.getElementById('calendar-days-loader'),
 
     init() {
@@ -27,9 +18,7 @@ export default () => ({
         this.setUp();
     },
 
-    /**
-     * Organiza la info necesaria teniendo en cuenta el valor de `ctrl`
-    */
+    /** Organiza la info necesaria teniendo en cuenta el valor de `ctrl` */
     setUp() {
         Alpine.store("ctrlDate", this.ctrl);
 
@@ -41,43 +30,32 @@ export default () => ({
         const _ = this.blankSpaces + this.totalSpaces;
         this.blankSpacesBtm = Math.ceil(_ / 7 ) * 7 - _;
 
-        this.$nextTick(() => {
-            this.$dispatch("date-has-changed");
-        });
+        this.setVisualMonth();
+        this.setVisualYear();
     },
 
     /** Carga mes anterior */
-    previous() {
-        this.loader.style.display = 'block';
-        this.loader.animate([
-            {left: '0', opacity: '100%'},
-            {left:'100%', opacity: '70%'}
-        ], {duration: 300, easing: 'ease-in'});
+    change(next = true) {
+        this.animate();
         const m = this.getMonth();
-
-        if (m == 0) {
-            this.ctrl.setMonth(11);
-        } else {
-            this.ctrl.setMonth(m - 1);
-        }
+        this.ctrl.setMonth(m - (next ? -1 : 1));
         this.setUp();
     },
 
-    /** Carga siguiente mes */
-    next() {
+    goToday() {
+        this.animate();
+        this.ctrl = new Date();
+        this.ctrl.setDate(1);
+        this.setUp();
+    },
+
+    /** Pelicula que se muestra al cambiar de mes */
+    animate() {
         this.loader.style.display = 'block';
         this.loader.animate([
-            {left: '0', opacity: '100%'},
-            {left:'100%', opacity: '70%'}
-        ], {duration: 300, easing: 'ease-in'})
-        const m = this.getMonth();
-
-        if (m == 11) {
-            this.ctrl.setMonth(0);
-        } else {
-            this.ctrl.setMonth(m + 1)
-        }
-        this.setUp();
+            {left: '0', opacity: '50%'},
+            {left:'100%', opacity: '40%'}
+        ], {duration: 250, easing: 'ease-in-out'});
     },
 
     /** Retorna el anio de ctrl */
@@ -88,5 +66,19 @@ export default () => ({
     /** Retorna el mes de ctrl */
     getMonth() {
         return this.ctrl.getMonth();
+    },
+
+    setVisualMonth() {
+        this.visualMonth = this.months[ this.getMonth() ];
+    },
+
+    setVisualYear() {
+        this.visualYear = this.ctrl.getFullYear();
+    },
+
+    getFullDate( day ){
+        return this.getYear() + '-'
+            + (this.getMonth() + 1).toString().padStart(2, '0') + '-'
+            + day.toString().padStart(2, '0');
     }
 });
