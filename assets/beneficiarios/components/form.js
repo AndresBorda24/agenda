@@ -12,15 +12,16 @@ export default () => ({
     bindings: {
         "x-show": "show",
         "x-cloak": "",
-        "x-transition.opacity.300ms": ""
+        "x-transition.opacity.300ms": "",
+        "@edit-beneficiario.document": "() => open($event.detail)"
     },
 
     /**
      * Abre el modal y realiza el focus al primer input
     */
-    open() {
+    open(state = {}) {
         this.show = true;
-        this.state = {};
+        this.state = state;
         setTimeout(() =>{
             document.getElementById("tipo_doc")?.focus()
         } , 20);

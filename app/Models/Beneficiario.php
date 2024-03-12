@@ -48,7 +48,7 @@ class Beneficiario
             return $this->db->select(self::TABLE, [
                 "nombre" => Medoo::raw(
                     "CONCAT_WS(' ', <nom1>, <nom2>, <ape1>, <ape2>)"
-                ), "id", "documento", "parentesco"
+                ), "id", "documento", "tipo_doc", "parentesco", "sexo", "fecha_nac"
             ], [
                 "titular_id" => $titular
             ]);
