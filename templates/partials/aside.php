@@ -30,11 +30,6 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
 
     <?php if($this->user()->hasPago()): ?>
       <?php if($this->user()->isTitular() && $this->user()->pago->isValid()): ?>
-        <a href="<?= $this->link("beneficiarios") ?>"
-        <?= $this->isRoute("beneficiarios") ? 'class="is-active"' : '' ?>>
-          <?= $this->fetch("./icons/users.php") ?> Beneficiarios
-        </a>
-
         <?php if($this->user()->getPago()->tarjeta === null): ?>
           <a href="<?= $this->link("activar-tarjeta") ?>"
           <?= $this->isRoute("activar-tarjeta") ? 'class="is-active"' : '' ?>>
@@ -55,6 +50,11 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
         <?php endif ?>
       <?php endif ?>
     <?php endif ?>
+
+    <a href="<?= $this->link("beneficiarios") ?>"
+    <?= $this->isRoute("beneficiarios") ? 'class="is-active"' : '' ?>>
+      <?= $this->fetch("./icons/users.php") ?> Beneficiarios
+    </a>
 
     <?php if(! $this->user()->pago?->isValid()): ?>
       <a href="<?= $this->link("planes") ?>"

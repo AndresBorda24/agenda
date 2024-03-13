@@ -82,7 +82,7 @@ class Beneficiario
      * @param string $field Representa el campo por el que se desea buscar el 
      *                      beneficiario. Debe ir precedido de B.
      */
-    public function find(int $documento, string $field = "documento"): ?array
+    public function find($documento, string $field = "documento"): ?array
     {
         return $this->db->get(self::TABLE." (B)", [
             "[>]".Usuario::TABLE." (T)" => ["titular_id" => "id"]
