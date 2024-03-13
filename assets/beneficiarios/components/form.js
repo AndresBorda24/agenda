@@ -1,4 +1,4 @@
-import ax from "@/partials/ax";
+import { update, store } from "../requests";
 import { AxiosError } from "axios";
 import { showLoader, hideLoader } from "@/partials/loader";
 import { successAlert, errorAlert } from "@/partials/alerts";
@@ -12,15 +12,16 @@ export default () => ({
     bindings: {
         "x-show": "show",
         "x-cloak": "",
-        "x-transition.opacity.300ms": ""
+        "x-transition.opacity.300ms": "",
+        "@edit-beneficiario.document": "() => open($event.detail)"
     },
 
     /**
      * Abre el modal y realiza el focus al primer input
     */
-    open() {
+    open(state = {}) {
         this.show = true;
-        this.state = {};
+        this.state = state;
         setTimeout(() =>{
             document.getElementById("tipo_doc")?.focus()
         } , 20);
@@ -32,37 +33,44 @@ export default () => ({
     async save() {
         try {
             removeInvalid();
+            
             showLoader();
+            const { data, error } = this.isEdit
+                ? await update(this.state.id, this.state)
+                : await store(this.state);
+            hideLoader();
 
-            const { data } = await ax.post(
-                "/auth/beneficiario",
-                this.state
-            ).finally(hideLoader);
+            if (error !== null) {
+                if (error instanceof AxiosError) setInvalid(error.response.data.fields);
+                errorAlert();
+                return;
+            }
 
-            this.dispatchAdded( data );
+            this.dispatchEvent( data );
             this.show = false;
             successAlert();
         } catch(e) {
-            if (e instanceof AxiosError) setInvalid(e.response.data.fields);
 
             console.error(e);
-            errorAlert();
         }
     },
 
     /**
      * Despachamos un evento para que se agrege el beneficiario al listado.
     */
-    dispatchAdded( id ) {
-        this.$dispatch("added-beneficiario", {
-            id: id,
-            nombre: [
-                this.state.nom1,
-                this.state.nom2,
-                this.state.ape1,
-                this.state.ape2
-            ].filter(x => Boolean(x)).join(" ").toUpperCase(),
+    dispatchEvent( id ) {
+        const event = this.isEdit ? "edited-beneficiario" : "added-beneficiario";
+
+        this.$dispatch(event, {
+            id: this.isEdit ? this.state.id : id,
+            nom1: this.state.nom1,
+            nom2: this.state.nom2,
+            ape1: this.state.ape1,
+            ape2: this.state.ape2,
+            sexo: this.state.sexo,
+            tipo_doc: this.state.tipo_doc,
             documento: this.state.documento,
+            fecha_nac: this.state.fecha_nac,
             parentesco: this.state.parentesco.toUpperCase()
         });
     },
@@ -75,5 +83,9 @@ export default () => ({
         return this.fetched // Esta propiedad sale del componente de lista
         && ! Boolean(this.error) // Esta tambien
         && this.list.length < this.limit;
+    },
+
+    get isEdit() {
+        return Boolean(this.state?.id) 
     }
 });

@@ -256,6 +256,18 @@
     margin-bottom: 5;
 }
 
+/* Estilos para la vista: Beneficiarios */
+.beneficiario-edit-btn {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 150ms ease-in-out,
+                opacity 130ms ease-in;
+}
+.beneficiario:hover .beneficiario-edit-btn {
+    transform: translateY(0);
+    opacity: 1;
+}
+
 @media (max-width: 767px) {
     .main-container {
         height: auto;
@@ -271,5 +283,9 @@
         inset: auto 0 0 0;
         z-index: 1030;
         border-width: 1px 0 0 0;
+    }
+    .beneficiario-edit-btn {
+        transform: translateY(0);
+        opacity: 1;
     }
 }

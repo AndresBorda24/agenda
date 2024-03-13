@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\DataObjects\Beneficiario as DataObjectsBeneficiario;
 use Medoo\Medoo;
 
 class Beneficiario
@@ -13,30 +14,48 @@ class Beneficiario
         public readonly Medoo $db
     ) {}
 
-    public function create(array $data): int
+    public function create(DataObjectsBeneficiario $data): int
     {
         try {
             $this->db->insert(self::TABLE, [
-                "titular_id" => $data["titular_id"],
-                "ape1" => mb_strtoupper($data["ape1"]),
-                "ape2" => @$data["ape2"]
-                    ? mb_strtoupper($data["ape2"])
+                "titular_id" => $data->titular_id,
+                "ape1" => mb_strtoupper($data->ape1),
+                "ape2" => $data->ape2
+                    ? mb_strtoupper($data->ape2)
                     : null,
-                "nom1" => mb_strtoupper($data["nom1"]),
-                "nom2" => @$data["nom2"]
-                    ? mb_strtoupper($data["nom2"])
+                "nom1" => mb_strtoupper($data->nom1),
+                "nom2" => $data->nom2
+                    ? mb_strtoupper($data->nom2)
                     : null,
-                "sexo" => $data["sexo"],
-                "fecha_nac" => $data["fecha_nac"],
-                "parentesco" => mb_strtoupper($data["parentesco"]),
-                "tipo_doc" => $data["tipo_doc"],
-                "documento" => $data["documento"],
+                "sexo" => $data->sexo->value,
+                "fecha_nac" => $data->fecha_nac,
+                "parentesco" => mb_strtoupper($data->parentesco),
+                "tipo_doc" => $data->tipo_doc->value,
+                "documento" => $data->documento,
             ]);
 
             return (int) $this->db->id();
         } catch(\Exception $e) {
             throw $e;
         }
+    }
+
+    public function update(int $id, DataObjectsBeneficiario $data)
+    {
+        $this->db->update(self::TABLE, [
+            "ape1" => mb_strtoupper($data->ape1),
+            "ape2" => $data->ape2
+                ? mb_strtoupper($data->ape2)
+                : null,
+            "nom1" => mb_strtoupper($data->nom1),
+            "nom2" => $data->nom2
+                ? mb_strtoupper($data->nom2)
+                : null,
+            "tipo_doc" => $data->tipo_doc->value,
+            "parentesco" => mb_strtoupper($data->parentesco)
+        ], [ "id" => $id ]);
+       
+        return true;
     }
 
     /**
@@ -46,9 +65,8 @@ class Beneficiario
     {
         try {
             return $this->db->select(self::TABLE, [
-                "nombre" => Medoo::raw(
-                    "CONCAT_WS(' ', <nom1>, <nom2>, <ape1>, <ape2>)"
-                ), "id", "documento", "parentesco"
+                "nom1", "nom2", "ape1", "ape2", "id", "documento", 
+                "tipo_doc", "parentesco", "sexo", "fecha_nac"
             ], [
                 "titular_id" => $titular
             ]);

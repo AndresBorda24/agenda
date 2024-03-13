@@ -2,7 +2,7 @@
   <template x-teleport="#new-beneficiario-container">
     <button
     type="button"
-    @click="open"
+    @click="open()"
     :class="{
       'btn btn-sm px-4 py-1 shadow': true,
       'btn btn-warning': canAddMore,
@@ -63,6 +63,7 @@
             required
             x-model="state.documento"
             placeholder="xxxxxxxxx"
+            :disabled="isEdit"
             type="text"
             minlength="6"
             class="form-control form-control-sm">
@@ -143,6 +144,7 @@
             id="fecha_nac"
             required
             x-model="state.fecha_nac"
+            :disabled="isEdit"
             type="date"
             class="form-control form-control-sm">
           </div>
