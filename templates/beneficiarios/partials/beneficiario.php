@@ -1,11 +1,10 @@
-
 <li 
-  x-data="Beneficiario($i)" 
+  x-data="Beneficiario(ben)" 
   class="list-group-item list-group-item-action d-flex align-items-start small beneficiario"
 >
   <div class="small flex-grow-1 ps-2">
     <p class="m-0">
-      <span x-text="data.nombre" class="text-uppercase"></span>
+      <span x-text="nombre" class="text-uppercase"></span>
       <button 
         @click="edit"
         class="d-inline-block btn btn-sm btn-warning beneficiario-edit-btn ms-2 py-0 px-1 shadow"

@@ -40,6 +40,7 @@ return function (App $app) {
             $auth->get("/beneficiarios", [BeneficiarioController::class, "all"]);
             $auth->get("/beneficiario/{doc:[0-9]+}/info", [BeneficiarioController::class, "find"]);
             $auth->post("/beneficiario", [BeneficiarioController::class, "store"]);
+            $auth->put("/beneficiario/{id:[0-9]+}/edit", [BeneficiarioController::class, "update"]);
             $auth->post("/set-card-serial", [UsuarioController::class, "activateCard"]);
             $auth->put("/update-basic", [UsuarioController::class, "update"]);
             $auth->put("/password-update", [UsuarioController::class, "updatePass"]);

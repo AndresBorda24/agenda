@@ -5,7 +5,8 @@ export default () => ({
     error: undefined,
     fetched: false,
     events: {
-        ["@added-beneficiario.document.stop"]: "add($event.detail)"
+        ["@added-beneficiario.document.stop"]: "add($event.detail)",
+        ["@edited-beneficiario.document.stop"]: "update($event.detail)"
     },
 
     init () {
@@ -35,6 +36,22 @@ export default () => ({
     */
     add( data ) {
         this.list.push( data );
+    },
+
+    update( data ) {
+        const beneficiario = this.list.find(b => b.id == data.id);
+        if (! beneficiario) return;
+
+        beneficiario.id = data.id
+        beneficiario.nom1 = data.nom1
+        beneficiario.nom2 = data.nom2
+        beneficiario.ape1 = data.ape1
+        beneficiario.ape2 = data.ape2
+        beneficiario.sexo = data.sexo
+        beneficiario.tipo_doc = data.tipo_doc
+        beneficiario.documento = data.documento
+        beneficiario.fecha_nac = data.fecha_nac
+        beneficiario.parentesco = data.parentesco
     },
 
     get isEmpty() {

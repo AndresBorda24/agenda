@@ -18,7 +18,7 @@
 
   <template x-if="! Boolean(error)">
     <ol class="list-group list-group-numbered">
-      <template x-for="$i in list" :key="$i.id">
+      <template x-for="ben in list" :key="ben.id">
         <?= $this->fetch("./beneficiarios/partials/beneficiario.php") ?> 
       </template>
     </ol>

@@ -63,6 +63,7 @@
             required
             x-model="state.documento"
             placeholder="xxxxxxxxx"
+            :disabled="isEdit"
             type="text"
             minlength="6"
             class="form-control form-control-sm">
@@ -75,6 +76,7 @@
             <input
             id="parentesco"
             required
+            :disabled="isEdit"
             placeholder="Requerido"
             x-model="state.parentesco"
             type="text"
@@ -143,6 +145,7 @@
             id="fecha_nac"
             required
             x-model="state.fecha_nac"
+            :disabled="isEdit"
             type="date"
             class="form-control form-control-sm">
           </div>
