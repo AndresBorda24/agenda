@@ -37,6 +37,16 @@ if (! function_exists('App\uppercase')) {
     }
 }
 
+if (! function_exists('App\createInstance')) {
+    /**
+     * Este helper permite la creacion de una clase a partir de un array de
+     * argumentos que se emplea como parametros.
+    */
+    function createInstance(string $class, array $params = []) {
+        return (new \ReflectionClass($class))->newInstanceArgs($params);
+    }
+}
+
 /*
  * dd() with headers
  */

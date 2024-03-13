@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\DataObjects\Beneficiario as DataObjectsBeneficiario;
 use Medoo\Medoo;
 
 class Beneficiario
@@ -39,6 +40,23 @@ class Beneficiario
         }
     }
 
+    public function update(int $id, DataObjectsBeneficiario $data)
+    {
+        $this->db->update(self::TABLE, [
+            "ape1" => mb_strtoupper($data->ape1),
+            "ape2" => $data->ape2
+                ? mb_strtoupper($data->ape2)
+                : null,
+            "nom1" => mb_strtoupper($data->nom1),
+            "nom2" => $data->nom2
+                ? mb_strtoupper($data->nom2)
+                : null,
+            "tipo_doc" => $data->tipo_doc->value,
+        ], [ "id" => $id ]);
+       
+        return true;
+    }
+
     /**
      * Selecciona todos los los beneficiarios para un titular.
     */
@@ -46,9 +64,8 @@ class Beneficiario
     {
         try {
             return $this->db->select(self::TABLE, [
-                "nombre" => Medoo::raw(
-                    "CONCAT_WS(' ', <nom1>, <nom2>, <ape1>, <ape2>)"
-                ), "id", "documento", "tipo_doc", "parentesco", "sexo", "fecha_nac"
+                "nom1", "nom2", "ape1", "ape2", "id", "documento", 
+                "tipo_doc", "parentesco", "sexo", "fecha_nac"
             ], [
                 "titular_id" => $titular
             ]);
