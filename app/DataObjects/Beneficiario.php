@@ -15,6 +15,7 @@ class Beneficiario {
         public readonly string $parentesco,
         public readonly TipoDocumentos $tipo_doc,
         public readonly int|string $documento,
+        public readonly int|string $titular_id, 
         // Valores por defecto
         public readonly ?string $nom2 = null,
         public readonly ?string $ape2 = null,

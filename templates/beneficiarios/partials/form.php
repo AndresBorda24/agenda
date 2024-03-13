@@ -2,7 +2,7 @@
   <template x-teleport="#new-beneficiario-container">
     <button
     type="button"
-    @click="open"
+    @click="open()"
     :class="{
       'btn btn-sm px-4 py-1 shadow': true,
       'btn btn-warning': canAddMore,
