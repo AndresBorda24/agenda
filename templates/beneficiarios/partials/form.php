@@ -76,7 +76,6 @@
             <input
             id="parentesco"
             required
-            :disabled="isEdit"
             placeholder="Requerido"
             x-model="state.parentesco"
             type="text"

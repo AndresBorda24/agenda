@@ -52,6 +52,7 @@ class Beneficiario
                 ? mb_strtoupper($data->nom2)
                 : null,
             "tipo_doc" => $data->tipo_doc->value,
+            "parentesco" => mb_strtoupper($data->parentesco)
         ], [ "id" => $id ]);
        
         return true;
