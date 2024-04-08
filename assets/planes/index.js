@@ -6,6 +6,8 @@ import planes from "./components/planes";
 import regalo from "./components/regalo";
 import pendiente from "./components/pendiente";
 
+import "./components/tooltips";
+
 document.addEventListener('alpine:init', () => {
     Alpine.data("mp", mp);
     Alpine.data("Tabs", tabs);
