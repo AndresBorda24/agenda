@@ -18,13 +18,18 @@
         <h1  class="fs-5 text-primary">Listado de beneficiarios</h1>
         <div id="new-beneficiario-container" class="mb-4"> </div>
 
-        <section class="d-flex align-items-center mb-4 p-2 small border-start border-5 border-danger rounded-end shadow" style="background-color: #ffdede;">
+        <section class="d-flex align-items-center mb-4 gap-3 p-2 small border-start border-5 border-danger rounded-end shadow" style="background-color: #ffdede;">
           <?= $this->fetch("./icons/sign.php", [
             "props" => 'style="min-width: 55px; height:60px;"'
           ]) ?>
+          <div>
+            <p class="mb-1">
+              Una vez agregado el beneficiario <b>no</b> se podrán modificar algunos campos ni tampoco se podrá eliminar del listado.</p>
+            <p class="mb-0">
+              Para realizar estos cambios debes realizar tu solicitud a <a href="mailto:fidelizacion@asotrauma.com.co" class="fw-bold text-decoration-none text-dark">fidelizacion@asotrauma.com.co</a>.
+            </p>
+          </div>
           <span>
-            Una vez agregado no se podr&aacute; modificar la informaci&oacute;n del
-            beneficiario y tampoco se podr&aacute; eliminar del listado
           </span>
         </section>
 
