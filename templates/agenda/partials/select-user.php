@@ -14,12 +14,15 @@
     <option value="<?= $this->user()->info->documento ?>" data-tipo="T">
       <?= $this->user()->fullName() ?>
     </option>
-    <?php if( $this->user()->pago?->isValid() ): ?>
-      <optgroup label="Beneficiarios">
-        <?php foreach ($beneficiarios as $b): ?>
-          <option data-tipo="B" value="<?= $b['documento'] ?>"><?= $b['nombre']?></option>
-        <?php endforeach ?>
-      </optgroup>
-    <?php endif ?>
+    <optgroup label="Beneficiarios">
+      <?php foreach ($beneficiarios as $b): ?>
+        <option data-tipo="B" value="<?= $b['documento'] ?>"><?= implode(" ", [
+          $b['nom1'],
+          $b['nom2'],
+          $b['ape1'],
+          $b['ape2'],
+        ])?></option>
+      <?php endforeach ?>
+    </optgroup>
   </select>
 </div>

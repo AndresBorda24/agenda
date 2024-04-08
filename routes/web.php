@@ -38,8 +38,8 @@ return function(App $app) {
                 // ->add(PagoValidoMiddleware::class);
 
             $app->get("/beneficiarios", [IndexController::class, "beneficiarios"])
-                ->setName("beneficiarios")
-                ->add(PagoValidoMiddleware::class);
+                ->setName("beneficiarios");
+                // ->add(PagoValidoMiddleware::class);
 
             $app->get("/activar-tarjeta", [IndexController::class, "activarTarjeta"])
                 ->setName("activar-tarjeta")

@@ -42,6 +42,7 @@
         </div>
 
         <?= $this->fetch("./agenda/partials/subir-archivos.php") ?>
+        <?= $this->fetch("./agenda/partials/observacion.php") ?>
         <?= $this->fetch("./agenda/partials/confirmar.php") ?>
       </div>
     </div>

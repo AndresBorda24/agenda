@@ -97,7 +97,7 @@ class BeneficiarioController
         }
     }
 
-    public function find(Response $response, UserInterface $user, int $doc): Response 
+    public function find(Response $response, UserInterface $user, int|string $doc): Response 
     {
         $ben = $this->beneficiario->find($doc);
 

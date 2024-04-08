@@ -50,7 +50,8 @@ export default () => ({
             num_histo: Alpine.store("agenda").userData.num_histo,
             apellido1: Alpine.store("agenda").userData.ape1,
             apellido2: Alpine.store("agenda").userData.ape2,
-            direccion: Alpine.store("agenda").userData.direccion
+            direccion: Alpine.store("agenda").userData.direccion,
+            observacion: Alpine.store("agenda").observacion,
         };
     },
 
