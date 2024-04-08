@@ -29,7 +29,6 @@
     left: -2px;
     padding: 1rem;
     content: "\2714";
-/*    color: whitesmoke;*/
     position: absolute;
     border-radius: 0 0 5px 0;
     background-color: var(--bs-yellow);
@@ -81,7 +80,6 @@
 .planes-container::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
   border-radius: 3px;
-
 }
 
 @supports not selector(::-webkit-scrollbar) {
