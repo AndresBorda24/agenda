@@ -1,63 +1,69 @@
 @import "./root.css";
 
 .planes-container {
-    display: flex;
-    overflow-x: auto;
-    gap: 45px 30px;
+  display: grid;
+  gap: 45px 30px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+
 .planes-item {
-    cursor: pointer;
-    flex-grow: 1;
-    user-select: none;
-    max-width: 400px;
-    min-width: 280px;
-    transition: scale 100ms ease-out,
-                box-shadow 150ms ease-in;
+  cursor: pointer;
+  flex-grow: 1;
+  min-width: 280px;
+  user-select: none;
+  transition: scale 100ms ease-out,
+              box-shadow 150ms ease-in;
 }
+
 .planes-item:hover {
-    z-index: 1;
-    box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, .2);
+  z-index: 1;
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, .2);
 }
+
 .planes-item-checked {
-    z-index: 2;
-    scale: 1.03 !important;
-    position: relative;
-    box-shadow: 0px 15px 15px 0px rgba(0, 0, 0, .3) !important;
+  z-index: 2;
+  /* scale: 1.03 !important; */
+  outline: solid #008fee 2px;
+  position: relative;
+  box-shadow: 0px 15px 15px 0px rgba(0, 0, 0, .3) !important;
 }
+
 .planes-item-checked:before {
-    top: -2px;
-    left: -2px;
-    padding: 1rem;
-    content: "\2714";
-    position: absolute;
-    border-radius: 0 0 5px 0;
-    background-color: var(--bs-yellow);
+  top: -2px;
+  left: -2px;
+  padding: 1rem;
+  content: "\2714";
+  position: absolute;
+  border-radius: 0 0 5px 0;
+  background-color: var(--bs-yellow);
 }
+
 .planes-item-checked:after {
-    padding: 5px;
-    font-size: 10px;
-    content: "\2605  Seleccionado \2605";
-    text-align: center;
-    color: whitesmoke;
-    position: relative;
-    background-color: var(--bs-primary);
+  padding: 5px;
+  font-size: 10px;
+  content: "\2605  Seleccionado \2605";
+  text-align: center;
+  color: whitesmoke;
+  position: relative;
+  background-color: var(--bs-primary);
 }
 
 .planes-next-btn {
-    margin: 0 auto;
-    display: block;
-    overflow: hidden;
-    border: 1px solid;
-    color: whitesmoke;
-    padding: 1rem 2rem;
-    border-radius: 10px;
-    transition: all 150ms;
-    background-color: var(--bs-primary);
+  margin: 0 auto;
+  display: block;
+  overflow: hidden;
+  border: 1px solid;
+  color: whitesmoke;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  transition: all 150ms;
+  background-color: var(--bs-primary);
 }
+
 .planes-next-btn:hover {
-    scale: 1.1;
-    border-radius: 20px;
-    background-color: var(--bs-secondary);
+  scale: 1.1;
+  border-radius: 20px;
+  background-color: var(--bs-secondary);
 }
 
 /* Scroll bar */
@@ -84,7 +90,12 @@
 
 @supports not selector(::-webkit-scrollbar) {
   .planes-container {
-    scrollbar-color: var(--sb-thumb-color)
-                     var(--sb-track-color);
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
+@media (max-width: 767px) {
+  .planes-container {
+    gap: 30px;
   }
 }

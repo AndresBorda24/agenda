@@ -9,7 +9,7 @@
 x-data="Planes"
 x-transition
 @submit.prevent="() => false && confirmPlan()">
-  <div class="planes-container align-items-baseline p-4 pb-5">
+  <div class="planes-container d-flex flex-wrap d-lg-grid align-items-baseline p-4 pb-5">
     <?php foreach($planes as $plan): ?>
       <?= $this->fetch("./planes/partials/plan/plan.php", [
         "plan" => $plan
