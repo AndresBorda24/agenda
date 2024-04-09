@@ -23,7 +23,6 @@
 .planes-item-checked {
   z-index: 2;
   /* scale: 1.03 !important; */
-  outline: solid #008fee 2px;
   position: relative;
   box-shadow: 0px 15px 15px 0px rgba(0, 0, 0, .3) !important;
 }
