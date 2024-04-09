@@ -5,6 +5,7 @@ import tippy from 'tippy.js';
 tippy.setDefaultProps({allowHTML: true, trigger: 'mouseenter click'})
 
 document.addEventListener("DOMContentLoaded", () => {
+    tippy("#alerta-gow-micrositio");
     tippy(".exclusiones-tooltip", {
         content: document.getElementById("exclusiones-tmp")?.innerHTML
     });

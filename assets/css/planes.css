@@ -9,7 +9,7 @@
 .planes-item {
   cursor: pointer;
   flex-grow: 1;
-  min-width: 280px;
+  min-width: 210px;
   user-select: none;
   transition: scale 100ms ease-out,
               box-shadow 150ms ease-in;
@@ -66,33 +66,7 @@
   background-color: var(--bs-secondary);
 }
 
-/* Scroll bar */
-.planes-container {
-  --sb-track-color: #f7f7f7;
-  --sb-thumb-color: #cacaca;
-  --sb-size: 4px;
-}
 
-.planes-container::-webkit-scrollbar {
-  width: var(--sb-size);
-  height: var(--sb-size);
-}
-
-.planes-container::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 3px;
-}
-
-.planes-container::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 3px;
-}
-
-@supports not selector(::-webkit-scrollbar) {
-  .planes-container {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-  }
-}
 
 @media (max-width: 767px) {
   .planes-container {

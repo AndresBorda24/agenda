@@ -18,7 +18,7 @@ x-transition
   </div>
   <hr>
 
-  <?php if(false): ?>
+  <?php if(false):  // En este bloque se hacia lo de mercado libre  ?>
     <?= $this->fetch("./planes/partials/checks.php") ?>
 
     <div class="mt-3">
@@ -33,13 +33,6 @@ x-transition
       </button>
     </div>
   <?php else: ?>
-    <section class="mx-auto d-flex align-items-center mb-4 p-2 small border-start border-5 border-danger rounded-end shadow" style="background-color: #ffdede; max-width: 700px;">
-      <?= $this->fetch("./icons/sign.php", [
-        "props" => 'style="min-width: 55px; height:60px;"'
-      ]) ?>
-      <span class="fs-6 px-4">
-        Para realizar la compra de tu plan, por favor dirígete <span class="fw-bold">directamente a la Clínica</span>. Lamentamos las molestias.
-      </span>
-    </section>
+    <?= $this->fetch("./planes/partials/plan/gou-micrositio-ayuda.php") ?>
   <?php endif ?>
 </form>
