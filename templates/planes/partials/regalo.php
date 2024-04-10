@@ -1,25 +1,35 @@
-<hr>
 <div x-data="Regalo">
   <form
     class="mb-4"
     @submit.prevent="save"
   >
     <div style="max-width: 300px;" class="mx-auto">
-      <input
-        required
-        type="text"
-        id="gift-code"
-        maxlength="6"
-        minlength="6"
-        x-model="code"
-        placeholder="Escribe aqu&iacute; tu código"
-        class="form-control form-control-sm text-center d-block mb-3 shadow"
-      >
+      <fieldset id="gift-code" class="d-flex justify-content-center gap-2 mt-2">
+        <template x-for="i in 6">
+          <input
+            required
+            type="text"
+            name="gift-code"
+            maxlength="1"
+            minlength="1"
+            :value="code[i - 1]"
+            @keydown="onkeydown"
+            @keyup.left="() => document.querySelector(`[data-index='${i-2}']`)?.focus();"
+            @keyup.right="() => document.querySelector(`[data-index='${i}']`)?.focus();"
+            :data-index="i - 1"
+            autocomplete="off"
+            class="input-code input-code-6 mb-3 shadow"
+          >
+        </template>
+      </fieldset>
     </div>
     <button
       type="submit"
       class="btn btn-warning btn-sm d-block mx-auto shadow"
-    > Redimir </button>
+    >
+      Redimir
+      <span><?= $this->fetch("./icons/prize.php") ?></span>
+    </button>
   </form>
 
   <template x-if="success">

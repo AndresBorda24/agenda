@@ -5,24 +5,13 @@ import { successAlert, errorAlert } from "@/partials/alerts";
 import { removeInvalid, setInvalid } from "@/partials/form-validation";
 
 export default () => ({
-    code: "",
+    code: ['','','','','',''],
     success: false,
-
-    init() {
-        this.$watch("tab", (tab) => {
-            if (tab == 4) {
-                setTimeout(() => document
-                    .getElementById("gift-code")?.focus()
-                    , 50
-                );
-            }
-        });
-    },
 
     async save() {
         removeInvalid();
         showLoader();
-        const [e, data] = await redimir(this.code);
+        const [e, data] = await redimir(this.code.join(""));
         hideLoader();
 
         if (e) {
@@ -32,6 +21,25 @@ export default () => ({
 
         successAlert("Código redimido correctamente!");
         this.success = true;
+    },
+
+    onkeydown(e) {
+        const index = parseInt(e.target.getAttribute("data-index"));
+
+        if (e.keyCode === 8) {
+            e.preventDefault();
+            if (this.code[ index ] == "")
+                document.querySelector(`[data-index="${index - 1}"]`)?.focus();
+
+            this.code[ index ] = "";
+            return;
+        }
+
+        if (/[\w\n]/.test(e.key) && e.key.length === 1) {
+            e.preventDefault();
+            this.code[ index ] = e.key;
+            document.querySelector(`[data-index="${index + 1}"]`)?.focus();
+        }
     },
 
     handleError(e) {

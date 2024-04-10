@@ -65,7 +65,23 @@
   background-color: var(--bs-secondary);
 }
 
+.input-code {
+	width: 2rem;
+	border: 1px solid #ccc;
+	padding: 3px;
+	display: inline-block;
+  font-size: 1.7rem;
+  text-align: center;
+  border-radius: 3px;
+}
 
+.input-code:nth-of-type(3) {
+  margin-right: 10px;
+}
+
+.input-code:focus {
+  outline: 1px solid #b4b4b4;
+}
 
 @media (max-width: 767px) {
   .planes-container {

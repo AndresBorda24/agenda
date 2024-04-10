@@ -57,6 +57,10 @@ return function(App $app) {
                     ->setName("planes")
                     ->add(NoPagoMiddleware::class);
 
+                $app->get("/redimir-regalo", [IndexController::class, "planesRegalo"])
+                    ->setName("planes.regalo")
+                    ->add(NoPagoMiddleware::class);
+
                 $app->get("/fbk", [IndexController::class, "planesResponse"])
                     ->setName("planes.feedback");
 
