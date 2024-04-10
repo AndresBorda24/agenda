@@ -56,8 +56,8 @@ class IndexController
     }
 
     public function citas(
-        Response $response, 
-        Beneficiario $beneficiario, 
+        Response $response,
+        Beneficiario $beneficiario,
         UserInterface $user
     ): Response {
         $beneficiarios = $beneficiario->all( $user->id() );
@@ -129,6 +129,14 @@ class IndexController
                 "pref" => $pago,
                 "planes" => $plan->getAll($user->isFromIntranet())
             ]);
+    }
+
+    public function planesRegalo(Response $response, UserInterface $user): Response
+    {
+        $this->view->addAttribute("user", $user);
+        return $this
+            ->view
+            ->render($response, "planes/regalo/index.php");
     }
 
     public function planesResponse(

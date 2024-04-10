@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?= $this->loadAssets("planes/app") ?>
   <!-- Mercado Pago -->
-  <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <!-- <script src="https://sdk.mercadopago.com/js/v2"></script> -->
   <title>Planes</title>
 </head>
 <body>
@@ -43,21 +43,6 @@
       <section x-cloak x-show="tab === 3" x-transition.opacity>
         <h2 class="text-center text-primary">Selecciona un medio de pago.</h2>
         <?= $this->fetch("./planes/partials/medios-pago.php") ?>
-      </section>
-
-      <section
-        x-show="tab === 4"
-        x-cloak x-transition.opacity
-        style="max-width: 700px;"
-        class="mx-auto"
-      >
-        <button
-          @click="tab = 2"
-          style="font-size: 10px;"
-          class="btn btn-sm btn-dark"
-        > < Volver</button>
-        <h2 class="text-center text-primary mt-1">Tarjeta Regalo</h2>
-        <?= $this->fetch("./planes/partials/regalo.php") ?>
       </section>
     </section>
   </div>

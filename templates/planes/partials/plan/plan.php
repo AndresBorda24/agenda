@@ -10,7 +10,8 @@
   ]) ?>
 
   <?= $this->fetch("./planes/partials/plan/beneficios.php", [
-    "beneficios" => $plan["beneficios"]
+    "beneficios" => $plan["beneficios"],
+    "planId" => $plan["id"]
   ]) ?>
 
   <div class="text-muted">
