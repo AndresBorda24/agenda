@@ -23,6 +23,9 @@ export default () => ({
         this.success = true;
     },
 
+    /**
+     * @param {KeyboardEvent} e
+     */
     onkeydown(e) {
         const index = parseInt(e.target.getAttribute("data-index"));
 

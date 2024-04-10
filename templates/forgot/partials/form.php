@@ -27,7 +27,7 @@
           <template x-for="i in 6">
             <input
               required
-              type="text"
+              type="tel"
               name="cod"
               maxlength="1"
               minlength="1"

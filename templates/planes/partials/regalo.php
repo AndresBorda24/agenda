@@ -7,7 +7,7 @@
       <fieldset id="gift-code" class="d-flex justify-content-center gap-2 mt-2">
         <input
           required
-          type="text"
+          type="tel"
           name="gift-code"
           maxlength="1"
           minlength="1"
@@ -23,7 +23,7 @@
         <template x-for="i in 5">
           <input
             required
-            type="text"
+            type="tel"
             name="gift-code"
             maxlength="1"
             minlength="1"
