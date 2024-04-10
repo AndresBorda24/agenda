@@ -1,15 +1,10 @@
 <hr>
 
-<button
-  @click="tab = 4"
-  class="btn btn-sm btn-warning d-block mx-auto shadow"
->Tengo un c&oacute;digo de regalo!</button>
-
 <form
 x-data="Planes"
 x-transition
 @submit.prevent="() => false && confirmPlan()">
-  <div class="planes-container d-flex flex-wrap d-lg-grid align-items-baseline p-4 pb-5">
+  <div class="planes-container d-flex flex-wrap d-lg-grid align-items-baseline p-4 pt-2 pb-5">
     <?php foreach($planes as $plan): ?>
       <?= $this->fetch("./planes/partials/plan/plan.php", [
         "plan" => $plan
@@ -18,7 +13,7 @@ x-transition
   </div>
   <hr>
 
-  <?php if(false):  // En este bloque se hacia lo de mercado libre  ?>
+  <?php if(false):  // En este bloque se hacia lo de mercado libre :( ?>
     <?= $this->fetch("./planes/partials/checks.php") ?>
 
     <div class="mt-3">
