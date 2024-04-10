@@ -5,18 +5,33 @@
   >
     <div style="max-width: 300px;" class="mx-auto">
       <fieldset id="gift-code" class="d-flex justify-content-center gap-2 mt-2">
-        <template x-for="i in 6">
+        <input
+          required
+          type="text"
+          name="gift-code"
+          maxlength="1"
+          minlength="1"
+          :value="code[0]"
+          @keydown="onkeydown"
+          @keyup.left="() => document.querySelector(`[data-index='0']`)?.focus();"
+          @keyup.right="() => document.querySelector(`[data-index='1']`)?.focus();"
+          :data-index="0"
+          autocomplete="off"
+          autofocus
+          class="input-code input-code-6 mb-3 shadow"
+        >
+        <template x-for="i in 5">
           <input
             required
             type="text"
             name="gift-code"
             maxlength="1"
             minlength="1"
-            :value="code[i - 1]"
+            :value="code[i]"
             @keydown="onkeydown"
-            @keyup.left="() => document.querySelector(`[data-index='${i-2}']`)?.focus();"
-            @keyup.right="() => document.querySelector(`[data-index='${i}']`)?.focus();"
-            :data-index="i - 1"
+            @keyup.left="() => document.querySelector(`[data-index='${i-1}']`)?.focus();"
+            @keyup.right="() => document.querySelector(`[data-index='${i+1}']`)?.focus();"
+            :data-index="i"
             autocomplete="off"
             class="input-code input-code-6 mb-3 shadow"
           >
