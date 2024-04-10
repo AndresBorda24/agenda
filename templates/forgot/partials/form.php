@@ -21,16 +21,26 @@
           El C&oacute;digo se env&iacute;o al tel&eacute;fono:
           <span class="badge text-bg-primary" x-text="state.tel"></span>
         </span>
-        <label for="cod" class="form-label small">C&oacute;digo:</label>
-        <input
-        id="cod"
-        x-model="state.cod"
-        autofocus
-        required
-        minlength="4"
-        placeholder="Tu codigo secreto"
-        type="text"
-        class="form-control form-control-sm w-100 mb-2">
+
+
+        <fieldset id="cod" class="d-flex justify-content-center gap-2 mt-2">
+          <template x-for="i in 6">
+            <input
+              required
+              type="text"
+              name="cod"
+              maxlength="1"
+              minlength="1"
+              :value="state.cod[i - 1]"
+              @keydown="onkeydown"
+              @keyup.left="() => document.querySelector(`[data-index='${i-2}']`)?.focus();"
+              @keyup.right="() => document.querySelector(`[data-index='${i}']`)?.focus();"
+              :data-index="i - 1"
+              autocomplete="off"
+              class="input-code input-code-6 mb-3 shadow"
+            >
+          </template>
+        </fieldset>
 
         <label for="password" class="form-label small">Nueva Contrase&ntilde;a:</label>
         <input

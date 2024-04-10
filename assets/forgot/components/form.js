@@ -9,12 +9,17 @@ export default () => ({
     state: {
         doc: "",
         tel: null,
-        cod: null,
+        cod: ['','','','',''],
         password: "",
         confirm_password: ""
     },
     error: null,
     finished: false,
+
+    /** Obtiene el codigo bien formado a partir del array */
+    get code() {
+        return this.state.cod.join("");
+    },
 
     /**
      * Se genera el codigo en el backend y se obtiene el telefono al que se
@@ -43,7 +48,10 @@ export default () => ({
     async resetPass() {
         if (! this.checkPassword()) return;
         showLoader();
-        const [e, data] = await resetPasswd(this.state);
+        const [e, data] = await resetPasswd({
+            ... this.state,
+            cod: this.code,
+        });
         hideLoader();
 
         if (e) {
@@ -81,5 +89,28 @@ export default () => ({
         }
 
         this.resetPass();
-    }
+    },
+
+    /**
+     * Maneja los eventos de los inputs en el apartado de codigo
+     * @param {KeyboardEvent} e
+     */
+    onkeydown(e) {
+        const index = parseInt(e.target.getAttribute("data-index"));
+
+        if (e.keyCode === 8) {
+            e.preventDefault();
+            if (this.state.cod[ index ] == "")
+                document.querySelector(`[data-index="${index - 1}"]`)?.focus();
+
+            this.state.cod[ index ] = "";
+            return;
+        }
+
+        if (/[\w\n]/.test(e.key) && e.key.length === 1) {
+            e.preventDefault();
+            this.state.cod[ index ] = e.key;
+            document.querySelector(`[data-index="${index + 1}"]`)?.focus();
+        }
+    },
 });

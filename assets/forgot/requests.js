@@ -3,7 +3,7 @@ import ax from "@/partials/ax";
 /**
  * Se encarga de realzar la solicitud que genera el codigo de recuperacion
  *
- * @param {string} serial Documento de identidad del usuario
+ * @param {string} doc Documento de identidad del usuario
 */
 export async function startResetPasswd( doc ) {
     let _data = null;
@@ -20,8 +20,6 @@ export async function startResetPasswd( doc ) {
 
 /**
  * Se encarga de realzar la solicitud que genera el codigo de recuperacion
- *
- * @param {string} serial Documento de identidad del usuario
 */
 export async function resetPasswd( st ) {
     let _data = null;

@@ -1,5 +1,5 @@
 import "@/css/root.css";
-import "@/css/activar.css";
+import "@/css/planes.css";
 import Alpine from "alpinejs";
 import form from "./components/form";
 
