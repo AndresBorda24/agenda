@@ -22,10 +22,9 @@ class RegaloController
 
     public function __invoke(
         Response $response,
-        string $code,
-        UserInterface $user
-    ): Response
-    {
+        UserInterface $user,
+        string $code
+    ): Response {
         try {
             $c = $this->cr->find($code, "code");
 
@@ -41,8 +40,9 @@ class RegaloController
                     $pagoId = $this->pago->create(new CreatePagoInfo(
                         (int) $user->id(),
                         $c->plan_id,
+                        false,
                         \App\Enums\MpStatus::APROVADO->value,
-                        false
+                        0
                     ));
 
                     $this->pago->updateInfo(
