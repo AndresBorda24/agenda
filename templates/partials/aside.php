@@ -57,10 +57,19 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
     </a>
 
     <?php if(! $this->user()->pago?->isValid()): ?>
-      <a href="<?= $this->link("planes") ?>"
-      <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
-        <?= $this->fetch("./icons/plans.php") ?> Planes
-      </a>
+      <div class="border-top border-warning-subtle">
+        <span class="d-block small text-warning p-2"> Planes </span>
+        <div class="ps-4 d-flex flex-column gap-2">
+          <a href="<?= $this->link("planes") ?>"
+          <?= $this->isRoute("planes") ? 'class="is-active"' : '' ?>>
+            <?= $this->fetch("./icons/plans.php") ?> Ver Planes
+          </a>
+          <a href="<?= $this->link("planes.regalo") ?>"
+          <?= $this->isRoute("planes.regalo") ? 'class="is-active"' : '' ?>>
+            <?= $this->fetch("./icons/plans.php") ?> Código de Regalo
+          </a>
+        </div>
+      </div>
     <?php endif ?>
 
     <?php if(true): ?>
