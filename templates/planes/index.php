@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?= $this->loadAssets("planes/app") ?>
-  <!-- Mercado Pago -->
-  <!-- <script src="https://sdk.mercadopago.com/js/v2"></script> -->
   <title>Planes</title>
 </head>
 <body>
@@ -34,14 +32,14 @@
       </section>
 
       <section x-cloak x-show="tab === 2" x-transition.opacity>
-        <h2 class="text-center text-primary mt-3">Selecciona tu plan</h2>
+        <h2 class="text-center text-primary mt-3 fw-bold">Selecciona tu plan</h2>
         <?= $this->fetch("./planes/partials/plan/component.php", [
           "planes" => $planes
         ]) ?>
       </section>
 
       <section x-cloak x-show="tab === 3" x-transition.opacity>
-        <h2 class="text-center text-primary">Selecciona un medio de pago.</h2>
+        <h2 class="text-center text-primary fw-bold">Selecciona un medio de pago.</h2>
         <?= $this->fetch("./planes/partials/medios-pago.php") ?>
       </section>
     </section>
@@ -55,6 +53,7 @@
       <li>Dispositivos M&eacute;dicos.</li>
     </ul>
   </template>
+
   <?= $this->fetch("./partials/footer.php") ?>
   <?= $this->fetch("./partials/loader.php") ?>
 </body>

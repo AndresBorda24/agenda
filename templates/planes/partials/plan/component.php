@@ -1,10 +1,8 @@
-<hr>
-
 <form
 x-data="Planes"
 x-transition
 @submit.prevent="() => false && confirmPlan()">
-  <div class="planes-container d-flex flex-wrap d-lg-grid align-items-baseline p-4 pt-2 pb-5">
+  <div class="planes-container d-flex flex-wrap d-lg-grid align-items-baseline p-4 pt-2">
     <?php foreach($planes as $plan): ?>
       <?= $this->fetch("./planes/partials/plan/plan.php", [
         "plan" => $plan
@@ -27,7 +25,10 @@ x-transition
         Continuar
       </button>
     </div>
-  <?php else: ?>
-    <?= $this->fetch("./planes/partials/plan/gou-micrositio-ayuda.php") ?>
   <?php endif ?>
-</form>
+  </form>
+
+  <div class="mx-auto" style="max-width: 800px;">
+    <h5 class="fw-bold text-center">Elige una forma de pago</h5>
+    <?= $this->fetch("./planes/partials/plan/gou-micrositio-ayuda.php") ?>
+  </div>

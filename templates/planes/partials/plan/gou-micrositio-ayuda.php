@@ -2,8 +2,8 @@
   style="max-width: 700px;"
   class="mx-auto p-4 d-flex flex-column gap-3"
 >
-  <div class="d-flex flex-column flex-sm-row gap-2 rounded border bg-body-tertiary small align-items-center">
-    <div class="p-2 d-flex flex-column pe-sm-0 p-3 align-items-center">
+  <div class="d-flex flex-column flex-sm-row gap-2 small align-items-center">
+    <div class="p-2 d-flex flex-column align-items-center">
       <img width="80" class="object-fit-contain" src="/img/logo-gou.webp" alt="logo-gou">
       <span class="fw-bold text-nowrap">
         Importante
@@ -16,7 +16,8 @@
     </div>
     <a
       href="https://micrositios.goupagos.com.co/clinica-asotrauma-ma"
-      class="p-3 text-dark text-decoration-none position-relative"
+      class="p-4 border border-dark-subtle text-dark text-decoration-none position-relative bg-body-tertiary rounded"
+      style="border-style: dashed !important;"
     >
       <h5>Opción Micrositio Gou</h5>
       <p class="m-0 text-muted">
