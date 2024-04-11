@@ -6,6 +6,10 @@ namespace App\DataObjects;
 class UpdatePagoInfo
 {
     public function __construct(
+        /**
+         * Representa un id personalizado. Nada referente al id de la BD. Se
+         * puede poner el que sea necesario.
+        */
         public readonly string $id,
         public readonly ?string $start,
         public readonly string $status,
