@@ -37,11 +37,6 @@
           "planes" => $planes
         ]) ?>
       </section>
-
-      <section x-cloak x-show="tab === 3" x-transition.opacity>
-        <h2 class="text-center text-primary fw-bold">Selecciona un medio de pago.</h2>
-        <?= $this->fetch("./planes/partials/medios-pago.php") ?>
-      </section>
     </section>
   </div>
 
