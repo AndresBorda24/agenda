@@ -19,16 +19,15 @@
     style="min-height: 60vh;">
 
       <section
-      x-cloak style="max-width: 700px;"
-      x-show="tab === 1"
-      class="mx-auto"
-      x-transition.opacity>
+        x-cloak style="max-width: 700px;"
+        x-show="tab === 1"
+        class="mx-auto"
+        x-transition.opacity
+      >
         <h3 class="text-center text-primary mt-3">
           Ya Seleccionaste un plan anteriormente...
         </h3>
-        <?= $this->fetch("./planes/partials/pendiente.php", [
-          "pref" => $pref
-        ]) ?>
+        <?= $this->fetch("./planes/partials/pendiente.php") ?>
       </section>
 
       <section x-cloak x-show="tab === 2" x-transition.opacity>
