@@ -9,6 +9,7 @@ use App\Controllers\IndexController;
 use App\Middleware\PagoValidoMiddleware;
 use App\Controllers\Api\AuthController;
 use App\Controllers\Api\PagoController;
+use App\Controllers\GouMicrositioController;
 use App\Middleware\HasActiveCardMiddleware;
 use App\Middleware\NoPagoMiddleware;
 use App\Middleware\SetRouteContextMiddleware;
@@ -66,6 +67,10 @@ return function(App $app) {
 
                 $app->get("/feedback", [PagoController::class, "development"]);
             });
+
+            $app->get("/pagos/gou-micrositio", GouMicrositioController::class)
+                ->add(NoPagoMiddleware::class)
+                ->setName("pago.gow-micrositio");
         })->add(AuthMiddleware::class);
 
         $app->group("", function(Group $app) {

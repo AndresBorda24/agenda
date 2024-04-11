@@ -15,7 +15,7 @@
       </span>
     </div>
     <a
-      href="https://micrositios.goupagos.com.co/clinica-asotrauma-ma"
+      href="<?= $this->link('pago.gow-micrositio') ?>"
       class="p-4 border border-dark-subtle text-dark text-decoration-none position-relative bg-body-tertiary rounded"
       style="border-style: dashed !important;"
     >
