@@ -48,11 +48,11 @@ class RegaloController
                     $this->pago->updateInfo(
                         id: $pagoId,
                         data: new UpdatePagoInfo(
-                            "GIFT-$pagoId",
-                            date("Y-m-d"),
-                            \App\Enums\MpStatus::APROVADO->value,
-                            "REGALO",
-                            "TARJETA-REGALO"
+                            id: "GIFT-$pagoId",
+                            start: date("Y-m-d"),
+                            status: \App\Enums\MpStatus::APROVADO->value,
+                            type: "REGALO",
+                            detail: "TARJETA-REGALO"
                         )
                     );
 
