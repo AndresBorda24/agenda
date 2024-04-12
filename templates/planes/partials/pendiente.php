@@ -3,7 +3,7 @@
   <?php if ($user->hasPago()): ?>
     <section class="mb-3 small">
       <?= match ($user->pago->detail) {
-        "GOW_MICROSITIO" => $this->fetch("./planes/partials/pendientes/gou-micrositio.php"),
+        \App\Models\Pago::TYPE_MICROSITIO_GOU => $this->fetch("./planes/partials/pendientes/gou-micrositio.php"),
         default => $this->fetch("./profile/partials/plan-info.php")
       } ?>
     </section>

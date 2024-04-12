@@ -95,7 +95,13 @@ class ExternalController
         $this->db->action(function() use($userId, $data, $soporteName, &$error) {
             try {
                 $plan = $this->plan->find((int) $data["plan"]);
-                if (! $pagoId = $data["id"]) {
+                $pagoId = $data["id"];
+
+                $pago = (bool) $pagoId
+                    ? $this->pago->find((int) $pagoId)
+                    : null;
+
+                if ($pago === null || $pago['detail'] !== Pago::TYPE_MICROSITIO_GOU) {
                     $pagoId = $this->pago->create(new CreatePagoInfo(
                         userId: $userId,
                         envio:  false,

@@ -37,7 +37,7 @@ class GouMicrositioController
             $pago->updateInfo($pagoId, new UpdatePagoInfo(
                 id: "GOW_PENDIENTE_" . date("H:i:s"),
                 start: date("Y-m-d H:i:s"),
-                detail: "GOW_MICROSITIO",
+                detail: Pago::TYPE_MICROSITIO_GOU,
                 status: MpStatus::PENDIENTE->value,
                 type: "Efectivo"
             ));

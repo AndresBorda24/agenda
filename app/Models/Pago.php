@@ -14,6 +14,7 @@ class Pago
     public const VIEW = "vista_pagos_usuario";
     public const ASO_NOMINA = "ASO_NOMINA";
     public const ASO_PENDIENTE = "ASO_PENDIENTE";
+    public const TYPE_MICROSITIO_GOU = "GOU_MICROSITIO";
     public const PLAN_DAYS_PLAZO = 2;
 
     public function __construct(
