@@ -26,7 +26,7 @@
             <p class="mb-1">
               Una vez agregado el beneficiario <b>no</b> se podrán modificar algunos campos ni tampoco se podrá eliminar del listado.</p>
             <p class="mb-0">
-              Para realizar estos cambios debes realizar tu solicitud a <a href="mailto:fidelizacion@asotrauma.com.co" class="fw-bold text-decoration-none text-dark">fidelizacion@asotrauma.com.co</a>.
+              Para realizar estos cambios debes realizar tu solicitud a <a href="mailto:programafidelizacion@asotrauma.com.co" class="fw-bold text-decoration-none text-dark">programafidelizacion@asotrauma.com.co</a>.
             </p>
           </div>
           <span>

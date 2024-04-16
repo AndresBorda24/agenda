@@ -32,7 +32,7 @@
       >
         <span class="text-bg-warning rounded px-2 d-block mb-2" style="width: fit-content;">Importante:</span>
         <p class="text-muted border-bottom pb-2">
-          Si has realizado el pago, el dinero <b>NO</b> se reembolsará automáticamente, tendrás que realizar una solicitud a: <a class="fw-bold text-dark text-decoration-none" href="mailto:fidelizacion@asotrauma.com.co">fidelizacion@asotrauma.com.co</a>
+          Si has realizado el pago, el dinero <b>NO</b> se reembolsará automáticamente, tendrás que realizar una solicitud a: <a class="fw-bold text-dark text-decoration-none" href="mailto:programafidelizacion@asotrauma.com.co">programafidelizacion@asotrauma.com.co</a>
         </p>
         <button
           class="d-block btn btn-danger btn-sm mx-auto"
