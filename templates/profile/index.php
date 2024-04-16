@@ -33,6 +33,15 @@
     </main>
   </div>
 
+  <template id="exclusiones-tmp">
+    <ul class="my-3 ps-3">
+      <li>Ayudas diagn&oacute;sticas especializadas.</li>
+      <li>Material de osteos&iacute;ntesis.</li>
+      <li>Medicamentos.</li>
+      <li>Dispositivos M&eacute;dicos.</li>
+    </ul>
+  </template>
+
   <?= $this->fetch("./partials/footer.php") ?>
   <?= $this->fetch("./partials/loader.php") ?>
 </body>
