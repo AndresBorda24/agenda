@@ -14,6 +14,7 @@ class Pago
     public const VIEW = "vista_pagos_usuario";
     public const ASO_NOMINA = "ASO_NOMINA";
     public const ASO_PENDIENTE = "ASO_PENDIENTE";
+    public const TYPE_MICROSITIO_GOU = "GOU_MICROSITIO";
     public const PLAN_DAYS_PLAZO = 2;
 
     public function __construct(
@@ -58,13 +59,17 @@ class Pago
             }
 
             $this->db->update(self::TABLE, [
-                "type" => $data->type,
-                "quien" => $data->quien ?? Medoo::raw("<quien>"),
-                "status" => $data->status,
-                "detail" => $data->detail,
-                "soporte" => $data->soporte ?? Medoo::raw("<soporte>"),
-                "payment_id" => $data->id,
-                "created_at" => $data->start
+                "type"         => $data->type,
+                "status"       => $data->status,
+                "payment_id"   => $data->id,
+                "created_at"   => $data->start ?? Medoo::raw("NOW()"),
+                "envio"        => $data->envio ?? Medoo::raw("<envio>"),
+                "quien"        => $data->quien ?? Medoo::raw("<quien>"),
+                "plan_id"      => $data->planId ?? Medoo::raw("<plan_id>"),
+                "detail"       => $data->detail ?? Medoo::raw("<detail>"),
+                "usuario_id"   => $data->userId ?? Medoo::raw("<usuario_id>"),
+                "soporte"      => $data->soporte ?? Medoo::raw("<soporte>"),
+                "valor_pagado" => $data->valorPagado ?? Medoo::raw("<valor_pagado>")
             ], [ "id" => $id ]);
 
             return true;

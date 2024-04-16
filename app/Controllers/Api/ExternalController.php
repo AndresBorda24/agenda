@@ -95,20 +95,31 @@ class ExternalController
         $this->db->action(function() use($userId, $data, $soporteName, &$error) {
             try {
                 $plan = $this->plan->find((int) $data["plan"]);
-                $pagoId = $this->pago->create(new CreatePagoInfo(
-                    userId: $userId,
-                    envio:  false,
-                    planId: $plan->id,
-                    soporte: $soporteName,
-                    valorPagado: $plan->valor,
-                    status: \App\Enums\MpStatus::APROVADO->value,
-                    quien: (int) $data["quien"]
-                ));
+                $pagoId = $data["id"];
 
-                $this->pago->updateInfo($pagoId, new UpdatePagoInfo(
+                $pago = (bool) $pagoId
+                    ? $this->pago->find((int) $pagoId)
+                    : null;
+
+                if ($pago === null || $pago['detail'] !== Pago::TYPE_MICROSITIO_GOU) {
+                    $pagoId = $this->pago->create(new CreatePagoInfo(
+                        userId: $userId,
+                        envio:  false,
+                        planId: $plan->id,
+                        soporte: $soporteName,
+                        valorPagado: $plan->valor,
+                        status: \App\Enums\MpStatus::APROVADO->value,
+                        quien: (int) $data["quien"]
+                    ));
+                }
+
+                $this->pago->updateInfo((int) $pagoId, new UpdatePagoInfo(
                     id: "PAGO-PRESENCIAL-$pagoId",
                     type: $data["medioPago"],
                     start: date("Y-m-d"),
+                    planId: $plan->id,
+                    soporte: $soporteName,
+                    valorPagado: $plan->valor,
                     detail: $data["referencia"],
                     status: \App\Enums\MpStatus::APROVADO->value
                 ));

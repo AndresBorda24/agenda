@@ -9,26 +9,11 @@ x-transition
       ]) ?>
     <?php endforeach ?>
   </div>
-  <hr>
-
-  <?php if(false):  // En este bloque se hacia lo de mercado libre :( ?>
-    <?= $this->fetch("./planes/partials/checks.php") ?>
-
-    <div class="mt-3">
-      <div
-        style="max-width: 280px;"
-        class="info-plan bg-dark rounded small mx-auto shadow mb-2"
-      ></div>
-      <button
-      type="submit"
-      class="planes-next-btn">
-        Continuar
-      </button>
-    </div>
-  <?php endif ?>
-  </form>
-
-  <div class="mx-auto" style="max-width: 800px;">
-    <h5 class="fw-bold text-center">Elige una forma de pago</h5>
-    <?= $this->fetch("./planes/partials/plan/gou-micrositio-ayuda.php") ?>
+</form>
+<hr>
+<div class="mx-auto" style="max-width: 800px;">
+  <h5 class="fw-bold text-center">Elige una forma de pago</h5>
+  <div class="d-grid gap-3">
+    <?= $this->fetch("./planes/partials/medios-pago/gou-micrositio.php") ?>
   </div>
+</div>

@@ -53,6 +53,9 @@ body {
 }
 .link-hover:hover {scale: 0.95}
 
+.border-dashed {
+    border-style: dashed !important;
+}
 
 .aside {
     gap: 5px;

@@ -111,22 +111,10 @@ class IndexController
     {
         /** @var \App\Contracts\UserInterface */
         $user = $this->auth->user();
-        $pago = null;
-
-        if ($user->hasPago()) {
-            $pago = match($user->pago->status) {
-                /* Si es ASO_PENDIENTE, lo que buscamos es la referencia, no el pago */
-                \App\Models\Pago::ASO_PENDIENTE => $mps->getPreference($user->pago->payment_id),
-                \App\Models\Pago::ASO_NOMINA => null,
-                default => $mps->getPayment($user->pago->payment_id)
-            };
-        }
-
         $this->view->addAttribute("user", $user);
         return $this
             ->view
             ->render($response, "planes/index.php", [
-                "pref" => $pago,
                 "planes" => $plan->getAll($user->isFromIntranet())
             ]);
     }
