@@ -8,6 +8,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use Slim\Routing\RouteContext;
 
 class NoPagoMiddleware implements MiddlewareInterface
 {
@@ -20,6 +21,8 @@ class NoPagoMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        return (new Re(302))->withHeader('Location', '/home');
+        $context = RouteContext::fromRequest($request);
+
+        return (new Re(302))->withHeader('Location', $context->getRouteParser()->urlFor("home"));
     }
 }

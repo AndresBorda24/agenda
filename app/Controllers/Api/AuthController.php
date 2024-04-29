@@ -7,6 +7,7 @@ use App\Auth;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
+use Slim\Routing\RouteContext;
 
 use function App\responseJSON;
 
@@ -39,12 +40,13 @@ class AuthController
         }
     }
 
-    public function logout(Response $response): Response
+    public function logout(Request $request, Response $response): Response
     {
         $this->auth->logOut();
+        $context = RouteContext::fromRequest($request);
 
         return $response
             ->withStatus(302)
-            ->withHeader("Location", "/login");
+            ->withHeader("Location", $context->getRouteParser()->urlFor("login"));
     }
 }

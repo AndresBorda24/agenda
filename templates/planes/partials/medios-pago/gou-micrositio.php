@@ -4,7 +4,7 @@
 >
   <div class="d-flex flex-column flex-sm-row gap-2 small align-items-center">
     <div class="p-2 d-flex flex-column align-items-center">
-      <img width="80" class="object-fit-contain" src="/img/logo-gou.webp" alt="logo-gou">
+      <img width="80" class="object-fit-contain" src="<?= $this->asset("/img/logo-gou.webp") ?>" alt="logo-gou">
       <span class="fw-bold text-nowrap">
         Importante
         <span

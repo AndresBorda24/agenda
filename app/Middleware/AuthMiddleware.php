@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Routing\RouteContext;
 
 use function App\responseJSON;
 
@@ -26,13 +27,14 @@ class AuthMiddleware implements MiddlewareInterface
             return $handler->handle($request->withAttribute('user', $user));
         }
 
+        $context = RouteContext::fromRequest($request);
         $isAPI = preg_match("#^/api/.*#", $request->getUri()->getPath());
         if ($isAPI) {
             return responseJSON(new Response(401), [
-                "location" => "/login"
+                "location" => $context->getRouteParser()->urlFor("login")
             ], 401);
         }
 
-        return (new Response(302))->withHeader('Location', '/login');
+        return (new Response(302))->withHeader('Location', $context->getRouteParser()->urlFor("login"));
     }
 }

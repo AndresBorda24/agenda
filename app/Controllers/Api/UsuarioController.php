@@ -15,6 +15,7 @@ use App\Controllers\Validation\UpdateUserValidation;
 use App\Controllers\Validation\ResetPasswdValidation;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use Slim\Routing\RouteContext;
 
 use function App\responseJSON;
 
@@ -37,10 +38,11 @@ class UsuarioController
 
             $id = $this->usuario->create($data);
             $auth->logIn($this->usuario->find($id));
+            $context = RouteContext::fromRequest($request);
 
             return responseJSON($response, [
                 "__id" => $id,
-                "redirect" => "/planes"
+                "redirect" => $context->getRouteParser()->urlFor("planes")
             ]);
         } catch(\Exception|FormValidationException $e) {
             return responseJSON($response, [

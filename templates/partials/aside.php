@@ -90,7 +90,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
     <?php endif ?>
   </div>
 
-  <form action="/logout" method="post" id="logout-form" class="sticky-bottom pb-3">
+  <form action="<?= $this->link("logout") ?>" method="post" id="logout-form" class="sticky-bottom pb-3">
     <button type="submit" class="btn btn-danger border-0 btn-sm w-100">
       Cerrar Sesión!
     </button>
