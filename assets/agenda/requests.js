@@ -40,7 +40,11 @@ export async function getAgenda( med ) {
  * Realiza la peticion para (pre)Agendar un usuario
 */
 export async function agendar( data ) {
-    return await request(() => fox.post("/agenda/agendar", data));
+    return await request(() => fox.post("/agenda/agendar", data, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }));
 }
 
 /** Info basica del usuario en sesion */

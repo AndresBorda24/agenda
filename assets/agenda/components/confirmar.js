@@ -32,7 +32,7 @@ export default () => ({
 
     /** Arma el cuerpo de la solicitud */
     getBody() {
-        return {
+        const fields = {
             hora: Alpine.store("agenda").selectedHour,
             tipo: Alpine.store("agenda").selectedTipo,
             email: Alpine.store("agenda").userData.email,
@@ -51,8 +51,20 @@ export default () => ({
             apellido1: Alpine.store("agenda").userData.ape1,
             apellido2: Alpine.store("agenda").userData.ape2,
             direccion: Alpine.store("agenda").userData.direccion,
-            observacion: Alpine.store("agenda").observacion,
+            observacion: Boolean(Alpine.store("agenda").observacion)
+                ? Alpine.store("agenda").observacion
+                : '',
+            // Archivos
+            formula: Alpine.store('agenda').files.formula,
+            autorizacion: Alpine.store('agenda').files.auto
         };
+
+        console.log(fields);
+        const body = new FormData;
+
+        Object.keys(fields).forEach(k => body.append(k, fields[k]));
+
+        return body;
     },
 
     async handleClick() {
