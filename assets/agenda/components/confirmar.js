@@ -69,7 +69,9 @@ export default () => ({
 
     async handleClick() {
         const body = this.getBody();
+        Alpine.store('loader').show();
         const { data: aData, error } = await agendar( body );
+        Alpine.store('loader').hide();
 
 
         if (error) {
@@ -85,7 +87,7 @@ export default () => ({
 
         const x = document.getElementById("resumen-list")?.outerHTML;
         this.errorMessage = `
-            <p class="fs-4 text-success fw-bold">Cita Agendada</p>
+            <p class="fs-4 text-success fw-bold">Cita (Pre)Agendada</p>
             ${x ? '<div class="small">'+x+'</div>' : '<hr />'}
             <p class="text-muted">Tu Cita ha sido (pre)agendada. Te notificarémos cuando el proceso esté completo con la fecha y hora definitivas.♥</p>
             <a href="${this.misCitasLink}" class="btn btn-sm btn-dark">Continuar</a>

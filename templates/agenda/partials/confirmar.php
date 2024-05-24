@@ -12,16 +12,16 @@
     <p
       class="mx-auto text-center"
       style="max-width: 500px;"
-    > Por favor termina de seleccionar todas las opciones para continuar. 😊 </p>
+    > Por favor termina de seleccionar todas las opciones para continuar. </p>
   </template>
 
   <template x-if="canConfirmar">
-    <p>Revisa que todos los datos que has seleccionados estén bien. Luego da clic en "Confirmar Agendamiento".</p>
+    <p>Revisa que todos los datos que has seleccionados estén bien. Luego da clic en "Confirmar (Pre)Agendamiento".</p>
   </template>
 
   <template x-if="canConfirmar">
     <div style="max-width: 500px;" class="mx-auto p-4 bg-secondary text-light shadow-lg rounded">
-      <p class="mx-auto text-center fw-bold fs-5 fw-bold"> Agendamiento: </p>
+      <p class="mx-auto text-center fw-bold fs-5 fw-bold"> (Pre)Agendamiento: </p>
       <ul class="py-3 border-top border-bottom" id="resumen-list">
         <li>
           <span class="fw-bold">Dia:</span>
@@ -52,7 +52,7 @@
         @click="handleClick"
         x-show="canConfirmar" x-cloak
         class="btn btn-warning mx-auto block"
-      >Confirmar Agendamiento</button>
+      >Confirmar (Pre)Agendamiento</button>
     </div>
   </template>
 
