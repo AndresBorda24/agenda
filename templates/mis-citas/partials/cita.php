@@ -1,7 +1,7 @@
-<li 
-  x-data="Cita(cita)" 
+<li
+  x-data="Cita(cita)"
   x.bind="events"
-  :id="`cita-${cita.id}`" 
+  :id="`cita-${cita.id}`"
   :class="['shadow-sm overflow-auto', data.estado === 'C' && 'canceled', isPast && 'past']"
 >
   <span
@@ -48,7 +48,7 @@
       class="p-1 small border-start border-warning text-dark text-center bg-warning-subtle"
     >Pendiente</div>
   </template>
-  <template x-if="data.estado == 'P' && data.tipo.cod == 1">
+  <template x-if="data.estado == '1'">
     <div
       style="writing-mode: vertical-rl; text-orientation: mixed; margin-inline: -0.75rem; margin-right: -0.75rem;"
       class="p-1 small border-start border-warning text-dark text-center bg-warning-subtle"
