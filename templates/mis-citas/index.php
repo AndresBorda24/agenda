@@ -27,7 +27,7 @@
             <span x-text="totalCitas"></span>
           </span>
 
-          <ul class="citas-list my-3 p-0 align-items-baseline">
+          <ul class="citas-list my-3 p-0">
             <template x-for="cita in citasActivas" :key="cita.id + cita.estado">
               <?= $this->fetch("./mis-citas/partials/cita.php") ?>
             </template>
