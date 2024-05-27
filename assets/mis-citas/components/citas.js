@@ -4,15 +4,19 @@ import { getAuthCitas } from "@/mis-citas/requests"
 export default () => ({
     user: '',
     citas: [],
-    previous: false,
+    previous: true,
     canceled: false,
     tomorrow: new Date(),
 
     init() {
         this.tomorrow.setDate( this.tomorrow.getDate() + 1 );
         this.tomorrow.setHours(11, 59, 59);
-    
+
         this.$watch("user", async () => await this.getCitas());
+        const titular = document.querySelector(
+            'option[data-tipo="T"]'
+        )?.getAttribute('value');
+        if (titular) this.user = titular;
     },
 
     async getCitas() {
