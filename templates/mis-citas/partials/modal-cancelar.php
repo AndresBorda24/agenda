@@ -1,4 +1,4 @@
-<div 
+<div
   x-data="ModalCancelar"
   x-bind="events"
   x-cloak x-show="show" x-transition
@@ -7,7 +7,7 @@
   <div class="m-auto rounded bg-light w-100" style="max-width: 400px;">
     <header class="position-relative p-2">
       <span class="fw-bold">Cancelar Cita (Pre) Agendada</span>
-      <button 
+      <button
         @click="close"
         class="btn btn-sm btn-close position-absolute top-0 end-0 m-2"
       ></button>
@@ -28,21 +28,20 @@
 
       <form id="cancelacion-cita" @submit.prevent="cancel">
         <label for="motivo-cancelacion" class="form-label m-0">Motivo de Cancelación</label>
-        <select 
-          id="motivo-cancelacion" 
+        <select
+          id="motivo-cancelacion"
           x-model="state.motivo"
-          class="form-select form-select-sm mb-3" 
+          class="form-select form-select-sm mb-3"
           required
         >
           <option hidden value=""> Selecciona </option>
-          <option value="m1">Motivo de Cancelación 1</option>
-          <option value="m2">Motivo de Cancelación 2</option>
-          <option value="m3">Motivo de Cancelación 3</option>
+          <option value="30">Disponibilidad - No poder asistir</option>
+          <option value="11">Otros</option>
         </select>
-  
+
         <label for="desc-cancelacion" class="form-label m-0">Descripción:</label>
         <span id="desc-cancelacion-ayuda" class="d-block small text-muted">Longitud mínima de 5</span>
-        <textarea 
+        <textarea
           id="desc-cancelacion"
           x-model="state.desc"
           aria-labelledby="desc-cancelacion-ayuda"
@@ -56,13 +55,13 @@
     </div>
 
     <footer class="d-flex justify-content-between p-2 border-top">
-      <button 
-        class="btn btn-sm"         
+      <button
+        class="btn btn-sm"
         @click="close"
         type="button"
-      > Volver </button> 
-      <button 
-        class="btn btn-sm btn-danger" 
+      > Volver </button>
+      <button
+        class="btn btn-sm btn-danger"
         type="submit"
         form="cancelacion-cita"
       >Cancelar Cita</button>
