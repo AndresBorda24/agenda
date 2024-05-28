@@ -7,7 +7,11 @@
   <span
     x-text="data.tipo.nombre"
     class="position-absolute top-0 start-0 m-1 badge border"
-    :class="isPast ? 'text-bg-secondary' : (data.tipo.cod == 1) ? 'border-warning-subtle text-bg-warning' : 'border-success-subtle text-bg-success'"
+    :class="{
+      'opacity-75': isPast,
+      'border-warning-subtle text-bg-warning': (data.tipo.cod == 1),
+      'border-success-subtle text-bg-success': (data.tipo.cod != 1)
+    }"
   ></span>
 
   <div class="d-flex flex-column justify-content-start mt-3 flex-fill">
