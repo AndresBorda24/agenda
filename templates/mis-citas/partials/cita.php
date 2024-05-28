@@ -23,7 +23,7 @@
       <div class="mt-3">
         <button
           type="button" @click="confirm"
-          class="btn btn-danger block w-100 btn-small"
+          class="btn btn-danger block w-100 btn-small btn-sm"
         >Cancelar Cita</button>
       </div>
     </template>
