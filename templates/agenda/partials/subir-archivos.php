@@ -6,7 +6,7 @@
   <p class="small">
     Los archivos deben pesar como máximo <span class="fw-bold">5 mb</span> y ser un <span class="fw-bold">PDF</span>.
   </p>
-  <section class="d-flex gap-3 agenda-files justify-content-center">
+  <section class="d-flex flex-column flex-lg-row gap-3 agenda-files justify-content-center">
     <div>
       <label
         for="file-formula"
