@@ -78,7 +78,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
         <div class="ps-4 d-flex flex-column gap-2">
           <a href="<?= $this->link("agenda") ?>"
           <?= $this->isRoute("agenda") ? 'class="is-active"' : '' ?>>
-            <?= $this->fetch("./icons/agenda.php") ?> Agendamiento
+            <?= $this->fetch("./icons/agenda.php") ?> Solicita Tu Cita
           </a>
 
           <a href="<?= $this->link("mis-citas") ?>"
