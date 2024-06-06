@@ -9,7 +9,7 @@
       </template>
 
       <div
-        style="max-width: 270px;"
+        style="max-width: 70vw; width: 400px"
         class="mx-auto mb-1"
       >
         <img
@@ -31,7 +31,7 @@
           name="serial-tarjeta"
           style="max-width: 300px;"
           placeholder="Escribe aquí el código de tu tarjeta"
-          class="mx-auto d-block form-control form-control-sm mb-4 shadow"
+          class="mx-auto d-block form-control mb-4 shadow"
         >
         <button
           type="submit"

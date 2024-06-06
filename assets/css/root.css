@@ -20,6 +20,7 @@
     --blue-700: #055a8c;
     --blue-800: #094c72;
     --blue-900: #0c3953;
+    --bs-body-font-size: 18px;
 }
 body {
     font-family: 'Noto Sans', sans-serif;
@@ -76,7 +77,7 @@ body {
 .aside a {
     gap: 10px;
     display: flex;
-    font-size: 13px;
+    font-size: 16px;
     align-items: center;
     color: #dfdfdf;
     padding: 10px 15px;

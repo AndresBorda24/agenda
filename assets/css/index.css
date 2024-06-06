@@ -1,3 +1,7 @@
+:root {
+  --bs-body-font-size: 20px
+}
+
 #main-hero {
   background-image:
     linear-gradient(to top, #0c3953cf, #001a26cc),

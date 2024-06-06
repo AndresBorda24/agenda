@@ -37,7 +37,7 @@
           class="btn btn-close btn-close-white btn-sm"></button>
         </header>
 
-        <section class="p-3 bg-light-subtle small">
+        <section class="p-3 bg-light-subtle">
           <div class="small mb-2">
             <label
             class="form-label small m-0"
