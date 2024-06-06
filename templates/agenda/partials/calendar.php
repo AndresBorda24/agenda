@@ -18,7 +18,8 @@
         type="button"
         @click="goToday"
         style="margin-top: -3px;"
-        class="btn ms-3 btn-sm btn-outline-light position-absolute start-0 top-0"
+        class="btn ms-3 btn-sm  position-absolute start-0 top-0"
+        :class="isItToday ? 'btn-light disabled' : 'btn-outline-light'"
       > Hoy </button>
       <span x-text="visualMonth"></span>
       <span x-text="visualYear"></span>
