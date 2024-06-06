@@ -107,6 +107,7 @@ export default () => ({
         if (x) return false;
         if (Alpine.store("agenda").selectedTipo === "PARTIC") return true;
         if (Alpine.store("agenda").selectedEps === null) return false;
+        if (Alpine.store("agenda").selectedTipo === "MED_PREP") return true;
 
         return Alpine.store("agenda").files.formula instanceof File
             && Alpine.store("agenda").files.auto  instanceof File;

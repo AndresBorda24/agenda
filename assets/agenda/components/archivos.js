@@ -50,6 +50,6 @@ export default () => ({
     },
 
     get required() {
-        return Alpine.store("agenda").selectedTipo !== "PARTIC";
+        return ! ['PARTIC','MED_PREP'].includes(Alpine.store("agenda").selectedTipo);
     }
 });
