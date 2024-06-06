@@ -4,7 +4,8 @@ import axios, { AxiosError } from "axios";
 const ax = axios.create({
     baseURL: process.env.FOX_API,
     headers: {
-        'Content-Type': "application/json"
+        'Content-Type': "application/json",
+        "ngrok-skip-browser-warning": "69420"
     }
 });
 
