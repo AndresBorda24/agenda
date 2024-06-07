@@ -14,100 +14,75 @@
   <div class="d-flex p-1 main-container">
     <?= $this->fetch("./partials/aside.php") ?>
 
-    <main class="flex-grow-1 mx-auto" style="max-width: 700px;">
-      <section class="mt-3 px-3">
-        <p class="fw-bold text-primary mb-1">Un poco de informaci&oacute;n:</p>
-        <?= $this->fetch("./partials/carrusel/index.php", [
-          "img" => [
-            $this->asset("img/home/Carrusel-Consulta-externa_01.png"),
-            $this->asset("img/home/Carrusel-Consulta-externa_02.png"),
-            $this->asset("img/home/Carrusel-Consulta-externa_03.png"),
-            $this->asset("img/home/Carrusel-Consulta-externa_04.png"),
-            $this->asset("img/home/Carrusel-Consulta-externa_05.png"),
-          ]
-        ]) ?>
+    <main class="flex-grow-1 mx-auto px-4 overflow-auto" style="max-width: 1000px;">
+      <section class="pt-5">
+        <span class="d-block text-primary fs-1 text-center">Programa de Fidelización</span>
+        <div
+          class="d-flex d-lg-grid p-4 flex-column gap-4 rounded justify-content-center mx-auto bg-blue-50 shadow-lg align-items-center border border-primary-subtle"
+          style="grid-template-columns: 1fr 1fr; max-width: 700px; justify-items: center"
+        >
+          <span style="font-size: 10rem" class="text-primary flex-1 lh-1"><?= $this->fetch('./icons/heart.php') ?></span>
+          <div>
+            <p class="text-center text-dark-emphasis" style="text-wrap: balance">
+              Es un programa pensado para un momento de la vida, en el que se quiera acceder a nuestros servicios directamente sin intermediarios, de manera oportuna y personalizada brindando una atención segura, efectiva y con calidad.
+            </p>
+
+            <?php if(! $this->user()->pago?->isValid()): ?>
+              <a
+                href="<?= $this->link('planes') ?>"
+                class="d-block mx-auto btn btn-primary shadow-lg px-5"
+              >Ver los Planes</a>
+            <?php else: ?>
+              <span class="d-block mx-auto shadow-lg text-center text-bg-primary p-1 rounded">
+                Gracias por confiar en el <br>
+                Programa de Fidelización ♥.
+              </span>
+            <?php endif ?>
+          </div>
+        </div>
       </section>
+      <div class="table-responsive">
+        <?= $this->fetch('./index/partials/section-beneficios.php') ?>
+      </div>
+
+      <div
+        class="mx-auto text-bg-dark mb-4 p-4 text-center rounded shadow-lg"
+        style="max-width: 400px; margin-top: -8rem;"
+      >
+        <span class="text-warning" style="font-size: 3rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M15 14h3V9h-5V4H6v16h9z" opacity="0.3"/><path fill="currentColor" d="M15 22H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h8l6 6v6h-2V9h-5V4H6v16h9zm4-.34v-2.24l2.95 2.95l1.41-1.41L20.41 18h2.24v-2H17v5.66z"/></svg>
+        </span>
+        <p class="small"><span class="text-warning fs-5">¿Quieres más Información?</span> <br> <br> Puedes ver el Folleto del <i class="fw-bold">Programa de Fidelización</i> dando click en el siguiente botón:</p>
+        <a
+          href="<?= $this->asset('Folleto programa de fidelización.pdf') ?>"
+          class="d-block mx-auto btn btn-warning shadow-lg px-5"
+          target="_blank"
+        >
+          Folleto programa de fidelización
+        </a>
+      </div>
+
       <hr>
 
-      <article class="mx-auto py-3 px-4">
-        <p class="p-2 small">
-          La Clínica Asotrauma, en su compromiso ético y de desarrollo de las personas que atienden y que cuidan, ha construido una política de humanización que alineada con el modelo de atención se centra en el bienestar de los pacientes, entendiendo que en la Clínica trabajan personas que atienden personas; para dar cumplimiento a esta política desarrolla su programa de humanización que cuenta con 4 líneas de trabajo en las cuales se establecen estrategias para el logro de los objetivos trazados.
-        </p>
-
-        <p class="p-2 small">
-          Las líneas de trabajo en las que se desarrolla el programa de humanización son:
-        </p>
-
-        <ul class="small">
-          <li>
-            <span class="fw-bold">Línea de cultura de la humanización:</span>
-            <p>
-              Se trata de extender la cultura de la humanización en el conjunto del sistema. Para ello se propone sensibilizar al conjunto de profesionales utilizando la formación como estrategia de sensibilización y la participación como mecanismo de implicación.
-            </p>
-          </li>
-          <li>
-            <span class="fw-bold">Línea de calidez del trato:</span>
-            <p>
-              Responde a la necesidad de dar el mismo trato que nos gustaría recibir, teniendo presente la vulnerabilidad de las personas en sus contactos con el servicio de salud.
-            </p>
-          </li>
-          <li>
-            <span class="fw-bold">Línea de información y comunicación:</span>
-            <p>
-              La mejora de información y comunicación son pasos necesarios para facilitar el empoderamiento para la salud, entendido este como el proceso mediante el que las personas adquieren un mayor control sobre las decisiones y acciones que afectan a su salud.
-            </p>
-          </li>
-          <li>
-            <span class="fw-bold">Línea de adecuación del entorno:</span>
-            <p>
-              El desarrollo de una verdadera cultura de la humanización requiere que se den las condiciones en las que esta pueda desarrollarse, por lo que es necesario construir entornos facilitadores.
-            </p>
-          </li>
-        </ul>
-
-
-        <p class="p-2 small">
-          Entre estos entornos se incluyen los cambios en la infraestructura, los cambios organizativos, los servicios que es preciso contratar y la mejora del ambiente laboral.
-        </p>
-
-        <h4 class="text-secondary">Responsabilidad Social Empresarial</h4>
-        <p class="p-2 small">
-          Para la Clínica Asotrauma
-          S.A.S el enfoque de la responsabilidad social trasciende desde sus
-          objetivos misionales en contribuir con el desarrollo de la comunidad de
-          la cual hace parte.
-        </p>
-        <p class="p-2 small">
-          El mismo quehacer de la
-          medicina y los servicios de salud en general, son una alternativa de
-          vida orientada al servicio de los demás; sin embargo, no es sólo ésta
-          nuestra razón de ser y es por ello que todas nuestras actividades
-          llevan consigo la responsabilidad con el medio ambiente, con nuestros
-          colaboradores y su salud en el trabajo, con la calidad de nuestros
-          servicios como compromiso con el paciente de hacer cada vez mejor
-          nuestra tarea, la responsabilidad con el sistema de salud buscando cada
-          día ser más eficientes y aportar al equilibrio, buscando la
-          sostenibilidad financiera a largo plazo y seguir siendo una alternativa
-          de trabajo para miles de personas.
-        </p>
-        <p class="p-2 small">
-          Parece muy ambicioso buscar ser excelentes en tantos aspectos, sin embargo para
-          todos aquellos que hacemos parte de la Clínica Asotrauma es una
-          alternativa de vida buscar la excelencia al servicio de los demás.
-        </p>
-        <p class="p-2 small">
-          Así mismo, la clínica busca participar como un
-          ciudadano corporativo en beneficio de la comunidad. Con este enfoque
-          socialmente responsable, apoya de manera especial los programas de
-          fundaciones comprometidas con la desnutrición, el hambre y a mejorar la
-          seguridad alimentaria nutricional de los ibaguereños. También ofrece
-          conjunto de recursos: humanos, técnicos y financieros debidamente
-          dispuestos para atender a las necesidades sociales. Otros aspectos
-          desarrollados en el campo de la responsabilidad social son el cuidado y
-          el compromiso con el medio ambiente y programas de Recursos Humanos
-          dirigidos al bienestar de los colaboradores de la Clínica.
-        </p>
-      </article>
+      <div
+          class="d-flex mb-4 p-2 p-md-4 p-lg-5 gap-2 flex-lg-row flex-column rounded-2 justify-content-center mx-auto align-items-center text-light bg-blue-900 shadow"
+          style="width: fit-content;"
+        >
+          <div class="text-center">
+            <span style="font-size: 4rem" class="flex-1 lh-1"><?= $this->fetch('./icons/news.php') ?></span>
+            <span class="d-block fw-bold fs-3">Un poco de Información</span>
+            <hr>
+          </div>
+          <?= $this->fetch("./partials/carrusel/index.php", [
+            "img" => [
+              $this->asset("img/home2/img1.webp"),
+              $this->asset("img/home2/img2.webp"),
+              $this->asset("img/home2/img3.webp"),
+              $this->asset("img/home2/img4.webp"),
+              $this->asset("img/home2/img5.webp"),
+            ]
+          ]) ?>
+        </div>
     </main>
   </div>
 
