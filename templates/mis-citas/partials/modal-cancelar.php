@@ -6,7 +6,7 @@
 >
   <div class="m-auto rounded bg-light w-100" style="max-width: 400px;">
     <header class="position-relative p-2">
-      <span class="fw-bold">Cancelar Cita (Pre) Agendada</span>
+      <span class="fw-bold">Cancelar Solicitud de Cita</span>
       <button
         @click="close"
         class="btn btn-sm btn-close position-absolute top-0 end-0 m-2"
