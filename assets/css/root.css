@@ -1,6 +1,10 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap');*/
 @import "izitoast/dist/css/iziToast.min.css";
 @import "./bootstrap.css";
+@import '@fontsource/poppins/300.css';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
 
 :root {
     --bs-primary: #077E9D;
@@ -23,7 +27,8 @@
     --bs-body-font-size: 18px;
 }
 body {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Noto Sans', sans-serif; */
     background-image: radial-gradient(#025b7d 0.5px, transparent 0.5px);
     background-size: 29px 29px;
     background-color: #f7f7f7;
@@ -67,6 +72,7 @@ body {
     position: -webkit-sticky;
     top: 45px;
     padding: 20px 10px 0 10px;
+    min-width: 300px;
     width: 400px;
     max-width: 90vw;
     display: flex;
