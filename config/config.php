@@ -17,6 +17,7 @@ return [
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_general_ci',
     ],
+    "plan_colaborador_id" => $_ENV["PLAN_COLABORADOR_ID"],
     "assets" => [
         "templates"   => __DIR__ . "/.." . $_ENV["TEMPLATES"],
         "entrypoints" => __DIR__ . "/.." . $_ENV["ENTRYPOINTS_PATH"]
