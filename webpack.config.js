@@ -3,9 +3,8 @@ const dotenv = require('dotenv-webpack');
 const resolve = require('path').resolve;
 const { DefinePlugin } = require('webpack');
 
-require("dotenv").config({
-    path: `./.env${Encore.isProduction() ? '.prod' : ''}`
-});
+const envFile = `./.env${Encore.isProduction() ? '.prod2' : ''}`;
+require("dotenv").config({ path: envFile });
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -54,7 +53,7 @@ Encore
     // dotenv
     .addPlugin(new dotenv({
         ignoreStub: true,
-        path: `./.env${Encore.isProduction() ? '.prod' : ''}`
+        path: envFile
     }))
     .addPlugin(new DefinePlugin({
         __VUE_OPTIONS_API__: true,
