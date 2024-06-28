@@ -44,6 +44,8 @@
         <?= $this->fetch('./index/partials/section-beneficios.php') ?>
       </div>
 
+      <hr class="my-5">
+
       <div
         class="mb-4 p-2 p-md-4 p-lg-5 rounded-2 text-light bg-blue-800 shadow"
         style="width: fit-content;"
