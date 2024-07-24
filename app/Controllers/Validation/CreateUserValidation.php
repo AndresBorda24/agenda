@@ -60,7 +60,7 @@ class CreateUserValidation extends Request
             "ape2" => 'nullable',
             "nom1" => 'required',
             "nom2" => 'nullable',
-            "clave" => 'required|min:8',
+            "clave" => 'required|min:5',
             "ciudad" => 'required|min:3',
             "fech_nac" => 'required|date',
             "direccion" => 'required',
