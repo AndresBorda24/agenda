@@ -2,7 +2,7 @@ export default () => ({
     player: null,
     videoActive: null,
     idVideos: [
-        { name: "Trámites Virtuales", id: "B-i6ugY--xA" },
+        { name: "Trámites Virtuales", id: "EwwlJSudIR0" },
         { name: "Presentación", id: "nL1uNFdFvqk" },
         { name: "Nuestro Futuro", id: "YQs4j1wgrec" }
     ],

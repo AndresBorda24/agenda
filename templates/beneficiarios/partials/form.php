@@ -1,3 +1,10 @@
+<?php
+/** @var ?\App\Config */
+$config = $this->config;
+
+/** @var ?\App\User */
+$user = $this->user();
+?>
 <div x-data="BeneficiarioForm">
   <template x-teleport="#new-beneficiario-container">
     <button
@@ -37,7 +44,7 @@
           class="btn btn-close btn-close-white btn-sm"></button>
         </header>
 
-        <section class="p-3 bg-light-subtle small">
+        <section class="p-3 bg-light-subtle">
           <div class="small mb-2">
             <label
             class="form-label small m-0"
@@ -73,13 +80,35 @@
             <label
             class="form-label small m-0"
             for="parentesco">Parentesco:</label>
-            <input
-            id="parentesco"
-            required
-            placeholder="Requerido"
-            x-model="state.parentesco"
-            type="text"
-            class="form-control form-control-sm">
+
+            <?php if (
+              (int) $config->get('plan_colaborador_id') === $user?->pago?->plan_id
+              || ! $user?->pago?->isValid()
+            ): ?>
+              <select
+                name="parentesco"
+                x-model="state.parentesco"
+                id="parentesco"
+                required
+                class="form-select form-select-sm"
+              >
+                <option value="" hidden selected>-- Selecciona --</option>
+                <option value="ESPOSO">Esposo</option>
+                <option value="ESPOSA">Esposa</option>
+                <option value="HIJO">Hijo / Hija</option>
+                <option value="HERMANO">Hermano / Hermana</option>
+                <option value="PADRE">Padre</option>
+                <option value="MADRE">Madre</option>
+              </select>
+            <?php else: ?>
+              <input
+              id="parentesco"
+              required
+              placeholder="Requerido"
+              x-model="state.parentesco"
+              type="text"
+              class="form-control form-control-sm">
+            <?php endif ?>
           </div>
 
           <hr>

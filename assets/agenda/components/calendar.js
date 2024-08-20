@@ -6,6 +6,7 @@ export default () => ({
     ],
     visualMonth: "",
     visualYear: "",
+    isItToday: true,
     /** Fecha que se emplea como Referencia para hacer los calculos*/
     ctrl: new Date(),
     totalSpaces: 0,
@@ -32,6 +33,7 @@ export default () => ({
 
         this.setVisualMonth();
         this.setVisualYear();
+        this.setIsItToday();
     },
 
     /** Carga mes anterior */
@@ -80,5 +82,9 @@ export default () => ({
         return this.getYear() + '-'
             + (this.getMonth() + 1).toString().padStart(2, '0') + '-'
             + day.toString().padStart(2, '0');
+    },
+
+    setIsItToday() {
+        this.isItToday = this.ctrl.getMonth() === (new Date()).getMonth();
     }
 });

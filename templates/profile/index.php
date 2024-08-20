@@ -17,9 +17,12 @@
       <section class="mx-auto" style="max-width: 700px;">
         <?php if( $this->user()->hasPago() && $this->user()->getPago()->isValid() ): ?>
           <h2 class="fs-6">Informaci&oacute;n sobre tu Plan:</h2>
-          <section class="mb-3 small">
+          <section class="mb-2 small">
             <?= $this->fetch("./profile/partials/plan-info.php") ?>
           </section>
+          <p class="text-end small text-muted">
+            Consultar <?= $this->fetch('./partials/tyc.php') ?>
+          </p>
         <?php endif ?>
 
         <section class="mb-5">

@@ -135,13 +135,22 @@ class ExternalController
             ], 422);
         }
 
-        if ($this->config->get("app.env", "dev") == "prod") {
+        // if ($this->config->get("app.env", "dev") == "prod") {
             $user = $this->usuario->basic($userId);
-            $whatsapp->sendChatMessage($user["telefono"], sprintf(
-                "¡Bienvenido al Programa de Fidelización Asotrauma!🌟\n\nNo olvides registrar a tus beneficiarios desde nuestra página: %s. Recuerda que tu usuario y contraseña son tu documento de identidad.\n\nGracias por ser parte de nuestra familia y por tu continuo apoyo. ¡Estamos aquí para cuidarte! 🏥💙✌",
+            $whatsapp->sendChatMessage(3209353216, sprintf(
+            // $whatsapp->sendChatMessage($user["telefono"], sprintf(
+                <<<EOF
+                ¡Bienvenido al Programa de Fidelización Asotrauma!🌟
+
+                No olvides registrar a tus beneficiarios desde nuestra página: %s.
+
+                Si tu usuario fue creado *durante el proceso de pago* recuerda que tu usuario y contraseña son tu documento de identidad.
+
+                Gracias por ser parte de nuestra familia y por tu continuo apoyo. ¡Estamos aquí para cuidarte! 🏥💙✌
+                EOF,
                 $this->config->get("app.url")
             ), 3);
-        }
+        // }
         return responseJSON($response, true);
     }
 

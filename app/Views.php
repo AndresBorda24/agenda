@@ -14,7 +14,7 @@ use Slim\Views\PhpRenderer;
 class Views extends PhpRenderer
 {
     public Auth $auth;
-    private Config $config;
+    public readonly Config $config;
 
     private ?RouteInterface $route    = null;
     private ?RouteParser $routeParser = null;

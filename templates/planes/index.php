@@ -18,6 +18,8 @@
     class="container flex-grow-1 px-md-2 overflow-auto"
     style="min-height: 60vh;">
 
+      <p class="text-center px-2 py-3 rounded bg-primary-subtle small mt-4 shadow-sm"> Al realizar una compra, usted reconoce y acepta nuestros <?=  $this->fetch('./partials/tyc.php') ?> </p>
+
       <section
         x-cloak style="max-width: 700px;"
         x-show="tab === 1"

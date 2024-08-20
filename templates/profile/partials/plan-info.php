@@ -22,7 +22,7 @@
   </header>
 
   <span>Beneficios:</span>
-  <ul class="small">
+  <ul>
     <?php foreach(
       explode(";", $pago->beneficios)
       as $beneficio

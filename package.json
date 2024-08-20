@@ -9,6 +9,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fontsource/poppins": "^5.0.14",
         "alpinejs": "^3.12.0",
         "axios": "^1.4.0",
         "dotenv": "^16.0.3",

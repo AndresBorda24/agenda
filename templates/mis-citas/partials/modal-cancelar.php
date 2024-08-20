@@ -6,13 +6,13 @@
 >
   <div class="m-auto rounded bg-light w-100" style="max-width: 400px;">
     <header class="position-relative p-2">
-      <span class="fw-bold">Cancelar Cita (Pre) Agendada</span>
+      <span class="fw-bold">Cancelar Solicitud de Cita</span>
       <button
         @click="close"
         class="btn btn-sm btn-close position-absolute top-0 end-0 m-2"
       ></button>
     </header>
-    <div class="p-3 pt-2 small">
+    <div class="p-3 pt-2">
       <span class="small fw-bold">Cita:</span>
       <div class="d-flex flex-column justify-content-start p-2 small border bg-white mb-3 rounded text-body-secondary">
         <span class="fw-bold" x-text="data.especialidad"></span>

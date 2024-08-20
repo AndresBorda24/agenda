@@ -77,8 +77,8 @@ export default () => ({
         if (error) {
             if (aData.cod == 2442) {
                 this.errorMessage = `
-                    <p class="fs-4 text-danger fw-bold">Error en Agendamiento</p>
-                    <p class="text-muted border-top border-bottom py-3">Parece que la fecha y hora que seleccionaste ya han sido agendadas por otra persona. Por favor intenta con fechas diferentes.</p>
+                    <p class="fs-4 text-danger fw-bold">Error en Solicitud</p>
+                    <p class="text-muted border-top border-bottom py-3">Parece que la fecha y hora que seleccionaste ya han sido tomadas por otra persona. Por favor intenta con fechas diferentes.</p>
                     <button @click="() => { errorMessage = ''; $dispatch('re-fetch-agenda'); window.scrollTo({ top: 0, behavior: 'smooth' }); }" class="btn btn-sm btn-dark">Continuar</button>
                 `;
             }
@@ -87,9 +87,9 @@ export default () => ({
 
         const x = document.getElementById("resumen-list")?.outerHTML;
         this.errorMessage = `
-            <p class="fs-4 text-success fw-bold">Cita (Pre)Agendada</p>
+            <p class="fs-4 text-success fw-bold">Solicitud Realizada</p>
             ${x ? '<div class="small">'+x+'</div>' : '<hr />'}
-            <p class="text-muted">Tu Cita ha sido (pre)agendada. Te notificarémos cuando el proceso esté completo con la fecha y hora definitivas.♥</p>
+            <p class="text-muted">Tu Cita ha sido solicitada. Te notificarémos cuando el proceso esté completo con la fecha y hora definitivas.♥</p>
             <a href="${this.misCitasLink}" class="btn btn-sm btn-dark">Continuar</a>
         `;
     },
@@ -107,6 +107,7 @@ export default () => ({
         if (x) return false;
         if (Alpine.store("agenda").selectedTipo === "PARTIC") return true;
         if (Alpine.store("agenda").selectedEps === null) return false;
+        if (Alpine.store("agenda").selectedTipo === "MED_PREP") return true;
 
         return Alpine.store("agenda").files.formula instanceof File
             && Alpine.store("agenda").files.auto  instanceof File;

@@ -41,6 +41,8 @@ $config = $c->get(\App\Config::class);
 + ------------------------------------------------------------------------------
 */
 $app->setBasePath($config->get('app.base'));
+// Esto está aquí por la redirección que se hizo de panelusuario a fidelizacion
+// $app->add(App\Middleware\RedirectMiddleware::class);
 $app->add(StartSessionsMiddleware::class);
 $web($app);
 $api($app);

@@ -23,9 +23,9 @@
             "props" => 'style="min-width: 55px; height:60px;"'
           ]) ?>
           <div>
-            <p class="mb-1">
+            <p class="mb-1 small text-dark-emphasis">
               Una vez agregado el beneficiario <b>no</b> se podrán modificar algunos campos ni tampoco se podrá eliminar del listado.</p>
-            <p class="mb-0">
+            <p class="mb-0 small text-dark-emphasis">
               Para realizar estos cambios debes realizar tu solicitud a <a href="mailto:programadefidelizacion@asotrauma.com.co" class="fw-bold text-decoration-none text-dark">programadefidelizacion@asotrauma.com.co</a>.
             </p>
           </div>
