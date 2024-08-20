@@ -3,7 +3,7 @@ const dotenv = require('dotenv-webpack');
 const resolve = require('path').resolve;
 const { DefinePlugin } = require('webpack');
 
-const envFile = `./.env${Encore.isProduction() ? '.prod2' : ''}`;
+const envFile = `./.env${Encore.isProduction() ? '.prod3' : ''}`;
 require("dotenv").config({ path: envFile });
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
