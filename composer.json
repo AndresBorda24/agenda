@@ -17,7 +17,8 @@
         "rakit/validation": "^1.4",
         "mercadopago/dx-php": "^2.6",
         "ultramsg/whatsapp-php-sdk": "^2.0",
-        "avadim/fast-excel-writer": "^4.8"
+        "avadim/fast-excel-writer": "^4.8",
+        "spatie/array-to-xml": "^3.3"
     },
     "config": {
         "platform": {
