@@ -233,9 +233,7 @@ class Usuario
     public function searchFidelizadoByCard(string $card): ?array
     {
         try {
-            $titular = $this->db->get(self::FIDELIZADOS, [
-                "id", "plan_id", "pago_id", "documento", "nombre", "plan_nombre", "tarjeta"
-            ], ["tarjeta" => $card]);
+            $titular = $this->getTitular(['tarjeta' => $card]);
 
             if ($titular !== null) {
                 return [
@@ -259,11 +257,7 @@ class Usuario
     public function searchFidelizadoByCC(string $cc): ?array
     {
         try {
-            $getTitular = fn(array $where) => $this->db->get(self::FIDELIZADOS, [
-                "id", "plan_id", "pago_id", "documento", "nombre", "plan_nombre", "tarjeta"
-            ], $where);
-
-            $titular = $getTitular([ "documento" => $cc ]);
+            $titular = $this->getTitular(["documento" => $cc]);
             if ($titular !== null) {
                 return [
                     "type" => "T",
@@ -273,23 +267,47 @@ class Usuario
                 ];
             }
 
-            $beneficiario = $this->db->get(Beneficiario::TABLE." (B)", [
-                "[>]".self::FIDELIZADOS => ["titular_id" => "id"]
-            ],[
-                "nombre" => Medoo::raw(
-                    "CONCAT_WS(' ', <nom1>, <nom2>, <ape1>, <ape2>)"
-                ), "B.id", "B.documento", "parentesco", "titular_id"
-            ], [ "B.documento" => $cc ]);
-
+            $beneficiario = $this->getBeneficiariosFidelizados([ "B.documento" => $cc ], true);
             if ($beneficiario === null) return null;
 
             return [
                 "type" => "B",
                 "data" => $beneficiario,
-                "titular" => $getTitular([ "id" => $beneficiario["titular_id"] ])
+                "titular" => $this->getTitular([ "id" => $beneficiario["titular_id"] ])
             ];
         } catch(\Exception $e) {
             throw $e;
         }
+    }
+
+    /**
+     * Obtiene la informacion de un titular fidelizado.
+     * @param array $where Condición de busqueda.
+     * @param string|array $fields Campos a traer.
+    */
+    public function getTitular(array $where, string|array $fields = '*'): ?array
+    {
+        return $this->db->get(self::FIDELIZADOS, $fields, $where);
+    }
+
+    /**
+     * Obtiene el listado de todos los beneficiarios de un usuario fidelizado.
+     * Para hacer referencia a las tablas: B: Beeficiarios, F: Fidelizado
+     *
+     * @param array $where Condicion de busqueda.
+     * @param bool $single Determina si se trae el listado o simplemente un
+     *                     beneficiario.
+    */
+    public function getBeneficiariosFidelizados(array $where, bool $single = false): ?array
+    {
+        $action = $single ? 'get' : 'select';
+
+        return $this->db->{$action}(Beneficiario::TABLE." (B)", [
+            "[>]".self::FIDELIZADOS." (F)" => ["titular_id" => "id"]
+        ], [
+            "nombre" => Medoo::raw(
+                "CONCAT_WS(' ', <nom1>, <nom2>, <ape1>, <ape2>)"
+            ), "B.id", "B.documento", "parentesco", "titular_id"
+        ], $where);
     }
 }

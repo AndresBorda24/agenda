@@ -16,6 +16,7 @@ use Slim\Routing\RouteCollectorProxy as Group;
 use App\Controllers\Api\BeneficiarioController;
 use App\Controllers\Api\EspecialidadController;
 use App\Controllers\Api\ExternalController;
+use App\Controllers\Api\GEMAController;
 use App\Controllers\Api\MercadoPagoController;
 use App\Controllers\Api\PagoController;
 use App\Controllers\Api\RegaloController;
@@ -45,8 +46,8 @@ return function (App $app) {
             $auth->put("/update-basic", [UsuarioController::class, "update"]);
             $auth->put("/password-update", [UsuarioController::class, "updatePass"]);
         })->add(AuthMiddleware::class);
-        
-        
+
+
         $api->group("/agenda", function (Group $agenda) {
             $agenda->get("/mis-citas", [AgendaController::class, "getCitasAgendadas"]);
             $agenda->post("/save", [AgendaController::class, 'save'])
@@ -97,19 +98,26 @@ return function (App $app) {
     })->add(JsonBodyParserMiddleware::class);
 
     $app->group("/api/external", function (Group $ext) {
-        $ext->get("/soporte/{file}", [ExternalController::class, "showSoporte"]);
-        $ext->get("/pagos-excel", [ExternalController::class, "getExcelPagos"]);
-        $ext->get("/get-planes", [ExternalController::class, "getPlanes"]);
-        $ext->get("/{doc}/fetch", [ExternalController::class, "fetch"]);
-        $ext->get("/pagos-list", [ExternalController::class, "getPagosList"]);
-        $ext->post("/create-user", [ExternalController::class, "createUser"]);
-        $ext->post("/validate-user", [ExternalController::class, "checkDatos"]);
-        $ext->post("/{userId:[0-9]+}/create-pago", [ExternalController::class, "createPago"]);
-        $ext->get("/{cc}/search-fidelizado/{tp}", [ExternalController::class, "searchFidelizado"]);
-        $ext->post(
-            "/{pagoId:[0-9]+}/set-registrado",
-            [ExternalController::class, "setRegistradoVal"]
-        );
-        $ext->options("/{routes:.+}", fn($response) => $response);
-    })->add(CorsMiddleware::class)->add(JsonBodyParserMiddleware::class);
+        $ext->group('', function(Group $ext) {
+            $ext->get("/soporte/{file}", [ExternalController::class, "showSoporte"]);
+            $ext->get("/pagos-excel", [ExternalController::class, "getExcelPagos"]);
+            $ext->get("/get-planes", [ExternalController::class, "getPlanes"]);
+            $ext->get("/{doc}/fetch", [ExternalController::class, "fetch"]);
+            $ext->get("/pagos-list", [ExternalController::class, "getPagosList"]);
+            $ext->post("/create-user", [ExternalController::class, "createUser"]);
+            $ext->post("/validate-user", [ExternalController::class, "checkDatos"]);
+            $ext->post("/{userId:[0-9]+}/create-pago", [ExternalController::class, "createPago"]);
+            $ext->get("/{cc}/search-fidelizado/{tp}", [ExternalController::class, "searchFidelizado"]);
+            $ext->post(
+                "/{pagoId:[0-9]+}/set-registrado",
+                [ExternalController::class, "setRegistradoVal"]
+            );
+            $ext->options("/{routes:.+}", fn($response) => $response);
+        })->add(CorsMiddleware::class)->add(JsonBodyParserMiddleware::class);
+
+        $ext->group('', function (Group $ext) {
+            $ext->get("/{cc}/search-fidelizado/{tp}/gema", [GEMAController::class, "searchFidelizado"]);
+            $ext->get("/{cc}/beneficiarios/gema", [GEMAController::class, "getBeneficiarios"]);
+        });
+    });
 };
