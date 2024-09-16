@@ -44,13 +44,11 @@ class IndexController
 
     public function agenda(Response $response, Medoo $db, UserInterface $user): Response
     {
-        $eps = $db->select("eps", ["codigo", "nombre"], ["ORDER" => "nombre"]);
         $beneficiarios = (new Beneficiario($db))->all( $user->id() );
 
         return $this
             ->view
             ->render($response, "agenda/index.php", [
-                "epsList" => empty($eps) ? [] : $eps,
                 "beneficiarios" => $beneficiarios
             ]);
     }

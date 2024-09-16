@@ -55,3 +55,10 @@ export async function getAuthInfo() {
 export async function getBeneficiarioInfo(documento) {
     return await request(() => local.get(`/auth/beneficiario/${documento}/info`));
 }
+
+/**
+ * Obtiene el listado de las eps disponibles en GEMA.
+*/
+export async function getListadoEPS() {
+    return request(() => fox.get('/agenda/eps'))
+}

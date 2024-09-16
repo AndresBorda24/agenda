@@ -25,9 +25,7 @@
         <?= $this->fetch("./agenda/partials/select-user.php", [
           "beneficiarios" => $beneficiarios
         ]) ?>
-        <?= $this->fetch("./agenda/partials/select-tipo-atencion.php", [
-          "epsList" => $epsList
-        ]) ?>
+        <?= $this->fetch("./agenda/partials/select-tipo-atencion.php") ?>
         <?= $this->fetch("./agenda/partials/clase-consulta.php") ?>
         <?= $this->fetch("./agenda/partials/especialidades.php") ?>
 

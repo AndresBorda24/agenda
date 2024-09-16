@@ -31,17 +31,25 @@
         for="atencion-eps"
         class="form-label fw-bold"
       >Selecciona tu EPS:</label>
-      <select
-        id="atencion-eps"
-        name="atencion-eps"
-        class="form-select form-select-sm"
-        x-model="$store.agenda.selectedEps"
-      >
-        <option hidden selected value=""> Selecciona </option>
-        <?php foreach($epsList as $eps): ?>
-          <option value="<?= $eps["codigo"] ?>"><?= $eps["nombre"] ?></option>
-        <?php endforeach ?>
-      </select>
+      <template x-if="fetched">
+        <select
+          id="atencion-eps"
+          name="atencion-eps"
+          class="form-select form-select-sm"
+          x-model="$store.agenda.selectedEps"
+        >
+          <option hidden selected value=""> Selecciona </option>
+          <template x-for="e in eps" :key="e.id">
+            <option :value="e.codigo" x-text="e.nombre"></option>
+          </template>
+        </select>
+      </template>
+
+      <template x-if="!fetched">
+        <span class="d-inline-block text-bg-warning text-center rounded-2 w-100 small bg-opacity-25 border-start border-3 border-warning shadow-sm">
+          Cargando Listado de EPS...
+        </span>
+      </template>
     </div>
   </template>
 </div>
