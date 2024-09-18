@@ -17,7 +17,6 @@ use App\Controllers\Api\BeneficiarioController;
 use App\Controllers\Api\EspecialidadController;
 use App\Controllers\Api\ExternalController;
 use App\Controllers\Api\GEMAController;
-use App\Controllers\Api\MercadoPagoController;
 use App\Controllers\Api\PagoController;
 use App\Controllers\Api\RegaloController;
 
@@ -63,8 +62,6 @@ return function (App $app) {
         $api->group("/planes", function (Group $planes) {
             $planes->get("/get-available", [PlanesController::class, 'getAvailable']);
             $planes->post("/info-pagos", [PlanesController::class, 'createPreference']);
-            $planes->post("/{planId:[0-9]+}/create-preference", [MercadoPagoController::class, 'createPreference'])
-                ->add(AuthMiddleware::class);
         });
 
 
@@ -78,15 +75,6 @@ return function (App $app) {
         $api->group("/pacientes", function (Group $paciente) {
             $paciente->post("/registro", [UsuarioController::class, 'registro']);
         });
-
-
-        $api->group("/mp", function (Group $mp) {
-            $mp->get("/{id}/preference", [MercadoPagoController::class, "getPref"]);
-            $mp->get("/{id}/pago", [MercadoPagoController::class, "getPayment"]);
-            $mp->get("/{id}/merch", [MercadoPagoController::class, "getMerch"]);
-            $mp->put("/pago/{id}/set-status/{status}", [MercadoPagoController::class, "setPaymentStatus"]);
-        });
-
 
         $api->post("/regalo/{code}/redimir", RegaloController::class)
             ->add(AuthMiddleware::class);

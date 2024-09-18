@@ -9,7 +9,6 @@ use App\Views;
 use App\Models\Plan;
 use App\Enums\MpStatus;
 use App\Models\Beneficiario;
-use App\Services\MercadoPagoService;
 use Medoo\Medoo;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -103,10 +102,8 @@ class IndexController
 
     public function planes(
         Response $response,
-        Plan $plan,
-        MercadoPagoService $mps
-    ): Response
-    {
+        Plan $plan
+    ): Response {
         /** @var \App\Contracts\UserInterface */
         $user = $this->auth->user();
         $this->view->addAttribute("user", $user);
