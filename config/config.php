@@ -28,9 +28,10 @@ return [
         'httponly'   => true,
         'samesite'   => 'lax',
     ],
-    "mp" => [
-        "public" => $_ENV["MP_PUBLIC"],
-        "token"  => $_ENV["MP_TOKEN"]
+    "pasarela" => [
+        "api" => $_ENV["PASARELA_API"],
+        "key" => $_ENV["PASARELA_KEY"],
+        "login" => $_ENV["PASARELA_LOGIN"]
     ],
     "wp" => [
         "token" => $_ENV["WP_TOKEN"],
