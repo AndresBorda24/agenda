@@ -24,4 +24,10 @@ class OrderController
             "url" => $processUrl
         ]);
     }
+
+    public function test(Response $response): Response
+    {
+        $this->gateway->getPaymentInfo(46874);
+        return responseJSON($response, []);
+    }
 }

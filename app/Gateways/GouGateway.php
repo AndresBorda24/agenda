@@ -6,9 +6,11 @@ namespace App\Gateways;
 
 use App\Config;
 use App\Contracts\PaymentGatewayInterface;
+use App\Contracts\PaymentInfoInterface;
 use App\Models\Order;
 use Dnetix\Redirection\PlacetoPay;
 use App\Enums\MpStatus;
+use App\Gateways\GouGatewayPaymentInfo;
 use App\Models\Plan;
 use Slim\Factory\ServerRequestCreatorFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -63,9 +65,10 @@ class GouGateway implements PaymentGatewayInterface
         return true;
     }
 
-    public function getPaymentInfo(int $id): array
+    public function getPaymentInfo(int $id): PaymentInfoInterface
     {
-        return [];
+        $payment = $this->placeToPay->query($id);
+        return new GouGatewayPaymentInfo($this->plan, $payment);
     }
 
     public function processNotification(array $data): array

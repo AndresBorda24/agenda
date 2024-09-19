@@ -15,7 +15,7 @@ interface PaymentGatewayInterface
     /** Determina que un pago tenga un estado en especifico. */
     public function validatePayment(int $id, $state): bool;
 
-    public function getPaymentInfo(int $id): array;
+    public function getPaymentInfo(int $id): PaymentInfoInterface;
 
     public function processNotification(array $data): array;
 }

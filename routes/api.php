@@ -72,6 +72,7 @@ return function (App $app) {
 
             $pagos->group('/order', function(Group $order) {
                 $order->get('/{planId:[0-9]+}/create', [OrderController::class, 'createOrder']);
+                $order->get('/test', [OrderController::class, 'test']);
             })
                 // ->add(AuthMiddleware::class)
             ;
