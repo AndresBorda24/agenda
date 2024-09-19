@@ -2,11 +2,14 @@
 declare(strict_types=1);
 
 use function DI\create;
+use function DI\autowire;
 
 use App\Config;
+use App\Contracts\PaymentGatewayInterface;
 use Medoo\Medoo;
 use Slim\Views\PhpRenderer;
 use App\DataObjects\SessionConfig;
+use App\Gateways\GouGateway;
 use UltraMsg\WhatsAppApi;
 
 return [
@@ -29,6 +32,7 @@ return [
         $c->get("session.secure"),
         $c->get("session.httponly"),
         $c->get("session.samesite")
-    )
-];
+    ),
 
+    PaymentGatewayInterface::class => autowire(GouGateway::class)
+];

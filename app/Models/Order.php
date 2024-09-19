@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\DataObjects\OrderInfo;
 use Medoo\Medoo;
 
 class Order
@@ -14,28 +15,40 @@ class Order
         public readonly Medoo $db
     ) {}
 
-    /**
-     * Encuentra la informacion de una orden (entiendase pago o  compra) junto
-     * con la informacion del plan.
-     *
-     * @return null Si el usuario no tiene alguna orden registrada.
-     * @return array Informacion de la orden.
-    */
-    public function find(int $userId): ?array
+    public function create(OrderInfo $data): ?OrderInfo
     {
-        try {
-            return $this->db->get(self::VISTA." (O)", [
-                "[>]".Plan::TABLE." (P)" => ["plan_id" => "id"]
-            ], [
-                "O.id", "O.usuario_id", "O.plan_id", "O.order_id",
-                "O.paid [Bool]", "O.status", "O.started_at", "O.expires_at",
-                "O.canceled [Bool]",
-                // Informacion del plan asociado a la orden
-                "P.nombre", "P.vigencia", "P.beneficios",
-                "P.valor", "P.status (active)"
-            ], [ "usuario_id" => $userId ]);
-        } catch(\Exception $e) {
-            throw $e;
-        }
+        $this->db->insert(self::TABLE, [
+            'order_id' => $data->orderId,
+            'user_id'  => $data->userId,
+            'status'   => $data->status->value,
+            'process_url' => $data->processUrl
+        ]);
+
+        return $this->get(['id' => $this->db->id()]);
+    }
+
+    public function update(OrderInfo $data): ?OrderInfo
+    {
+        $this->db->update(self::TABLE, [
+            'order_id' => $data->orderId,
+            'status'   => $data->status->value,
+            'data'     => $data->data,
+            'process_url' => $data->processUrl
+        ], ['id' => $data->id]);
+
+        return $this->get(['id' => $data->id]);
+    }
+
+    /**
+     * Obtiene la informacion de una orden registrada segun los criterios
+     * suministrados.
+     */
+    public function get(array $where): ?OrderInfo
+    {
+        $data = $this->db->get(self::TABLE, '*', $where);
+
+        return ($data === null)
+            ? null
+            : OrderInfo::fromArray($data);
     }
 }

@@ -17,6 +17,7 @@ use App\Controllers\Api\BeneficiarioController;
 use App\Controllers\Api\EspecialidadController;
 use App\Controllers\Api\ExternalController;
 use App\Controllers\Api\GEMAController;
+use App\Controllers\Api\OrderController;
 use App\Controllers\Api\PagoController;
 use App\Controllers\Api\RegaloController;
 
@@ -64,11 +65,16 @@ return function (App $app) {
             $planes->post("/info-pagos", [PlanesController::class, 'createPreference']);
         });
 
-
         $api->group("/pagos", function (Group $pagos) {
             $pagos->post("/{pagoId:[0-9]+}/webhook", [PagoController::class, 'webhook']);
             $pagos->put("/{id:[0-9]+}/set-nomina", [PagoController::class, 'nomina']);
             $pagos->delete("/{id:[0-9]+}/delete", [PagoController::class, "remove"]);
+
+            $pagos->group('/order', function(Group $order) {
+                $order->get('/{planId:[0-9]+}/create', [OrderController::class, 'createOrder']);
+            })
+                // ->add(AuthMiddleware::class)
+            ;
         });
 
 
