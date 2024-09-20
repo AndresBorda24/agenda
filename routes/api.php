@@ -35,7 +35,6 @@ return function (App $app) {
             $esp->get("/{esp}/get-available-hours/{fecha}", [EspecialidadController::class, 'getAgendaHours']);
         });
 
-
         $api->group("/auth", function (Group $auth) {
             $auth->get("/basic", [UsuarioController::class, "getBasic"]);
             $auth->get("/beneficiarios", [BeneficiarioController::class, "all"]);
@@ -47,18 +46,15 @@ return function (App $app) {
             $auth->put("/password-update", [UsuarioController::class, "updatePass"]);
         })->add(AuthMiddleware::class);
 
-
         $api->group("/agenda", function (Group $agenda) {
             $agenda->get("/mis-citas", [AgendaController::class, "getCitasAgendadas"]);
             $agenda->post("/save", [AgendaController::class, 'save'])
                 ->add(JsonBodyParserMiddleware::class);
         })->add(AuthMiddleware::class);
 
-
         $api->group("/medicos", function (Group $medicos) {
             $medicos->get("/{esp}/get-available", [MedicosController::class, 'getAvailable']);
         });
-
 
         $api->group("/planes", function (Group $planes) {
             $planes->get("/get-available", [PlanesController::class, 'getAvailable']);

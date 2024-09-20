@@ -14,6 +14,7 @@ use App\Gateways\GouGatewayPaymentInfo;
 use App\Models\Plan;
 use Slim\Factory\ServerRequestCreatorFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\App;
 
 class GouGateway implements PaymentGatewayInterface
 {
@@ -21,6 +22,7 @@ class GouGateway implements PaymentGatewayInterface
     private Request $request;
 
     public function __construct(
+        public readonly App $app,
         public readonly Plan $plan,
         public readonly Order $order,
         public readonly Config $config
@@ -48,6 +50,7 @@ class GouGateway implements PaymentGatewayInterface
                 orderId: $response->requestId(),
                 processUrl: $response->processUrl(),
                 status: MpStatus::PENDIENTE,
+                expiresAt: $sessionData['expiration'],
                 data: json_encode($this->plan->find($planId))
             ));
 
@@ -82,7 +85,7 @@ class GouGateway implements PaymentGatewayInterface
             "Imposible recuperar la información del plan."
         );
 
-        [$ip, $userAgent] = $this->getNeededData();
+        [$ip, $userAgent, $returnUrl] = $this->getNeededData($reference);
         return [
             'locale' => 'es_CO',
             'payment' => [
@@ -101,7 +104,7 @@ class GouGateway implements PaymentGatewayInterface
                 ]
             ],
             'expiration' => date('c', strtotime('+30 min')),
-            'returnUrl' => 'https://fidelizacion.asotrauma.com.co',
+            'returnUrl' => $returnUrl,
             'notificationUrl' => 'https://fidelizacion.asotrauma.com.co',
             'ipAddress' => $ip,
             'userAgent' => $userAgent
@@ -112,11 +115,21 @@ class GouGateway implements PaymentGatewayInterface
      * Obtiene la direccion IP y el user agent basado en la solicitud hecha por
      * el usuario.
     */
-    private function getNeededData(): array
+    private function getNeededData($reference): array
     {
-        // Cortesia de CHATGPT
         $server    = $this->request->getServerParams();
         $userAgent = $server['HTTP_USER_AGENT'];
+
+        // Obteniendo rutas para notificacion y retorno
+        $routeParser = $this->app->getRouteCollector()->getRouteParser();
+        $returnUrl   = sprintf('%s%s',
+            substr($this->config->get('app.url'), 0, -1),
+            $routeParser->urlFor('gateway.returnUrl', ['data' => base64_encode(
+                json_encode([ 'ref' => $reference ])
+            )])
+        );
+
+        // Cortesia de CHATGPT
         $ip = match(true) {
             !empty($server['HTTP_CLIENT_IP']) => $server['HTTP_CLIENT_IP'],
             !empty($server['HTTP_X_FORWARDED_FOR']) =>
@@ -125,6 +138,6 @@ class GouGateway implements PaymentGatewayInterface
             default => ''
         };
 
-        return [$ip, $userAgent];
+        return [$ip, $userAgent, $returnUrl];
     }
 }

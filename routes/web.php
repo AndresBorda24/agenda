@@ -8,6 +8,7 @@ use App\Controllers\IndexController;
 use App\Middleware\PagoValidoMiddleware;
 use App\Controllers\Api\AuthController;
 use App\Controllers\Api\PagoController;
+use App\Controllers\GatewayController;
 use App\Controllers\GouMicrositioController;
 use App\Middleware\HasActiveCardMiddleware;
 use App\Middleware\NoPagoMiddleware;
@@ -21,6 +22,9 @@ return function(App $app) {
     $app->group("", function(Group $app) {
         $app->get("/", [IndexController::class, "index"])
             ->setName("index");
+
+        $app->get("/gateway/{data}/finished", [GatewayController::class, 'returnView'])
+            ->setName("gateway.returnUrl");
 
         $app->group("", function(Group $app) {
             $app->get("/home", [IndexController::class, "home"])

@@ -27,7 +27,10 @@ class OrderController
 
     public function test(Response $response): Response
     {
-        $this->gateway->getPaymentInfo(46874);
+        $processUrl = $this->gateway->getPaymentUrl(5, 1);
+        dd($processUrl);
+        dd($this->gateway->getPaymentInfo(47106));
+
         return responseJSON($response, []);
     }
 }

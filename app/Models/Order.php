@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\PaymentInfoInterface;
 use App\DataObjects\OrderInfo;
 use Medoo\Medoo;
 
@@ -33,10 +34,20 @@ class Order
             'order_id' => $data->orderId,
             'status'   => $data->status->value,
             'data'     => $data->data,
-            'process_url' => $data->processUrl
+            'process_url' => $data->processUrl,
+            'expires_at'  => $data->expiresAt
         ], ['id' => $data->id]);
 
         return $this->get(['id' => $data->id]);
+    }
+
+    public function updateFromGatewayResponse(OrderInfo $order, PaymentInfoInterface $data)
+    {
+        $this->db->update(self::TABLE, [
+            'status'   => $data->getState()->value,
+        ], ['id' => $order->id]);
+
+        return $this->get(['id' => $order->id]);
     }
 
     /**
@@ -50,5 +61,14 @@ class Order
         return ($data === null)
             ? null
             : OrderInfo::fromArray($data);
+    }
+
+    public function setPagoId(OrderInfo $order, int $pagoId): bool
+    {
+        $this->db->update(self::TABLE, [
+            'pago_id' => $pagoId
+        ], ['id' => $order->id]);
+
+        return true;
     }
 }
