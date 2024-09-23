@@ -1,6 +1,6 @@
 <section
   style="max-width: 700px;"
-  class="mx-auto p-4 d-flex flex-column gap-3"
+  class="mx-auto p-2 d-flex flex-column gap-3"
 >
   <div class="d-flex flex-column flex-sm-row gap-2 small align-items-center">
     <div class="p-2 d-flex flex-column align-items-center">

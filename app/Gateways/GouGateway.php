@@ -51,7 +51,10 @@ class GouGateway implements PaymentGatewayInterface
                 processUrl: $response->processUrl(),
                 status: MpStatus::PENDIENTE,
                 expiresAt: $sessionData['expiration'],
-                data: json_encode($this->plan->find($planId))
+                data: json_encode(
+                    $this->plan->find($planId),
+                    JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_HEX_APOS | JSON_THROW_ON_ERROR
+                )
             ));
 
             return $newOrder->processUrl;

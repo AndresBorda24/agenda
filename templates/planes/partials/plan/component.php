@@ -13,7 +13,8 @@ x-transition
 <hr>
 <div class="mx-auto" style="max-width: 800px;">
   <h5 class="fw-bold text-center">Elige una forma de pago</h5>
-  <div class="d-grid gap-3">
+  <div class="d-grid">
+    <?= $this->fetch("./planes/partials/medios-pago/gou-micrositio-api.php") ?>
     <?= $this->fetch("./planes/partials/medios-pago/gou-micrositio.php") ?>
   </div>
 </div>

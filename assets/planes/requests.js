@@ -90,3 +90,22 @@ export async function redimir( code ) {
     return [error, _data];
   }
 }
+
+/**
+ * Crea un nuevo link para el pago
+ *
+ * @param {string} planId Codigo de Regalo
+*/
+export async function createOrder( planId ) {
+  let _data = null;
+  let error = null;
+
+  try {
+    const { data } = await ax.get(`/pagos/order/${planId}/create`)
+    _data = data;
+  } catch(e) {
+    error = e;
+  } finally {
+    return [error, _data];
+  }
+}
