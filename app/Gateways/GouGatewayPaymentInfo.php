@@ -50,4 +50,33 @@ class GouGatewayPaymentInfo implements PaymentInfoInterface
         $this->planInfo = $plan;
         return $this->planInfo;
     }
+
+    public function getAmount(): float
+    {
+        $total = 0;
+        foreach ($this->payment->payment() as $payment) {
+            $total += $payment->amount()->to()->total();
+        }
+        return $total;
+    }
+
+    public function getDiscount(): ?float
+    {
+        $total = 0;
+        foreach ($this->payment->payment() as $payment) {
+            $discount = $payment->discount()?->amount();
+            if ($discount === null) continue;
+
+            $total += $discount;
+        }
+        return $total;
+    }
+
+    public function getPaymentName(): array
+    {
+        return array_map(
+            fn($payment) => $payment->paymentMethodName(),
+            $this->payment->payment()
+        );
+    }
 }

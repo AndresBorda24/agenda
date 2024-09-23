@@ -14,4 +14,11 @@ interface PaymentInfoInterface
     public function getMessage(): string;
 
     public function getPlan(): PlanDTO;
+
+    public function getAmount(): float;
+
+    public function getDiscount(): ?float;
+
+    /** @return string[] */
+    public function getPaymentName(): array;
 }
