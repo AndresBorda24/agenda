@@ -21,7 +21,6 @@ class GatewayController
         $data = GatewayReturnData::fromArray(json_decode(base64_decode($data), true));
         [$order, $payment] = $this->handler->fromReturn($data);
 
-        dd($order, $payment->getMessage());
-        return $response;
+        return $this->view->render($response, 'gateway/return.php', compact('order', 'payment'));
     }
 }

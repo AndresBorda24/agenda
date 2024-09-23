@@ -105,6 +105,79 @@ body {
 .form-uppercase input {
     text-transform: uppercase;
 }
+/* Gateway */
+.gateway-background {
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    height: 100dvh;
+    width: 100dvw;
+    background-color: white;
+    background: linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+                linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+    background-size: 6rem 4rem;
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        background: radial-gradient(circle 800px at 100% 200px,#d5c5ff,transparent)
+    }
+}
+.gateway-background.approved::before {
+    background: radial-gradient(circle 800px at 100% 200px, #afffbe,transparent)
+}
+.gateway-background.rejected::before {
+    background: radial-gradient(circle 800px at 100% 200px, #fbb8b8,transparent)
+}
+.gateway-background.pending::before {
+    background: radial-gradient(circle 800px at 100% 200px, #b8e6fb,transparent)
+}
+.bg-gateway.approved {
+    background-color: #afffbe;
+}
+.bg-gateway.rejected {
+    background: #fbb8b8;
+}
+.bg-gateway.pending {
+    background: #b8e6fb;
+}
+.gateway-container {
+    min-height: 100dvh;
+    min-width: 100dvw;
+    font-size: 14px;
+    display: grid;
+    place-content: center;
+    &>:first-child {
+        width: 90dvw;
+        width: 90vw;
+        max-width: 500px;
+    }
+}
+.gateway-info {
+    grid-template-columns: 1fr 1fr;
+}
+.number-format::before {
+    content: '$';
+    margin-right: 5px;
+    font-weight: lighter;
+}
+.plan-img-container {
+    width: 90%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: calc(100% - 3rem);
+    max-width: 300px;
+    & img {
+        object-fit: contain;
+        width: 100%;
+        height: auto;
+    }
+}
+/* Fin Gateway */
 
 @media (width < 768px) {
     .aside {
@@ -125,5 +198,3 @@ body {
         max-height: 300px;
     }
 }
-
-
