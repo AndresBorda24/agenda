@@ -108,7 +108,7 @@ class GouGateway implements PaymentGatewayInterface
             ],
             'expiration' => date('c', strtotime('+30 min')),
             'returnUrl' => $returnUrl,
-            'notificationUrl' => 'https://fidelizacion.asotrauma.com.co',
+            'notificationUrl' => 'https://intranet.asotrauma.com.co/atest/',
             'ipAddress' => $ip,
             'userAgent' => $userAgent
         ];
