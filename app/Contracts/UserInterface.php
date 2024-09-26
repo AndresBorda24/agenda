@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Contracts;
 
 use App\Abstracts\AbstractPago;
+use App\DataObjects\OrderInfo;
 
 /**
  * @property ?\App\Abstracts\AbstractPago $pago
@@ -47,4 +48,9 @@ interface UserInterface
      * Obtiene la informacion del pago.
     */
     public function getPago(): ?AbstractPago;
+
+    /**
+     * Obtiene la informacion de la última orden registrada por el usuario.
+     */
+    public function getOrder(): ?OrderInfo;
 }

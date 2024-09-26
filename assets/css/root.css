@@ -36,7 +36,10 @@ body {
 [x-cloak]{
     display: none !important;
 }
-.main-container{ min-height: calc(100vh - 328px); }
+.main-container{
+    min-height: 100vh;
+    min-height: 100dvh;
+}
 .bg-blue-50{ background-color: #e4f0f6 !important}
 .bg-blue-100{ background-color: #bcd9ea !important}
 .bg-blue-200{ background-color: #8bbdd9 !important}
@@ -72,25 +75,43 @@ body {
     position: -webkit-sticky;
     top: 45px;
     padding: 20px 10px 0 10px;
-    min-width: 300px;
-    width: 400px;
+    min-width: 270px;
+    width: 300px;
     max-width: 90vw;
     display: flex;
     flex-direction: column;
     max-height: calc(100vh - 55px);
+    transition: transform 200ms ease-out,
+                opacity 150ms ease-in-out;
 }
 
-.aside a {
+.aside-show-start {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+.aside-show-end {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.aside-with-header {
+    max-height: 100vh;
+    max-height: 100dvh;
+    top: 0;
+}
+
+.aside a[aside-link] {
     gap: 10px;
     display: flex;
-    font-size: 16px;
+    font-size: 14px;
     align-items: center;
     color: #dfdfdf;
     padding: 10px 15px;
+    font-weight: lighter;
     border-radius: 40px;
     text-decoration: none;
 }
-.aside a:hover {
+.aside a[aside-link]:hover {
     background-color: rgba(200, 200, 200, .3);
     color: #fff;
 }

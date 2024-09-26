@@ -6,12 +6,14 @@ namespace App;
 use App\DataObjects\UserInfo;
 use App\Abstracts\AbstractPago;
 use App\Contracts\UserInterface;
+use App\DataObjects\OrderInfo;
 
 class User implements UserInterface
 {
     public function __construct(
         public readonly UserInfo $info,
-        public readonly ?AbstractPago $pago
+        public readonly ?AbstractPago $pago,
+        public readonly ?OrderInfo $order
     ) {}
 
     public function id(): string|int
@@ -77,5 +79,10 @@ class User implements UserInterface
     public function getPago(): ?AbstractPago
     {
         return $this->pago;
+    }
+
+    public function getOrder(): ?OrderInfo
+    {
+        return $this->order;
     }
 }

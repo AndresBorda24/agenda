@@ -1,4 +1,4 @@
-<footer class="pt-4 bg-secondary overflow-hidden small">
+<footer class="pt-5 bg-secondary overflow-hidden small">
   <div class="mb-4 row container m-auto gap-4 gap-md-0 g-md-4 row-cols-1 row-cols-md-3 align-items-center">
     <ul class="list-group list-group-flush small text-center m-0 p-0">
       <li class="list-group-item bg-transparent text-light">

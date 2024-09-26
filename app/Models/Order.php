@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Contracts\PaymentInfoInterface;
 use App\DataObjects\OrderInfo;
+use App\Enums\MpStatus;
 use Medoo\Medoo;
 
 class Order
@@ -70,5 +71,16 @@ class Order
         ], ['id' => $order->id]);
 
         return true;
+    }
+
+    /**
+     * Busca la última orden realizada por un usuario y retorna la informacion
+     * si el estado es pendiente.
+     */
+    public function getLastest(int $userId): ?OrderInfo
+    {
+        $data = $this->db->get(self::VISTA, '*', ["user_id" => $userId]);
+
+        return ($data === null) ? null : OrderInfo::fromArray($data);
     }
 }

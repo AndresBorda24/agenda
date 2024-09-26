@@ -27,7 +27,7 @@ final class OrderInfo
             id: $data['id'],
             userId: $data['user_id'],
             orderId: $data['order_id'],
-            pagoId: $data['pago_id'],
+            pagoId: @$data['pago_id'],
             status: MpStatus::from(mb_strtolower($data['status'])),
             processUrl: $data['process_url'],
             createdAt: $data['created_at'],

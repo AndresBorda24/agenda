@@ -1,23 +1,47 @@
 <?php /** @var \App\Views $this */ ?>
 <aside
 x-data="{ show: false }" @click.outside="show = false"
-x-transition.opacity
-x-show="show"
-class="bg-secondary rounded shadow-lg aside d-md-flex">
+x-transition:enter-start="aside-show-start"
+x-transition:enter-end="aside-show-end"
+x-transition:leave-start="aside-show-end"
+x-transition:leave-end="aside-show-start"
+x-show="show" x-cloak
+class="bg-blue-900 aside d-md-flex aside-with-header">
   <template x-teleport="#header-nav">
     <!-- Boton de navegacion para telefonos -->
     <button
-    class="d-md-none btn btn-outline-light lh-1 btn-small p-1 border-0"
+    class="d-md-none btn btn-outline-dark lh-1 btn-small p-1 border-0"
     @click="show = true">
       <?= $this->fetch("./icons/menu.php") ?>
     </button>
   </template>
 
+  <header class="p-1 d-flex flex-column mb-3 pb-3 border-bottom">
+    <a href="https://asotrauma.com.co/" target="_blank" class="d-block rounded px-1">
+      <img
+      height="25"
+      src="<?= $this->asset("img/logo-blanco-full.png") ?>"
+      alt="logo-blanco">
+    </a>
+    <div class="text-bg-warning text-center bg-blue-800 rounded">
+      <a
+      class="fs-6 text-light fst-italic fw-bold text-decoration-none"
+      href="<?= $this->link("index") ?>">Programa de Fidelización</a>
+    </div>
+  </header>
+
   <div class="d-flex flex-column gap-3 flex-grow-1">
     <div class="border-bottom border-warning-subtle pb-2">
+      <?php if($this->user() !== null): ?>
+        <span class="text-light small fw-bold d-block ms-2">
+          <span class="small fw-light">Hola, </span>
+          <?= $this->user()->info->nom1 ?>
+        </span>
+      <?php endif ?>
       <a href="<?= $this->link("perfil") ?>" aside-link
       <?= $this->isRoute("perfil") ? 'class="fs-6 is-active"' : 'class="fs-6"' ?>>
-        <div class="bg-warning rounded-circle radio-1 p-2"></div>
+        <!-- <div class="bg-warning rounded-circle radio-1 p-2"></div> -->
+        <?= $this->fetch("./icons/user.php") ?>
         <span>Mi perfil</span>
       </a>
     </div>
