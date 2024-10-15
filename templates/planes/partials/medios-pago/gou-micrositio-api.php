@@ -9,7 +9,7 @@
     </div>
     <button
       @click="generateLink"
-      class="p-4 border border-dark-subtle text-dark text-decoration-none position-relative bg-body-tertiary rounded"
+      class="p-4 border border-dark-subtle text-dark text-decoration-none position-relative bg-body-tertiary rounded text-start"
       style="border-style: dashed !important;"
     >
       <h5>Opción WEB Checkout</h5>

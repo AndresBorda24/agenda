@@ -1,12 +1,15 @@
 import { createOrder } from "../requests"
 import { errorAlert } from "@/partials/alerts";
 import { showLoader, hideLoader } from "@/partials/loader";
+import Alpine from "alpinejs";
 
 export default () => ({
   /** Valida que este seleccionado uno de los planes. */
   checkSelectedPlan() {
-    const v = document.querySelector('input[name="plan"]:checked')?.value;
-    return (v === undefined) ? false : v;
+    const { plan } = Alpine.store('SelectedPlanStore');
+    if (!Boolean(plan)) return false;
+
+    return plan;
   },
 
   /**
@@ -17,8 +20,7 @@ export default () => ({
   async generateLink() {
     const planId = this.checkSelectedPlan();
     if (! planId) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      errorAlert('Por favor selecciona un plan.')
+      errorAlert('Por favor selecciona un plan valido.')
       return false;
     }
 

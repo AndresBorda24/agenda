@@ -3,7 +3,7 @@
   class="mx-auto p-2 d-flex flex-column gap-3"
 >
   <div class="d-flex flex-column flex-sm-row gap-2 small align-items-center">
-    <div class="p-2 d-flex flex-column align-items-center">
+    <div class="p-2 d-flex flex-column align-items-center" style="min-width: 132px;">
       <img width="80" class="object-fit-contain" src="<?= $this->asset("/img/logo-gou.webp") ?>" alt="logo-gou">
       <span class="fw-bold text-nowrap">
         Importante

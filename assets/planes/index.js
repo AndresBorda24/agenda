@@ -9,6 +9,11 @@ import gouWebCheckout from "./components/gou-web-checkout";
 import "./components/tooltips";
 
 document.addEventListener('alpine:init', () => {
+    Alpine.store('SelectedPlanStore', {
+        plan: "",
+        tarjeta: false
+    });
+
     Alpine.data("Tabs", tabs);
     Alpine.data("Planes", planes);
     Alpine.data("Regalo", regalo);

@@ -1,5 +1,5 @@
 <?php /** @var \App\Contracts\UserInterface $user */ ?>
-<div x-data="PagoPendiente">
+<div x-data="PagoPendiente" class="mt-4">
   <?php if ($user->hasPago()): ?>
     <section class="mb-3 small">
       <?= match ($user->pago->detail) {

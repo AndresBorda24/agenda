@@ -29,9 +29,10 @@
       <div
         @click.outside="() => document.querySelector('#info-pago-micrositio')?.removeAttribute('open')"
         class="position-absolute bottom-100 mx-auto p-4 rounded border bg-body shadow-lg mb-2"
+        style="left: 50%; transform: translateX(-50%)"
       >
-        <span class="text-bg-warning rounded px-2 d-block mb-2" style="width: fit-content;">Importante:</span>
-        <p class="text-muted border-bottom pb-2">
+        <span class="text-bg-warning rounded px-2 d-block mb-3" style="width: fit-content;">Importante:</span>
+        <p class="text-muted pb-2">
           Si has realizado el pago, el dinero <b>NO</b> se reembolsará automáticamente, tendrás que realizar una solicitud a: <a class="fw-bold text-dark text-decoration-none" href="mailto:programadefidelizacion@asotrauma.com.co">programadefidelizacion@asotrauma.com.co</a>
         </p>
         <button

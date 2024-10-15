@@ -50,13 +50,17 @@ $formatNumber = fn(int|float $number) => number_format($number, 2, ',', '.');
           <div class="gap-2 w-100 pt-5">
             <div class="gateway-info d-flex flex-column d-md-grid p-4">
               <div class="p-2 flex-grow-1">
-                <span>Artículo:</span> <br />
-                <span>Plan - <?= $plan->nombre ?></span>
+                <span class="fw-bold d-block">Artículo:</span>
+                <span class="d-block">Plan - <?= $plan->nombre ?></span>
+                <span class="fw-bold">Fecha:</span>
+                <span class="d-block"><?= $order->createdAt ?></span>
+                <span class="fw-bold d-block">Ref:</span>
+                <span><?= $order->id ?></span>
               </div>
               <div class="d-flex p-2 row-cols-2">
                 <div>
-                  <span class="d-block">Valor:</span>
-                  <span class="d-block">Descuento:</span>
+                  <span class="d-block fw-bold">Valor:</span>
+                  <span class="d-block fw-bold">Descuento:</span>
                 </div>
                 <div class="text-end">
                   <div class="border-bottom pb-2">

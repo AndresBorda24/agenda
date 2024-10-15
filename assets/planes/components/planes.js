@@ -1,6 +1,4 @@
-import { createPreference } from "../requests";
-import { errorAlert } from "@/partials/alerts"
-import { showLoader } from "@/partials/loader";
+import Alpine from "alpinejs";
 
 export default () => ({
     state: {
@@ -19,20 +17,17 @@ export default () => ({
         })
     },
 
-    /**
-     * Confirma el inicio del proceso de pago
-    */
+    get selectedPlan() {
+        return this.state.plan !== '';
+    },
+
+    /** Habilita la seleccion de la forma de pago */
     async confirmPlan() {
-        showLoader();
-        const [error, data] = await createPreference( this.state, true );
+        Alpine.store('SelectedPlanStore', {
+            plan: this.state.plan,
+            tarjeta: this.state.tarjeta
+        });
 
-        if (error) {
-            errorAlert();
-            console.error("Get Planes: ", error);
-            return;
-        }
-
-        this.$dispatch("start-checkin-process", data);
-        this.$dispatch("next-tab");
+        this.$dispatch('show-gateways');
     }
 });

@@ -110,7 +110,7 @@ class Usuario
                 ->get((int) $userInfo->id);
 
             $order = (new Order($this->db))
-                ->getLastest($id);
+                ->getLastest((int) $id);
 
             return new User($userInfo, $pagoInfo, $order);
         } catch(\Exception $e) {
