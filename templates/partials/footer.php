@@ -22,8 +22,7 @@
 
     <div class="m-0">
       <img
-      height="40"
-      class="mx-auto d-block"
+      class="mx-auto block h-[40px]"
       src="<?= $this->asset("img/logo-blanco-full.png") ?>"
       alt="logo-blanco">
     </div>

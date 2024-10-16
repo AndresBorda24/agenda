@@ -1,18 +1,14 @@
-<form
-x-data="Planes"
-x-transition
-@submit.prevent="confirmPlan">
-  <button
-    type="submit"
-    :disabled="!selectedPlan"
-    class="d-block btn btn-sm btn-warning m-auto shadow mb-3"
-  >Continuar con el pago</button>
-
-  <div class="planes-container d-flex flex-wrap d-lg-grid align-items-baseline p-4 pt-2">
+<div
+  x-data="Planes"
+  x-transition
+  class="py-6 mb-6"
+>
+  <div class="mx-auto grid gap-6 [grid-template-columns:_repeat(auto-fill,minmax(240px,1fr))] justify-center w-[max-content]">
     <?php foreach($planes as $plan): ?>
-      <?= $this->fetch("./planes/partials/plan/plan.php", [
-        "plan" => $plan
+      <?= $this->fetch("./planes/partials/card.php", [
+        "plan" => $plan,
+        "isColaborador" => ($plan['id'] == $planColaboradorId)
       ]) ?>
     <?php endforeach ?>
   </div>
-</form>
+</div>

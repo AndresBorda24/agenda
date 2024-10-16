@@ -9,11 +9,10 @@
     </div>
     <button
       @click="generateLink"
-      class="p-4 border border-dark-subtle text-dark text-decoration-none position-relative bg-body-tertiary rounded text-start"
-      style="border-style: dashed !important;"
+      class="p-4 !border border-dashed border-neutral-300 text-black relative bg-neutral-50 rounded text-start hover:shadow-lg transition-all duration-200 hover:border-neutral-500"
     >
-      <h5>Opción WEB Checkout</h5>
-      <p class="m-0 text-muted">
+      <h5 class="mb-3">Opción WEB Checkout</h5>
+      <p class="m-0 text-muted leading-snug text-sm">
         Serás redirigido a la pasarela de GOU. Una vez completes el pago seras redireccionado de vuelta a nuestro sitio.
       </p>
       <span class="position-absolute top-0 end-0 m-1 lh-1 fs-5"><?= $this->fetch("./icons/link.php") ?></span>

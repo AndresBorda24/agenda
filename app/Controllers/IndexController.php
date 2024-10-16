@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Auth;
+use App\Config;
 use App\Contracts\UserInterface;
 use App\Views;
 use App\Models\Plan;
@@ -137,15 +138,17 @@ class IndexController
             ]);
     }
 
-    public function planes( Response $response, Plan $plan): Response
+    public function planes(Response $response, Plan $plan, Config $config): Response
     {
         /** @var \App\Contracts\UserInterface */
         $user = $this->auth->user();
         $this->view->addAttribute("user", $user);
+
         return $this
             ->view
             ->render($response, "planes/index.php", [
                 "planes" => $plan->getAll($user->isFromIntranet()),
+                "planColaboradorId" => $config->get('plan_colaborador_id'),
                 '_TITLE'  => 'Planes',
                 '_ASSETS' => 'planes/index.js'
             ]);

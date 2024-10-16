@@ -2,7 +2,7 @@
   <div class="container p-3 d-flex align-items-center justify-content-between">
     <a href="https://asotrauma.com.co/" target="_blank" class="d-block">
       <img
-      height="25"
+      class="h-[25px]"
       src="<?= $this->asset("img/logo-blanco-full.png") ?>"
       alt="logo-blanco">
     </a>
@@ -20,7 +20,7 @@
   </div>
 </header>
 <div class="bg-secondary text-light shadow sticky-top">
-  <div class="container nav-scroller d-flex container justify-content-between align-items-center">
+  <div class="nav-scroller d-flex container justify-content-between align-items-center">
     <?php if($title !== false): ?>
       <span class="fs-5 p-1"><?=  $title ?? "Cl&iacute;nica Asotrauma" ?></span>
     <?php endif ?>

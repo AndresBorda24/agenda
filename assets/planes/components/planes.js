@@ -6,25 +6,10 @@ export default () => ({
         tarjeta: false
     },
 
-    init() {
-        this.$watch("state.plan", () => {
-            const plan = document.querySelector(".planes-item-checked div");
-            document.querySelectorAll(".info-plan").forEach(el =>
-                el.innerHTML = `
-                    <span class="badge">Plan seleccionado:</span>
-                    <div class="pb-2"> ${plan.innerHTML} </div>
-                `);
-        })
-    },
-
-    get selectedPlan() {
-        return this.state.plan !== '';
-    },
-
     /** Habilita la seleccion de la forma de pago */
-    async confirmPlan() {
+    confirmPlan(planId) {
         Alpine.store('SelectedPlanStore', {
-            plan: this.state.plan,
+            plan: planId,
             tarjeta: this.state.tarjeta
         });
 
