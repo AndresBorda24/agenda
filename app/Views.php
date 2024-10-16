@@ -91,6 +91,13 @@ class Views extends PhpRenderer
      */
     public function loadAssetsVite(string $name): string
     {
+        if ($this->config->get('app.env', 'dev') !== 'prod') {
+            return <<<HTML
+            <script type="module" src="http://localhost:5173/@vite/client"></script>
+            <script type="module" src="http://localhost:5173/assets/$name"></script>
+            HTML;
+        }
+
         /* Ruta del archivo entrypoints.json */
         $_ = file_get_contents($this->config->get("assets.entrypoints"));
         $ep = @json_decode($_, true);

@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?= $this->loadAssets("registro/app") ?>
-  <title>Registro Usuarios Fidelizados</title>
-</head>
-<body>
-  <?= $this->fetch("./partials/header.php", [
-    "title" => "Registro"
-  ]) ?>
-
-  <div
+<div
   class="d-lg-flex align-items-baseline my-4 container"
   style="min-height: 70vh;">
     <div class="col-lg-6 p-3 p-md-5 sticky-lg-top z-0">
@@ -42,8 +29,3 @@
       <?= $this->fetch("./registro/components/form.php") ?>
     </main>
   </div>
-
-  <?= $this->fetch("./partials/footer.php") ?>
-  <?= $this->fetch("./partials/loader.php") ?>
-</body>
-</html>

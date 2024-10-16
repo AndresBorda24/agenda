@@ -5,7 +5,7 @@ import tabs from "./componentes/tabs";
 import activarQr from "./componentes/activar-qr";
 import activarSerial from "./componentes/activar-serial";
 
-if (process.env.APP_ENV === "dev") window.Alpine = Alpine;
+if (import.meta.env.VITE_APP_ENV === "dev") window.Alpine = Alpine;
 
 document.addEventListener("alpine:init", () => {
     Alpine.data("ActivarTabs", tabs);

@@ -12,7 +12,7 @@ export default () => ({
             showLoader();
 
             const {data} = await axios.post(
-                process.env.API + "/login" ,
+                import.meta.env.VITE_APP_API + "/login" ,
                 this.getBody()
             );
 

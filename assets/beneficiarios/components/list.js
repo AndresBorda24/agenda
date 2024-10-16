@@ -22,7 +22,7 @@ export default () => ({
     async fetch() {
         try {
             const {data} = await axios.get(
-                process.env.API + "/auth/beneficiarios"
+                import.meta.env.VITE_APP_API + "/auth/beneficiarios"
             );
             this.fetched = true;
             this.list = data;
