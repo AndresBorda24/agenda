@@ -106,7 +106,7 @@ class Views extends PhpRenderer
         if (!(bool) $ep) {
             return "";
         }
-        return vite($ep, $name, $this->config->get("app.base"));
+        return vite($ep, 'assets/'.$name, $this->config->get("app.base"));
     }
 
     /**
