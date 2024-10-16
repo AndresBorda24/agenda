@@ -135,10 +135,10 @@ class ExternalController
             ], 422);
         }
 
-        // if ($this->config->get("app.env", "dev") == "prod") {
-            $user = $this->usuario->basic($userId);
-            $whatsapp->sendChatMessage(3209353216, sprintf(
-            // $whatsapp->sendChatMessage($user["telefono"], sprintf(
+        $user = $this->usuario->basic($userId);
+        $whatsapp->sendChatMessage(3209353216, "Nuevo Fidelizado");
+        if ($this->config->get("app.env", "dev") == "prod") {
+            $whatsapp->sendChatMessage($user["telefono"], sprintf(
                 <<<EOF
                 ¡Bienvenido al Programa de Fidelización Asotrauma!🌟
 
@@ -150,7 +150,8 @@ class ExternalController
                 EOF,
                 $this->config->get("app.url")
             ), 3);
-        // }
+        }
+
         return responseJSON($response, true);
     }
 

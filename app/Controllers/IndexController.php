@@ -18,10 +18,13 @@ class IndexController
     function __construct(
         private Views $view,
         private Auth $auth
-    ){}
+    ){
+        $this->view->setLayout('layouts/base.php');
+    }
 
     public function index(Response $response): Response
     {
+        $this->view->setLayout('');
         return $this
             ->view
             ->render($response, "index/index.php");
@@ -31,14 +34,20 @@ class IndexController
     {
         return $this
             ->view
-            ->render($response, "home/index.php");
+            ->render($response, "home/index.php", [
+                '_TITLE'  => 'Home',
+                '_ASSETS' => 'home/index.js'
+            ]);
     }
 
     public function profile(Response $response): Response
     {
         return $this
             ->view
-            ->render($response, "profile/index.php");
+            ->render($response, "profile/index.php", [
+                '_TITLE'  => 'Configuración de Perfil',
+                '_ASSETS' => 'profile/index.js'
+            ]);
     }
 
     public function agenda(Response $response, Medoo $db, UserInterface $user): Response
@@ -48,7 +57,12 @@ class IndexController
         return $this
             ->view
             ->render($response, "agenda/index.php", [
-                "beneficiarios" => $beneficiarios
+                "beneficiarios" => $beneficiarios,
+                '_TITLE'  => 'Solicitud de Citas',
+                '_ASSETS' => 'agenda/index.js',
+                '_MODALS' => [
+                    $this->view->fetch("./agenda/show-day-hours.php")
+                ]
             ]);
     }
 
@@ -61,7 +75,12 @@ class IndexController
         return $this
             ->view
             ->render($response, "mis-citas/index.php", [
-                "beneficiarios" => $beneficiarios
+                "beneficiarios" => $beneficiarios,
+                '_TITLE'  => 'Mis Citas',
+                '_ASSETS' => 'mis-citas/index.js',
+                '_MODALS' => [
+                    $this->view->fetch("./mis-citas/partials/modal-cancelar.php")
+                ]
             ]);
     }
 
@@ -69,48 +88,66 @@ class IndexController
     {
         return $this
             ->view
-            ->render($response, "registro/index.php");
+            ->render($response, "registro/index.php", [
+                '_TITLE'  => 'Registro Usuarios Fidelizados',
+                '_ASSETS' => 'registro/index.js',
+                '_WITH_ASIDE' => false
+            ]);
     }
 
     public function login(Response $response): Response
     {
         return $this
             ->view
-            ->render($response, "login/index.php");
+            ->render($response, "login/index.php", [
+                '_TITLE'  => 'Inicio de Sesión',
+                '_ASSETS' => 'login/index.js',
+                '_WITH_ASIDE' => false
+            ]);
     }
 
     public function resetPasswd(Response $response): Response
     {
         return $this
             ->view
-            ->render($response, "forgot/index.php");
+            ->render($response, "forgot/index.php", [
+                '_TITLE'  => 'Restablecer Contraseña',
+                '_ASSETS' => 'forgot/index.js',
+                '_WITH_ASIDE' => false
+            ]);
     }
 
     public function beneficiarios(Response $response): Response
     {
         return $this
             ->view
-            ->render($response, "beneficiarios/index.php");
+            ->render($response, "beneficiarios/index.php", [
+                '_TITLE'  => 'Gestión de Beneficiarios',
+                '_ASSETS' => 'beneficiarios/index.js'
+            ]);
     }
 
     public function activarTarjeta(Response $response): Response
     {
         return $this
             ->view
-            ->render($response, "activar-tarjeta/index.php");
+            ->render($response, "activar-tarjeta/index.php", [
+                '_TITLE'  => 'Activar Tarjeta',
+                '_ASSETS' => 'activar-tarjeta/index.js'
+            ]);
     }
 
-    public function planes(
-        Response $response,
-        Plan $plan
-    ): Response {
+    public function planes( Response $response, Plan $plan): Response
+    {
         /** @var \App\Contracts\UserInterface */
         $user = $this->auth->user();
         $this->view->addAttribute("user", $user);
         return $this
             ->view
             ->render($response, "planes/index.php", [
-                "planes" => $plan->getAll($user->isFromIntranet())
+                "planes" => $plan->getAll($user->isFromIntranet()),
+                '_TITLE'  => 'Planes',
+                '_ASSETS' => 'planes/index.js'
             ]);
     }
 
@@ -119,7 +156,10 @@ class IndexController
         $this->view->addAttribute("user", $user);
         return $this
             ->view
-            ->render($response, "planes/regalo/index.php");
+            ->render($response, "planes/regalo/index.php", [
+                '_TITLE'  => 'Redimir Código de Regalo',
+                '_ASSETS' => 'planes/index.js'
+            ]);
     }
 
     public function planesResponse(
@@ -151,6 +191,7 @@ class IndexController
             default => ["planes-feedback/no-ok.php", "Compra Rechazada~"]
         };
 
+        $this->view->setLayout('');
         return $this
             ->view
             ->render($response, $view, [

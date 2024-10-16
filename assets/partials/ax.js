@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 
 const ax = axios.create({
-  baseURL: process.env.API
+  baseURL: import.meta.env.VITE_APP_API
 });
 
 ax.interceptors.response.use((response) => {

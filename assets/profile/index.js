@@ -8,7 +8,7 @@ import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light.css';
 import tippy from 'tippy.js';
 
-if (process.env.APP_ENV === "dev") window.Alpine = Alpine;
+if (import.meta.env.VITE_APP_ENV === "dev") window.Alpine = Alpine;
 
 tippy.setDefaultProps({allowHTML: true, trigger: 'mouseenter click'});
 

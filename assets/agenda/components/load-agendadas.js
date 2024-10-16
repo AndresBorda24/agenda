@@ -3,7 +3,7 @@ import axios from 'axios';
 export default () => ({
     show: false,
     citas: [],
-    baseUri: process.env.APP_URL + "api",
+    baseUri: import.meta.env.VITE_APP_API,
     events: {
          ["@cita-agendada.document"]:"getCitas()"
     },
