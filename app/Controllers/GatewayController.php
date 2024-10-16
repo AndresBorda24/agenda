@@ -21,6 +21,12 @@ class GatewayController
         $data = GatewayReturnData::fromArray(json_decode(base64_decode($data), true));
         [$order, $payment] = $this->handler->fromReturn($data);
 
-        return $this->view->render($response, 'gateway/return-in-site.php', compact('order', 'payment'));
+        $this->view->setLayout('layouts/base.php');
+        return $this->view->render($response, 'gateway/return-in-site.php', [
+            "order"   => $order,
+            "payment" => $payment,
+            "_TITLE"  => 'Compra Finalizada',
+            "_ASSETS" => 'profile/index.js'
+        ]);
     }
 }

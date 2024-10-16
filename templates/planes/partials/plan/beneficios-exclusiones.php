@@ -1,4 +1,4 @@
-<div class="p-4 rounded-md bg-white mb-6 shadow-md">
+<div class="p-4 rounded-md bg-white mb-6 shadow-md text-neutral-700">
   <p class="text-lg mb-[15px]">Todos los planes incluyen:</p>
   <div class="grid gap-5 grid-cols-1 md:grid-cols-2">
     <div>

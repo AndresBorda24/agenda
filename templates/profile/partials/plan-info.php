@@ -1,5 +1,5 @@
 <?php /** @var \App\Abstracts\AbstractPago */ $pago = $this->user()->pago ?>
-<article class="bg-secondary border border-warning rounded shadow p-3 text-light">
+<article class="bg-secondary border border-warning rounded shadow p-4 text-light">
   <header class="d-sm-flex justify-content-between align-items-end mb-2">
     <span class="d-block">
       <span class="text-warning fs-5 mb-2 m-sm-0 d-sm-block">
@@ -21,18 +21,15 @@
     <?php endif ?>
   </header>
 
-  <span>Beneficios:</span>
-  <ul>
-    <?php foreach(
-      explode(";", $pago->beneficios)
-      as $beneficio
-    ): ?>
-      <li class="small fw-light"><?= $beneficio ?>.</li>
+  <span class="font-bold">Beneficios:</span>
+  <ul class="pl-6 mb-6 flex flex-col space-y-2">
+    <?php foreach(explode(";", $pago->beneficios) as $beneficio): ?>
+      <li class="text-sm list-disc text-neutral-200"><?= $beneficio ?>.</li>
     <?php endforeach ?>
   </ul>
 
   <div class="rounded overflow-hidden">
-    <?= $this->fetch("./planes/partials/plan/exclusiones.php") ?>
+    <?= $this->fetch("./planes/partials/plan/beneficios-exclusiones.php") ?>
   </div>
 
   <?php if($pago->tarjeta !== null): ?>
@@ -42,4 +39,3 @@
     </span>
   <?php endif ?>
 </article>
-

@@ -4,9 +4,12 @@ x-data="UpdatePass"
 @submit.prevent="update"
 autocomplete="off"
 class="p-3 bg-white shadow border rounded border-danger-subtle">
-  <div class="text-bg-danger p-2 small bg-opacity-75 rounded-end border-start
-  border-5 border-danger shadow-sm mb-3">
-    Una vez cambies la contrase&ntilde;a tendr&aacute;s que iniciar sesi&oacute;n nuevamente.
+  <div class="flex items-center !p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+    <?= $this->fetch('icons/important.php') ?>
+    <div>
+      <span class="font-medium">Importante!</span>
+      Una vez cambies la contrase&ntilde;a tendr&aacute;s que iniciar sesi&oacute;n nuevamente.
+    </div>
   </div>
 
   <div class="small mb-2">
