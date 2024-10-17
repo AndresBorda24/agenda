@@ -8,6 +8,7 @@ use App\Config;
 use App\Contracts\PaymentGatewayInterface;
 use App\DataObjects\GatewayReturnData;
 use App\DataObjects\OrderInfo;
+use App\DataObjects\PlanDTO;
 use App\Enums\MpStatus;
 use App\Models\Order;
 use App\Models\Pago;
@@ -27,35 +28,52 @@ class HandleGatewayResponse
     ) { }
 
     /**
-     * @return array{
+     * @return array {
      *     0: \App\DataObjects\OrderInfo,
      *     1: \App\Contracts\PaymentInfoInterface,
      * }
      */
     public function fromReturn(GatewayReturnData $data): array
     {
+        $error   = null;
         $order   = $this->order->get(['id' => $data->ref]);
-        $payment = $this->gateway->getPaymentInfo((int) $order->orderId);
+        $payment =  $order ? $this->gateway->getPaymentInfo((int) $order->orderId) : null;
 
-        if ($order->pagoId === null) {
-            $this->pago->db->action(function() use($payment, &$order) {
+        if (!$order || !$payment) {
+            throw new \RuntimeException("Invalid Reference or Payment");
+        }
+
+        if ($order->pagoId !== null) {
+            return [$order, $payment];
+        }
+
+        $this->pago->db->action(function() use($payment, &$order, &$error) {
+            try {
                 $order = $this->order->updateFromGatewayResponse($order, $payment);
                 if ($order->status === MpStatus::APROVADO) {
-                    // Creamos el pago
                     $pagoId = $this->pago->createFromOrder(
                         $order,
-                        \App\DataObjects\PlanDTO::fromArray(json_decode($order->data, true))
+                        PlanDTO::fromArray(json_decode($order->data, true))
                     );
 
-                    // Lo asociamos a la orden
                     $this->order->setPagoId($order, $pagoId);
                 }
-            });
+            } catch (\Exception $e) {
+                $error = $e;
+                return false;
+            }
+        });
+
+        if ($error !== null) {
+            throw $error;
         }
 
         return [$order, $payment];
     }
 
+    /**
+     * Envia una notificacion al usuario indicando que ya hace parte del progama.
+     */
     public function notify(OrderInfo $order): void
     {
         $usuario = $this->usuario->basic($order->userId);

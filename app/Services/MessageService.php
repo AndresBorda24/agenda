@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Config;
 use UltraMsg\WhatsAppApi;
 
 class MessageService
 {
     public function __construct(
         public readonly WhatsAppApi $whatsapp,
+        public readonly Config $config
     ) {}
 
     public function sendMessage(string|int $to, string $message, int $priority = 3): void
     {
+        if ($this->config->get('app.env') !== 'prod') {
+            $to = "3209353216";
+        }
+
         $this->whatsapp->sendChatMessage($to, $message, $priority);
     }
 
