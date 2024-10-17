@@ -22,9 +22,9 @@ class HandleGatewayResponse
         private Pago $pago,
         private Views $view,
         private Order $order,
-        private Config $config,
         private Usuario $usuario,
-        private MessageService $messageService,
+        public readonly Config $config,
+        public readonly MessageService $messageService,
         private PaymentGatewayInterface $gateway,
         private LoggerInterface $logger
     ) { }

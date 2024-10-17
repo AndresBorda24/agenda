@@ -11,6 +11,7 @@ use App\Controllers\Api\PagoController;
 use App\Controllers\GatewayController;
 use App\Controllers\GouMicrositioController;
 use App\Middleware\HasActiveCardMiddleware;
+use App\Middleware\JsonBodyParserMiddleware;
 use App\Middleware\NoPagoMiddleware;
 use App\Middleware\SetRouteContextMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
@@ -84,5 +85,14 @@ return function(App $app) {
             $app->get("/reset-password", [IndexController::class, "resetPasswd"])
                 ->setName("reset-password");
         })->add(GuestMiddleware::class);
+
+        $app->post(
+            "/gateway/webhook",
+            [GatewayController::class, 'notificationWebhook']
+        )->add(JsonBodyParserMiddleware::class);
+        $app->get(
+            "/gateway/check-pendientes",
+            [GatewayController::class, 'checkPendientes']
+        );
     })->add(SetRouteContextMiddleware::class);
 };

@@ -74,7 +74,6 @@ return function (App $app) {
             ;
         });
 
-
         $api->group("/pacientes", function (Group $paciente) {
             $paciente->post("/registro", [UsuarioController::class, 'registro']);
         });

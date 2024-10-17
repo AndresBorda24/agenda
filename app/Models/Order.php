@@ -83,4 +83,22 @@ class Order
 
         return ($data === null) ? null : OrderInfo::fromArray($data);
     }
+
+
+    /**
+     * Retorna un array con todas las ordenes pendientes por estado final.
+     * @return OrderInfo[]
+     */
+    public function getPendientes(): array
+    {
+        $data = [];
+
+        $this->db->select(self::VISTA, '*', [
+            'status' => MpStatus::PENDIENTE->value
+        ], function(array $reg) use(&$data) {
+            $data[] = OrderInfo::fromArray($reg);
+        });
+
+        return $data;
+    }
 }
