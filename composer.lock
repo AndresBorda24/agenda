@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "731ba33e86535d6cbf321b46c8f87d8b",
+    "content-hash": "950231718012b4b6df753857f0fbcb1b",
     "packages": [
         {
             "name": "avadim/fast-excel-helper",
@@ -304,6 +304,72 @@
                 "source": "https://github.com/php-fig/http-message-util/tree/1.1.5"
             },
             "time": "2020-11-24T22:02:12+00:00"
+        },
+        {
+            "name": "firehed/simplelogger",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Firehed/simpleLogger.git",
+                "reference": "8586da073b50675c9d97c517b10ad61465152611"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Firehed/simpleLogger/zipball/8586da073b50675c9d97c517b10ad61465152611",
+                "reference": "8586da073b50675c9d97c517b10ad61465152611",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "psr/log": "^2.0 || ^3.0"
+            },
+            "conflict": {
+                "phpunit/phpunit": ">=8.5 <=8.5.20"
+            },
+            "provide": {
+                "psr/log-implementation": "1.0.0"
+            },
+            "require-dev": {
+                "firehed/clock": "^1.0",
+                "phpstan/phpstan": "^1.12",
+                "phpstan/phpstan-phpunit": "^1.4",
+                "phpunit/phpunit": "^10 || ^11",
+                "psr/clock": "^1.0",
+                "squizlabs/php_codesniffer": "^3.10"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Firehed\\SimpleLogger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Stern"
+                }
+            ],
+            "description": "Logger compatible with PSR-3. Supports writing to files, STDOUT, STDERR, and syslog. Also provides a chain logger which can write to multiple destinations. Allows customizable and pluggable formats, including logfmt.",
+            "homepage": "https://github.com/firehed/simpleLogger",
+            "keywords": [
+                "log",
+                "logfmt",
+                "logger",
+                "logging",
+                "logs",
+                "psr-3",
+                "stderr",
+                "stdout",
+                "syslog"
+            ],
+            "support": {
+                "issues": "https://github.com/Firehed/simpleLogger/issues",
+                "source": "https://github.com/Firehed/simpleLogger/tree/3.0.0"
+            },
+            "time": "2024-09-16T23:35:10+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -2367,5 +2433,5 @@
     "platform-overrides": {
         "php": "8.1.9"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

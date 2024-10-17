@@ -14,6 +14,7 @@ use App\Models\Order;
 use App\Models\Pago;
 use App\Models\Usuario;
 use App\Views;
+use Psr\Log\LoggerInterface;
 
 class HandleGatewayResponse
 {
@@ -24,7 +25,8 @@ class HandleGatewayResponse
         private Config $config,
         private Usuario $usuario,
         private MessageService $messageService,
-        private PaymentGatewayInterface $gateway
+        private PaymentGatewayInterface $gateway,
+        private LoggerInterface $logger
     ) { }
 
     /**
@@ -37,9 +39,12 @@ class HandleGatewayResponse
     {
         $error   = null;
         $order   = $this->order->get(['id' => $data->ref]);
-        $payment =  $order ? $this->gateway->getPaymentInfo((int) $order->orderId) : null;
+        $payment = $order ? $this->gateway->getPaymentInfo((int) $order->orderId) : null;
 
         if (!$order || !$payment) {
+            $this->logger->error('Pago o Referencia Invalidos. Order: {order}', [
+                'order' => $order?->id ?? 'null'
+            ]);
             throw new \RuntimeException("Invalid Reference or Payment");
         }
 
@@ -57,8 +62,13 @@ class HandleGatewayResponse
                     );
 
                     $this->order->setPagoId($order, $pagoId);
+                    $this->notify($order);
                 }
             } catch (\Exception $e) {
+                $this->logger->error(
+                    'Ha ocurrido un error al registrar el pago. Orden: {order}',
+                    [ 'order' => $order->id ]
+                );
                 $error = $e;
                 return false;
             }

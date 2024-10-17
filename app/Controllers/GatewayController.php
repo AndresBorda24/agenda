@@ -25,7 +25,6 @@ class GatewayController
         try {
             $data = GatewayReturnData::fromArray(json_decode(base64_decode($data), true));
             [$order, $payment] = $this->handler->fromReturn($data);
-            $this->handler->notify($order);
         } catch (\Exception $e) {
             $error = $e;
             [$order, $payment] = [null, null];
@@ -35,7 +34,7 @@ class GatewayController
         return $this->view->render($response, 'gateway/return-in-site.php', [
             "order"   => $order,
             "payment" => $payment,
-            "error"   => $error,
+            "error"   => @$error,
             "_TITLE"  => 'Compra Finalizada',
             "_ASSETS" => 'profile/index.js'
         ]);
@@ -45,8 +44,7 @@ class GatewayController
     {
         $body = $request->getParsedBody();
         $ref  = $this->gateway->validateNotification($body);
-        [$order] = $this->handler->fromReturn(new GatewayReturnData($ref));
-        $this->handler->notify($order);
+        $this->handler->fromReturn(new GatewayReturnData($ref));
 
         return responseJSON($response, [
             "status" => "success"

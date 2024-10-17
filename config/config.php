@@ -37,5 +37,6 @@ return [
         "token" => $_ENV["WP_TOKEN"],
         "instance" => $_ENV["WP_INSTANCE"]
     ],
-    "soportes" => __DIR__ . "/../soportes"
+    "soportes" => __DIR__ . "/../soportes",
+    'logfile' => __DIR__.'/..'.($_ENV['LOG_FILE'] ?? '/log/log.txt')
 ];

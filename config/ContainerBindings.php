@@ -10,6 +10,7 @@ use Medoo\Medoo;
 use Slim\Views\PhpRenderer;
 use App\DataObjects\SessionConfig;
 use App\Gateways\GouGateway;
+use Psr\Log\LoggerInterface;
 use UltraMsg\WhatsAppApi;
 
 return [
@@ -34,5 +35,15 @@ return [
         $c->get("session.samesite")
     ),
 
-    PaymentGatewayInterface::class => autowire(GouGateway::class)
+    PaymentGatewayInterface::class => autowire(GouGateway::class),
+
+    LoggerInterface::class => function(Config $config) {
+        $logFile = $config->get('logfile');
+
+        if (! file_exists($logFile)) {
+            touch($logFile);
+        }
+
+        return new Firehed\SimpleLogger\File($logFile);
+    }
 ];
