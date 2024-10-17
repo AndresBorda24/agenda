@@ -23,10 +23,11 @@ return function(App $app) {
         $app->get("/", [IndexController::class, "index"])
             ->setName("index");
 
-        $app->get("/gateway/{data}/finished", [GatewayController::class, 'returnView'])
-            ->setName("gateway.returnUrl");
 
         $app->group("", function(Group $app) {
+            $app->get("/gateway/{data}/finished", [GatewayController::class, 'returnView'])
+                ->setName("gateway.returnUrl");
+
             $app->get("/home", [IndexController::class, "home"])
                 ->setName("home");
 

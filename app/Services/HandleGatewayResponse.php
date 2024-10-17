@@ -30,7 +30,7 @@ class HandleGatewayResponse
     ) { }
 
     /**
-     * @return array {
+     * @return array{
      *     0: \App\DataObjects\OrderInfo,
      *     1: \App\Contracts\PaymentInfoInterface,
      * }
