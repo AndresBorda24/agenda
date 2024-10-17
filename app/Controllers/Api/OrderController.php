@@ -25,6 +25,22 @@ class OrderController
         ]);
     }
 
+    public function notificationWebhook(Response $response, Request $request): Response
+    {
+        $body = $request->getParsedBody();
+        @['requestId' => $req, 'reference' => $ref] = $body;
+
+        if (! $req || !$ref) {
+            return responseJSON($response, [
+                "error" => "Required fields are missing."
+            ], 422);
+        }
+
+        // $payment = $this->gateway->getPaymentUrl();
+
+    }
+
+
     public function test(Response $response): Response
     {
         $processUrl = $this->gateway->getPaymentUrl(5, 2);
