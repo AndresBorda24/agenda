@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Config;
 use App\Contracts\PaymentGatewayInterface;
 use App\DataObjects\GatewayReturnData;
+use App\DataObjects\OrderInfo;
 use App\Enums\MpStatus;
 use App\Models\Order;
 use App\Models\Pago;
+use App\Models\Usuario;
 use App\Views;
 
 class HandleGatewayResponse
@@ -17,6 +20,9 @@ class HandleGatewayResponse
         private Pago $pago,
         private Views $view,
         private Order $order,
+        private Config $config,
+        private Usuario $usuario,
+        private MessageService $messageService,
         private PaymentGatewayInterface $gateway
     ) { }
 
@@ -48,5 +54,15 @@ class HandleGatewayResponse
         }
 
         return [$order, $payment];
+    }
+
+    public function notify(OrderInfo $order): void
+    {
+        $usuario = $this->usuario->basic($order->userId);
+
+        $this->messageService->sendMessage(
+            $usuario['telefono'],
+            MessageService::msgNewFidelizado($this->config->get('app.url'))
+        );
     }
 }

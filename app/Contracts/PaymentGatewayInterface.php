@@ -17,5 +17,6 @@ interface PaymentGatewayInterface
 
     public function getPaymentInfo(int $id): PaymentInfoInterface;
 
-    public function processNotification(array $data): array;
+    /** Determina que la informacion recibida en la notificacion sea valida */
+    public function validateNotification(array $data): mixed;
 }
