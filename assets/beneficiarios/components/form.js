@@ -16,6 +16,14 @@ export default () => ({
         "@edit-beneficiario.document": "() => open($event.detail)"
     },
 
+    init() {
+        this.$watch('show', (isShowing) => {
+            isShowing
+                ? document.body.classList.add('overflow-hidden')
+                : document.body.classList.remove('overflow-hidden')
+        });
+    },
+
     /**
      * Abre el modal y realiza el focus al primer input
     */
@@ -33,7 +41,7 @@ export default () => ({
     async save() {
         try {
             removeInvalid();
-            
+
             showLoader();
             const { data, error } = this.isEdit
                 ? await update(this.state.id, this.state)
@@ -86,6 +94,6 @@ export default () => ({
     },
 
     get isEdit() {
-        return Boolean(this.state?.id) 
+        return Boolean(this.state?.id)
     }
 });
