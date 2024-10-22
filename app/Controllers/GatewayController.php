@@ -45,6 +45,7 @@ class GatewayController
 
            $handler = $this->getOrderHandlerService->get($order, $user, $data);
             [$order, $payment] = $handler->fromReturn($data);
+            $user->updateOrder($order);
         } catch (\Exception $e) {
             $error = $e;
             [$order, $payment] = [null, null];
