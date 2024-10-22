@@ -7,11 +7,15 @@ namespace App\Controllers;
 use App\Contracts\PaymentGatewayInterface;
 use App\DataObjects\GatewayReturnData;
 use App\Models\Order;
-use App\Services\HandleGatewayResponse;
 use App\User;
 use App\Views;
+use App\Services\GetOrderHandlerService;
+use App\Services\MessageService;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Log\LoggerInterface;
+
 use function App\responseJSON;
 
 class GatewayController
@@ -19,26 +23,32 @@ class GatewayController
     public function __construct(
         private Views $view,
         private Order $order,
+        private LoggerInterface $logger,
+        private ContainerInterface $container,
+        private GetOrderHandlerService $getOrderHandlerService,
         private PaymentGatewayInterface $gateway,
-        private HandleGatewayResponse $handler
+        private MessageService $messageService
     ) { }
 
     public function returnView(Response $response, User $user, string $data): Response
     {
         try {
-            $data = GatewayReturnData::fromArray(json_decode(base64_decode($data), true));
-            [$order, $payment] = $this->handler->fromReturn($data);
+            $dataArray = json_decode(base64_decode($data), true);
+            $data      = GatewayReturnData::fromArray($dataArray);
+            $order     = $this->order->get(['id' => $data->ref ]);
 
             if ($order?->userId !== $user->id()) {
                 return $response
                     ->withHeader('Location', $this->view->link('home'))
                     ->withStatus(302);
             }
+
+           $handler = $this->getOrderHandlerService->get($order, $user, $data);
+            [$order, $payment] = $handler->fromReturn($data);
         } catch (\Exception $e) {
             $error = $e;
             [$order, $payment] = [null, null];
         }
-
 
         $this->view->setLayout('layouts/base.php');
         return $this->view->render($response, 'gateway/return-in-site.php', [
@@ -55,11 +65,13 @@ class GatewayController
         try {
             $body = $request->getParsedBody() ?? [];
             $ref  = $this->gateway->validateNotification($body);
-            $this->handler->fromReturn(new GatewayReturnData($ref));
 
-            return responseJSON($response, [
-                "success" => true
-            ]);
+            $responseData = new GatewayReturnData($ref);
+            $order = $this->order->get(['id' => $responseData->ref ]);
+            $handler = $this->getOrderHandlerService->get($order);
+
+            $handler->fromReturn($responseData);
+            return responseJSON($response, [ "success" => true ]);
         } catch (\Exception $e) {
             return responseJSON($response, [
                 "success" => false,
@@ -75,19 +87,19 @@ class GatewayController
         $data = [];
         foreach ($orders as $order) {
             try {
-                [$order] = $this->handler->fromReturn(new GatewayReturnData($order->id));
-                $data[] = [
+                $handler = $this->getOrderHandlerService->get($order);
+                [$order] = $handler->fromReturn(new GatewayReturnData($order->id));
+                $data[]  = [
                     $order?->id,
                     $order?->status
                 ];
             } catch (\Exception $e) {
-                $this->handler->messageService->sendMessage(
+                $this->messageService->sendMessage(
                     3209353216,
                     'Error en check pendientes: '.$e->getMessage()
                 );
             }
         }
-
 
         return responseJSON($response, [ "orders" => $data ]);
     }

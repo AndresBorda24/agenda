@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Contracts\PaymentInfoInterface;
 use App\DataObjects\OrderInfo;
 use App\Enums\MpStatus;
+use App\Enums\OrderType;
 use Medoo\Medoo;
 
 class Order
@@ -23,6 +24,7 @@ class Order
             'order_id' => $data->orderId,
             'user_id'  => $data->userId,
             'status'   => $data->status->value,
+            'type'     => $data->type->value,
             'process_url' => $data->processUrl
         ]);
 
@@ -35,6 +37,8 @@ class Order
             'order_id' => $data->orderId,
             'status'   => $data->status->value,
             'data'     => $data->data,
+            'type'     => $data->type->value,
+            'saved'    => $data->saved,
             'process_url' => $data->processUrl,
             'expires_at'  => $data->expiresAt
         ], ['id' => $data->id]);
@@ -46,6 +50,7 @@ class Order
     {
         $this->db->update(self::TABLE, [
             'status'   => $data->getState()->value,
+            'saved'    => true,
         ], ['id' => $order->id]);
 
         return $this->get(['id' => $order->id]);
@@ -77,9 +82,12 @@ class Order
      * Busca la última orden realizada por un usuario y retorna la informacion
      * si el estado es pendiente.
      */
-    public function getLastest(int $userId): ?OrderInfo
+    public function getLastest(int $userId, OrderType $type): ?OrderInfo
     {
-        $data = $this->db->get(self::VISTA, '*', ["user_id" => $userId]);
+        $data = $this->db->get(self::VISTA, '*', [
+            "user_id" => $userId,
+            "type"    => $type->value
+        ]);
 
         return ($data === null) ? null : OrderInfo::fromArray($data);
     }
