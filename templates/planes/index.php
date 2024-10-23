@@ -5,7 +5,9 @@
   style="min-height: 60vh;"
 >
   <div class="flex items-center p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 mt-6" role="alert">
-    <?= $this->fetch('./icons/important.php') ?>
+    <span class="[&>svg]:h-4 me-3">
+      <?= $this->fetch('./icons/important.php') ?>
+    </span>
     <div>
       <span class="font-bold">Importante!</span>
       Al realizar una compra, usted reconoce y acepta nuestros <?= $this->fetch("./partials/tyc.php") ?>
@@ -18,9 +20,9 @@
     class="mx-auto mt-4"
     x-transition.opacity
   >
-    <h3 class="text-center text-primary mt-3">
+    <span class="text-neutral-600 text-sm">
       Ya Seleccionaste un plan anteriormente...
-    </h3>
+    </span>
     <?= $this->fetch("./planes/partials/pendiente.php") ?>
   </section>
 
