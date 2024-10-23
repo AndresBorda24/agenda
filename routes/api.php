@@ -63,7 +63,9 @@ return function (App $app) {
 
         $api->group("/pagos", function (Group $pagos) {
             $pagos->put("/{id:[0-9]+}/set-nomina", [PagoController::class, 'nomina']);
-            $pagos->delete("/{id:[0-9]+}/delete", [PagoController::class, "remove"]);
+            $pagos->delete("/{id:[0-9]+}/delete", [PagoController::class, "remove"])
+                ->add(AuthMiddleware::class)
+            ;
 
             $pagos->group('/order', function(Group $order) {
                 $order->get('/{planId:[0-9]+}/create', [OrderController::class, 'createOrder'])

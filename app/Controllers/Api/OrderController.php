@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controllers\Api;
 
 use App\Contracts\PaymentGatewayInterface;
+use App\Contracts\UserInterface;
 use App\Enums\OrderType;
 use App\Models\Plan;
 use App\OrderItems\FidelizacionItems;
-use App\User;
 use Psr\Http\Message\ResponseInterface as Response;
 
 use function App\responseJSON;
@@ -22,7 +22,7 @@ class OrderController
 
     public function createOrder(
         Response $response,
-        User $user,
+        UserInterface $user,
         int $planId
     ): Response {
         $processUrl = $this->gateway->getPaymentUrl(
