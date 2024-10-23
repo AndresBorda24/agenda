@@ -10,6 +10,7 @@ use Medoo\Medoo;
 use Slim\Views\PhpRenderer;
 use App\DataObjects\SessionConfig;
 use App\Gateways\GouGateway;
+use App\GatewaysResponseHandlers\FidelizacionHandler;
 use Psr\Log\LoggerInterface;
 use UltraMsg\WhatsAppApi;
 
@@ -36,6 +37,13 @@ return [
     ),
 
     PaymentGatewayInterface::class => autowire(GouGateway::class),
+
+    /* ************************************************************************
+     * Handlers para los tipos de Ordenes.
+     * ...
+     * ************************************************************************
+    */
+    FidelizacionHandler::class => autowire(FidelizacionHandler::class),
 
     LoggerInterface::class => function(Config $config) {
         $logFile = $config->get('logfile');

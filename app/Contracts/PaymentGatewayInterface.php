@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
+use App\Enums\OrderType;
+
 /**
  * Interfaz para la pasarela de pagos...🤏
 */
 interface PaymentGatewayInterface
 {
     /** Obtiene la ruta para que el usuario continue con el pago. */
-    public function getPaymentUrl(int $userId, int $planId): string;
+    public function getPaymentUrl(int $userId, OrderType $type, PaymentItemsInterface $data): string;
 
     /** Determina que un pago tenga un estado en especifico. */
     public function validatePayment(int $id, $state): bool;

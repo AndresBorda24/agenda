@@ -3,8 +3,8 @@
     <h1  class="fs-5 text-primary">Listado de beneficiarios</h1>
     <div id="new-beneficiario-container" class="mb-4"> </div>
 
-    <div class="flex items-center !p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-      <?= $this->fetch('icons/important.php') ?>
+    <div class="flex !gap-2 items-center !p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+      <span class="[&>svg]:h-4"><?= $this->fetch('icons/important.php') ?></span>
       <div>
         <span class="font-medium">Importante!</span>
         <p class="mb-1 small text-dark-emphasis">

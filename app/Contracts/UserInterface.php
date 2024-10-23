@@ -53,4 +53,9 @@ interface UserInterface
      * Obtiene la informacion de la última orden registrada por el usuario.
      */
     public function getOrder(): ?OrderInfo;
+
+    /**
+     * Actualiza la información de la ordern del usuario.
+     */
+    public function updateOrder(?OrderInfo $order): void;
 }

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\GatewaysResponseHandlers;
 
 use App\Config;
+use App\Contracts\GatewayResponseHandler;
 use App\Contracts\PaymentGatewayInterface;
 use App\DataObjects\GatewayReturnData;
 use App\DataObjects\OrderInfo;
@@ -13,14 +14,13 @@ use App\Enums\MpStatus;
 use App\Models\Order;
 use App\Models\Pago;
 use App\Models\Usuario;
-use App\Views;
+use App\Services\MessageService;
 use Psr\Log\LoggerInterface;
 
-class HandleGatewayResponse
+class FidelizacionHandler implements GatewayResponseHandler
 {
     public function __construct(
         private Pago $pago,
-        private Views $view,
         private Order $order,
         private Usuario $usuario,
         public readonly Config $config,

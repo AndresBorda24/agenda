@@ -7,9 +7,12 @@ namespace App\Gateways;
 use App\Config;
 use App\Contracts\PaymentGatewayInterface;
 use App\Contracts\PaymentInfoInterface;
+use App\Contracts\PaymentItemsInterface;
+use App\DataObjects\OrderInfo;
 use App\Models\Order;
 use Dnetix\Redirection\PlacetoPay;
 use App\Enums\MpStatus;
+use App\Enums\OrderType;
 use App\Gateways\GouGatewayPaymentInfo;
 use App\Models\Plan;
 use Slim\Factory\ServerRequestCreatorFactory;
@@ -36,30 +39,29 @@ class GouGateway implements PaymentGatewayInterface
         $this->request = ServerRequestCreatorFactory::create()->createServerRequestFromGlobals();
     }
 
-    public function getPaymentUrl(int $userId, int $planId): string
+    public function getPaymentUrl(int $userId, OrderType $type, PaymentItemsInterface $data): string
     {
-        $order = $this->order->create(
-            \App\DataObjects\OrderInfo::createBasic($userId)
-        );
-        $sessionData = $this->getSessionData($planId, $order->id);
+        $order = $this->order->create(OrderInfo::createBasic($userId, $type));
+        $sessionData = $this->getSessionData($data, $order->id);
         $response = $this->placeToPay->request($sessionData);
 
         if ($response->isSuccessful()) {
             $newOrder = $this->order->update(
-                new \App\DataObjects\OrderInfo(
+                new OrderInfo(
                     id: $order->id,
                     userId: $order->userId,
+                    type: $type,
                     orderId: $response->requestId(),
                     processUrl: $response->processUrl(),
                     status: MpStatus::PENDIENTE,
                     expiresAt: $sessionData["expiration"],
                     data: json_encode(
-                        $this->plan->find($planId),
+                        $data->getData(),
                         JSON_HEX_TAG |
-                            JSON_HEX_AMP |
-                            JSON_HEX_QUOT |
-                            JSON_HEX_APOS |
-                            JSON_THROW_ON_ERROR
+                        JSON_HEX_AMP |
+                        JSON_HEX_QUOT |
+                        JSON_HEX_APOS |
+                        JSON_THROW_ON_ERROR
                     )
                 )
             );
@@ -125,32 +127,20 @@ class GouGateway implements PaymentGatewayInterface
         }
     }
 
-    private function getSessionData(int $planId, $reference): array
+    private function getSessionData(PaymentItemsInterface $data, $reference): array
     {
-        if (!($plan = $this->plan->find($planId))) {
-            throw new \RuntimeException(
-                "Imposible recuperar la información del plan."
-            );
-        }
-
         [$ip, $userAgent, $returnUrl] = $this->getNeededData($reference);
         return [
             "locale" => "es_CO",
             "payment" => [
                 "reference" => $reference,
-                "description" => "Plan: " . $plan->nombre,
+                "description" => $data->getDescription(),
                 "amount" => [
-                    "currency" => "COP",
-                    "total" => $plan->valor,
+                    "currency" => $data->getAmount()->currency,
+                    "total" => $data->getAmount()->value,
                 ],
             ],
-            "fields" => [
-                [
-                    "keyword" => "plan_id",
-                    "value" => $planId,
-                    "displayOn" => "none",
-                ],
-            ],
+            "fields" => $data->getFields(),
             "expiration" => date("c", strtotime("+30 min")),
             "returnUrl" => $returnUrl,
             "notificationUrl" => "https://intranet.asotrauma.com.co/atest/",
