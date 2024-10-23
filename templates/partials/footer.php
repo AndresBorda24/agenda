@@ -1,67 +1,55 @@
-<footer class="pt-5 bg-secondary overflow-hidden small">
-  <div class="mb-4 row container m-auto gap-4 gap-md-0 g-md-4 row-cols-1 row-cols-md-3 align-items-center">
-    <ul class="list-group list-group-flush small text-center m-0 p-0">
-      <li class="list-group-item bg-transparent text-light">
-        <span class="text-warning"><?= $this->fetch("./icons/location.php") ?></span>
-        Cra. 4D No. 32 - 34 , Ibagu&eacute;, Tolima
-      </li>
-      <li class="list-group-item bg-transparent text-light">
-        <span class="text-warning"><?= $this->fetch("./icons/mail.php") ?></span>
+<footer class="bg-secondary overflow-hidden small">
+  <div class="grid grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto py-20 px-7 gap-7">
+    <div class="flex flex-col max-w-lg gap-6">
+      <div>
+        <img
+          class="h-[30px] w-auto"
+          src="<?= $this->asset("img/logo-blanco-full.png") ?>"
+          alt="logo-blanco"
+        >
+      </div>
+      <span class="text-neutral-50 text-sm tracking-wider">
+        Trabajamos por tu bienestar y el bienestar de tu familia, por eso en la Clínica Asotrauma trabajamos para ti y para todos.
+      </span>
+      <div class="flex gap-6 items-center">
         <a
+          class="text-decoration-none text-neutral-100 hover:text-neutral-300 [&>svg]:w-6 [&>svg]:h-6"
+          href="https://www.facebook.com/Clinicaasotrauma/"
+          target="_blank"
+          title="Facebook | Clinicaasotrama"
+        ><?= $this->fetch('icons/facebook.php') ?></a>
+        <a
+          class="text-decoration-none text-neutral-100 hover:text-neutral-300 [&>svg]:w-6 [&>svg]:h-6"
+          href="https://www.instagram.com/clinicaasotrauma/"
+          target="_blank"
+          title="Instagram | clinicaasotrauma"
+        ><?= $this->fetch('icons/insta.php') ?></a>
+        <a
+          class="text-decoration-none text-neutral-100 hover:text-neutral-300 [&>svg]:w-6 [&>svg]:h-6"
+          href="https://www.youtube.com/c/ClinicaAsotrauma"
+          target="_blank"
+          title="Youtube |  Cl&iacute;nica Asotrauma"
+        ><?= $this->fetch('icons/youtube.php') ?></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-neutral-200 flex flex-col lg:flex-row flex-wrap !gap-4 lg:!gap-7 px-7 justify-center py-7 bg-blue-800 text-sm">
+    <span class="flex !gap-2 items-center">
+      <span class="text-neutral-200 [&>svg]:w-6 [&>svg]:h-6"><?= $this->fetch("./icons/location.php") ?></span>
+      Cra. 4D No. 32 - 34 , Ibagu&eacute;, Tolima
+    </span>
+    <span class="flex !gap-2 items-center">
+      <span class="text-neutral-200 [&>svg]:w-6 [&>svg]:h-6"><?= $this->fetch("./icons/mail.php") ?></span>
+      <a
         class="text-decoration-none text-white"
         href="mailto:gerencia@asotrauma.com.co"
-        target="_blank">
-          gerencia@asotrauma.com.co
-        </a>
-      </li>
-      <li class="list-group-item bg-transparent text-light">
-        <span class="text-warning"><?= $this->fetch("./icons/phone.php") ?></span>
-        (8) 515 - 3000
-      </li>
-    </ul>
-
-    <div class="m-0">
-      <img
-      class="mx-auto block h-[40px]"
-      src="<?= $this->asset("img/logo-blanco-full.png") ?>"
-      alt="logo-blanco">
-    </div>
-
-    <ul class="list-group list-group-flush small text-center m-0 p-0">
-      <li class="list-group-item bg-transparent text-light">
-        <span class="link-hover">
-          <span class=""><?= $this->fetch("./icons/facebook.php") ?></span>
-          <a
-          class="text-decoration-none text-white"
-          href="https://www.facebook.com/Clinicaasotrauma/"
-          target="_blank">
-            Clinicaasotrama
-          </a>
-        </span>
-      </li>
-      <li class="list-group-item bg-transparent text-light">
-        <span class="link-hover">
-          <span class="text-warning"><?= $this->fetch("./icons/insta.php") ?></span>
-          <a
-          class="text-decoration-none text-white"
-          href="https://www.instagram.com/clinicaasotrauma/"
-          target="_blank">
-            clinicaasotrauma
-          </a>
-        </span>
-      </li>
-      <li class="list-group-item bg-transparent text-light">
-        <span class="link-hover">
-          <span class="text-danger"><?= $this->fetch("./icons/youtube.php") ?></span>
-          <a
-          class="text-decoration-none text-white"
-          href="https://www.youtube.com/c/ClinicaAsotrauma"
-          target="_blank">
-            Cl&iacute;nica Asotrauma
-          </a>
-        </span>
-      </li>
-    </ul>
+      > gerencia@asotrauma.com.co </a>
+    </span>
+    <span class="flex !gap-2 items-center">
+      <span class="text-neutral-200 [&>svg]:w-6 [&>svg]:h-6"><?= $this->fetch("./icons/phone.php") ?></span>
+      (8) 515 - 3000
+    </span>
   </div>
 
   <div class="bg-blue-900 px-2 py-3 text-center text-white small">
