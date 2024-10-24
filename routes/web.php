@@ -47,6 +47,9 @@ return function(App $app) {
                 ->setName("beneficiarios");
                 // ->add(PagoValidoMiddleware::class);
 
+            $app->get("/tramites", [IndexController::class, "tramites"])
+                ->setName("tramites");
+
             $app->get("/activar-tarjeta", [IndexController::class, "activarTarjeta"])
                 ->setName("activar-tarjeta")
                 ->add(HasActiveCardMiddleware::class)

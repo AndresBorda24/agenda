@@ -165,6 +165,17 @@ class IndexController
             ]);
     }
 
+    public function tramites(Response $response, UserInterface $user): Response
+    {
+        $this->view->addAttribute("user", $user);
+        return $this
+            ->view
+            ->render($response, "tramites/index.php", [
+                '_TITLE'  => 'Trámites Virtuales',
+                '_ASSETS' => 'planes/index.js'
+            ]);
+    }
+
     public function planesResponse(
         Request $request,
         Response $response,
