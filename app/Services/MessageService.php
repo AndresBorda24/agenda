@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Services;
 
@@ -14,7 +14,7 @@ class MessageService
         public readonly Config $config
     ) {}
 
-    public function sendMessage(string|int $to, string $message, int $priority = 3): void
+    public function sendMessage(string | int $to, string $message, int $priority = 3): void
     {
         if ($this->config->get('app.env') !== 'prod') {
             $to = "3209353216";
@@ -35,9 +35,8 @@ class MessageService
     public static function msgCertificasdoNoAtencion($correo): string
     {
         return <<<EOF
-        ¡Hemos recibido tu pago! \n
-
-        En los próximos minutos te llegará un mensaje con el archivo a tu número de WhatsApp y al correo que tienes registrado ($correo). Ten en cuenta que `puede tardar un poco`. Te notificaremos cuando esté listo.
+        Hola 👋, ¡Hemos recibido tu pago! \n
+        En los próximos minutos te llegará un mensaje con el archivo de tu certificado a tu número de WhatsApp y al correo que tienes registrado ($correo). Ten en cuenta que `puede tardar un poco`. Te notificaremos cuando esté listo.
         EOF;
     }
 }

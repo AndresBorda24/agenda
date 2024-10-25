@@ -53,7 +53,7 @@ class CertificadoNoAtencionHandler implements GatewayResponseHandler
             try {
                 $order = $this->order->updateFromGatewayResponse($order, $payment);
                 if (in_array($order->status, [MpStatus::APROVADO, MpStatus::RECHAZADO])) {
-                    $order = $this->order->setSave($order);
+                    $this->order->setSave($order);
                 }
 
                 if ($order->status === MpStatus::APROVADO) {

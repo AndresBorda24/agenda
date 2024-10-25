@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Models;
 
@@ -22,10 +22,10 @@ class Order
     {
         $this->db->insert(self::TABLE, [
             'order_id' => $data->orderId,
-            'user_id'  => $data->userId,
-            'status'   => $data->status->value,
-            'type'     => $data->type->value,
-            'process_url' => $data->processUrl
+            'user_id' => $data->userId,
+            'status' => $data->status->value,
+            'type' => $data->type->value,
+            'process_url' => $data->processUrl,
         ]);
 
         return $this->get(['id' => $this->db->id()]);
@@ -35,12 +35,12 @@ class Order
     {
         $this->db->update(self::TABLE, [
             'order_id' => $data->orderId,
-            'status'   => $data->status->value,
-            'data'     => $data->data,
-            'type'     => $data->type->value,
-            'saved'    => $data->saved,
+            'status' => $data->status->value,
+            'data' => $data->data,
+            'type' => $data->type->value,
+            'saved' => $data->saved,
             'process_url' => $data->processUrl,
-            'expires_at'  => $data->expiresAt
+            'expires_at' => $data->expiresAt,
         ], ['id' => $data->id]);
 
         return $this->get(['id' => $data->id]);
@@ -49,8 +49,8 @@ class Order
     public function updateFromGatewayResponse(OrderInfo $order, PaymentInfoInterface $data)
     {
         $this->db->update(self::TABLE, [
-            'status'   => $data->getState()->value,
-            'saved'    => true,
+            'status' => $data->getState()->value,
+            'saved' => true,
         ], ['id' => $order->id]);
 
         return $this->get(['id' => $order->id]);
@@ -65,14 +65,14 @@ class Order
         $data = $this->db->get(self::TABLE, '*', $where);
 
         return ($data === null)
-            ? null
-            : OrderInfo::fromArray($data);
+        ? null
+        : OrderInfo::fromArray($data);
     }
 
     public function setPagoId(OrderInfo $order, int $pagoId): bool
     {
         $this->db->update(self::TABLE, [
-            'pago_id' => $pagoId
+            'pago_id' => $pagoId,
         ], ['id' => $order->id]);
 
         return true;
@@ -86,12 +86,11 @@ class Order
     {
         $data = $this->db->get(self::VISTA, '*', [
             "user_id" => $userId,
-            "type"    => $type->value
+            "type" => $type->value,
         ]);
 
         return ($data === null) ? null : OrderInfo::fromArray($data);
     }
-
 
     /**
      * Retorna un array con todas las ordenes pendientes por estado final.
@@ -102,8 +101,8 @@ class Order
         $data = [];
 
         $this->db->select(self::VISTA, '*', [
-            'status' => MpStatus::PENDIENTE->value
-        ], function(array $reg) use(&$data) {
+            'status' => MpStatus::PENDIENTE->value,
+        ], function (array $reg) use (&$data) {
             $data[] = OrderInfo::fromArray($reg);
         });
 
@@ -111,15 +110,11 @@ class Order
     }
 
     /** Establece la propiedad `saved` a true */
-    public function setSave(OrderInfo $order): OrderInfo
+    public function setSave(OrderInfo $order): bool
     {
         $this->db->update(self::TABLE, [
-            'saved' => true
+            'saved' => true,
         ], ['id' => $order->id]);
-
-        $orderArray = (array) $order;
-        $orderArray['active'] = true;
-
-        return OrderInfo::fromArray($orderArray);
+        return true;
     }
 }

@@ -1,3 +1,6 @@
+<?php
+/** @var \App\DataObjects\OrderItem[] $orderItems   */
+?>
 <main class="flex-grow-1 p-3">
   <section class="mx-auto max-w-3xl">
     <h1 class="fs-5 text-primary mb-6">Trámites Virtuales</h1>
@@ -15,13 +18,15 @@
       </div>
     </div>
 
-    <div class="grid [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
-      <?= $this->fetch('tramites/partials/item.php', [
-        'title' => 'Certificado Atenciones Policial',
-        'desc'  => 'Esta es una descripción temporal',
-        'icon'  => 'paper-fill.php',
-        'valor' => number_format(30000, thousands_separator: '.')
-      ]) ?>
+    <div
+      x-data="ItemsList"
+      class="grid [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))] !gap-5"
+    >
+      <?php foreach($orderItems as $item): ?>
+        <?= $this->fetch('tramites/partials/item.php', [
+          'item' => $item
+        ]) ?>
+      <?php endforeach ?>
     </div>
   </section>
 </main>

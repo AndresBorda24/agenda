@@ -175,8 +175,6 @@ body {
     display: grid;
     place-content: center;
     &>:first-child {
-        width: 90dvw;
-        width: 90vw;
         max-width: 500px;
     }
 }

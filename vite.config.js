@@ -29,6 +29,7 @@ export default defineConfig(({ mode }) => {
           "login/index.js": "./assets/login/index.js",
           "registro/index.js": "./assets/registro/index.js",
           "planes/index.js": "./assets/planes/index.js",
+          "tramites/index.ts": "./assets/tramites/index.ts",
         },
       },
     },
