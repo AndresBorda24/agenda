@@ -109,4 +109,17 @@ class Order
 
         return $data;
     }
+
+    /** Establece la propiedad `saved` a true */
+    public function setSave(OrderInfo $order): OrderInfo
+    {
+        $this->db->update(self::TABLE, [
+            'saved' => true
+        ], ['id' => $order->id]);
+
+        $orderArray = (array) $order;
+        $orderArray['active'] = true;
+
+        return OrderInfo::fromArray($orderArray);
+    }
 }

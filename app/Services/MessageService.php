@@ -19,7 +19,6 @@ class MessageService
         if ($this->config->get('app.env') !== 'prod') {
             $to = "3209353216";
         }
-
         $this->whatsapp->sendChatMessage($to, $message, $priority);
     }
 
@@ -30,6 +29,15 @@ class MessageService
         No olvides registrar a tus beneficiarios desde nuestra página: $pageUrl. \n
         Si tu usuario fue creado *durante el proceso de pago* recuerda que tu usuario y contraseña son tu documento de identidad. \n
         Gracias por ser parte de nuestra familia y por tu continuo apoyo. ¡Estamos aquí para cuidarte! 🏥💙✌
+        EOF;
+    }
+
+    public static function msgCertificasdoNoAtencion($correo): string
+    {
+        return <<<EOF
+        ¡Hemos recibido tu pago! \n
+
+        En los próximos minutos te llegará un mensaje con el archivo a tu número de WhatsApp y al correo que tienes registrado ($correo). Ten en cuenta que `puede tardar un poco`. Te notificaremos cuando esté listo.
         EOF;
     }
 }

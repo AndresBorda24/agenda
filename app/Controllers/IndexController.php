@@ -10,6 +10,7 @@ use App\Views;
 use App\Models\Plan;
 use App\Enums\MpStatus;
 use App\Models\Beneficiario;
+use App\Models\OrderItems;
 use Medoo\Medoo;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -165,14 +166,15 @@ class IndexController
             ]);
     }
 
-    public function tramites(Response $response, UserInterface $user): Response
+    public function tramites(Response $response, UserInterface $user, OrderItems $orderItem): Response
     {
         $this->view->addAttribute("user", $user);
         return $this
             ->view
             ->render($response, "tramites/index.php", [
                 '_TITLE'  => 'Trámites Virtuales',
-                '_ASSETS' => 'planes/index.js'
+                '_ASSETS' => 'tramites/index.ts',
+                'orderItems' => $orderItem->getAll()
             ]);
     }
 
