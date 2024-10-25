@@ -19,7 +19,8 @@
         "avadim/fast-excel-writer": "^4.8",
         "spatie/array-to-xml": "^3.3",
         "dnetix/redirection": "^2.1",
-        "firehed/simplelogger": "^3.0"
+        "firehed/simplelogger": "^3.0",
+        "rmccue/requests": "^2.0"
     },
     "config": {
         "platform": {
