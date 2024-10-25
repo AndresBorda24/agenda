@@ -21,8 +21,10 @@ final class OrderInfo
         public readonly string $createdAt = '',
         public readonly string $updatedAt = '',
         public readonly ?string $expiresAt = null,
-        public readonly ?string $data = null
-    ) { }
+        public readonly ?string $data = null,
+        public readonly ?int $fileId = null
+    ) {
+    }
 
     public static function fromArray(array $data)
     {
@@ -38,7 +40,8 @@ final class OrderInfo
             createdAt: $data['created_at'],
             expiresAt: $data['expires_at'],
             updatedAt: $data['updated_at'],
-            data: $data['data']
+            data: $data['data'],
+            fileId: $data['file_id'] ?? null
         );
     }
 
