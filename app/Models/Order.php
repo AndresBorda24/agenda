@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+
+declare (strict_types=1);
 
 namespace App\Models;
 
@@ -16,7 +17,8 @@ class Order
 
     public function __construct(
         public readonly Medoo $db
-    ) {}
+    ) {
+    }
 
     public function create(OrderInfo $data): ?OrderInfo
     {
@@ -114,6 +116,17 @@ class Order
     {
         $this->db->update(self::TABLE, [
             'saved' => true,
+        ], ['id' => $order->id]);
+        return true;
+    }
+
+    /**
+     * Relaciona un archivo con una orden al establecer la propidad file_id
+     */
+    public function setFileId(OrderInfo $order, int $fileId): bool
+    {
+        $this->db->update(self::TABLE, [
+            'file_id' => $fileId,
         ], ['id' => $order->id]);
         return true;
     }

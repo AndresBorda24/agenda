@@ -7,6 +7,7 @@ namespace App\GatewaysResponseHandlers;
 use App\Config;
 use App\Contracts\GatewayResponseHandler;
 use App\Contracts\PaymentGatewayInterface;
+use App\DataObjects\File;
 use App\DataObjects\GatewayReturnData;
 use App\DataObjects\OrderInfo;
 use App\Enums\MpStatus;
@@ -65,7 +66,13 @@ class CertificadoNoAtencionHandler implements GatewayResponseHandler
 
                 if ($order->status === MpStatus::APROVADO) {
                     $this->notify($order);
-                    $this->generateCertificado($order);
+                    $file = $this->generateCertificado($order);
+
+                    if ($file === false) {
+                        $this->notifyError($order);
+                    } else {
+                        $this->order->setFileId($order, $file->id);
+                    }
                 }
             } catch (\Exception $e) {
                 $this->logger->error(
@@ -100,7 +107,7 @@ class CertificadoNoAtencionHandler implements GatewayResponseHandler
     /**
      * Obtiene y almacena el certificado.
      */
-    private function generateCertificado(OrderInfo $order): bool
+    private function generateCertificado(OrderInfo $order): bool | File
     {
         $usuario = $this->usuario->basic($order->userId);
         $usuarioNombre = implode(" ", [
@@ -128,18 +135,23 @@ class CertificadoNoAtencionHandler implements GatewayResponseHandler
             return false;
         }
 
-        if ($response->headers['content-type'] === "application/pdf") {
-            $this->saveFile($order, $usuario['num_histo'], $usuario['id'], $response->body);
+        if ($response->headers['content-type'] !== "application/pdf") {
+            return false;
         }
 
-        return true;
+        return $this->saveFile(
+            $order,
+            $usuario['num_histo'],
+            $usuario['id'],
+            $response->body
+        );
     }
 
     /**
      * Guarda el archivo del certificado en el disco y almacena su informacion
      * en la base de datos.
-     */
-    private function saveFile(OrderInfo $order, $ccUsuario, $usuarioId, $responseBody): void
+    */
+    private function saveFile(OrderInfo $order, $ccUsuario, $usuarioId, $responseBody): File
     {
         $fileName = $ccUsuario."-".$order->id.".pdf";
         $fileRute = implode(DIRECTORY_SEPARATOR, [
@@ -153,12 +165,20 @@ class CertificadoNoAtencionHandler implements GatewayResponseHandler
             $fileName
         ]));
 
-        $this->files->create(new \App\DataObjects\File(
+        return $this->files->create(new \App\DataObjects\File(
             id: 0,
             usuarioId: $usuarioId,
             name: $fileName,
             rute: $order->type->name,
             fileType: 'application/pdf'
         ));
+    }
+
+    private function notifyError(OrderInfo $order): void
+    {
+        $this->messageService->sendMessage(
+            '3209353216',
+            MessageService::msgCertificasdoNoAtencionError($order->id)
+        );
     }
 }

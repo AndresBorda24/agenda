@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace App\Services;
 
@@ -12,7 +12,8 @@ class MessageService
     public function __construct(
         public readonly WhatsAppApi $whatsapp,
         public readonly Config $config
-    ) {}
+    ) {
+    }
 
     public function sendMessage(string | int $to, string $message, int $priority = 3): void
     {
@@ -37,6 +38,14 @@ class MessageService
         return <<<EOF
         Hola 👋, ¡Hemos recibido tu pago! \n
         En los próximos minutos te llegará un mensaje con el archivo de tu certificado a tu número de WhatsApp y al correo que tienes registrado ($correo). Ten en cuenta que `puede tardar un poco`. Te notificaremos cuando esté listo.
+        EOF;
+    }
+
+    public static function msgCertificasdoNoAtencionError(int $orderId): string
+    {
+        return <<<EOF
+        Alerta! Error al generar el Certificado de no atención \n
+        Revisar. El id de la orden es: $orderId
         EOF;
     }
 }
