@@ -51,8 +51,7 @@ class Order
     public function updateFromGatewayResponse(OrderInfo $order, PaymentInfoInterface $data)
     {
         $this->db->update(self::TABLE, [
-            'status' => $data->getState()->value,
-            'saved' => true,
+            'status' => $data->getState()->value
         ], ['id' => $order->id]);
 
         return $this->get(['id' => $order->id]);
@@ -129,5 +128,32 @@ class Order
             'file_id' => $fileId,
         ], ['id' => $order->id]);
         return true;
+    }
+
+    public function getOrderFiles(int $userId): array
+    {
+        $data = [];
+        $this->db->select(self::TABLE." (O)", [
+            '[>]'.Files::TABLE.' (F)' => ["file_id" => "id"],
+            '[>]'.OrderItems::TABLE.' (I)' => "type"
+        ], [
+            "O.id", "O.created_at", "I.name", "F.name (file_name)",
+            "F.id (file_id)", "O.status"
+        ], [
+            "O.user_id" => $userId,
+            "O.status" => [MpStatus::APROVADO->value, MpStatus::PENDIENTE->value],
+            "O.type" => array_map(fn ($t) => $t->value, OrderType::fileTypes())
+        ], function ($i) use (&$data) {
+            $data[] = [
+                "id" => (int) $i["id"],
+                "created_at" => $i["created_at"],
+                "name" => $i["name"],
+                "file_id" => $i["file_id"],
+                "status" => MpStatus::from($i["status"])->publicName(),
+                "status_raw" => $i["status"]
+            ];
+        });
+
+        return $data;
     }
 }

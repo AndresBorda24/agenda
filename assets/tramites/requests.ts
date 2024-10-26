@@ -25,3 +25,9 @@ export function getProcessUrl(itemId: string|number) {
         url: string
     }>(() => local.get(`/pagos/order/${itemId}/new`));
 }
+
+export function getUserFiles() {
+    return request<{
+        url: string
+    }>(() => local.get(`/pagos/order/user-files`));
+}

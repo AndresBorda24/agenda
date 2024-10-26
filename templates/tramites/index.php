@@ -1,9 +1,10 @@
 <?php
 /** @var \App\DataObjects\OrderItem[] $orderItems   */
 ?>
-<main class="flex-grow-1 p-3">
+<main class="flex-grow-1 p-3 flex">
   <section class="mx-auto max-w-3xl">
     <h1 class="fs-5 text-primary mb-6">Trámites Virtuales</h1>
+    <div id="tramites-list-button-container"></div>
     <div
       class="max-w-xl flex items-center !p-4 !mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 mt-6" role="alert"
     >
@@ -29,4 +30,6 @@
       <?php endforeach ?>
     </div>
   </section>
+
+  <?= $this->fetch('tramites/partials/order-list.php') ?>
 </main>

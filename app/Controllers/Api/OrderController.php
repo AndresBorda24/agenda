@@ -7,6 +7,7 @@ namespace App\Controllers\Api;
 use App\Contracts\PaymentGatewayInterface;
 use App\Contracts\UserInterface;
 use App\Enums\OrderType;
+use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\Plan;
 use App\OrderItems\FidelizacionItems;
@@ -19,9 +20,11 @@ class OrderController
 {
     public function __construct(
         private Plan $plan,
+        private Order $order,
         private OrderItems $orderItems,
         private PaymentGatewayInterface $gateway
-    ) {}
+    ) {
+    }
 
     /**
      * Crea una orden exclusivamente de tipo Fidelizacion. Si se requiere crear
@@ -48,9 +51,11 @@ class OrderController
         int $id
     ): Response {
         $item = $this->orderItems->find(['id' => $id]);
-        if ($item === null) throw new \RuntimeException(
-            "Invalid Item Identifier"
-        );
+        if ($item === null) {
+            throw new \RuntimeException(
+                "Invalid Item Identifier"
+            );
+        }
 
         $processUrl = $this->gateway->getPaymentUrl(
             $user->id(),
@@ -72,5 +77,11 @@ class OrderController
         );
 
         return responseJSON($response, ["data" => $processUrl]);
+    }
+
+    public function userFiles(Response $response, UserInterface $user): Response
+    {
+        $data = $this->order->getOrderFiles($user->id());
+        return responseJSON($response, $data);
     }
 }

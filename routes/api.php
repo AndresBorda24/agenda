@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare (strict_types=1);
 
 use App\Controllers\Api\AgendaController;
 use App\Controllers\Api\AuthController;
@@ -68,6 +68,9 @@ return function (App $app) {
             ;
 
             $pagos->group('/order', function (Group $order) {
+                $order->get('/user-files', [OrderController::class, 'userFiles'])
+                    ->add(AuthMiddleware::class)
+                ;
                 $order->get('/{id:[0-9]+}/new', [OrderController::class, 'newOrder'])
                     ->add(AuthMiddleware::class)
                 ;
@@ -107,7 +110,7 @@ return function (App $app) {
                 "/{pagoId:[0-9]+}/set-registrado",
                 [ExternalController::class, "setRegistradoVal"]
             );
-            $ext->options("/{routes:.+}", fn($response) => $response);
+            $ext->options("/{routes:.+}", fn ($response) => $response);
         })->add(CorsMiddleware::class)->add(JsonBodyParserMiddleware::class);
 
         $ext->group('', function (Group $ext) {

@@ -23,4 +23,10 @@ enum OrderType: int
             self::CRT_ATENCION => CertificadoNoAtencionHandler::class
         };
     }
+
+    /** @return OrderType[] Array con todos los tipos de Orden que son archivos */
+    public static function fileTypes(): array
+    {
+        return [ self::CRT_ATENCION ];
+    }
 }
