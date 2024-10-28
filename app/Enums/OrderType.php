@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
+use App\GatewaysResponseHandlers\CertificadoNoAtencionHandler;
 use App\GatewaysResponseHandlers\FidelizacionHandler;
 
 enum OrderType: int
@@ -19,7 +20,13 @@ enum OrderType: int
     {
         return match ($this) {
             self::FIDELIZACION => FidelizacionHandler::class,
-            self::CRT_ATENCION => FidelizacionHandler::class
+            self::CRT_ATENCION => CertificadoNoAtencionHandler::class
         };
+    }
+
+    /** @return OrderType[] Array con todos los tipos de Orden que son archivos */
+    public static function fileTypes(): array
+    {
+        return [ self::CRT_ATENCION ];
     }
 }

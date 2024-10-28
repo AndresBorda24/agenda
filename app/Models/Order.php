@@ -1,5 +1,6 @@
 <?php
-declare(strict_types=1);
+
+declare (strict_types=1);
 
 namespace App\Models;
 
@@ -16,16 +17,17 @@ class Order
 
     public function __construct(
         public readonly Medoo $db
-    ) {}
+    ) {
+    }
 
     public function create(OrderInfo $data): ?OrderInfo
     {
         $this->db->insert(self::TABLE, [
             'order_id' => $data->orderId,
-            'user_id'  => $data->userId,
-            'status'   => $data->status->value,
-            'type'     => $data->type->value,
-            'process_url' => $data->processUrl
+            'user_id' => $data->userId,
+            'status' => $data->status->value,
+            'type' => $data->type->value,
+            'process_url' => $data->processUrl,
         ]);
 
         return $this->get(['id' => $this->db->id()]);
@@ -35,12 +37,12 @@ class Order
     {
         $this->db->update(self::TABLE, [
             'order_id' => $data->orderId,
-            'status'   => $data->status->value,
-            'data'     => $data->data,
-            'type'     => $data->type->value,
-            'saved'    => $data->saved,
+            'status' => $data->status->value,
+            'data' => $data->data,
+            'type' => $data->type->value,
+            'saved' => $data->saved,
             'process_url' => $data->processUrl,
-            'expires_at'  => $data->expiresAt
+            'expires_at' => $data->expiresAt,
         ], ['id' => $data->id]);
 
         return $this->get(['id' => $data->id]);
@@ -49,8 +51,7 @@ class Order
     public function updateFromGatewayResponse(OrderInfo $order, PaymentInfoInterface $data)
     {
         $this->db->update(self::TABLE, [
-            'status'   => $data->getState()->value,
-            'saved'    => true,
+            'status' => $data->getState()->value
         ], ['id' => $order->id]);
 
         return $this->get(['id' => $order->id]);
@@ -65,14 +66,14 @@ class Order
         $data = $this->db->get(self::TABLE, '*', $where);
 
         return ($data === null)
-            ? null
-            : OrderInfo::fromArray($data);
+        ? null
+        : OrderInfo::fromArray($data);
     }
 
     public function setPagoId(OrderInfo $order, int $pagoId): bool
     {
         $this->db->update(self::TABLE, [
-            'pago_id' => $pagoId
+            'pago_id' => $pagoId,
         ], ['id' => $order->id]);
 
         return true;
@@ -86,12 +87,11 @@ class Order
     {
         $data = $this->db->get(self::VISTA, '*', [
             "user_id" => $userId,
-            "type"    => $type->value
+            "type" => $type->value,
         ]);
 
         return ($data === null) ? null : OrderInfo::fromArray($data);
     }
-
 
     /**
      * Retorna un array con todas las ordenes pendientes por estado final.
@@ -102,9 +102,57 @@ class Order
         $data = [];
 
         $this->db->select(self::VISTA, '*', [
-            'status' => MpStatus::PENDIENTE->value
-        ], function(array $reg) use(&$data) {
+            'status' => MpStatus::PENDIENTE->value,
+        ], function (array $reg) use (&$data) {
             $data[] = OrderInfo::fromArray($reg);
+        });
+
+        return $data;
+    }
+
+    /** Establece la propiedad `saved` a true */
+    public function setSave(OrderInfo $order): bool
+    {
+        $this->db->update(self::TABLE, [
+            'saved' => true,
+        ], ['id' => $order->id]);
+        return true;
+    }
+
+    /**
+     * Relaciona un archivo con una orden al establecer la propidad file_id
+     */
+    public function setFileId(OrderInfo $order, int $fileId): bool
+    {
+        $this->db->update(self::TABLE, [
+            'file_id' => $fileId,
+        ], ['id' => $order->id]);
+        return true;
+    }
+
+    public function getOrderFiles(int $userId): array
+    {
+        $data = [];
+        $this->db->select(self::TABLE." (O)", [
+            '[>]'.Files::TABLE.' (F)' => ["file_id" => "id"],
+            '[>]'.OrderItems::TABLE.' (I)' => "type"
+        ], [
+            "O.id", "O.created_at", "I.name", "F.name (file_name)",
+            "F.id (file_id)", "O.status"
+        ], [
+            "O.user_id" => $userId,
+            "O.status" => [MpStatus::APROVADO->value, MpStatus::PENDIENTE->value],
+            "O.type" => array_map(fn ($t) => $t->value, OrderType::fileTypes()),
+            "ORDER" => ["O.id" => "DESC"]
+        ], function ($i) use (&$data) {
+            $data[] = [
+                "id" => (int) $i["id"],
+                "created_at" => $i["created_at"],
+                "name" => $i["name"],
+                "file_id" => $i["file_id"],
+                "status" => MpStatus::from($i["status"])->publicName(),
+                "status_raw" => $i["status"]
+            ];
         });
 
         return $data;

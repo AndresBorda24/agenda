@@ -1,25 +1,25 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 
-use Slim\App;
-use App\Middleware\CorsMiddleware;
-use App\Middleware\AuthMiddleware;
-use App\Controllers\Api\EpsController;
-use App\Controllers\Api\AuthController;
-use App\Controllers\Api\PlanesController;
 use App\Controllers\Api\AgendaController;
-use App\Controllers\Api\UsuarioController;
-use App\Controllers\Api\MedicosController;
-use App\Middleware\JsonBodyParserMiddleware;
-use Slim\Routing\RouteCollectorProxy as Group;
+use App\Controllers\Api\AuthController;
 use App\Controllers\Api\BeneficiarioController;
+use App\Controllers\Api\EpsController;
 use App\Controllers\Api\EspecialidadController;
 use App\Controllers\Api\ExternalController;
 use App\Controllers\Api\GEMAController;
+use App\Controllers\Api\MedicosController;
 use App\Controllers\Api\OrderController;
 use App\Controllers\Api\PagoController;
+use App\Controllers\Api\PlanesController;
 use App\Controllers\Api\RegaloController;
+use App\Controllers\Api\UsuarioController;
+use App\Middleware\AuthMiddleware;
+use App\Middleware\CorsMiddleware;
+use App\Middleware\JsonBodyParserMiddleware;
+use Slim\App;
+use Slim\Routing\RouteCollectorProxy as Group;
 
 /**
  * Mapea TODAS las rutas relacionadas con la API
@@ -31,7 +31,7 @@ return function (App $app) {
         $api->group("/especialidades", function (Group $esp) {
             $esp->get("/get-all", [EspecialidadController::class, 'getAll']);
             $esp->get("/get-available", [EspecialidadController::class, 'getAvailable']);
-            $esp->get("/{esp}/get-agenda", [EspecialidadController::class, 'getAgenda'] );
+            $esp->get("/{esp}/get-agenda", [EspecialidadController::class, 'getAgenda']);
             $esp->get("/{esp}/get-available-hours/{fecha}", [EspecialidadController::class, 'getAgendaHours']);
         });
 
@@ -67,7 +67,13 @@ return function (App $app) {
                 ->add(AuthMiddleware::class)
             ;
 
-            $pagos->group('/order', function(Group $order) {
+            $pagos->group('/order', function (Group $order) {
+                $order->get('/user-files', [OrderController::class, 'userFiles'])
+                    ->add(AuthMiddleware::class)
+                ;
+                $order->get('/{id:[0-9]+}/new', [OrderController::class, 'newOrder'])
+                    ->add(AuthMiddleware::class)
+                ;
                 $order->get('/{planId:[0-9]+}/create', [OrderController::class, 'createOrder'])
                     ->add(AuthMiddleware::class)
                 ;
@@ -90,7 +96,7 @@ return function (App $app) {
     })->add(JsonBodyParserMiddleware::class);
 
     $app->group("/api/external", function (Group $ext) {
-        $ext->group('', function(Group $ext) {
+        $ext->group('', function (Group $ext) {
             $ext->get("/soporte/{file}", [ExternalController::class, "showSoporte"]);
             $ext->get("/pagos-excel", [ExternalController::class, "getExcelPagos"]);
             $ext->get("/get-planes", [ExternalController::class, "getPlanes"]);
@@ -104,7 +110,7 @@ return function (App $app) {
                 "/{pagoId:[0-9]+}/set-registrado",
                 [ExternalController::class, "setRegistradoVal"]
             );
-            $ext->options("/{routes:.+}", fn($response) => $response);
+            $ext->options("/{routes:.+}", fn ($response) => $response);
         })->add(CorsMiddleware::class)->add(JsonBodyParserMiddleware::class);
 
         $ext->group('', function (Group $ext) {

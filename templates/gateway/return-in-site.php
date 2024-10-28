@@ -7,30 +7,35 @@ use App\Enums\OrderType;
 /** @var \Exception|null $error */
 
 $background = match ($payment?->getState()) {
-  MpStatus::APROVADO => 'approved',
-  MpStatus::PENDIENTE => 'pending',
-  null, MpStatus::RECHAZADO => 'rejected',
-  default => ''
+    MpStatus::APROVADO => 'approved',
+    MpStatus::PENDIENTE => 'pending',
+    null, MpStatus::RECHAZADO => 'rejected',
+    default => ''
 };
-$formatNumber = fn(int|float $number) => number_format($number, 2, ',', '.');
+$formatNumber = fn (int | float $number) => number_format($number, 2, ',', '.');
 ?>
 
-<main class="flex-grow-1">
-  <div class="gateway-background <?= $background ?>"></div>
+<main class="flex-grow-1 !p-4">
+  <div class="gateway-background <?=$background?>"></div>
 
   <div class="gateway-container">
     <div class="bg-body-tertiary rounded position-relative shadow-lg mb-5">
-      <?php if(!$error): ?>
-        <?= match($order->type) {
-          OrderType::FIDELIZACION => $this->fetch('gateway/order-types/fidelizacion.php', [
-            'order' => $order,
-            'payment' => $payment,
-            'formatNumber' => $formatNumber,
-            'background' => $background
-          ]),
-          OrderType::CRT_ATENCION => '',
-          default => ''
-        } ?>
+      <?php if (!$error): ?>
+        <?=match ($order->type) {
+            OrderType::FIDELIZACION => $this->fetch('gateway/order-types/fidelizacion.php', [
+                'order' => $order,
+                'payment' => $payment,
+                'formatNumber' => $formatNumber,
+                'background' => $background,
+            ]),
+            OrderType::CRT_ATENCION => $this->fetch('gateway/order-types/general.php', [
+                'order' => $order,
+                'payment' => $payment,
+                'formatNumber' => $formatNumber,
+                'background' => $background,
+            ]),
+            default => ''
+        }?>
       <?php else: ?>
         <div class="position-absolute rounded overflow-hidden bottom-[90%] max-w-min left-0 right-0 mx-auto">
           <svg class="flex-shrink-0 inline w-16 h-14 text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -44,13 +49,13 @@ $formatNumber = fn(int|float $number) => number_format($number, 2, ',', '.');
           </p>
           <p>
             <span class="font-bold text-red-800">Mensaje de Error:</span> <br />
-            <span class="text-sm text-neutral-700"><?= $error->getMessage() ?></span>
+            <span class="text-sm text-neutral-700"><?=$error->getMessage()?></span>
           </p>
         </div>
-      <?php endif ?>
+      <?php endif?>
     </div>
     <a
-      href="<?= $this->link('home') ?>"
+      href="<?=$this->link('home')?>"
       class="btn btn-success btn-sm">Ir a Home</a>
   </div>
 </main>

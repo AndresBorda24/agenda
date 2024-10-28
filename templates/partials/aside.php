@@ -56,6 +56,11 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
       <?= $this->fetch("./icons/users.php") ?> Beneficiarios
     </a>
 
+    <a href="<?= $this->link("tramites") ?>" aside-link
+    <?= $this->isRoute("tramites") ? 'class="is-active"' : '' ?>>
+      <?= $this->fetch("./icons/users-rounded.php") ?> Trámites
+    </a>
+
     <?php if(! $this->user()->pago?->isValid()): ?>
       <div class="border-top border-warning-subtle">
         <span class="d-block small text-warning p-2"> Planes </span>

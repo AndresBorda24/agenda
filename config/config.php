@@ -1,11 +1,13 @@
 <?php
+
 return [
     "app" => [
         "name" => $_ENV["APP_NAME"],
         "ver"  => $_ENV["APP_VER"],
         "base" => $_ENV["APP_PATH"],
         "url"  => $_ENV["APP_URL"],
-        "env"  => $_ENV["APP_ENV"]
+        "env"  => $_ENV["APP_ENV"],
+        "local_url"  => $_ENV["APP_LOCAL_URL"]
     ],
     "db" => [
         "host" => $_ENV["DB_HOST"],

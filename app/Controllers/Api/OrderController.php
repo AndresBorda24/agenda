@@ -7,8 +7,11 @@ namespace App\Controllers\Api;
 use App\Contracts\PaymentGatewayInterface;
 use App\Contracts\UserInterface;
 use App\Enums\OrderType;
+use App\Models\Order;
+use App\Models\OrderItems;
 use App\Models\Plan;
 use App\OrderItems\FidelizacionItems;
+use App\OrderItems\GeneralItems;
 use Psr\Http\Message\ResponseInterface as Response;
 
 use function App\responseJSON;
@@ -17,9 +20,16 @@ class OrderController
 {
     public function __construct(
         private Plan $plan,
+        private Order $order,
+        private OrderItems $orderItems,
         private PaymentGatewayInterface $gateway
-    ) {}
+    ) {
+    }
 
+    /**
+     * Crea una orden exclusivamente de tipo Fidelizacion. Si se requiere crear
+     * otro tipo de orden utilizar el metodo `newOrder`
+     */
     public function createOrder(
         Response $response,
         UserInterface $user,
@@ -35,6 +45,29 @@ class OrderController
         ]);
     }
 
+    public function newOrder(
+        Response $response,
+        UserInterface $user,
+        int $id
+    ): Response {
+        $item = $this->orderItems->find(['id' => $id]);
+        if ($item === null) {
+            throw new \RuntimeException(
+                "Invalid Item Identifier"
+            );
+        }
+
+        $processUrl = $this->gateway->getPaymentUrl(
+            $user->id(),
+            $item->type,
+            new GeneralItems($item)
+        );
+
+        return responseJSON($response, [
+            "url" => $processUrl
+        ]);
+    }
+
     public function test(Response $response): Response
     {
         $processUrl = $this->gateway->getPaymentUrl(
@@ -44,5 +77,11 @@ class OrderController
         );
 
         return responseJSON($response, ["data" => $processUrl]);
+    }
+
+    public function userFiles(Response $response, UserInterface $user): Response
+    {
+        $data = $this->order->getOrderFiles($user->id());
+        return responseJSON($response, $data);
     }
 }
