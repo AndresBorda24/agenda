@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers;
@@ -10,6 +11,7 @@ use App\Views;
 use App\Models\Plan;
 use App\Enums\MpStatus;
 use App\Models\Beneficiario;
+use App\Models\Order;
 use App\Models\OrderItems;
 use Medoo\Medoo;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -17,10 +19,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class IndexController
 {
-    function __construct(
+    public function __construct(
         private Views $view,
         private Auth $auth
-    ){
+    ) {
         $this->view->setLayout('layouts/base.php');
     }
 
@@ -54,7 +56,7 @@ class IndexController
 
     public function agenda(Response $response, Medoo $db, UserInterface $user): Response
     {
-        $beneficiarios = (new Beneficiario($db))->all( $user->id() );
+        $beneficiarios = (new Beneficiario($db))->all($user->id());
 
         return $this
             ->view
@@ -73,7 +75,7 @@ class IndexController
         Beneficiario $beneficiario,
         UserInterface $user
     ): Response {
-        $beneficiarios = $beneficiario->all( $user->id() );
+        $beneficiarios = $beneficiario->all($user->id());
         return $this
             ->view
             ->render($response, "mis-citas/index.php", [
@@ -178,12 +180,24 @@ class IndexController
             ]);
     }
 
+    public function compras(Response $response, UserInterface $user, Order $order): Response
+    {
+        $this->view->addAttribute("user", $user);
+        $orders = $order->getUserOrders($user->id());
+        return $this
+            ->view
+            ->render($response, "compras/index.php", [
+                '_TITLE'  => 'Mis Compras',
+                '_ASSETS' => 'compras/index.ts',
+                'orders'  => $orders
+            ]);
+    }
+
     public function planesResponse(
         Request $request,
         Response $response,
         UserInterface $user
-    ): Response
-    {
+    ): Response {
         $data = $request->getQueryParams();
         $this->view->setLayout("planes-feedback/layout.php");
         @$data["status"] ??= $user->getPago()?->status;

@@ -34,6 +34,9 @@ return function (App $app) {
             $app->get("/home", [IndexController::class, "home"])
                 ->setName("home");
 
+            $app->get("/compras", [IndexController::class, "compras"])
+                ->setName("compras");
+
             $app->get("/perfil", [IndexController::class, "profile"])
                 ->setName("perfil");
 

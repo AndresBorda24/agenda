@@ -6,6 +6,8 @@ namespace App\Models;
 
 use App\Contracts\PaymentInfoInterface;
 use App\DataObjects\OrderInfo;
+use App\DataObjects\OrderItem;
+use App\DataObjects\PlanDTO;
 use App\Enums\MpStatus;
 use App\Enums\OrderType;
 use Medoo\Medoo;
@@ -151,6 +153,61 @@ class Order
                 "name" => $i["name"],
                 "file_id" => $i["file_id"],
                 "status" => MpStatus::from($i["status"])->publicName(),
+                "status_raw" => $i["status"]
+            ];
+        });
+
+        return $data;
+    }
+
+    /**
+     * Obtiene todas las ordenes que un usuario ha realizado que se encuentre
+     * en cualquiera de los tres estados: Aprobado, Rechazado o Pendiente.
+     * @return array<int, array{
+     *  id: number,
+     *  created_at: string,
+     *  updated_at: string,
+     *  file_id: number|null,
+     *  type: OrderType,
+     *  data: PlanDto | OrderItem,
+     *  status: MpStatus,
+     *  status_raw: number | string
+     * }>
+     */
+    public function getUserOrders(int $userId): array
+    {
+        $data = [];
+
+        $this->db->select(self::TABLE." (O)", [
+            '[>]'.Files::TABLE.' (F)' => ["file_id" => "id"],
+        ], [
+            "O.id", "F.name (file_name)", "O.type",
+            "F.id (file_id)", "O.status", "O.data", "O.created_at", "O.updated_at"
+        ], [
+            "O.user_id" => $userId,
+            "O.status" => [
+                MpStatus::APROVADO->value,
+                MpStatus::PENDIENTE->value,
+                MpStatus::RECHAZADO->value
+            ],
+            "ORDER" => ["O.id" => "DESC"]
+        ], function ($i) use (&$data) {
+            $type = OrderType::from($i['type']);
+            $dataDecoded = json_decode($i["data"], true);
+            $item = match($type) {
+                OrderType::FIDELIZACION => PlanDTO::fromArray($dataDecoded),
+                OrderType::CRT_ATENCION => OrderItem::fromArray($dataDecoded),
+                default => null
+            };
+
+            $data[] = [
+                "id" => (int) $i["id"],
+                "created_at" => $i["created_at"],
+                "updated_at" => $i["updated_at"],
+                "file_id" => $i["file_id"],
+                "type" => $type,
+                "data" => $item,
+                "status" => MpStatus::from($i["status"]),
                 "status_raw" => $i["status"]
             ];
         });
