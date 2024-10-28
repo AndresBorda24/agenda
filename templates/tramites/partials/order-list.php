@@ -45,13 +45,14 @@
               > Ver Estado </a>
             </template>
             <template x-if="order.file_id">
-              <button
+              <a
                 title="Ver Archivo"
-                @click="console.log(order.file_id)"
+                target="_blank"
+                :href="buildFileUrl(order.file_id)"
                 class="[&>svg]:h-4 [&>svg]:w-4 bg-sky-50 text-blue-700 hover:bg-blue-700 hover:text-blue-50 transition-colors duration-150 !p-2 rounded"
               >
                 <?= $this->fetch('icons/file.php') ?>
-              </button>
+              </a>
             </template>
           </div>
         </template>

@@ -30,5 +30,10 @@ export default () => ({
     const data = btoa(JSON.stringify({ref:orderId}));
     const url = import.meta.env.VITE_APP_URL + `/gateway/${data}/finished`
     return url;
+  },
+
+  buildFileUrl(fileId: string) {
+    const url = import.meta.env.VITE_APP_URL + `/files/${fileId}/user-file`
+    return url;
   }
 });
