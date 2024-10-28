@@ -13,6 +13,13 @@ $background = match ($payment?->getState()) {
     default => ''
 };
 $formatNumber = fn (int | float $number) => number_format($number, 2, ',', '.');
+
+$isExpired = true;
+if ($order !== null) {
+    $expireDate = new DateTime($order->expiresAt);
+    $expireDate->sub(DateInterval::createFromDateString("3 min"));
+    $isExpired = (time() > $expireDate->getTimestamp());
+}
 ?>
 
 <main class="flex-grow-1 !p-4">
@@ -54,8 +61,17 @@ $formatNumber = fn (int | float $number) => number_format($number, 2, ',', '.');
         </div>
       <?php endif?>
     </div>
-    <a
-      href="<?=$this->link('home')?>"
-      class="btn btn-success btn-sm">Ir a Home</a>
+
+    <?php if(!$isExpired && $payment->isActive()): ?>
+      <div class="d-flex align-items-center gap-2 px-4 py-3 my-6 bg-gateway bg-sky-200 rounded max-w-[500px]">
+        <span class="fs-3 ps-2 [&>svg]:h-6 [&>svg]:w-6 "><?= $this->fetch('./icons/important.php') ?></span>
+        <p>Parece que aún tienes una sesión de pago activa. Por favor completa el proceso dando click <a class="font-bold hover:underline" href="<?= $order->processUrl ?>">Aqui</a>.</p>
+      </div>
+    <?php else: ?>
+      <a
+        href="<?=$this->link('home')?>"
+        class="btn btn-success btn-sm">Ir a Home</a>
+    <?php endif ?>
+
   </div>
 </main>

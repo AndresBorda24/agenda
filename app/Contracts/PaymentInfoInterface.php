@@ -21,4 +21,7 @@ interface PaymentInfoInterface
 
     /** @return string[] */
     public function getPaymentName(): array;
+
+    /** Determina si la transacción puede retomarse. */
+    public function isActive(): bool;
 }
