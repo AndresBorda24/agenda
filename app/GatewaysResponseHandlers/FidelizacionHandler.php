@@ -27,7 +27,8 @@ class FidelizacionHandler implements GatewayResponseHandler
         public readonly MessageService $messageService,
         private PaymentGatewayInterface $gateway,
         private LoggerInterface $logger
-    ) { }
+    ) {
+    }
 
     /**
      * @return array{
@@ -48,13 +49,16 @@ class FidelizacionHandler implements GatewayResponseHandler
             throw new \RuntimeException("Invalid Reference or Payment");
         }
 
-        if ($order->pagoId !== null) {
+        if ($order->pagoId !== null || $order->saved) {
             return [$order, $payment];
         }
 
-        $this->pago->db->action(function() use($payment, &$order, &$error) {
+        $this->pago->db->action(function () use ($payment, &$order, &$error) {
             try {
                 $order = $this->order->updateFromGatewayResponse($order, $payment);
+                if (in_array($order->status, [MpStatus::APROVADO, MpStatus::RECHAZADO])) {
+                    $this->order->setSave($order);
+                }
                 if ($order->status === MpStatus::APROVADO) {
                     $pagoId = $this->pago->createFromOrder(
                         $order,

@@ -6,9 +6,24 @@ $item = $order
   ? \App\DataObjects\OrderItem::fromArray(json_decode($order->data, true))
   : null;
 ?>
-<div class="absolute max-w-[90%] left-0 right-0 mx-auto !p-5 bg-green-50 rounded text-green-800 text-sm -top-14 !border border-green-200">
-  Hemos registrado tu pago. En unos minutos recibirás tu <b><?=$item?->name?></b>. Muchas Gracias por tu compra.
-</div>
+<?php if ($order->status === \App\Enums\MpStatus::RECHAZADO) : ?>
+  <div class="absolute max-w-[90%] left-0 right-0 mx-auto !p-5 bg-red-50 rounded text-red-800 text-sm -top-14 !border border-red-200">
+    Ha ocurrido un error en la transacción. Por favor intenta nuevamente más tarde.
+  </div>
+<?php endif ?>
+
+<?php if ($order->status === \App\Enums\MpStatus::PENDIENTE) : ?>
+  <div class="absolute max-w-[90%] left-0 right-0 mx-auto !p-5 bg-blue-50 rounded text-blue-800 text-sm -top-14 !border border-blue-200">
+    Tu pago se está procesando. Te notificaremos cuando se complete la compra.
+  </div>
+<?php endif ?>
+
+<?php if ($order->status === \App\Enums\MpStatus::APROVADO) : ?>
+  <div class="absolute max-w-[90%] left-0 right-0 mx-auto !p-5 bg-green-50 rounded text-green-800 text-sm -top-14 !border border-green-200">
+    Hemos registrado tu pago. En unos minutos recibirás tu <b><?=$item?->name?></b>. Muchas Gracias por tu compra.
+  </div>
+<?php endif ?>
+
 <div class="gap-2 w-100 !pt-6">
   <div class="gateway-info d-flex flex-column d-md-grid p-4">
     <div class="p-2 flex-grow-1">

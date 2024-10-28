@@ -142,7 +142,8 @@ class Order
         ], [
             "O.user_id" => $userId,
             "O.status" => [MpStatus::APROVADO->value, MpStatus::PENDIENTE->value],
-            "O.type" => array_map(fn ($t) => $t->value, OrderType::fileTypes())
+            "O.type" => array_map(fn ($t) => $t->value, OrderType::fileTypes()),
+            "ORDER" => ["O.id" => "DESC"]
         ], function ($i) use (&$data) {
             $data[] = [
                 "id" => (int) $i["id"],
