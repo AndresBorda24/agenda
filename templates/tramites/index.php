@@ -26,6 +26,23 @@
           'item' => $item
         ]) ?>
       <?php endforeach ?>
+      <template x-teleport="body">
+        <div
+          x-show="showConfirmation"
+          @click.self="showConfirmation = false"
+          class="fixed top-0 left-0 bg-black/50 w-screen h-screen grid place-content-center z-[1021]"
+        >
+          <div class="bg-white rounded-sm overflow-hidden !p-5 max-w-sm">
+            <span class="block font-bold !mb-4">Trámite pendiente por cerrar.</span>
+            <p class="text-neutral-700 text-sm !mb-4">Parece que ya tienes un trámite pendiente para la compra de este item. Por favor revisa tu listado de trámites o ve a la opción <b>Mis Compras</b> del menú.</p>
+            <p class="text-neutral-700 text-sm !mb-4">Podrás comprar nuevamente este item cuando la compra sea <b>Aceptada</b> o <b>Rechazada</b>.</p>
+            <button
+              @click="showConfirmation = false"
+              class="bg-aso-secondary px-7 py-1.5 text-sm rounded text-white ml-auto block hover:bg-teal-900"
+            >Ok</button>
+          </div>
+        </div>
+      </template>
     </div>
   </section>
 

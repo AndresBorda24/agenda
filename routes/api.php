@@ -74,6 +74,9 @@ return function (App $app) {
                 $order->get('/{id:[0-9]+}/new', [OrderController::class, 'newOrder'])
                     ->add(AuthMiddleware::class)
                 ;
+                $order->get('/{type:[0-9]+}/check-pendiente', [OrderController::class, 'checkPendiente'])
+                    ->add(AuthMiddleware::class)
+                ;
                 $order->get('/{planId:[0-9]+}/create', [OrderController::class, 'createOrder'])
                     ->add(AuthMiddleware::class)
                 ;
