@@ -1,8 +1,8 @@
-<nav class="mt-2 d-flex">
+<nav class="mt-2 flex px-2 py-2 bg-aso-secondary rounded-full">
   <button
     @click="prev"
-    class="btn btn-sm btn-light"
-  ><</button>
+    class="leading-none bg-aso-primary text-white rounded-full p-2"
+  ><?= $this->fetch('icons/left.php') ?></button>
   <div class="align-items-center d-flex flex-grow-1 gap-1 justify-content-center">
     <template x-for="(x, i) in total" :key="i">
       <span
@@ -16,6 +16,6 @@
   </div>
   <button
     @click="next"
-    class="btn btn-sm btn-light"
-  >></button>
+    class="leading-none bg-aso-primary text-white rounded-full p-2"
+  ><?= $this->fetch('icons/right.php') ?></button>
 </nav>

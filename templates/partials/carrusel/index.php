@@ -4,7 +4,7 @@
 >
   <template x-if="areThereImages">
     <section>
-      <div class="rounded overflow-hidden shadow">
+      <div class="rounded-lg overflow-hidden shadow">
         <div style="min-height: 150px; max-height: 400px; background-color: #fff;">
           <img
             x-transition

@@ -21,6 +21,7 @@
   </div>
 
     <?= $this->fetch("./index/partials/section-beneficios.php") ?>
+    <div class="py-7"></div>
     <?= $this->fetch("./index/partials/section-capacidad.php") ?>
     <?= $this->fetch("./index/partials/section-adicionales.php") ?>
     <?= $this->fetch("./index/partials/section-videos.php") ?>

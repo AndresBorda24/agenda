@@ -2,7 +2,7 @@
   x-data="Videos"
   class="index-section position-relative mb-5" style="color: #d3f3ff;"
 >
-  <div class="w-100" style="height: 70px;">
+  <div class="w-100" style="height: 70px; margin-bottom: -1px">
     <img
       alt="svg-divisor"
       class="h-100 w-100"
@@ -13,7 +13,7 @@
 
   <div class="bg-secondary py-5 px-3">
     <h4 class="text-center text-warning fs-3">Videos de Ayuda</h4>
-    <hr class="border-warnin">
+    <hr class="border border-aso-yellow my-4">
 
     <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap mb-4">
       <template x-for="video in idVideos" :key="video.id">
