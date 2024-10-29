@@ -13,7 +13,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
     </button>
   </template>
 
-  <div class="d-flex flex-column gap-3 flex-grow-1">
+  <div class="d-flex flex-column gap-2 flex-grow-1">
     <div class="border-bottom border-warning-subtle pb-2">
       <a href="<?= $this->link("perfil") ?>" aside-link
       <?= $this->isRoute("perfil") ? 'class="fs-6 is-active"' : 'class="fs-6"' ?>>

@@ -1,4 +1,4 @@
-<section class="index-section position-relative mb-5 d-md-flex px-3 gap-3 justify-content-center bg-secondary" style="color: #d3f3ff; padding: 10rem;">
+<section class="px-8 md:px-10 lg:px-14 py-10 lg:py-14 index-section position-relative mb-5 d-md-flex gap-3 justify-content-center bg-secondary" style="color: #d3f3ff;">
   <div class="position-absolute top-100 start-0 w-100" style="height: 40px;">
     <img
       alt="svg-divisor"
@@ -21,7 +21,7 @@
 
     <div>
       <h3 class="fw-bold text-center">Nuestra Capacidad Instalada</h3>
-      <ul>
+      <ul class="flex flex-col space-y-2">
         <li>
           <span class="fw-bold text-warning">40</span> camas en hospitalización.
         </li>

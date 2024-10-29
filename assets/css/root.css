@@ -42,16 +42,16 @@ body {
     min-height: 100vh;
     min-height: 100dvh;
 }
-.bg-blue-50{ background-color: #e4f0f6 !important}
-.bg-blue-100{ background-color: #bcd9ea !important}
-.bg-blue-200{ background-color: #8bbdd9 !important}
-.bg-blue-300{ background-color: #5ba4cf !important}
-.bg-blue-400{ background-color: #298fca !important}
-.bg-blue-500{ background-color: #0079bf !important}
-.bg-blue-600{ background-color: #026aa7 !important}
-.bg-blue-700{ background-color: #055a8c !important}
-.bg-blue-800{ background-color: #094c72 !important}
-.bg-blue-900{ background-color: #0c3953 !important}
+.bg-blue-50{ background-color: #e4f0f6 }
+.bg-blue-100{ background-color: #bcd9ea }
+.bg-blue-200{ background-color: #8bbdd9 }
+.bg-blue-300{ background-color: #5ba4cf }
+.bg-blue-400{ background-color: #298fca }
+.bg-blue-500{ background-color: #0079bf }
+.bg-blue-600{ background-color: #026aa7 }
+.bg-blue-700{ background-color: #055a8c }
+.bg-blue-800{ background-color: #094c72 }
+.bg-blue-900{ background-color: #0c3953 }
 [x-cloak]{display: none !important}
 .flex{display: flex;}
 .text-bg-primary {

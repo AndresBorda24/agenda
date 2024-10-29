@@ -22,7 +22,7 @@ $cardImage = match (mb_strtolower($plan?->nombre ?? '')) {
     alt="Tarjeta plan <?= $cardImage ?>"
   />
 </div>
-<div class="gap-2 w-100 pt-5">
+<div class="gap-2 w-100 pt-8">
   <div class="gateway-info d-flex flex-column d-md-grid p-4">
     <div class="p-2 flex-grow-1">
       <span class="fw-bold d-block">Artículo:</span>
