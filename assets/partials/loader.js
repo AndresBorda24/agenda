@@ -2,7 +2,8 @@ export function showLoader(selector = "#loader") {
     const loader = document.querySelector(selector);
 
     if (loader) {
-        loader.classList.remove('d-none');
+        document.body.classList.add('overflow-hidden');
+        loader.classList.remove('hidden');
     }
 }
 
@@ -10,6 +11,7 @@ export function hideLoader(selector = "#loader") {
     const loader = document.querySelector(selector);
 
     if (loader) {
-        loader.classList.add('d-none');
+        document.body.classList.remove('overflow-hidden');
+        loader.classList.add('hidden');
     }
 }

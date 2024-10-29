@@ -15,6 +15,7 @@ use App\Controllers\GouMicrositioController;
 use App\Middleware\HasActiveCardMiddleware;
 use App\Middleware\JsonBodyParserMiddleware;
 use App\Middleware\NoPagoMiddleware;
+use App\Middleware\OrdenPendienteMiddleware;
 use App\Middleware\SetRouteContextMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 
@@ -33,6 +34,9 @@ return function (App $app) {
 
             $app->get("/home", [IndexController::class, "home"])
                 ->setName("home");
+
+            $app->get("/compras", [IndexController::class, "compras"])
+                ->setName("compras");
 
             $app->get("/perfil", [IndexController::class, "profile"])
                 ->setName("perfil");
@@ -63,6 +67,7 @@ return function (App $app) {
             $app->group("/planes", function (Group $app) {
                 $app->get("", [IndexController::class, "planes"])
                     ->setName("planes")
+                    ->add(OrdenPendienteMiddleware::class)
                     ->add(NoPagoMiddleware::class);
 
                 $app->get("/redimir-regalo", [IndexController::class, "planesRegalo"])

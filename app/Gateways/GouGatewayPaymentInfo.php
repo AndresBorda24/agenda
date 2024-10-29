@@ -17,7 +17,8 @@ class GouGatewayPaymentInfo implements PaymentInfoInterface
     public function __construct(
         private Plan $plan,
         private RedirectInformation $payment
-    ) {}
+    ) {
+    }
 
     public function getState(): MpStatus
     {
@@ -33,19 +34,25 @@ class GouGatewayPaymentInfo implements PaymentInfoInterface
 
     public function getPlan(): PlanDTO
     {
-        if ($this->planInfo !== null) return $this->planInfo;
+        if ($this->planInfo !== null) {
+            return $this->planInfo;
+        }
 
         $data = array_filter(
             $this->payment->request()->fields(),
-            fn($i) => $i->keyword() === 'plan_id'
+            fn ($i) => $i->keyword() === 'plan_id'
         );
 
         $planNotFoudnException = new \RuntimeException(
             "No se pudo encontrar la informacion del plan."
         );
 
-        if (! $planValuePair = reset($data)) throw $planNotFoudnException;
-        if (! $plan = $this->plan->find($planValuePair->value())) throw $planNotFoudnException;
+        if (! $planValuePair = reset($data)) {
+            throw $planNotFoudnException;
+        }
+        if (! $plan = $this->plan->find($planValuePair->value())) {
+            throw $planNotFoudnException;
+        }
 
         $this->planInfo = $plan;
         return $this->planInfo;
@@ -65,7 +72,9 @@ class GouGatewayPaymentInfo implements PaymentInfoInterface
         $total = 0;
         foreach ($this->payment->payment() as $payment) {
             $discount = $payment->discount()?->amount();
-            if ($discount === null) continue;
+            if ($discount === null) {
+                continue;
+            }
 
             $total += $discount;
         }
@@ -75,8 +84,15 @@ class GouGatewayPaymentInfo implements PaymentInfoInterface
     public function getPaymentName(): array
     {
         return array_map(
-            fn($payment) => $payment->paymentMethodName(),
+            fn ($payment) => $payment->paymentMethodName(),
             $this->payment->payment()
         );
+    }
+
+    public function isActive(): bool
+    {
+        // En la pasarela de pagos GOU PC significa que aún está activa la
+        // sesión.
+        return $this->payment->status()->reason() === 'PC';
     }
 }

@@ -31,3 +31,7 @@ export function getUserFiles() {
         url: string
     }>(() => local.get(`/pagos/order/user-files`));
 }
+
+export function hasPending(itemType: string|number) {
+    return request<Boolean>(() => local.get(`/pagos/order/${itemType}/check-pendiente`));
+}

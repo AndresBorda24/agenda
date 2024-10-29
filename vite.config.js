@@ -30,6 +30,7 @@ export default defineConfig(({ mode }) => {
           "registro/index.js": "./assets/registro/index.js",
           "planes/index.js": "./assets/planes/index.js",
           "tramites/index.ts": "./assets/tramites/index.ts",
+          "compras/index.ts": "./assets/compras/index.ts",
         },
       },
     },

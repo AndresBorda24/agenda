@@ -5,6 +5,7 @@ $icon = $item->icon ? "$item->icon.php" : "paper-fill.php"
 
 <button
   data-order-item-id="<?= $item->id ?>"
+  data-order-item-type="<?= $item->type->value ?>"
   @click="startProcess"
   class="p-4 !border border-dashed border-neutral-300 text-black relative bg-neutral-50 rounded text-start hover:shadow-lg transition-all duration-200 hover:border-neutral-500"
 >

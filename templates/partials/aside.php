@@ -35,7 +35,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
           <?= $this->isRoute("activar-tarjeta") ? 'class="is-active"' : '' ?>>
             <?= $this->fetch("./icons/card-check.php") ?> Activar mi Tarjeta
           </a>
-        <?php else: // Si ya activo la tarjeta ?>
+        <?php else: // Si ya activo la tarjeta?>
           <a
             href="#" aside-link
             class="border border-secondary-subtle pe-none gap-0 flex-column"
@@ -61,6 +61,11 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
       <?= $this->fetch("./icons/users-rounded.php") ?> Trámites
     </a>
 
+    <a href="<?= $this->link("compras") ?>" aside-link
+    <?= $this->isRoute("compras") ? 'class="is-active"' : '' ?>>
+      <?= $this->fetch("./icons/label.php") ?> Mis Compras
+    </a>
+
     <?php if(! $this->user()->pago?->isValid()): ?>
       <div class="border-top border-warning-subtle">
         <span class="d-block small text-warning p-2"> Planes </span>
@@ -70,7 +75,7 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
             class="text-white-50 fw-lighter d-block px-2"
           >Tienes un pago pendiente, para revisar el estado da click en:</span>
           <a aside-link href="<?= $this->link("gateway.returnUrl", ['data' => base64_encode(
-            json_encode([ 'ref' => $this->user()->getOrder()->id ])
+              json_encode([ 'ref' => $this->user()->getOrder()->id ])
           )]) ?>"
           <?= $this->isRoute("gateway.returnUrl") ? 'class="is-active"' : '' ?>>
             <?= $this->fetch("./icons/plans.php") ?> Revisar Pendiente
@@ -108,9 +113,18 @@ class="bg-secondary rounded shadow-lg aside d-md-flex">
     <?php endif ?>
   </div>
 
-  <form action="<?= $this->link("logout") ?>" method="post" id="logout-form" class="sticky-bottom pb-3">
-    <button type="submit" class="btn btn-danger border-0 btn-sm w-100">
-      Cerrar Sesión!
+  <form
+    action="<?= $this->link("logout") ?>"
+    method="post"
+    id="logout-form"
+    class="sticky-bottom pb-3"
+  >
+    <button
+      type="submit"
+      class="text-sm w-full !py-2 bg-sky-900 rounded hover:outline hover:outline-2 hover:outline-offset-2 hover:outline-blue-500 text-white flex items-center !gap-1 justify-center"
+    >
+      <span class="[&>svg]:h-4 [&>svg]:w-4"><?= $this->fetch('icons/logout.php') ?></span>
+      <span>Cerrar Sesión</span>
     </button>
   </form>
 </aside>

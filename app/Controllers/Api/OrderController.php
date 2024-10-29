@@ -6,6 +6,7 @@ namespace App\Controllers\Api;
 
 use App\Contracts\PaymentGatewayInterface;
 use App\Contracts\UserInterface;
+use App\Enums\MpStatus;
 use App\Enums\OrderType;
 use App\Models\Order;
 use App\Models\OrderItems;
@@ -83,5 +84,21 @@ class OrderController
     {
         $data = $this->order->getOrderFiles($user->id());
         return responseJSON($response, $data);
+    }
+
+    public function checkPendiente(Response $response, int $type, UserInterface $user): Response
+    {
+        $type = OrderType::from($type);
+
+        $latestOrder = $this->order->get([
+            "AND" => [
+                "user_id" => $user->id(),
+                "type"    => $type->value,
+                "status"  => MpStatus::PENDIENTE->value
+            ],
+            "ORDER" => ["id" => "DESC"]
+        ]);
+
+        return responseJSON($response, (bool) $latestOrder);
     }
 }
