@@ -215,6 +215,12 @@ body {
     }
 }
 
+@media (width >= 768px) {
+    .aside {
+        display: flex !important;
+    }
+}
+
 @media (max-width: 991px) {
     .registro-usuario-image {
         max-height: 300px;
