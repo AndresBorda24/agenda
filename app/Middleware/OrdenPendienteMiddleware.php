@@ -29,7 +29,7 @@ class OrdenPendienteMiddleware implements MiddlewareInterface
             );
         }
 
-        if ($user->getOrder()->status === MpStatus::PENDIENTE) {
+        if ($user->getOrder()?->status === MpStatus::PENDIENTE) {
             $data = base64_encode(json_encode([
                 "ref" => $user->getOrder()->id
             ]));

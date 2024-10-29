@@ -141,24 +141,11 @@ class IndexController
             ]);
     }
 
-    public function planes(Response $response, Plan $plan, Config $config, Order $order): Response
+    public function planes(Response $response, Plan $plan, Config $config): Response
     {
         /** @var \App\Contracts\UserInterface */
         $user = $this->auth->user();
         $this->view->addAttribute("user", $user);
-
-        // Esto aquí podría ser un Middleware
-        if ($user->getOrder()->status === MpStatus::PENDIENTE) {
-            $data = base64_encode(json_encode([
-                "ref" => $user->getOrder()->id
-            ]));
-
-            return $response
-                ->withHeader("Location", $this->view->link("gateway.returnUrl", [
-                    "data" => $data
-                ]))
-                ->withStatus(302);
-        }
 
         return $this
             ->view
