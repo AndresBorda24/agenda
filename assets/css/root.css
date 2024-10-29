@@ -39,8 +39,8 @@ body {
     display: none !important;
 }
 .main-container{
-    min-height: 100vh;
-    min-height: 100dvh;
+    min-height: 80vh;
+    min-height: 80dvh;
 }
 .bg-blue-50{ background-color: #e4f0f6 }
 .bg-blue-100{ background-color: #bcd9ea }

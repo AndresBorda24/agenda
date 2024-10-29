@@ -1,7 +1,7 @@
 <div
-  class="d-lg-flex align-items-baseline my-4 container"
-  style="min-height: 70vh;">
-    <div class="col-lg-6 p-3 p-md-5 sticky-lg-top z-0">
+  class="grid grid-cols-1 lg:grid-cols-2 align-items-baseline my-8 max-w-xl lg:max-w-6xl mx-auto"
+>
+    <div class="p-3 p-md-5 lg:sticky top-10 z-0">
       <span class="p-2 text-center mt-2 text-muted small d-block">
         Trabajamos por tu bienestar y el bienestar de tu familia, por eso en
         la Cl&iacute;nica Asotrauma trabajamos para ti y para todos.
@@ -25,7 +25,7 @@
       </span>
     </div>
 
-    <main class="main-container col-lg-6 p-2 p-md-3 p-lg-4">
+    <main class="main-container p-2 p-md-3 p-lg-4">
       <?= $this->fetch("./registro/components/form.php") ?>
     </main>
   </div>

@@ -93,7 +93,7 @@ class IndexController
         return $this
             ->view
             ->render($response, "registro/index.php", [
-                '_TITLE'  => 'Registro Usuarios Fidelizados',
+                '_TITLE'  => 'Registro',
                 '_ASSETS' => 'registro/index.js',
                 '_WITH_ASIDE' => false
             ]);
