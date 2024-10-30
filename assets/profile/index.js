@@ -4,13 +4,7 @@ import basicForm from "./components/basic-form";
 import selectAjax from "@/partials/select-eps";
 import "../css/root.css";
 
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/themes/light.css';
-import tippy from 'tippy.js';
-
 if (import.meta.env.VITE_APP_ENV === "dev") window.Alpine = Alpine;
-
-tippy.setDefaultProps({allowHTML: true, trigger: 'mouseenter click'});
 
 document.addEventListener("alpine:init", () => {
     Alpine.data("UpdatePass", password);
@@ -20,7 +14,5 @@ document.addEventListener("alpine:init", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     Alpine.start()
-    tippy(".exclusiones-tooltip", {
-        content: document.getElementById("exclusiones-tmp")?.innerHTML
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });

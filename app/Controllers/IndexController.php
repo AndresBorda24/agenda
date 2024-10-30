@@ -44,8 +44,9 @@ class IndexController
             ]);
     }
 
-    public function profile(Response $response): Response
+    public function profile(Response $response, UserInterface $user): Response
     {
+        $this->view->addAttribute("user", $user);
         return $this
             ->view
             ->render($response, "profile/index.php", [

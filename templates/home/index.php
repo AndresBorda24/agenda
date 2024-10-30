@@ -1,3 +1,4 @@
+<div class="fixed top-0 -z-10 h-full w-full bg-white"><div class="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-aso-primary/40 opacity-50 blur-[80px]"></div></div>
 <main
   class="flex-grow-1 mx-auto px-4 overflow-auto"
   style="max-width: 1000px;"

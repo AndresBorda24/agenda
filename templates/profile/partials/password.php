@@ -12,6 +12,14 @@ class="p-3 bg-white shadow border rounded border-danger-subtle">
     </div>
   </div>
 
+  <input
+    type="text"
+    class="hidden"
+    value="<?= $user->info->documento ?>"
+    name="username"
+    autocomplete="username"
+  >
+
   <div class="small mb-2">
     <label
     class="form-label text-muted small m-0"
@@ -22,6 +30,7 @@ class="p-3 bg-white shadow border rounded border-danger-subtle">
     required
     placeholder="Tu contrase&ntilde;a actual."
     type="password"
+    autocomplete="current-password"
     minlength="6"
     class="form-control form-control-sm m-1">
   </div>
@@ -37,6 +46,7 @@ class="p-3 bg-white shadow border rounded border-danger-subtle">
       x-model="state.new_password"
       placeholder="Nueva Contrase&ntilde;a"
       type="password"
+      autocomplete="new-password"
       minlength="8"
       class="form-control form-control-sm m-1">
     </div>
@@ -50,6 +60,7 @@ class="p-3 bg-white shadow border rounded border-danger-subtle">
       required
       placeholder="Confirma"
       type="password"
+      autocomplete="new-password"
       minlength="8"
       class="form-control form-control-sm m-1">
     </div>
