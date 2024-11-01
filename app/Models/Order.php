@@ -103,7 +103,7 @@ class Order
     {
         $data = [];
 
-        $this->db->select(self::VISTA, '*', [
+        $this->db->select(self::TABLE, '*', [
             'status' => MpStatus::PENDIENTE->value,
         ], function (array $reg) use (&$data) {
             $data[] = OrderInfo::fromArray($reg);
