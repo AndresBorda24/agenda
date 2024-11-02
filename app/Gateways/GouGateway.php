@@ -15,6 +15,7 @@ use App\Enums\MpStatus;
 use App\Enums\OrderType;
 use App\Gateways\GouGatewayPaymentInfo;
 use App\Models\Plan;
+use App\Models\Usuario;
 use Slim\Factory\ServerRequestCreatorFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -28,6 +29,7 @@ class GouGateway implements PaymentGatewayInterface
         public readonly App $app,
         public readonly Plan $plan,
         public readonly Order $order,
+        public readonly Usuario $usuario,
         public readonly Config $config
     ) {
         $this->placeToPay = new PlacetoPay([
@@ -42,7 +44,7 @@ class GouGateway implements PaymentGatewayInterface
     public function getPaymentUrl(int $userId, OrderType $type, PaymentItemsInterface $data): string
     {
         $order = $this->order->create(OrderInfo::createBasic($userId, $type));
-        $sessionData = $this->getSessionData($data, $order->id);
+        $sessionData = $this->getSessionData($data, $order);
         $response = $this->placeToPay->request($sessionData);
 
         if ($response->isSuccessful()) {
@@ -127,18 +129,34 @@ class GouGateway implements PaymentGatewayInterface
         }
     }
 
-    private function getSessionData(PaymentItemsInterface $data, $reference): array
+    private function getSessionData(PaymentItemsInterface $data, OrderInfo $orderInfo): array
     {
-        [$ip, $userAgent, $returnUrl] = $this->getNeededData($reference);
+        [$ip, $userAgent, $returnUrl] = $this->getNeededData($orderInfo->id);
+        $userInfo = $this->usuario->basic($orderInfo->userId);
+
         return [
             "locale" => "es_CO",
             "payment" => [
-                "reference" => $reference,
+                "reference" => $orderInfo->id,
                 "description" => $data->getDescription(),
                 "amount" => [
                     "currency" => $data->getAmount()->currency,
                     "total" => $data->getAmount()->value,
                 ],
+            ],
+            "buyer" => [
+                "document" => $userInfo['num_histo'],
+                "documentType" => "CC",
+                "name" => $userInfo['nom1'],
+                "surname" => $userInfo['ape1'],
+                "email" => $userInfo['email'],
+                "mobile" => "+57".$userInfo['telefono'],
+                "address" => [
+                    "country" => "Colombia",
+                    "city" => $userInfo['ciudad'],
+                    "street" => $userInfo['direccion'],
+                    "phone" => "+57".$userInfo['telefono'],
+                ]
             ],
             "fields" => $data->getFields(),
             "expiration" => date("c", strtotime("+30 min")),

@@ -4,15 +4,13 @@
 <main class="flex-grow-1 p-3 flex">
   <section class="mx-auto max-w-3xl">
     <h1 class="fs-5 text-primary !mb-4">Trámites Virtuales</h1>
-    <div class="max-w-xl flex items-center !p-4 !mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert" >
+    <div class="flex items-center !p-4 !mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert" >
       <span class="[&>svg]:h-4 me-3">
         <?= $this->fetch('./icons/important.php') ?>
       </span>
       <div>
         <span class="font-bold">Importante!</span>
-        <p>
-          Para los items que apliquen: Al dar click serás redireccionado a la pasarela de pagos para que completes el proceso.
-        </p>
+        <p> Al realizar una compra, usted reconoce y acepta nuestros <?= $this->fetch("./partials/tyc.php") ?> </p>
       </div>
     </div>
     <div id="tramites-list-button-container" class="mb-4 flex items-center gap-3">
