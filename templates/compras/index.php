@@ -42,9 +42,9 @@ function getRowClass(App\Enums\MpStatus $status)
         </div>
       </div>
     <?php else: ?>
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-h-[500px] mb-8">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 sticky top-0">
             <tr>
               <?php foreach($tableHeaers as $header): ?>
                 <th scope="col" class="px-6 !py-3"><?= $header ?></th>
@@ -101,5 +101,9 @@ function getRowClass(App\Enums\MpStatus $status)
       </div>
     <?php endif ?>
 
+    <div class="flex items-center gap-2">
+      <span class="text-sm">Revisa: </span>
+      <?= $this->fetch('partials/pasarela-faq-modal.php') ?>
+    </div>
   </section>
 </main>

@@ -11,7 +11,7 @@
     <button
       @click="openModal"
       class="text-xs rounded bg-amber-400 text-neutral-800 !px-3 py-1.5 xl:hidden hover:outline hover:outline-offset-2 hover:outline-2 hover:outline-amber-500"
-    >Ver Mis Trámites.</button>
+    >Mis Trámites</button>
   </template>
 
   <div class="ml-auto !p-6 max-w-sm bg-white border-l border-neutral-300 text-sm text-neutral-600 relative min-h-full xl:min-h-0 xl:sticky xl:top-12 xl:border-none xl:rounded">

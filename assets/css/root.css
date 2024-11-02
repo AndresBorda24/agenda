@@ -201,6 +201,25 @@ body {
 }
 /* Fin Gateway */
 
+/* FAQ */
+#faq details:not(:last-of-type) {
+    @apply border-b;
+}
+#faq summary {
+    @apply mx-2 py-3 font-semibold text-sm hover:text-aso-primary;
+    list-style: none;
+}
+#faq p {
+    @apply text-sm text-neutral-600 p-2 text-pretty;
+}
+#faq details[open] {
+    @apply pb-3;
+}
+#faq details[open]>summary {
+    @apply border-b-neutral-300 text-aso-secondary pb-2;
+}
+/* Fin de FAQ */
+
 @media (width < 768px) {
     .aside {
         height: 100vh;

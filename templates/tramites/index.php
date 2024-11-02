@@ -15,7 +15,12 @@
         </p>
       </div>
     </div>
-    <div id="tramites-list-button-container" class="!mb-4"></div>
+    <div id="tramites-list-button-container" class="mb-4 flex items-center gap-3">
+      <div class="flex items-center gap-2 -mt-0.5">
+        <span class="text-sm">Revisa: </span>
+        <?= $this->fetch('partials/pasarela-faq-modal.php') ?>
+      </div>
+    </div>
 
     <div
       x-data="ItemsList"

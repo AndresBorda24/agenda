@@ -14,17 +14,19 @@
     </div>
   </div>
 
-  <section
-    x-cloak style="max-width: 700px;"
-    x-show="tab === 1"
-    class="mx-auto mt-4"
-    x-transition.opacity
-  >
-    <span class="text-neutral-600 text-sm">
-      Ya Seleccionaste un plan anteriormente...
-    </span>
-    <?= $this->fetch("./planes/partials/pendiente.php") ?>
-  </section>
+  <?php if($user->pago?->isPendiente()): ?>
+    <section
+      x-cloak style="max-width: 700px;"
+      x-show="tab === 1"
+      class="mx-auto mt-4"
+      x-transition.opacity
+    >
+      <span class="text-neutral-600 text-sm">
+        Ya Seleccionaste un plan anteriormente...
+      </span>
+      <?= $this->fetch("./planes/partials/pendiente.php") ?>
+    </section>
+  <?php endif ?>
 
   <section x-cloak x-show="tab === 2" x-transition.opacity @show-gateways="() => tab = 3;">
     <h2 class="text-center text-primary mt-3 fw-bold">Selecciona tu plan</h2>
@@ -48,13 +50,18 @@
         @click="tab = 2"
       >&#10094; Volver</button>
 
-      <div class="d-grid">
+      <div class="d-grid mb-8">
         <?= $this->fetch(
             "./planes/partials/medios-pago/gou-micrositio-api.php"
         ) ?>
         <?= $this->fetch(
             "./planes/partials/medios-pago/gou-micrositio.php"
         ) ?>
+      </div>
+
+      <div class="mb-8 border-t border-dashed flex gap-2 items-center border-neutral-400 pt-4 text-sm" id="faq-btn">
+        <span><span class="font-bold">¿Tienes alguna duda?</span> Revisa: </span>
+        <?= $this->fetch('partials/pasarela-faq-modal.php') ?>
       </div>
     </div>
   </section>
