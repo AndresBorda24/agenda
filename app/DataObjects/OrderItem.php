@@ -21,7 +21,7 @@ class OrderItem
     public static function fromArray(array $data): static
     {
         return new static(
-            id: $data['id'],
+            id: (int) $data['id'],
             name: $data['name'],
             desc: $data['desc'],
             price: (float) $data['price'],

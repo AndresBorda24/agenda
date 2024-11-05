@@ -17,12 +17,12 @@ class PlanDTO
     public static function fromArray(array $data): static
     {
         return new static(
-            id: $data['id'],
+            id: (int) $data['id'],
             nombre: $data['nombre'],
-            vigencia: $data['vigencia'],
+            vigencia: (int) $data['vigencia'],
             beneficios: $data['beneficios'],
-            valor: $data['valor'],
-            status: $data['status']
+            valor: (int) $data['valor'],
+            status: (int) $data['status']
         );
     }
 }

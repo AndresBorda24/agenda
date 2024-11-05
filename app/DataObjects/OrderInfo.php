@@ -29,8 +29,8 @@ final class OrderInfo
     public static function fromArray(array $data)
     {
         return new static(
-            id: $data['id'],
-            userId: $data['user_id'],
+            id: (int) $data['id'],
+            userId: (int) $data['user_id'],
             orderId: $data['order_id'],
             pagoId: @$data['pago_id'],
             status: MpStatus::from(mb_strtolower($data['status'])),
@@ -41,7 +41,7 @@ final class OrderInfo
             expiresAt: $data['expires_at'],
             updatedAt: $data['updated_at'],
             data: $data['data'],
-            fileId: $data['file_id'] ?? null
+            fileId: @$data['file_id'] ? (int) $data['file_id'] : null
         );
     }
 

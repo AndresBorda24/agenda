@@ -13,7 +13,7 @@ class GatewayReturnData
     public static function fromArray(array $data): static
     {
         return new static(
-            ref: $data['ref']
+            ref: (int) $data['ref']
         );
     }
 }
