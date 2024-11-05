@@ -13,7 +13,7 @@
 >
   <button
     @click="openModal"
-    class="text-xs rounded bg-amber-400 text-neutral-800 !px-3 py-1.5 xl:hidden hover:outline hover:outline-offset-2 hover:outline-2 hover:outline-amber-500"
+    class="text-xs rounded bg-amber-400 text-neutral-800 !px-3 py-1.5 hover:outline hover:outline-offset-2 hover:outline-2 hover:outline-amber-500"
   >Preguntas Frecuentes</button>
 
   <template x-teleport="body">
@@ -26,7 +26,7 @@
       <div class="ml-auto p-6 max-w-md bg-white border-l border-neutral-300 text-sm text-neutral-600 relative min-h-full max-h-full overflow-auto">
         <button
           @click="closeModal"
-          class="btn btn-close absolute top-0 right-0 m-6 xl:hidden"
+          class="btn btn-close absolute top-0 right-0 m-6"
         ></button>
         <?= $this->fetch('partials/pasarela-faq.php') ?>
       </div>
