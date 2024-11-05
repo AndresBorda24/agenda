@@ -192,7 +192,7 @@ class Order
             ],
             "ORDER" => ["O.id" => "DESC"]
         ], function ($i) use (&$data) {
-            $type = OrderType::from($i['type']);
+            $type = OrderType::from((int) $i['type']);
             $dataDecoded = json_decode($i["data"], true);
             $item = match($type) {
                 OrderType::FIDELIZACION => PlanDTO::fromArray($dataDecoded),

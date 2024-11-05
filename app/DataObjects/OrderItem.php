@@ -25,7 +25,7 @@ class OrderItem
             name: $data['name'],
             desc: $data['desc'],
             price: (float) $data['price'],
-            type: OrderType::from($data['type']),
+            type: OrderType::from((int) $data['type']),
             icon: $data['icon'],
             active: ($data['active'] == 1)
         );

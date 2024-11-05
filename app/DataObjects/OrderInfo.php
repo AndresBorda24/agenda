@@ -35,7 +35,7 @@ final class OrderInfo
             pagoId: @$data['pago_id'],
             status: MpStatus::from(mb_strtolower($data['status'])),
             processUrl: $data['process_url'],
-            type: OrderType::from($data['type']),
+            type: OrderType::from((int) $data['type']),
             saved: (int) $data['saved'],
             createdAt: $data['created_at'],
             expiresAt: $data['expires_at'],
