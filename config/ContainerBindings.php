@@ -52,6 +52,10 @@ return [
             touch($logFile);
         }
 
-        return new Firehed\SimpleLogger\File($logFile);
+        $logger = new Monolog\Logger('app');
+        $logger->pushHandler(new Monolog\Handler\StreamHandler($logFile));
+        $logger->pushProcessor(new Monolog\Processor\PsrLogMessageProcessor());
+
+        return $logger;
     }
 ];
