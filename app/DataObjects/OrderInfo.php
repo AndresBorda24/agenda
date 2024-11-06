@@ -32,7 +32,7 @@ final class OrderInfo
             id: (int) $data['id'],
             userId: (int) $data['user_id'],
             orderId: $data['order_id'],
-            pagoId: @$data['pago_id'],
+            pagoId: @$data['pago_id'] ? (int) $data['pago_id'] : null,
             status: MpStatus::from(mb_strtolower($data['status'])),
             processUrl: $data['process_url'],
             type: OrderType::from((int) $data['type']),

@@ -167,7 +167,7 @@ class CertificadoNoAtencionHandler implements GatewayResponseHandler
 
         return $this->files->create(new \App\DataObjects\File(
             id: 0,
-            usuarioId: $usuarioId,
+            usuarioId: (int) $usuarioId,
             name: $fileName,
             rute: $order->type->name,
             fileType: 'application/pdf'
