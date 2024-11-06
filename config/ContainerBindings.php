@@ -48,6 +48,11 @@ return [
     LoggerInterface::class => function(Config $config) {
         $logFile = $config->get('logfile');
 
+        $toFolder = pathinfo($logFile, PATHINFO_DIRNAME);
+        if (!file_exists($toFolder)) {
+            mkdir($toFolder);
+        }
+
         if (! file_exists($logFile)) {
             touch($logFile);
         }
