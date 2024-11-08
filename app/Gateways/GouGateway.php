@@ -134,6 +134,12 @@ class GouGateway implements PaymentGatewayInterface
         [$ip, $userAgent, $returnUrl] = $this->getNeededData($orderInfo->id);
         $userInfo = $this->usuario->basic($orderInfo->userId);
 
+        /** Impuestozzz... */
+        $taxes = array_map(fn($t) => [
+            "kind"  => $t->kind,
+            "amount" => $t->value
+        ], $data->getTaxes());
+
         return [
             "locale" => "es_CO",
             "payment" => [
@@ -142,6 +148,7 @@ class GouGateway implements PaymentGatewayInterface
                 "amount" => [
                     "currency" => $data->getAmount()->currency,
                     "total" => $data->getAmount()->value,
+                    "taxes" => $taxes
                 ],
             ],
             "buyer" => [

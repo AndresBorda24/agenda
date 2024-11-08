@@ -11,6 +11,7 @@ use App\Enums\OrderType;
 use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\Plan;
+use App\OrderItems\CertificadoNoAtencionItems;
 use App\OrderItems\FidelizacionItems;
 use App\OrderItems\GeneralItems;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -61,7 +62,10 @@ class OrderController
         $processUrl = $this->gateway->getPaymentUrl(
             $user->id(),
             $item->type,
-            new GeneralItems($item)
+            match ($item->type) {
+                OrderType::CRT_ATENCION => new CertificadoNoAtencionItems($item),
+                default => new GeneralItems($item)
+            }
         );
 
         return responseJSON($response, [
