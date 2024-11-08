@@ -177,3 +177,22 @@ if (!function_exists('App\vite')) {
         return ["js" => $jsTags, "css" => $cssTags];
     }
 }
+
+
+if (! function_exists('App\iva')) {
+    /**
+     * Calcula el valor del iva de una cantidad dada.
+     * @return float Valor de iva redondeado a un máximo de 2 decimales.
+     */
+    function iva(float $value, bool $included = true): float
+    {
+        $IVA = 19;
+
+        if ($included) {
+            $valNoIva = $value / ($IVA / 100 + 1);
+            return $value - round($valNoIva, 2);
+        }
+
+        return $value / 100 * $IVA;
+    }
+}

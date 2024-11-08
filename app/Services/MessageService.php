@@ -37,7 +37,7 @@ class MessageService
     {
         return <<<EOF
         Hola 👋, ¡Hemos recibido tu pago! \n
-        En los próximos minutos te llegará un mensaje con el archivo de tu certificado a tu número de WhatsApp y al correo que tienes registrado ($correo). Ten en cuenta que `puede tardar un poco`. Te notificaremos cuando esté listo.
+        En los próximos minutos te llegará un mensaje con el archivo de tu certificado a tu número de WhatsApp y al correo que tienes registrado ($correo). Recuerda revisar la carpeta de spam.
         EOF;
     }
 

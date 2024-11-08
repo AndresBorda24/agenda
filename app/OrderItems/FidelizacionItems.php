@@ -58,4 +58,9 @@ class FidelizacionItems implements PaymentItemsInterface
     {
         return (array) $this->plan;
     }
+
+    public function getTaxes(): array
+    {
+        return [];
+    }
 }

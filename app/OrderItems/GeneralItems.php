@@ -58,4 +58,10 @@ class GeneralItems implements PaymentItemsInterface
     {
         return (array) $this->item;
     }
+
+    /** Retorna los impuestos del pago */
+    public function getTaxes(): array
+    {
+        return [];
+    }
 }
