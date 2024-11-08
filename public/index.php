@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use App\ErrorRenderer\HtmlErrorRenderer;
 use App\Middleware\StartSessionsMiddleware;
+use Psr\Log\LoggerInterface;
 
 require __DIR__ . "/../vendor/autoload.php";
 
@@ -35,6 +37,7 @@ $dotenv->load();
 $c = new \DI\Container(require __DIR__ . "/../config/ContainerBindings.php");
 $app = \DI\Bridge\Slim\Bridge::create($c);
 $config = $c->get(\App\Config::class);
+$logger = $c->get(LoggerInterface::class);
 
 /* -----------------------------------------------------------------------------
 | Cargamos las rutas
@@ -51,8 +54,11 @@ $api($app);
 |  Errores
 + ------------------------------------------------------------------------------
 */
-($config->get("app.env") === "prod")
-    ? $app->addErrorMiddleware(false, false, false)
-    : $app->addErrorMiddleware(true, false, true);
+$errorMiddleware = ($config->get("app.env") === "prod")
+    ? $app->addErrorMiddleware(false, true, false, $logger)
+    : $app->addErrorMiddleware(true, true, false, $logger);
+
+$errorHandler = $errorMiddleware->getDefaultErrorHandler();
+$errorHandler->registerErrorRenderer("text/html", HtmlErrorRenderer::class);
 
 $app->run();
