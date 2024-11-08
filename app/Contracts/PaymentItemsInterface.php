@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Contracts;
 
 use App\DataObjects\Amount;
+use App\DataObjects\Tax;
 
 interface PaymentItemsInterface
 {
@@ -31,4 +32,10 @@ interface PaymentItemsInterface
      * info en la base de datos.
      */
     public function getData(): array;
+
+
+    /**
+     * @return Tax[] Listado de todos los impuestos del pago
+     */
+    public function getTaxes(): array;
 }
