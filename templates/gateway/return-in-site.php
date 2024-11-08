@@ -69,8 +69,8 @@ if ($order !== null) {
       </div>
     <?php else: ?>
       <a
-        href="<?=$this->link('home')?>"
-        class="btn btn-success btn-sm">Ir a Home</a>
+        href="<?=$this->link('compras')?>"
+        class="btn btn-success btn-sm">Ir a Compras</a>
     <?php endif ?>
 
   </div>
