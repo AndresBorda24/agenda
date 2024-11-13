@@ -47,6 +47,17 @@
         </div>
       </template>
     </div>
+
+    <div class="border-t border-dashed border-neutral-400 mt-5">
+      <p class="text-xs text-neutral-600 p-4 pt-2 max-w-sm mx-auto text-center relative before:content-['*'] before:text-xl before:font-bold">
+        Al dar clic en cualquiera de los ítems serás redirigido automáticamente a la pasarela de pagos.
+      </p>
+      <img
+        class="block m-auto"
+        src="/img/logo-pasarela.svg"
+        alt="Logo Pasarela de Pagos"
+      >
+    </div>
   </section>
 
   <?= $this->fetch('tramites/partials/order-list.php') ?>
