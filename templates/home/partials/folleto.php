@@ -7,7 +7,7 @@
   </span>
   <p class="small"><span class="text-warning fs-5">¿Tienes dudas?</span> <br> <br> Puedes ver el Folleto del <i class="fw-bold text-nowrap">Programa de Fidelización</i> dando click en el siguiente botón:</p>
   <a
-    href="<?= $this->asset('Folleto programa de fidelización.pdf') ?>"
+    href="<?= $this->asset('folleto-programa-fidelizacion.pdf') ?>"
     class="d-block mx-auto btn btn-warning shadow-lg px-5"
     target="_blank"
     rel="noopener noreferer"
