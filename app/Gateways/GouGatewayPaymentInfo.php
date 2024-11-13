@@ -62,7 +62,9 @@ class GouGatewayPaymentInfo implements PaymentInfoInterface
     {
         $total = 0;
         foreach ($this->payment->payment() as $payment) {
-            $total += $payment->amount()->to()->total();
+            if ($payment->status()->isApproved()) {
+                $total += $payment->amount()->to()->total();
+            }
         }
         return $total;
     }
@@ -71,12 +73,15 @@ class GouGatewayPaymentInfo implements PaymentInfoInterface
     {
         $total = 0;
         foreach ($this->payment->payment() as $payment) {
-            $discount = $payment->discount()?->amount();
-            if ($discount === null) {
-                continue;
-            }
+            if ($payment->status()->isApproved()) {
+                $discount = $payment->discount()?->amount();
 
-            $total += $discount;
+                if ($discount === null) {
+                    continue;
+                }
+
+                $total += $discount;
+            }
         }
         return $total;
     }
