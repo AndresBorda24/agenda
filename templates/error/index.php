@@ -18,7 +18,7 @@
         </a>
         <a
           class="px-3 py-1.5 rounded bg-transparent hover:bg-sky-700 duration-150 transition-colors text-white text-sm"
-          href="<?= $this->link("home") ?>"
+          href="/home"
         >Ir a Home</a>
       </div>
     </header>
@@ -30,7 +30,7 @@
           <span class="px-4 py-2 bg-white text-sky-700 font-bold">Ha ocurrido un error.</span>
           <a
             class="px-3 py-1.5 rounded bg-transparent text-xl text-white underline mt-10"
-            href="<?= $this->link("home") ?>"
+            href="/home"
           >Ir a Home</a>
         </div>
 
