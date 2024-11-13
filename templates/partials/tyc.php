@@ -1,1 +1,1 @@
-<a href="<?= $this->asset('TERMINOS Y CONDICIONES DEL PROGRAMA DE FIDELIZACIÓN CLINICA ASOTRAUMA S.A.S.pdf') ?>" class="fw-bold" target="_blank" rel="noopener noreferrer"> <?= $tycText ?? 'términos y condiciones' ?> </a>
+<a href="<?= $this->asset('terminos-condiciones-fidelizacion.pdf') ?>" class="fw-bold" target="_blank" rel="noopener noreferrer"> <?= $tycText ?? 'términos y condiciones' ?> </a>
