@@ -20,6 +20,8 @@ use Slim\Factory\ServerRequestCreatorFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 
+use function App\sanitizeString;
+
 class GouGateway implements PaymentGatewayInterface
 {
     public readonly PlacetoPay $placeToPay;
@@ -154,21 +156,20 @@ class GouGateway implements PaymentGatewayInterface
             "buyer" => [
                 "document" => $userInfo['num_histo'],
                 "documentType" => "CC",
-                "name" => $userInfo['nom1'],
-                "surname" => $userInfo['ape1'],
+                "name" => sanitizeString($userInfo['nom1'] ?? ''),
+                "surname" => sanitizeString($userInfo['ape1'] ?? ''),
                 "email" => $userInfo['email'],
                 "mobile" => "+57".$userInfo['telefono'],
                 "address" => [
                     "country" => "Colombia",
-                    "city" => $userInfo['ciudad'],
-                    "street" => $userInfo['direccion'],
+                    "city" => sanitizeString($userInfo['ciudad'] ?? ''),
+                    "street" => sanitizeString($userInfo['direccion'] ?? ''),
                     "phone" => "+57".$userInfo['telefono'],
                 ]
             ],
             "fields" => $data->getFields(),
             "expiration" => date("c", strtotime("+30 min")),
             "returnUrl" => $returnUrl,
-            "notificationUrl" => "https://intranet.asotrauma.com.co/atest/",
             "ipAddress" => $ip,
             "userAgent" => $userAgent,
         ];

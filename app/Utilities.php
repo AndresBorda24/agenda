@@ -196,3 +196,10 @@ if (! function_exists('App\iva')) {
         return $value / 100 * $IVA;
     }
 }
+
+if (! function_exists('App\sanitizeString')) {
+    function sanitizeString(string $str): string
+    {
+        return trim(preg_replace("/[^\w\sáéíóúü]+/iu", '', $str));
+    }
+}
