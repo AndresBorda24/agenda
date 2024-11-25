@@ -60,13 +60,9 @@ class GouGatewayPaymentInfo implements PaymentInfoInterface
 
     public function getAmount(): float
     {
-        $total = 0;
-        foreach ($this->payment->payment() as $payment) {
-            if ($payment->status()->isApproved()) {
-                $total += $payment->amount()->to()->total();
-            }
-        }
-        return $total;
+        return $this->payment->status()->isRejected()
+            ? 0
+            : $this->payment->request()->payment()->amount()?->total() ?? 0;
     }
 
     public function getDiscount(): ?float
