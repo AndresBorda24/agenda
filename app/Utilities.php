@@ -200,6 +200,6 @@ if (! function_exists('App\iva')) {
 if (! function_exists('App\sanitizeString')) {
     function sanitizeString(string $str): string
     {
-        return trim(preg_replace("/[^\w\sáéíóúü]+/iu", '', $str));
+        return trim(preg_replace("/[^\p{L}\p{N}\s]+/u", '', $str));
     }
 }
