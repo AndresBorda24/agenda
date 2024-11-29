@@ -46,10 +46,10 @@ document.addEventListener('alpine:init', () => {
     Alpine.store("loader", {
         _: document.getElementById('loader'),
         show() {
-            this._.classList.remove('d-none');
+            this._.classList.remove('hidden');
         },
         hide() {
-            this._.classList.add('d-none');
+            this._.classList.add('hidden');
         }
     });
 });
