@@ -26,6 +26,10 @@ $messageService = $c->get(MessageService::class);
 $orderHandlerService = $c->get(GetOrderHandlerService::class);
 
 $orders = $orderModel->getPendientes();
+
+echo "Actualizando Ordenes pendientes: \n";
+print_r($orders) . "\n";
+
 foreach ($orders as $order) {
     try {
         $handler = $orderHandlerService->get($order);
