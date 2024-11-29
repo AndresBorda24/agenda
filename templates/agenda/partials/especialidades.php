@@ -40,7 +40,7 @@
   </template>
 
   <template x-if="! espsLoaded">
-    <p class="bg-warning-subtle border-4 m-0 border-warning border-start px-3 py-2 rounded shadow" >
+    <p class="flex items-center gap-3 m-0 !p-4 rounded bg-amber-50 text-amber-900 text-sm" >
       <?= $this->fetch("./icons/wait.php", ["props" => 'height=20 width=20']) ?>
       Cargando medicos y especialidades. Por favor espera. :)
     </p>

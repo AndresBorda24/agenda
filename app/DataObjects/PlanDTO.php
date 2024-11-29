@@ -13,4 +13,16 @@ class PlanDTO
         public readonly int $valor,
         public readonly int $status
     ) {}
+
+    public static function fromArray(array $data): static
+    {
+        return new static(
+            id: (int) $data['id'],
+            nombre: $data['nombre'],
+            vigencia: (int) $data['vigencia'],
+            beneficios: $data['beneficios'],
+            valor: (int) $data['valor'],
+            status: (int) $data['status']
+        );
+    }
 }

@@ -6,6 +6,8 @@ namespace App\Models;
 use App\Config;
 use Medoo\Medoo;
 use App\DataObjects\CreatePagoInfo;
+use App\DataObjects\OrderInfo;
+use App\DataObjects\PlanDTO;
 use App\DataObjects\UpdatePagoInfo;
 
 class Pago
@@ -269,5 +271,28 @@ class Pago
         } catch(\Exception $e) {
             throw $e;
         }
+    }
+
+    /** @return int Id del nuevo pago registrado!  * */
+    public function createFromOrder(OrderInfo $order, PlanDTO $plan)
+    {
+        $pagoId = $this->create(new \App\DataObjects\CreatePagoInfo(
+            userId: $order->userId,
+            planId: $plan->id,
+            envio: false,
+            status: $order->status->value,
+            valorPagado: $plan->valor
+        ));
+
+        $this->updateInfo((int) $pagoId, new UpdatePagoInfo(
+            id: "PAGO-PASARELA-". $order->id,
+            type: 'PASARELA',
+            start: date("Y-m-d"),
+            status: $order->status->value,
+            planId: $plan->id,
+            detail: $order->orderId
+        ));
+
+        return $pagoId;
     }
 }

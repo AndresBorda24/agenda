@@ -1,19 +1,14 @@
-<form
-x-data="Planes"
-x-transition
-@submit.prevent="() => false && confirmPlan()">
-  <div class="planes-container d-flex flex-wrap d-lg-grid align-items-baseline p-4 pt-2">
+<div
+  x-data="Planes"
+  x-transition
+  class="py-6 mb-6"
+>
+  <div class="mx-auto grid gap-6 [grid-template-columns:_repeat(auto-fit,minmax(240px,1fr))] justify-center">
     <?php foreach($planes as $plan): ?>
-      <?= $this->fetch("./planes/partials/plan/plan.php", [
-        "plan" => $plan
+      <?= $this->fetch("./planes/partials/card.php", [
+        "plan" => $plan,
+        "isColaborador" => ($plan['id'] == $planColaboradorId)
       ]) ?>
     <?php endforeach ?>
-  </div>
-</form>
-<hr>
-<div class="mx-auto" style="max-width: 800px;">
-  <h5 class="fw-bold text-center">Elige una forma de pago</h5>
-  <div class="d-grid gap-3">
-    <?= $this->fetch("./planes/partials/medios-pago/gou-micrositio.php") ?>
   </div>
 </div>

@@ -16,7 +16,7 @@ export default () => ({
     /**
      * La "ruta" base para hacer las peticiones
     */
-    baseUri: process.env.APP_URL + "api",
+    baseUri: import.meta.env.VITE_APP_API,
     events: {
         ["@load-day-hours.document"]: "handler($event)"
     },

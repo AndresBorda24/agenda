@@ -5,7 +5,7 @@ import modalCancelar from './components/modal-cancelar';
 
 import "../css/app.css";
 
-if (process.env.APP_ENV === "dev") window.Alpine = Alpine;
+if (import.meta.env.VITE_APP_ENV === "dev") window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
     Alpine.data("Citas", Citas);

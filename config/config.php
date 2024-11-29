@@ -1,11 +1,13 @@
 <?php
+
 return [
     "app" => [
         "name" => $_ENV["APP_NAME"],
         "ver"  => $_ENV["APP_VER"],
         "base" => $_ENV["APP_PATH"],
         "url"  => $_ENV["APP_URL"],
-        "env"  => $_ENV["APP_ENV"]
+        "env"  => $_ENV["APP_ENV"],
+        "local_url"  => $_ENV["APP_LOCAL_URL"]
     ],
     "db" => [
         "host" => $_ENV["DB_HOST"],
@@ -28,13 +30,15 @@ return [
         'httponly'   => true,
         'samesite'   => 'lax',
     ],
-    "mp" => [
-        "public" => $_ENV["MP_PUBLIC"],
-        "token"  => $_ENV["MP_TOKEN"]
+    "pasarela" => [
+        "api" => $_ENV["PASARELA_API"],
+        "key" => $_ENV["PASARELA_KEY"],
+        "login" => $_ENV["PASARELA_LOGIN"]
     ],
     "wp" => [
         "token" => $_ENV["WP_TOKEN"],
         "instance" => $_ENV["WP_INSTANCE"]
     ],
-    "soportes" => __DIR__ . "/../soportes"
+    "soportes" => __DIR__ . "/../soportes",
+    'logfile' => __DIR__.'/..'.($_ENV['LOG_FILE'] ?? '/log/log.txt')
 ];

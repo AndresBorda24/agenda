@@ -31,7 +31,7 @@ export default () => ({
             showLoader();
 
             const {data} = await axios.post(
-                process.env.API + this.endPoint,
+                import.meta.env.VITE_APP_API + this.endPoint,
                 this.state
             );
 

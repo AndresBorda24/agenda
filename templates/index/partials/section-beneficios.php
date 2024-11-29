@@ -1,4 +1,4 @@
-<section id="section-beneficios" class="index-section py-5 d-md-flex flex-column container justify-content-center align-items-center px-3 gap-3" style="margin-bottom: 8rem;">
+<section id="section-beneficios" class="index-section py-5 d-md-flex flex-column container justify-content-center align-items-center px-3 gap-3">
   <div class="text-center text-primary">
     <div class="p-4">
       <span class="d-block mx-auto" style="width: 100px;">

@@ -46,7 +46,8 @@
       </template>
 
       <template x-if="!fetched">
-        <span class="d-inline-block text-bg-warning text-center rounded-2 w-100 small bg-opacity-25 border-start border-3 border-warning shadow-sm">
+        <span class="flex items-center gap-3 m-0 !p-4 rounded bg-amber-50 text-amber-900 text-sm" >
+          <?= $this->fetch("./icons/wait.php", ["props" => 'height=20 width=20']) ?>
           Cargando Listado de EPS...
         </span>
       </template>

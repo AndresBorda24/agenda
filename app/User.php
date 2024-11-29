@@ -6,12 +6,19 @@ namespace App;
 use App\DataObjects\UserInfo;
 use App\Abstracts\AbstractPago;
 use App\Contracts\UserInterface;
+use App\DataObjects\OrderInfo;
+use App\Enums\OrderType;
 
 class User implements UserInterface
 {
     public function __construct(
         public readonly UserInfo $info,
-        public readonly ?AbstractPago $pago
+        public readonly ?AbstractPago $pago,
+        /**
+         * Representa la última orden del usuario que sea de tipo Fidelizacion.
+         * No se cargan ordenes de otros tipos.
+        */
+        private ?OrderInfo $order
     ) {}
 
     public function id(): string|int
@@ -77,5 +84,23 @@ class User implements UserInterface
     public function getPago(): ?AbstractPago
     {
         return $this->pago;
+    }
+
+    public function getOrder(): ?OrderInfo
+    {
+        return $this->order;
+    }
+
+    /**
+     * Actualiza la información de la ordern del usuario. Si la orden no es de
+     * tipo Fidelizacion, no realizará ninguna actualizacion.
+     */
+    public function updateOrder(?OrderInfo $order): void
+    {
+        if ($order === null || $order->type !== OrderType::FIDELIZACION) {
+            return;
+        }
+
+        $this->order = $order;
     }
 }

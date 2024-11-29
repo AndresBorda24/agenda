@@ -1,25 +1,25 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 
-use Slim\App;
-use App\Middleware\CorsMiddleware;
-use App\Middleware\AuthMiddleware;
-use App\Controllers\Api\EpsController;
-use App\Controllers\Api\AuthController;
-use App\Controllers\Api\PlanesController;
 use App\Controllers\Api\AgendaController;
-use App\Controllers\Api\UsuarioController;
-use App\Controllers\Api\MedicosController;
-use App\Middleware\JsonBodyParserMiddleware;
-use Slim\Routing\RouteCollectorProxy as Group;
+use App\Controllers\Api\AuthController;
 use App\Controllers\Api\BeneficiarioController;
+use App\Controllers\Api\EpsController;
 use App\Controllers\Api\EspecialidadController;
 use App\Controllers\Api\ExternalController;
 use App\Controllers\Api\GEMAController;
-use App\Controllers\Api\MercadoPagoController;
+use App\Controllers\Api\MedicosController;
+use App\Controllers\Api\OrderController;
 use App\Controllers\Api\PagoController;
+use App\Controllers\Api\PlanesController;
 use App\Controllers\Api\RegaloController;
+use App\Controllers\Api\UsuarioController;
+use App\Middleware\AuthMiddleware;
+use App\Middleware\CorsMiddleware;
+use App\Middleware\JsonBodyParserMiddleware;
+use Slim\App;
+use Slim\Routing\RouteCollectorProxy as Group;
 
 /**
  * Mapea TODAS las rutas relacionadas con la API
@@ -31,10 +31,9 @@ return function (App $app) {
         $api->group("/especialidades", function (Group $esp) {
             $esp->get("/get-all", [EspecialidadController::class, 'getAll']);
             $esp->get("/get-available", [EspecialidadController::class, 'getAvailable']);
-            $esp->get("/{esp}/get-agenda", [EspecialidadController::class, 'getAgenda'] );
+            $esp->get("/{esp}/get-agenda", [EspecialidadController::class, 'getAgenda']);
             $esp->get("/{esp}/get-available-hours/{fecha}", [EspecialidadController::class, 'getAgendaHours']);
         });
-
 
         $api->group("/auth", function (Group $auth) {
             $auth->get("/basic", [UsuarioController::class, "getBasic"]);
@@ -47,46 +46,48 @@ return function (App $app) {
             $auth->put("/password-update", [UsuarioController::class, "updatePass"]);
         })->add(AuthMiddleware::class);
 
-
         $api->group("/agenda", function (Group $agenda) {
             $agenda->get("/mis-citas", [AgendaController::class, "getCitasAgendadas"]);
             $agenda->post("/save", [AgendaController::class, 'save'])
                 ->add(JsonBodyParserMiddleware::class);
         })->add(AuthMiddleware::class);
 
-
         $api->group("/medicos", function (Group $medicos) {
             $medicos->get("/{esp}/get-available", [MedicosController::class, 'getAvailable']);
         });
 
-
         $api->group("/planes", function (Group $planes) {
             $planes->get("/get-available", [PlanesController::class, 'getAvailable']);
             $planes->post("/info-pagos", [PlanesController::class, 'createPreference']);
-            $planes->post("/{planId:[0-9]+}/create-preference", [MercadoPagoController::class, 'createPreference'])
-                ->add(AuthMiddleware::class);
         });
-
 
         $api->group("/pagos", function (Group $pagos) {
-            $pagos->post("/{pagoId:[0-9]+}/webhook", [PagoController::class, 'webhook']);
             $pagos->put("/{id:[0-9]+}/set-nomina", [PagoController::class, 'nomina']);
-            $pagos->delete("/{id:[0-9]+}/delete", [PagoController::class, "remove"]);
-        });
+            $pagos->delete("/{id:[0-9]+}/delete", [PagoController::class, "remove"])
+                ->add(AuthMiddleware::class)
+            ;
 
+            $pagos->group('/order', function (Group $order) {
+                $order->get('/user-files', [OrderController::class, 'userFiles'])
+                    ->add(AuthMiddleware::class)
+                ;
+                $order->get('/{id:[0-9]+}/new', [OrderController::class, 'newOrder'])
+                    ->add(AuthMiddleware::class)
+                ;
+                $order->get('/{type:[0-9]+}/check-pendiente', [OrderController::class, 'checkPendiente'])
+                    ->add(AuthMiddleware::class)
+                ;
+                $order->get('/{planId:[0-9]+}/create', [OrderController::class, 'createOrder'])
+                    ->add(AuthMiddleware::class)
+                ;
+                $order->get('/test', [OrderController::class, 'test']);
+            })
+            ;
+        });
 
         $api->group("/pacientes", function (Group $paciente) {
             $paciente->post("/registro", [UsuarioController::class, 'registro']);
         });
-
-
-        $api->group("/mp", function (Group $mp) {
-            $mp->get("/{id}/preference", [MercadoPagoController::class, "getPref"]);
-            $mp->get("/{id}/pago", [MercadoPagoController::class, "getPayment"]);
-            $mp->get("/{id}/merch", [MercadoPagoController::class, "getMerch"]);
-            $mp->put("/pago/{id}/set-status/{status}", [MercadoPagoController::class, "setPaymentStatus"]);
-        });
-
 
         $api->post("/regalo/{code}/redimir", RegaloController::class)
             ->add(AuthMiddleware::class);
@@ -98,7 +99,7 @@ return function (App $app) {
     })->add(JsonBodyParserMiddleware::class);
 
     $app->group("/api/external", function (Group $ext) {
-        $ext->group('', function(Group $ext) {
+        $ext->group('', function (Group $ext) {
             $ext->get("/soporte/{file}", [ExternalController::class, "showSoporte"]);
             $ext->get("/pagos-excel", [ExternalController::class, "getExcelPagos"]);
             $ext->get("/get-planes", [ExternalController::class, "getPlanes"]);
@@ -112,7 +113,7 @@ return function (App $app) {
                 "/{pagoId:[0-9]+}/set-registrado",
                 [ExternalController::class, "setRegistradoVal"]
             );
-            $ext->options("/{routes:.+}", fn($response) => $response);
+            $ext->options("/{routes:.+}", fn ($response) => $response);
         })->add(CorsMiddleware::class)->add(JsonBodyParserMiddleware::class);
 
         $ext->group('', function (Group $ext) {

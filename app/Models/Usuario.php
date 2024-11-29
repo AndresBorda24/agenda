@@ -8,6 +8,7 @@ use App\User;
 use Medoo\Medoo;
 use App\Contracts\UserInterface;
 use App\DataObjects\UserInfo;
+use App\Enums\OrderType;
 use App\Enums\TipoBusquedaFidelizado;
 
 use function App\uppercase;
@@ -109,7 +110,10 @@ class Usuario
             $pagoInfo = (new Pago($this->db))
                 ->get((int) $userInfo->id);
 
-            return new User($userInfo, $pagoInfo);
+            $order = (new Order($this->db))
+                ->getLastest((int) $id, OrderType::FIDELIZACION);
+
+            return new User($userInfo, $pagoInfo, $order);
         } catch(\Exception $e) {
             throw $e;
         }

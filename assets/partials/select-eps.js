@@ -11,7 +11,7 @@ export default () => ({
     async getOptions() {
         try {
             const {data} = await axios
-                .get(process.env.API + '/get-all-eps');
+                .get(import.meta.env.VITE_APP_API + '/get-all-eps');
 
             return data.eps;
         } catch(e) {

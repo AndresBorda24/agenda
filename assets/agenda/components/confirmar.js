@@ -7,7 +7,7 @@ export default () => ({
     selectedTipo: "",
     selectedClase: "",
     errorMessage: null,
-    misCitasLink: process.env.APP_PATH + "/mis-citas",
+    misCitasLink: import.meta.env.VITE_APP_URL + "/mis-citas",
     init() {
         this.$watch("$store.agenda.selectedDay", () =>{
             this.fechaAgenda = document

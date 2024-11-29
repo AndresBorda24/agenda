@@ -40,10 +40,10 @@
     </div>
     <button
       type="submit"
-      class="btn btn-warning btn-sm d-block mx-auto shadow"
+      class="!py-2 !px-4 flex items-center !gap-2 mx-auto bg-aso-yellow text-neutral-950 rounded shadow text-sm outline-2 outline-offset-1 focus-visible:outline outline-amber-600 hover:outline focus-within:outline"
     >
-      Redimir
       <span><?= $this->fetch("./icons/prize.php") ?></span>
+      Redimir
     </button>
   </form>
 

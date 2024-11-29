@@ -3,9 +3,12 @@ node_modules
 public/assets
 public/build
 public/css
+public/.vite
 public/js
 .env
 .env.prod
 .env.*
 soportes/*
 CHANGES
+dist
+logs/
