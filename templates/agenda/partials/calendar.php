@@ -48,12 +48,12 @@
 
     <template x-for="day in totalSpaces" :key="getFullDate(day)">
       <button
-        x-data="calendarDay(getFullDate(day))"
-        x-text="day"
+        x-data="calendarDay(day)"
         @click="handleSelect"
         type="button"
-        :class="['bg-transparent position-relative text-white text-center small border-0 fw-light rounded-full', hasDate && 'tiene-agenda', (date == $store.agenda.selectedDay) &&    'dia-seleccionado']"
-      ></button>
+        x-text="day"
+        :class="['bg-transparent position-relative text-white text-center small border-0 fw-light rounded-full', hasDate && 'tiene-agenda', (date == $store.agenda.selectedDay) && 'dia-seleccionado']"
+      > </button>
     </template>
 
     <template x-for="_ in blankSpacesBtm">

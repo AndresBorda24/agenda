@@ -88,8 +88,8 @@ export default () => ({
         const x = document.getElementById("resumen-list")?.outerHTML;
         this.errorMessage = `
             <p class="fs-4 text-success fw-bold">Solicitud Realizada</p>
-            ${x ? '<div class="small">'+x+'</div>' : '<hr />'}
-            <p class="text-muted">Tu Cita ha sido solicitada. Te notificarémos cuando el proceso esté completo con la fecha y hora definitivas.♥</p>
+            ${x ? '<div class="text-sm">'+x+'</div>' : '<hr />'}
+            <p class="text-sm mb-4">Tu Cita ha sido solicitada. Te notificarémos cuando el proceso esté completo con la fecha y hora definitivas.♥</p>
             <a href="${this.misCitasLink}" class="btn btn-sm btn-dark">Continuar</a>
         `;
     },

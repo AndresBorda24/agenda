@@ -22,7 +22,7 @@
   <template x-if="canConfirmar">
     <div style="max-width: 500px;" class="mx-auto p-4 bg-secondary text-light shadow-lg rounded">
       <p class="mx-auto text-center fw-bold fs-5 fw-bold"> Solicitud de Cita </p>
-      <ul class="py-3 border-top border-bottom" id="resumen-list">
+      <ul class="py-3 border-top border-bottom mb-3" id="resumen-list">
         <li>
           <span class="fw-bold">Dia:</span>
           <span class="" x-text="fechaAgenda"></span>
@@ -51,7 +51,7 @@
       <button
         @click="handleClick"
         x-show="canConfirmar" x-cloak
-        class="btn btn-warning mx-auto block"
+        class="btn btn-warning mx-auto flex items-center"
       ><?= $this->fetch('./icons/dbl-check.php') ?> Confirmar</button>
     </div>
   </template>

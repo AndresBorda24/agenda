@@ -4,7 +4,7 @@
     <p class="mb-0">Aquí puedes realizar la <span class="fw-bold">Solicitud</span> de tus citas o controles. Simplemente sigue los pasos a continuación:</p>
   </header>
   <div
-    class="d-lg-grid gap-4 p-3 agemdamiento-container"
+    class="lg:grid gap-8 p-5 agemdamiento-container"
     style="max-width: 900px; grid-template-columns: 1fr 1fr;"
   >
     <?= $this->fetch("./agenda/partials/select-user.php", [
