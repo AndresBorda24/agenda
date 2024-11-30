@@ -78,7 +78,7 @@ export default () => ({
             if (aData.cod == 2442) {
                 this.errorMessage = `
                     <p class="fs-4 text-danger fw-bold">Error en Solicitud</p>
-                    <p class="text-muted border-top border-bottom py-3">Parece que la fecha y hora que seleccionaste ya han sido tomadas por otra persona. Por favor intenta con fechas diferentes.</p>
+                    <p class="text-muted border-top border-bottom py-3 text-sm mb-3">Parece que la fecha y hora que seleccionaste ya han sido tomadas por otra persona. Por favor intenta con fechas diferentes.</p>
                     <button @click="() => { errorMessage = ''; $dispatch('re-fetch-agenda'); window.scrollTo({ top: 0, behavior: 'smooth' }); }" class="btn btn-sm btn-dark">Continuar</button>
                 `;
             }
