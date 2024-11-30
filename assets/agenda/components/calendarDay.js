@@ -1,10 +1,17 @@
 import Alpine from "alpinejs";
 
-export default (date) => ({
-    date: date,
+export default (day) => ({
+    date: '',
+    _date: null,
 
     init() {
-        Alpine.store("agenda").days?.includes(this.date)
+        const date = new Date(
+            Alpine.store('ctrlDate').getFullYear(),
+            Alpine.store('ctrlDate').getMonth(),
+            day
+        )
+        this._date = date;
+        this.date  = this._date.toJSON().substring(0,10);
     },
 
     handleSelect() {

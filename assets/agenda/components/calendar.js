@@ -21,7 +21,7 @@ export default () => ({
 
     /** Organiza la info necesaria teniendo en cuenta el valor de `ctrl` */
     setUp() {
-        Alpine.store("ctrlDate", this.ctrl);
+        Alpine.store("ctrlDate", new Date(this.ctrl.getTime()));
 
         this.blankSpaces = this.ctrl.getDay() % 7;
         this.totalSpaces = new Date(
