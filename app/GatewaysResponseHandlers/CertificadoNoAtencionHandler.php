@@ -111,10 +111,10 @@ class CertificadoNoAtencionHandler implements GatewayResponseHandler
     {
         $usuario = $this->usuario->basic($order->userId);
         $usuarioNombre = implode(" ", [
-            $usuario['nom2'],
             $usuario['nom1'],
-            $usuario['ape2'],
+            $usuario['nom2'],
             $usuario['ape1'],
+            $usuario['ape2'],
         ]);
 
         $certificadoUrl = sprintf(
