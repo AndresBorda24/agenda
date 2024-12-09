@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers\Validation;
 
+use App\Enums\TipoDocumentos;
 use App\Models\Usuario;
 
 class CreateUserValidation extends Request
@@ -27,6 +28,10 @@ class CreateUserValidation extends Request
 
     private function insertRules(): array
     {
+        $tipoDocumentos = implode(',', array_map(
+            fn($c) => $c->value,
+            TipoDocumentos::cases())
+        );
         return [
             // "eps" => 'required',
             "ape1" => 'required',
@@ -37,6 +42,7 @@ class CreateUserValidation extends Request
             "ciudad" => 'required|min:3',
             "fech_nac" => 'required|date',
             "direccion" => 'required',
+            "tipo_documento" => "required|in:$tipoDocumentos",
             "clave_confirm" => 'required|same:clave',
             "email" => sprintf(
                 "required|email|unique:%s,%s",
@@ -47,7 +53,7 @@ class CreateUserValidation extends Request
                 Usuario::TABLE, "telefono"
             ),
             "num_histo" => sprintf(
-                "required|digits_between:6,15|unique:%s,%s",
+                "required|digits_between:5,15|unique:%s,%s",
                 Usuario::TABLE, "num_histo"
             )
         ];
@@ -73,7 +79,7 @@ class CreateUserValidation extends Request
                 Usuario::TABLE, "telefono"
             ),
             "num_histo" => sprintf(
-                "required|digits_between:6,15|unique:%s,%s",
+                "required|digits_between:5,15|unique:%s,%s",
                 Usuario::TABLE, "num_histo"
             )
         ];

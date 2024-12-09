@@ -8,7 +8,7 @@ export default () => ({
 
     init() {
         setTimeout( () =>
-            this.$el.querySelector("input")?.focus(),
+            this.$el.querySelector("select")?.focus(),
             20
         );
     },

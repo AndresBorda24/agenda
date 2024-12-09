@@ -42,6 +42,7 @@ class Usuario
                 "direccion" => uppercase($data["direccion"]),
                 "num_histo" => trim($data["num_histo"]),
                 "fech_nac"  => trim($data["fech_nac"]),
+                "tipo_documento" => trim($data["tipo_documento"]),
 
                 // Valores por defecto
                 "activo" => 1,
