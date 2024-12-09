@@ -72,6 +72,7 @@ class Usuario
                 "ciudad" => uppercase($data["ciudad"]),
                 "telefono" => $data["telefono"],
                 "fech_nac" => uppercase($data["fech_nac"]),
+                "tipo_documento" => uppercase($data["tipo_documento"]),
                 "direccion" => uppercase($data["direccion"]),
                 "num_histo" => $data["num_histo"]
             ], [ "id" => $id ]);
@@ -132,7 +133,8 @@ class Usuario
                 "U.id [int]", "U.eps", "U.ape1", "U.ape2",
                 "U.nom1", "U.nom2", "U.clave", "U.email",
                 "U.ciudad", "U.telefono", "U.direccion",
-                "U.fech_nac", "U.num_histo (documento)"
+                "U.fech_nac", "U.num_histo (documento)",
+                "U.tipo_documento"
             ], [
                 "AND" => [
                     "U.$field" => $id,
@@ -199,6 +201,7 @@ class Usuario
                 "U.nom1", "U.nom2", "U.email",
                 "U.ciudad", "U.telefono", "U.direccion",
                 "U.fech_nac", "U.num_histo",
+                "U.tipo_documento"
             ], [
                 "AND" => [
                     "U.id" => $id,

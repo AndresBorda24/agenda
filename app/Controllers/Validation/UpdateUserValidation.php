@@ -7,6 +7,7 @@ use App\Auth;
 use App\Models\Usuario;
 use Rakit\Validation\Validator;
 use App\Controllers\Validation\Rules\UniqueRule;
+use App\Enums\TipoDocumentos;
 
 class UpdateUserValidation extends Request
 {
@@ -39,6 +40,10 @@ class UpdateUserValidation extends Request
 
     private function updateRules(): array
     {
+        $tipoDocumentos = implode(',', array_map(
+            fn($c) => $c->value,
+            TipoDocumentos::cases())
+        );
         return [
             // "eps" => 'required',
             "ape1" => 'required',
@@ -49,6 +54,7 @@ class UpdateUserValidation extends Request
             "ciudad" => 'required|min:3',
             "telefono" => 'required',
             "fech_nac" => 'required|date',
+            "tipo_documento" => "required|in:$tipoDocumentos",
             "direccion" => 'required',
             "email" => sprintf(
                 "required|email|unique:%s,%s,%s",

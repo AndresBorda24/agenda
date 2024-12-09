@@ -22,6 +22,7 @@ class UserInfo
 
         public readonly string $fech_nac,
         public readonly string $documento,
+        public readonly string $tipo_documento,
         public readonly bool $intranet
     ) {}
 }

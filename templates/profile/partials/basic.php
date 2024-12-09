@@ -4,18 +4,40 @@ x-data="UpdateUser"
 @submit.prevent="update"
 class="p-3 bg-white shadow border rounded">
   <div class="small mb-2">
-    <label
-    class="form-label text-muted small m-0"
-    for="num_histo">C&eacute;dula:</label>
-    <input
-    id="num_histo"
-    autofocus
-    required
-    x-model="state.num_histo"
-    placeholder="C&eacute;dula"
-    type="text"
-    minlength="6"
-    class="form-control form-control-sm">
+    <span class="form-label small text-muted">Documento de Identidad:</span>
+    <div class="flex gap-1">
+      <div>
+        <label
+          class="form-label text-muted small m-0"
+          for="tipo_documento">Tipo:</label>
+        <select
+          autofocus
+          required
+          name="tipo_documento"
+          id="tipo_documento"
+          x-model="state.tipo_documento"
+          class="form-select form-select-sm"
+        >
+          <option value="" hidden selected>-- Selecciona --</option>
+          <?php foreach (\App\Enums\TipoDocumentos::cases() as $case): ?>
+            <option value="<?= $case->value ?>"><?= $case->human() ?></option>
+          <?php endforeach ?>
+        </select>
+      </div>
+      <div class="flex-grow">
+        <label
+          class="form-label text-muted small m-0"
+          for="num_histo">Número</label>
+        <input
+          id="num_histo"
+          required
+          x-model="state.num_histo"
+          placeholder="C&eacute;dula"
+          type="text"
+          minlength="6"
+          class="form-control form-control-sm">
+      </div>
+    </div>
   </div>
 
   <div class="small p-1 mb-2">
