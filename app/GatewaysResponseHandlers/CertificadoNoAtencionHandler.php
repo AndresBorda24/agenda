@@ -125,7 +125,8 @@ class CertificadoNoAtencionHandler implements GatewayResponseHandler
                 "cc" => $usuario['num_histo'],
                 "tel" => $usuario['telefono'],
                 "nombre" => trim($usuarioNombre),
-                "correo" => trim($usuario['email'])
+                "correo" => trim($usuario['email']),
+                "tipo_documento" => trim($usuario['tipo_documento'])
             ])
         );
 
