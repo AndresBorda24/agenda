@@ -232,7 +232,7 @@ class Order
 
         if ($order === null) return null;
 
-        $order['type'] = OrderType::tryFrom($order['type'])?->name;
+        $order['type'] = OrderType::tryFrom((int) $order['type'])?->name;
         $order['data'] = json_decode($order['data'], true);
 
         return $order;
