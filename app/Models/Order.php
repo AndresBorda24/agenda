@@ -12,6 +12,8 @@ use App\Enums\MpStatus;
 use App\Enums\OrderType;
 use Medoo\Medoo;
 
+use function PHPSTORM_META\map;
+
 class Order
 {
     public const TABLE = "orders";
@@ -213,5 +215,26 @@ class Order
         });
 
         return $data;
+    }
+
+    public function getOrderInfo(int $orderId): ?array
+    {
+        $order = $this->db->get(self::TABLE.' (O)', [
+            '[>]'.Usuario::TABLE.' (U)' => ["user_id" => "id"]
+        ], [
+            'O.id', 'O.order_id', 'O.status', 'O.saved', 'O.type',
+            'O.created_at', 'O.expires_at', 'O.updated_at', 'O.data',
+            'documento' => $this->db::raw('<num_histo>'),
+            'U.tipo_documento',
+            'nombre' => $this->db::raw("CONCAT_WS(' ', <nom1>,<nom2>,<ape1>,<ape2>)"),
+            'U.direccion', 'U.telefono', 'U.email'
+        ], ["O.id" => $orderId]);
+
+        if ($order === null) return null;
+
+        $order['type'] = OrderType::tryFrom($order['type'])?->name;
+        $order['data'] = json_decode($order['data'], true);
+
+        return $order;
     }
 }

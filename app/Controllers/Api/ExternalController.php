@@ -16,6 +16,7 @@ use App\Controllers\Validation\CreateUserValidation;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
 use App\Enums\TipoBusquedaFidelizado;
+use App\Models\Order;
 use avadim\FastExcelWriter\Excel;
 
 use function App\ddh;
@@ -308,6 +309,14 @@ class ExternalController
         return responseJSON(
             $response,
             $this->usuario->searchFidelizado($type, $cc)
+        );
+    }
+
+    public function searchOrder(Response $response, int $orderId): Response
+    {
+        return responseJSON(
+            $response,
+            (new Order($this->pago->db))->getOrderInfo($orderId)
         );
     }
 }

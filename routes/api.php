@@ -104,6 +104,7 @@ return function (App $app) {
             $ext->get("/pagos-excel", [ExternalController::class, "getExcelPagos"]);
             $ext->get("/get-planes", [ExternalController::class, "getPlanes"]);
             $ext->get("/{doc}/fetch", [ExternalController::class, "fetch"]);
+            $ext->get("/{orderId:[0-9]+}/order-info", [ExternalController::class, "searchOrder"]);
             $ext->get("/pagos-list", [ExternalController::class, "getPagosList"]);
             $ext->post("/create-user", [ExternalController::class, "createUser"]);
             $ext->post("/validate-user", [ExternalController::class, "checkDatos"]);
