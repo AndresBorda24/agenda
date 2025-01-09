@@ -242,7 +242,9 @@ class Order
 
     public function getOrdersFullList(DateTimeImmutable $desde, DateTimeImmutable $hasta, OrderType $type): array
     {
-        $orders = $this->db->select(self::TABLE.' (O)', [
+        $orders = [];
+
+        $this->db->select(self::TABLE.' (O)', [
             '[>]'.Usuario::TABLE.' (U)' => ["user_id" => "id"]
         ], [
             'O.id', 'O.order_id', 'O.status', 'O.saved', 'O.type',
@@ -255,7 +257,10 @@ class Order
             'O.created_at[<>]' => [$desde->format('Y-m-d'), $hasta->format('Y-m-d')],
             'O.type' => $type->value,
             'O.status' => MpStatus::APROVADO->value
-        ]);
+        ], function ($order) use(&$orders) {
+            $order['data'] = json_decode($order['data'], true);
+            array_push($orders, $order);
+        });
 
         return $orders;
     }

@@ -340,7 +340,7 @@ class ExternalController
 
             return responseJSON($response, [
                 "data"  => $this->order->getOrdersFullList($desde, $hasta, $type),
-                "rango" => [$desde, $hasta]
+                "rango" => [$desde->format('Y-m-d'), $hasta->format('Y-m-d')]
             ]);
         } catch(\Exception $e) {
             return responseJSON($response, [
