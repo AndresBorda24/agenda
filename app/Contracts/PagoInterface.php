@@ -21,4 +21,6 @@ interface PagoInterface
      * pago.
     */
     public function expireAt(): ?\DateTimeImmutable;
+
+    public function isColaborador(): bool;
 }

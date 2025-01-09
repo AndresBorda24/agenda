@@ -82,7 +82,8 @@ $user = $this->user();
             for="parentesco">Parentesco:</label>
 
             <?php if (
-              (int) $config->get('plan_colaborador_id') === $user?->pago?->plan_id
+              $user->pago?->isColaborador()
+              // (int) $config->get('plan_colaborador_id') === $user?->pago?->plan_id
               || ! $user?->pago?->isValid()
             ): ?>
               <select

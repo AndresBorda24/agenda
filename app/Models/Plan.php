@@ -55,13 +55,9 @@ class Plan
                 ]
             ];
 
-            /* Esto, quiza, no esta hecho de la mejor manera. La idea seria
-            tener un campo en la tabla de planes que sea: "colaborador" o
-            "exclusive", de tipo bool (tiny int 1) para hacer el filtro. Sin
-            embargo, se comete el "error" de dar por sentado que el plan de
-            colaboradores es el de id 3. Bueno, mucho texto pero realmente
-            poca necesidad */
-            if (! $colaborador ) $where["id[!]"] = $this->config->get('plan_colaborador_id');
+            if (! $colaborador ) {
+                $where["id[!]"] = $this->config->get('plan_colaborador_id');
+            }
 
             $this->db->select("planes", "*", $where, function($plan) use (&$data) {
                 $plan["valor_formatted"] = number_format(

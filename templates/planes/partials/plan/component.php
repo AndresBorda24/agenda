@@ -7,7 +7,7 @@
     <?php foreach($planes as $plan): ?>
       <?= $this->fetch("./planes/partials/card.php", [
         "plan" => $plan,
-        "isColaborador" => ($plan['id'] == $planColaboradorId)
+        "isColaborador" => in_array($plan['id'], $this->config->get('plan_colaborador_id'))
       ]) ?>
     <?php endforeach ?>
   </div>

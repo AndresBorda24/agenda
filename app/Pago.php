@@ -70,4 +70,12 @@ class Pago extends AbstractPago
 
         return $created->add($interval);
     }
+
+    public function isColaborador(): bool
+    {
+        return in_array(
+            $this->plan_id,
+            explode(',', $_ENV['PLAN_COLABORADOR_ID'])
+        );
+    }
 }

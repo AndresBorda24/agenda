@@ -29,6 +29,7 @@ $api = require __DIR__ . "/../routes/api.php";
 // Se carga la configuracion del .env
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
 $dotenv->load();
+$dotenv->required('PLAN_COLABORADOR_ID')->notEmpty();
 
 /* -----------------------------------------------------------------------------
 | Se configura el contenedor.
