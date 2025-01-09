@@ -102,6 +102,7 @@ return function (App $app) {
         $ext->group('', function (Group $ext) {
             $ext->get("/soporte/{file}", [ExternalController::class, "showSoporte"]);
             $ext->get("/pagos-excel", [ExternalController::class, "getExcelPagos"]);
+            $ext->get("/{orderType:[0-9]+}/orders-excel", [ExternalController::class, "getExcelOrders"]);
             $ext->get("/get-planes", [ExternalController::class, "getPlanes"]);
             $ext->get("/{doc}/fetch", [ExternalController::class, "fetch"]);
             $ext->get("/{orderId:[0-9]+}/order-info", [ExternalController::class, "searchOrder"]);

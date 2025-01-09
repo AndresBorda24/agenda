@@ -349,5 +349,67 @@ class ExternalController
         }
     }
 
+    /**
+     * Genera y remorna el listado de las ordenes en excel.
+    */
+    public function getExcelOrders(Request $request, Response $response, int $orderType): Response
+    {
+        try {
+            @[
+                "desde" => $desde,
+                "hasta" => $hasta
+            ] = $request->getQueryParams() + [
+                "desde" => date("Y-m-d", strtotime("-1 month")),
+                "hasta" => date("Y-m-d")
+            ];
+
+            $type = OrderType::from($orderType);
+            $dateDesde = new DateTimeImmutable($desde);
+            $dateHasta = new DateTimeImmutable($hasta);
+
+            $excel = Excel::create(["Ordenes $desde - $hasta"]);
+            $sheet = $excel->sheet();
+
+            $sheet->writeRow([
+                "Identificador", "Tipo", "Valor", "Fecha de Pago",
+                "Estado", "Detalle", "Cliente Documento", "Cliente Nombre",
+                "Cliente Telefono", "Cliente Correo"
+            ]);
+
+            foreach ($this->order->getOrdersFullList($dateDesde, $dateHasta, $type) as $order) {
+                $sheet->writeRow([
+                    $order["id"],
+                    $order['data']['name'],
+                    $order['data']["price"],
+                    $order["created_at"],
+                    $order["status"],
+                    $order["order_id"],
+                    $order["documento"],
+                    $order["nombre"],
+                    $order["telefono"],
+                    $order["email"]
+                ]);
+            }
+
+            $excel->save("excel.xlsx");
+            $f = fopen("excel.xlsx", 'rb');
+
+            $response = $response
+                ->withHeader('Content-Type', mime_content_type("excel.xlsx"))
+                ->withHeader('Content-Disposition', 'inline; filename='."orders-$desde-$hasta.xlsx")
+                ->withAddedHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+                ->withHeader('Cache-Control', 'post-check=0, pre-check=0')
+                ->withHeader('Pragma', 'no-cache')
+                ->withBody((new \Slim\Psr7\Stream($f)));
+
+            unlink("excel.xlsx");
+            return $response;
+        } catch(\Exception $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+            ], 422);
+        }
+    }
+
 
 }
