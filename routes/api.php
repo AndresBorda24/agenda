@@ -106,6 +106,7 @@ return function (App $app) {
             $ext->get("/{doc}/fetch", [ExternalController::class, "fetch"]);
             $ext->get("/{orderId:[0-9]+}/order-info", [ExternalController::class, "searchOrder"]);
             $ext->get("/pagos-list", [ExternalController::class, "getPagosList"]);
+            $ext->get("/{orderType:[0-9]+}/order-list", [ExternalController::class, "getOrdersList"]);
             $ext->post("/create-user", [ExternalController::class, "createUser"]);
             $ext->post("/validate-user", [ExternalController::class, "checkDatos"]);
             $ext->post("/{userId:[0-9]+}/create-pago", [ExternalController::class, "createPago"]);

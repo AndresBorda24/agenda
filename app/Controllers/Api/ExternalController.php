@@ -15,11 +15,12 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Controllers\Validation\CreateUserValidation;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use App\Enums\OrderType;
 use App\Enums\TipoBusquedaFidelizado;
 use App\Models\Order;
 use avadim\FastExcelWriter\Excel;
+use DateTimeImmutable;
 
-use function App\ddh;
 use function App\responseJSON;
 
 class ExternalController
@@ -28,6 +29,7 @@ class ExternalController
         private Medoo $db,
         private Plan $plan,
         private Pago $pago,
+        private Order $order,
         private Config $config,
         private Usuario $usuario
     ){}
@@ -319,4 +321,33 @@ class ExternalController
             (new Order($this->pago->db))->getOrderInfo($orderId)
         );
     }
+
+    /** Obtiene el listado de ordenes.  */
+    public function getOrdersList(Request $request, Response $response, int $orderType): Response
+    {
+        try {
+            @[
+                "desde" => $desde,
+                "hasta" => $hasta
+            ] = $request->getQueryParams() + [
+                "desde" => date("Y-m-d", strtotime("-1 month")),
+                "hasta" => date("Y-m-d")
+            ];
+
+            $type = OrderType::from($orderType);
+            $desde = new DateTimeImmutable($desde);
+            $hasta = new DateTimeImmutable($hasta);
+
+            return responseJSON($response, [
+                "data"  => $this->order->getOrdersFullList($desde, $hasta, $type),
+                "rango" => [$desde, $hasta]
+            ]);
+        } catch(\Exception $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+            ], 422);
+        }
+    }
+
+
 }
