@@ -12,7 +12,7 @@ if (!function_exists('App\responseJSON')) {
     function responseJSON(
         Response $response,
         mixed $data,
-        int $statusCode = 201
+        int $statusCode = 200
     ): Response {
         $payload = json_encode(
             $data,
