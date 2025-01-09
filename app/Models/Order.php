@@ -10,6 +10,8 @@ use App\DataObjects\OrderItem;
 use App\DataObjects\PlanDTO;
 use App\Enums\MpStatus;
 use App\Enums\OrderType;
+use DateTime;
+use DateTimeImmutable;
 use Medoo\Medoo;
 
 use function PHPSTORM_META\map;
@@ -236,5 +238,30 @@ class Order
         $order['data'] = json_decode($order['data'], true);
 
         return $order;
+    }
+
+    public function getOrdersFullList(DateTimeImmutable $desde, DateTimeImmutable $hasta, OrderType $type): array
+    {
+        $orders = [];
+
+        $this->db->select(self::TABLE.' (O)', [
+            '[>]'.Usuario::TABLE.' (U)' => ["user_id" => "id"]
+        ], [
+            'O.id', 'O.order_id', 'O.status', 'O.saved', 'O.type',
+            'O.created_at', 'O.expires_at', 'O.updated_at', 'O.data',
+            'documento' => $this->db::raw('<num_histo>'),
+            'U.tipo_documento',
+            'nombre' => $this->db::raw("CONCAT_WS(' ', <nom1>,<nom2>,<ape1>,<ape2>)"),
+            'U.direccion', 'U.telefono', 'U.email'
+        ], [
+            'O.created_at[<>]' => [$desde->format('Y-m-d'), $hasta->format('Y-m-d')],
+            'O.type' => $type->value,
+            'O.status' => MpStatus::APROVADO->value
+        ], function ($order) use(&$orders) {
+            $order['data'] = json_decode($order['data'], true);
+            array_push($orders, $order);
+        });
+
+        return $orders;
     }
 }

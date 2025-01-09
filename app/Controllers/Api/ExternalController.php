@@ -15,11 +15,12 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Controllers\Validation\CreateUserValidation;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Validation\Exceptions\FormValidationException;
+use App\Enums\OrderType;
 use App\Enums\TipoBusquedaFidelizado;
 use App\Models\Order;
 use avadim\FastExcelWriter\Excel;
+use DateTimeImmutable;
 
-use function App\ddh;
 use function App\responseJSON;
 
 class ExternalController
@@ -28,6 +29,7 @@ class ExternalController
         private Medoo $db,
         private Plan $plan,
         private Pago $pago,
+        private Order $order,
         private Config $config,
         private Usuario $usuario
     ){}
@@ -319,4 +321,95 @@ class ExternalController
             (new Order($this->pago->db))->getOrderInfo($orderId)
         );
     }
+
+    /** Obtiene el listado de ordenes.  */
+    public function getOrdersList(Request $request, Response $response, int $orderType): Response
+    {
+        try {
+            @[
+                "desde" => $desde,
+                "hasta" => $hasta
+            ] = $request->getQueryParams() + [
+                "desde" => date("Y-m-d", strtotime("-1 month")),
+                "hasta" => date("Y-m-d")
+            ];
+
+            $type = OrderType::from($orderType);
+            $desde = new DateTimeImmutable($desde);
+            $hasta = new DateTimeImmutable($hasta);
+
+            return responseJSON($response, [
+                "data"  => $this->order->getOrdersFullList($desde, $hasta, $type),
+                "rango" => [$desde->format('Y-m-d'), $hasta->format('Y-m-d')]
+            ]);
+        } catch(\Exception $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+            ], 422);
+        }
+    }
+
+    /**
+     * Genera y remorna el listado de las ordenes en excel.
+    */
+    public function getExcelOrders(Request $request, Response $response, int $orderType): Response
+    {
+        try {
+            @[
+                "desde" => $desde,
+                "hasta" => $hasta
+            ] = $request->getQueryParams() + [
+                "desde" => date("Y-m-d", strtotime("-1 month")),
+                "hasta" => date("Y-m-d")
+            ];
+
+            $type = OrderType::from($orderType);
+            $dateDesde = new DateTimeImmutable($desde);
+            $dateHasta = new DateTimeImmutable($hasta);
+
+            $excel = Excel::create(["Ordenes $desde - $hasta"]);
+            $sheet = $excel->sheet();
+
+            $sheet->writeRow([
+                "Identificador", "Tipo", "Valor", "Fecha de Pago",
+                "Estado", "Detalle", "Cliente Documento", "Cliente Nombre",
+                "Cliente Telefono", "Cliente Correo"
+            ]);
+
+            foreach ($this->order->getOrdersFullList($dateDesde, $dateHasta, $type) as $order) {
+                $sheet->writeRow([
+                    $order["id"],
+                    $order['data']['name'],
+                    $order['data']["price"],
+                    $order["created_at"],
+                    $order["status"],
+                    $order["order_id"],
+                    $order["documento"],
+                    $order["nombre"],
+                    $order["telefono"],
+                    $order["email"]
+                ]);
+            }
+
+            $excel->save("excel.xlsx");
+            $f = fopen("excel.xlsx", 'rb');
+
+            $response = $response
+                ->withHeader('Content-Type', mime_content_type("excel.xlsx"))
+                ->withHeader('Content-Disposition', 'inline; filename='."orders-$desde-$hasta.xlsx")
+                ->withAddedHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+                ->withHeader('Cache-Control', 'post-check=0, pre-check=0')
+                ->withHeader('Pragma', 'no-cache')
+                ->withBody((new \Slim\Psr7\Stream($f)));
+
+            unlink("excel.xlsx");
+            return $response;
+        } catch(\Exception $e) {
+            return responseJSON($response, [
+                "error"  => $e->getMessage(),
+            ], 422);
+        }
+    }
+
+
 }
