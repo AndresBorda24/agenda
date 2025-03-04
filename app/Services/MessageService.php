@@ -5,6 +5,7 @@ declare (strict_types=1);
 namespace App\Services;
 
 use App\Config;
+use App\DataObjects\NuevaCitaMsg;
 use UltraMsg\WhatsAppApi;
 
 class MessageService
@@ -46,6 +47,21 @@ class MessageService
         return <<<EOF
         Alerta! Error al generar el Certificado de no atención \n
         Revisar. El id de la orden es: $orderId
+        EOF;
+    }
+
+    public static function msgNuevaCita(NuevaCitaMsg $data): string
+    {
+        return <<<EOF
+        *Solicitud de Citas*
+        Tu cita ha sido *pre*-agendada correctamente con los siguientes datos:
+
+        - *Fecha:* $data->fecha
+        - *Hora:* $data->hora
+        - *Paciente:* $data->documento | $data->nombre
+        - *Especialidad:* $data->especialidad
+
+        Por favor, espera la confirmación de tu cita por parte de nuestro personal. ¡Gracias por confiar en nosotros! 🏥💙✌
         EOF;
     }
 }

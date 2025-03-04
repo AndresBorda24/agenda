@@ -7,12 +7,16 @@ use function App\responseJSON;
 
 use Medoo\Medoo;
 use App\Contracts\UserInterface;
+use App\DataObjects\NuevaCitaMsg;
+use App\Services\MessageService;
+use App\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 class AgendaController {
     public function __construct(
-        private Medoo $db
+        private Medoo $db,
+        private MessageService $messageService
     ) {}
 
     public function save(Request $request, Response $response, UserInterface $user): Response
@@ -82,5 +86,14 @@ class AgendaController {
                 "error" => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function notificarNuevaCita(Request $request, Response $response, User $user): Response
+    {
+        $data = NuevaCitaMsg::fromArray($request->getParsedBody());
+        $msg  = $this->messageService->msgNuevaCita($data);
+        $this->messageService->sendMessage($user->info->telefono, $msg);
+
+        return responseJSON($response, true);
     }
 }

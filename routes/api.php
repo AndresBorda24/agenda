@@ -48,6 +48,8 @@ return function (App $app) {
 
         $api->group("/agenda", function (Group $agenda) {
             $agenda->get("/mis-citas", [AgendaController::class, "getCitasAgendadas"]);
+            $agenda->post("/notificar/nueva-cita", [AgendaController::class, 'notificarNuevaCita'])
+                ->add(JsonBodyParserMiddleware::class);
             $agenda->post("/save", [AgendaController::class, 'save'])
                 ->add(JsonBodyParserMiddleware::class);
         })->add(AuthMiddleware::class);

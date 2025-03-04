@@ -1,5 +1,5 @@
-import local from "@/partials/ax"
 import fox from "@/partials/fox-ax"
+import local from "@/partials/ax"
 
 /**
  * Realiza una peticion y retorna su data y/o error
@@ -61,4 +61,9 @@ export async function getBeneficiarioInfo(documento) {
 */
 export async function getListadoEPS() {
     return request(() => fox.get('/agenda/eps'))
+}
+
+
+export async function notificarUsuario(infoCita) {
+    return request(() => local.post('/agenda/notificar/nueva-cita', infoCita));
 }

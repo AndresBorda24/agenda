@@ -1,5 +1,6 @@
+import { agendar, notificarUsuario } from "@/agenda/requests"
+
 import Alpine from "alpinejs";
-import { agendar } from "@/agenda/requests"
 
 export default () => ({
     fechaAgenda: "",
@@ -73,7 +74,6 @@ export default () => ({
         const { data: aData, error } = await agendar( body );
         Alpine.store('loader').hide();
 
-
         if (error) {
             if (aData.cod == 2442) {
                 this.errorMessage = `
@@ -85,6 +85,10 @@ export default () => ({
             return;
         }
 
+        // Enviamos el mensaje al usario. En realidad no importa el resultado.
+        // Por eso no se está usando el await
+        notificarUsuario(this.getNotificarBody());
+
         const x = document.getElementById("resumen-list")?.outerHTML;
         this.errorMessage = `
             <p class="fs-4 text-success fw-bold">Solicitud Realizada</p>
@@ -92,6 +96,20 @@ export default () => ({
             <p class="text-sm mb-4">Tu Cita ha sido solicitada. Te notificarémos cuando el proceso esté completo con la fecha y hora definitivas.♥</p>
             <a href="${this.misCitasLink}" class="btn btn-sm btn-dark">Continuar</a>
         `;
+    },
+
+    /** @returns {Object} Cuerpo de la solicitud para notificar al usuario. */
+    getNotificarBody() {
+        const nombre1 = Alpine.store("agenda").userData.nom1;
+        const apellido1 = Alpine.store("agenda").userData.ape1;
+
+        return {
+            especialidad: Alpine.store("agenda").selectedEsp,
+            fecha: Alpine.store("agenda").selectedDay,
+            hora: Alpine.store("agenda").selectedHour,
+            documento: '' + Alpine.store("agenda").userData.num_histo,
+            nombre: `${nombre1} ${apellido1}`
+        }
     },
 
     get canConfirmar() {
